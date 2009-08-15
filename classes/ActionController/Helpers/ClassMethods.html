@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Helpers::ClassMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Helpers::ClassMethods
+    </h1>
+</div>
+<div id="ActionController::Helpers::ClassMethods" title="ActionController::Helpers::ClassMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/helpers_rb.html">actionpack/lib/action_controller/helpers.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The <a href="../../Rails.html">Rails</a> framework provides a large number
+of <a href="ClassMethods.html#M000246">helpers</a> for working with
+<tt>assets</tt>, <tt>dates</tt>, <tt>forms</tt>, <tt>numbers</tt> and
+Active Record objects, to name a few. These <a
+href="ClassMethods.html#M000246">helpers</a> are available to all templates
+by default.
+</p>
+<p>
+In addition to using the standard template <a
+href="ClassMethods.html#M000246">helpers</a> provided in the <a
+href="../../Rails.html">Rails</a> framework, creating custom <a
+href="ClassMethods.html#M000246">helpers</a> to extract complicated logic
+or reusable functionality is strongly encouraged. By default, the
+controller will include a <a href="ClassMethods.html#M000243">helper</a>
+whose name matches that of the controller, e.g., <tt>MyController</tt> will
+automatically include <tt>MyHelper</tt>.
+</p>
+<p>
+Additional <a href="ClassMethods.html#M000246">helpers</a> can be specified
+using the <tt><a href="ClassMethods.html#M000243">helper</a></tt> class
+method in <tt><a href="../Base.html">ActionController::Base</a></tt> or any
+controller which inherits from it.
+</p>
+<h4>Examples</h4>
+<p>
+The <tt>to_s</tt> method from the Time class can be wrapped in a <a
+href="ClassMethods.html#M000243">helper</a> method to display a custom
+message if the Time object is blank:
+</p>
+<pre>
+  module FormattedTimeHelper
+    def format_time(time, format=:long, blank_message=&quot;&amp;nbsp;&quot;)
+      time.blank? ? blank_message : time.to_s(format)
+    end
+  end
+</pre>
+<p>
+FormattedTimeHelper can now be included in a controller, using the <tt><a
+href="ClassMethods.html#M000243">helper</a></tt> class method:
+</p>
+<pre>
+  class EventsController &lt; ActionController::Base
+    helper FormattedTimeHelper
+    def index
+      @events = Event.find(:all)
+    end
+  end
+</pre>
+<p>
+Then, in any view rendered by <tt>EventController</tt>, the
+<tt>format_time</tt> method can be called:
+</p>
+<pre>
+  &lt;% @events.each do |event| -%&gt;
+    &lt;p&gt;
+      &lt;% format_time(event.time, :short, &quot;N/A&quot;) %&gt; | &lt;%= event.name %&gt;
+    &lt;/p&gt;
+  &lt;% end -%&gt;
+</pre>
+<p>
+Finally, assuming we have two event instances, one which has a time and one
+which does not, the output might look like this:
+</p>
+<pre>
+  23 Aug 11:30 | Carolina Railhawks Soccer Match
+  N/A | Carolina Railhaws Training Workshop
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000243">helper</a></li>
+<li><a href="#M000245">helper_attr</a></li>
+<li><a href="#M000244">helper_method</a></li>
+<li><a href="#M000246">helpers</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000243">helper</a> (*args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+The <tt><a href="ClassMethods.html#M000243">helper</a></tt> class method
+can take a series of <a href="ClassMethods.html#M000243">helper</a> module
+names, a block, or both.
+</p>
+<ul>
+<li><tt>*args</tt>: One or more modules, strings or symbols, or the special
+symbol <tt>:all</tt>.
+
+</li>
+<li><tt>&amp;block</tt>: A block defining <a
+href="ClassMethods.html#M000243">helper</a> methods.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<p>
+When the argument is a string or symbol, the method will provide the
+&quot;_helper&quot; suffix, require the file and include the module in the
+template class. The second form illustrates how to include custom <a
+href="ClassMethods.html#M000246">helpers</a> when working with namespaced
+controllers, or other cases where the file containing the <a
+href="ClassMethods.html#M000243">helper</a> definition is not in one of <a
+href="../../Rails.html">Rails</a>&#8217; standard load paths:
+</p>
+<pre>
+  helper :foo             # =&gt; requires 'foo_helper' and includes FooHelper
+  helper 'resources/foo'  # =&gt; requires 'resources/foo_helper' and includes Resources::FooHelper
+</pre>
+<p>
+When the argument is a module it will be included directly in the template
+class.
+</p>
+<pre>
+  helper FooHelper # =&gt; includes FooHelper
+</pre>
+<p>
+When the argument is the symbol <tt>:all</tt>, the controller will include
+all <a href="ClassMethods.html#M000246">helpers</a> beneath
+<tt>ActionController::Base.helpers_dir</tt> (defaults to
+<tt>app/helpers/**/*.rb</tt> under RAILS_ROOT).
+</p>
+<pre>
+  helper :all
+</pre>
+<p>
+Additionally, the <tt><a href="ClassMethods.html#M000243">helper</a></tt>
+class method can receive and evaluate a block, making the methods defined
+available to the template.
+</p>
+<pre>
+  # One line
+  helper { def hello() &quot;Hello, world!&quot; end }
+  # Multi-line
+  helper do
+    def foo(bar)
+      &quot;#{bar} is the very best&quot;
+    end
+  end
+</pre>
+<p>
+Finally, all the above styles can be mixed together, and the <tt><a
+href="ClassMethods.html#M000243">helper</a></tt> method can be invoked with
+a mix of <tt>symbols</tt>, <tt>strings</tt>, <tt>modules</tt> and blocks.
+</p>
+<pre>
+  helper(:three, BlindHelper) { def mice() 'mice' end }
+</pre></div></fieldset>
+
+
+<h2><a name="M000245">helper_attr</a> (*attrs)</h2>
+
+<fieldset><div class='row'><p>
+Declares <a href="ClassMethods.html#M000243">helper</a> accessors for
+controller attributes. For example, the following adds new <tt>name</tt>
+and <tt>name=</tt> instance methods to a controller and makes them
+available to the view:
+</p>
+<pre>
+  helper_attr :name
+  attr_accessor :name
+</pre></div></fieldset>
+
+
+<h2><a name="M000244">helper_method</a> (*methods)</h2>
+
+<fieldset><div class='row'><p>
+Declare a controller method as a <a
+href="ClassMethods.html#M000243">helper</a>. For example, the following
+makes the <tt>current_user</tt> controller method available to the view:
+</p>
+<pre>
+  class ApplicationController &lt; ActionController::Base
+    helper_method :current_user, :logged_in?
+
+    def current_user
+      @current_user ||= User.find_by_id(session[:user])
+    end
+
+     def logged_in?
+       current_user != nil
+     end
+  end
+</pre>
+<p>
+In a view:
+</p>
+<pre>
+ &lt;% if logged_in? -%&gt;Welcome, &lt;%= current_user.name %&gt;&lt;% end -%&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M000246">helpers</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Provides a proxy to access <a href="ClassMethods.html#M000246">helpers</a>
+methods from outside the view.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

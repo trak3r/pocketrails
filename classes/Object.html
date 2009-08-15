@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Object
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Object
+    </h1>
+</div>
+<div id="Object" title="Object" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../files/railties/lib/rails_generator/lookup_rb.html">railties/lib/rails_generator/lookup.rb</a>
+                </li>
+                <li>
+                    <a href="../files/actionpack/lib/action_controller/routing/routing_ext_rb.html">actionpack/lib/action_controller/routing/routing_ext.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/blank_rb.html">activesupport/lib/active_support/core_ext/blank.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/duplicable_rb.html">activesupport/lib/active_support/core_ext/duplicable.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/kernel/agnostics_rb.html">activesupport/lib/active_support/core_ext/kernel/agnostics.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/object/conversions_rb.html">activesupport/lib/active_support/core_ext/object/conversions.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/object/extending_rb.html">activesupport/lib/active_support/core_ext/object/extending.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/object/instance_variables_rb.html">activesupport/lib/active_support/core_ext/object/instance_variables.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/object/metaclass_rb.html">activesupport/lib/active_support/core_ext/object/metaclass.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/object/misc_rb.html">activesupport/lib/active_support/core_ext/object/misc.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/json/encoders/object_rb.html">activesupport/lib/active_support/json/encoders/object.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000130">acts_like?</a></li>
+<li><a href="#M000118">blank?</a></li>
+<li><a href="#M000127">class_eval</a></li>
+<li><a href="#M000120">duplicable?</a></li>
+<li><a href="#M000123">instance_exec</a></li>
+<li><a href="#M000124">instance_variable_defined?</a></li>
+<li><a href="#M000125">instance_variable_names</a></li>
+<li><a href="#M000116">lookup_missing_generator</a></li>
+<li><a href="#M000126">metaclass</a></li>
+<li><a href="#M000119">present?</a></li>
+<li><a href="#M000128">returning</a></li>
+<li><a href="#M000132">to_json</a></li>
+<li><a href="#M000121">to_param</a></li>
+<li><a href="#M000117">to_param</a></li>
+<li><a href="#M000122">to_query</a></li>
+<li><a href="#M000131">try</a></li>
+<li><a href="#M000129">with_options</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>InstanceExecMethods</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000116">lookup_missing_generator</a> (class_id)</h2>
+
+<fieldset><div class='row'><p>
+Lookup missing generators using const_missing. This allows any generator to
+reference another without having to know its location: RubyGems,
+~/.rails/generators, and RAILS_ROOT/generators.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000130">acts_like?</a> (duck)</h2>
+
+<fieldset><div class='row'><p>
+A duck-type assistant method. For example, Active Support extends Date to
+define an acts_like_date? method, and extends Time to define
+acts_like_time?. As a result, we can do &quot;x.acts_like?(:time)&quot; and
+&quot;x.acts_like?(:date)&quot; to do duck-type-safe comparisons, since
+classes that we want to act like Time simply need to define an
+acts_like_time? method.
+</p></div></fieldset>
+
+
+<h2><a name="M000118">blank?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+An object is blank if it&#8216;s false, empty, or a whitespace string. For
+example, &quot;&quot;, &quot; &quot;, <tt>nil</tt>, [], and {} are blank.
+</p>
+<p>
+This simplifies
+</p>
+<pre>
+  if !address.nil? &amp;&amp; !address.empty?
+</pre>
+<p>
+to
+</p>
+<pre>
+  if !address.blank?
+</pre></div></fieldset>
+
+
+<h2><a name="M000127">class_eval</a> (*args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+If <a href="Object.html#M000127">class_eval</a> is called on an object, add
+those methods to its <a href="Object.html#M000126">metaclass</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000120">duplicable?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Can you safely .dup this object? False for nil, false, true, symbols, and
+numbers; true otherwise.
+</p></div></fieldset>
+
+
+<h2><a name="M000123">instance_exec</a> (*args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Evaluate the block with the given arguments within the context of this
+object, so self is set to the method receiver.
+</p>
+<p>
+From Mauricio&#8216;s <a
+href="http://eigenclass.org/hiki/bounded+space+instance_exec">eigenclass.org/hiki/bounded+space+instance_exec</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000124">instance_variable_defined?</a> (variable)</h2>
+
+
+
+<h2><a name="M000125">instance_variable_names</a> ()</h2>
+
+
+
+<h2><a name="M000126">metaclass</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Get object&#8216;s meta (ghost, eigenclass, singleton) class
+</p></div></fieldset>
+
+
+<h2><a name="M000119">present?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+An object is present if it&#8216;s not blank.
+</p></div></fieldset>
+
+
+<h2><a name="M000128">returning</a> (value) {|value| ...}</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>value</tt> after yielding <tt>value</tt> to the block. This
+simplifies the process of constructing an object, performing work on the
+object, and then <a href="Object.html#M000128">returning</a> the object
+from a method. It is a Ruby-ized realization of the K combinator, courtesy
+of Mikael Brockman.
+</p>
+<h4>Examples</h4>
+<pre>
+ # Without returning
+ def foo
+   values = []
+   values &lt;&lt; &quot;bar&quot;
+   values &lt;&lt; &quot;baz&quot;
+   return values
+ end
+
+ foo # =&gt; ['bar', 'baz']
+
+ # returning with a local variable
+ def foo
+   returning values = [] do
+     values &lt;&lt; 'bar'
+     values &lt;&lt; 'baz'
+   end
+ end
+
+ foo # =&gt; ['bar', 'baz']
+
+ # returning with a block argument
+ def foo
+   returning [] do |values|
+     values &lt;&lt; 'bar'
+     values &lt;&lt; 'baz'
+   end
+ end
+
+ foo # =&gt; ['bar', 'baz']
+</pre></div></fieldset>
+
+
+<h2><a name="M000132">to_json</a> (options = {})</h2>
+
+<fieldset><div class='row'><p>
+Dumps object in JSON (JavaScript <a href="Object.html">Object</a>
+Notation). See <a href="http://www.json.org">www.json.org</a> for more
+info.
+</p></div></fieldset>
+
+
+<h2><a name="M000121">to_param</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias of <tt>to_s</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000117">to_param</a> ()</h2>
+
+
+
+<h2><a name="M000122">to_query</a> (key)</h2>
+
+<fieldset><div class='row'><p>
+Converts an object into a string suitable for use as a URL query string,
+using the given <tt>key</tt> as the param name.
+</p>
+<p>
+Note: This method is defined as a default implementation for all Objects
+for Hash#to_query to work.
+</p></div></fieldset>
+
+
+<h2><a name="M000131">try</a> (method, *args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Tries to send the method only if object responds to it. Return <tt>nil</tt>
+otherwise. It will also forward any arguments and/or block like Object#send
+does.
+</p>
+<h4>Example :</h4>
+<p>
+# Without <a href="Object.html#M000131">try</a> @person ? @person.name :
+nil
+</p>
+<p>
+With <a href="Object.html#M000131">try</a> @person.try(:name)
+</p>
+<p>
+# <a href="Object.html#M000131">try</a> also accepts arguments/blocks for
+the method it is trying Person.try(:find, 1) @people.try(:map) {|p| p.name}
+</p></div></fieldset>
+
+
+<h2><a name="M000129">with_options</a> (options) {|ActiveSupport::OptionMerger.new(self, options)| ...}</h2>
+
+<fieldset><div class='row'><p>
+An elegant way to factor duplication out of options passed to a series of
+method calls. Each method called in the block, with the block variable as
+the receiver, will have its options merged with the default
+<tt>options</tt> hash provided. Each method called on the block variable
+must take an options hash as its final argument.
+</p>
+<pre>
+  with_options :order =&gt; 'created_at', :class_name =&gt; 'Comment' do |post|
+    post.has_many :comments, :conditions =&gt; ['approved = ?', true], :dependent =&gt; :delete_all
+    post.has_many :unapproved_comments, :conditions =&gt; ['approved = ?', false]
+    post.has_many :all_comments
+  end
+</pre>
+<p>
+Can also be used with an explicit receiver:
+</p>
+<pre>
+  map.with_options :controller =&gt; &quot;people&quot; do |people|
+    people.connect &quot;/people&quot;,     :action =&gt; &quot;index&quot;
+    people.connect &quot;/people/:id&quot;, :action =&gt; &quot;show&quot;
+  end
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

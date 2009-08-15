@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::Callbacks
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Callbacks
+    </h1>
+</div>
+<div id="ActiveSupport::Callbacks" title="ActiveSupport::Callbacks" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/callbacks_rb.html">activesupport/lib/active_support/callbacks.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Callbacks.html">Callbacks</a> are hooks into the lifecycle of an
+object that allow you to trigger logic before or after an alteration of the
+object state.
+</p>
+<p>
+Mixing in this module allows you to define callbacks in your class.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class Storage
+    include ActiveSupport::Callbacks
+
+    define_callbacks :before_save, :after_save
+  end
+
+  class ConfigStorage &lt; Storage
+    before_save :saving_message
+    def saving_message
+      puts &quot;saving...&quot;
+    end
+
+    after_save do |object|
+      puts &quot;saved&quot;
+    end
+
+    def save
+      run_callbacks(:before_save)
+      puts &quot;- save&quot;
+      run_callbacks(:after_save)
+    end
+  end
+
+  config = ConfigStorage.new
+  config.save
+</pre>
+<p>
+Output:
+</p>
+<pre>
+  saving...
+  - save
+  saved
+</pre>
+<p>
+<a href="Callbacks.html">Callbacks</a> from parent classes are inherited.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class Storage
+    include ActiveSupport::Callbacks
+
+    define_callbacks :before_save, :after_save
+
+    before_save :prepare
+    def prepare
+      puts &quot;preparing save&quot;
+    end
+  end
+
+  class ConfigStorage &lt; Storage
+    before_save :saving_message
+    def saving_message
+      puts &quot;saving...&quot;
+    end
+
+    after_save do |object|
+      puts &quot;saved&quot;
+    end
+
+    def save
+      run_callbacks(:before_save)
+      puts &quot;- save&quot;
+      run_callbacks(:after_save)
+    end
+  end
+
+  config = ConfigStorage.new
+  config.save
+</pre>
+<p>
+Output:
+</p>
+<pre>
+  preparing save
+  saving...
+  - save
+  saved
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000761">included</a></li>
+<li><a href="#M000762">run_callbacks</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Callbacks/ClassMethods.html" class="link">ActiveSupport::Callbacks::ClassMethods</a><br />
+Class <a href="Callbacks/Callback.html" class="link">ActiveSupport::Callbacks::Callback</a><br />
+Class <a href="Callbacks/CallbackChain.html" class="link">ActiveSupport::Callbacks::CallbackChain</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000761">included</a> (base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000762">run_callbacks</a> (kind, options = {}, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Runs all the callbacks defined for the given options.
+</p>
+<p>
+If a block is given it will be called after each callback receiving as
+arguments:
+</p>
+<pre>
+ * the result from the callback
+ * the object which has the callback
+</pre>
+<p>
+If the result from the block evaluates to false, the callback chain is
+stopped.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class Storage
+    include ActiveSupport::Callbacks
+
+    define_callbacks :before_save, :after_save
+  end
+
+  class ConfigStorage &lt; Storage
+    before_save :pass
+    before_save :pass
+    before_save :stop
+    before_save :pass
+
+    def pass
+      puts &quot;pass&quot;
+    end
+
+    def stop
+      puts &quot;stop&quot;
+      return false
+    end
+
+    def save
+      result = run_callbacks(:before_save) { |result, object| result == false }
+      puts &quot;- save&quot; if result
+    end
+  end
+
+  config = ConfigStorage.new
+  config.save
+</pre>
+<p>
+Output:
+</p>
+<pre>
+  pass
+  pass
+  stop
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

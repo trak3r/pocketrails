@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionController::Integration::Session
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Integration::Session
+    </h1>
+</div>
+<div id="ActionController::Integration::Session" title="ActionController::Integration::Session" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/integration_rb.html">actionpack/lib/action_controller/integration.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+An integration <a href="Session.html">Session</a> instance represents a set
+of requests and responses performed sequentially by some virtual user.
+Becase you can instantiate multiple sessions and run them side-by-side, you
+can also mimic (to some limited extent) multiple simultaneous users
+interacting with your system.
+</p>
+<p>
+Typically, you will instantiate a <a href="Session.html#M000190">new</a>
+session using IntegrationTest#open_session, rather than instantiating <a
+href="Session.html">Integration::Session</a> directly.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000205">delete</a></li>
+<li><a href="#M000200">delete_via_redirect</a></li>
+<li><a href="#M000195">follow_redirect!</a></li>
+<li><a href="#M000202">get</a></li>
+<li><a href="#M000197">get_via_redirect</a></li>
+<li><a href="#M000206">head</a></li>
+<li><a href="#M000194">host!</a></li>
+<li><a href="#M000192">https!</a></li>
+<li><a href="#M000193">https?</a></li>
+<li><a href="#M000190">new</a></li>
+<li><a href="#M000203">post</a></li>
+<li><a href="#M000198">post_via_redirect</a></li>
+<li><a href="#M000204">put</a></li>
+<li><a href="#M000199">put_via_redirect</a></li>
+<li><a href="#M000201">redirect?</a></li>
+<li><a href="#M000196">request_via_redirect</a></li>
+<li><a href="#M000191">reset!</a></li>
+<li><a href="#M000209">url_for</a></li>
+<li><a href="#M000208">xhr</a></li>
+<li><a href="#M000207">xml_http_request</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="../../Test/Unit/Assertions.html">Test::Unit::Assertions</a></li>
+<li><a href="../TestCase/Assertions.html">ActionController::TestCase::Assertions</a></li>
+<li><a href="../TestProcess.html">ActionController::TestProcess</a></li>
+<li>ControllerCapture</li>
+</ul>
+</div>
+</fieldset>  
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Class <a href="Session/MultiPartNeededException.html" class="link">ActionController::Integration::Session::MultiPartNeededException</a><br />
+</div></fieldset>
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+accept
+</label>
+
+The Accept header to send.
+
+
+[R]
+<label>
+controller
+</label>
+
+A reference to the controller instance used by the last request.
+
+
+[R]
+<label>
+cookies
+</label>
+
+A map of the cookies returned by the last response, and which will be sent
+with the next request.
+
+
+[R]
+<label>
+headers
+</label>
+
+A map of the headers returned by the last response.
+
+
+[RW]
+<label>
+host
+</label>
+
+The hostname used in the last request.
+
+
+[R]
+<label>
+path
+</label>
+
+The URI of the last request.
+
+
+[RW]
+<label>
+remote_addr
+</label>
+
+The remote_addr used in the last request.
+
+
+[R]
+<label>
+request
+</label>
+
+A reference to the request instance used by the last request.
+
+
+[RW]
+<label>
+request_count
+</label>
+
+A running counter of the number of requests processed.
+
+
+[R]
+<label>
+response
+</label>
+
+A reference to the response instance used by the last request.
+
+
+[R]
+<label>
+status
+</label>
+
+The integer HTTP status code of the last request.
+
+
+[R]
+<label>
+status_message
+</label>
+
+The status message that accompanied the status code of the last request.
+
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M000190">new</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Create and initialize a <a href="Session.html#M000190">new</a> <a
+href="Session.html">Session</a> instance.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000205">delete</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a DELETE request with the given parameters. See <a
+href="Session.html#M000202">get</a>() for more details.
+</p></div></fieldset>
+
+
+<h2><a name="M000200">delete_via_redirect</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a DELETE request, following any subsequent redirect. See <tt><a
+href="Session.html#M000196">request_via_redirect</a></tt> for more
+information.
+</p></div></fieldset>
+
+
+<h2><a name="M000195">follow_redirect!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Follow a single redirect response. If the last response was not a redirect,
+an exception will be raised. Otherwise, the redirect is performed on the
+location header.
+</p></div></fieldset>
+
+
+<h2><a name="M000202">get</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a GET request with the given parameters.
+</p>
+<ul>
+<li><tt>path</tt>: The URI (as a String) on which you want to perform a GET
+request.
+
+</li>
+<li><tt>parameters</tt>: The HTTP parameters that you want to pass. This may be
+<tt>nil</tt>, a Hash, or a String that is appropriately encoded
+(<tt>application/x-www-form-urlencoded</tt> or
+<tt>multipart/form-data</tt>).
+
+</li>
+<li><tt>headers</tt>: Additional HTTP headers to pass, as a Hash. The keys will
+automatically be upcased, with the prefix &#8216;HTTP_&#8217; added if
+needed.
+
+</li>
+</ul>
+<p>
+This method returns an <a
+href="../AbstractResponse.html">AbstractResponse</a> object, which one can
+use to inspect the details of the response. Furthermore, if this method was
+called from an <a
+href="../IntegrationTest.html">ActionController::IntegrationTest</a>
+object, then that object&#8216;s <tt>@response</tt> instance variable will
+point to the same response object.
+</p>
+<p>
+You can also perform POST, PUT, DELETE, and HEAD requests with <tt><a
+href="Session.html#M000203">post</a></tt>, <tt><a
+href="Session.html#M000204">put</a></tt>, <tt><a
+href="Session.html#M000205">delete</a></tt>, and <tt><a
+href="Session.html#M000206">head</a></tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000197">get_via_redirect</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a GET request, following any subsequent redirect. See <tt><a
+href="Session.html#M000196">request_via_redirect</a></tt> for more
+information.
+</p></div></fieldset>
+
+
+<h2><a name="M000206">head</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a HEAD request with the given parameters. See <a
+href="Session.html#M000202">get</a>() for more details.
+</p></div></fieldset>
+
+
+<h2><a name="M000194">host!</a> (name)</h2>
+
+<fieldset><div class='row'><p>
+Set the host name to use in the next request.
+</p>
+<pre>
+  session.host! &quot;www.example.com&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000192">https!</a> (flag=true)</h2>
+
+<fieldset><div class='row'><p>
+Specify whether or not the session should mimic a secure HTTPS request.
+</p>
+<pre>
+  session.https!
+  session.https!(false)
+</pre></div></fieldset>
+
+
+<h2><a name="M000193">https?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Return <tt>true</tt> if the session is mimicking a secure HTTPS request.
+</p>
+<pre>
+  if session.https?
+    ...
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M000203">post</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a POST request with the given parameters. See <a
+href="Session.html#M000202">get</a>() for more details.
+</p></div></fieldset>
+
+
+<h2><a name="M000198">post_via_redirect</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a POST request, following any subsequent redirect. See <tt><a
+href="Session.html#M000196">request_via_redirect</a></tt> for more
+information.
+</p></div></fieldset>
+
+
+<h2><a name="M000204">put</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a PUT request with the given parameters. See <a
+href="Session.html#M000202">get</a>() for more details.
+</p></div></fieldset>
+
+
+<h2><a name="M000199">put_via_redirect</a> (path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a PUT request, following any subsequent redirect. See <tt><a
+href="Session.html#M000196">request_via_redirect</a></tt> for more
+information.
+</p></div></fieldset>
+
+
+<h2><a name="M000201">redirect?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> if the last response was a redirect.
+</p></div></fieldset>
+
+
+<h2><a name="M000196">request_via_redirect</a> (http_method, path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs a request using the specified method, following any subsequent
+redirect. Note that the redirects are followed until the response is not a
+redirect&#8212;this means you may run into an infinite loop if your
+redirect loops back to itself.
+</p></div></fieldset>
+
+
+<h2><a name="M000191">reset!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Resets the instance. This can be used to reset the state information in an
+existing session instance, so it can be used from a clean-slate condition.
+</p>
+<pre>
+  session.reset!
+</pre></div></fieldset>
+
+
+<h2><a name="M000209">url_for</a> (options)</h2>
+
+<fieldset><div class='row'><p>
+Returns the URL for the given options, according to the rules specified in
+the application&#8216;s routes.
+</p></div></fieldset>
+
+
+<h2><a name="M000208">xhr</a> (request_method, path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Session.html#M000207">xml_http_request</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000207">xml_http_request</a> (request_method, path, parameters = nil, headers = nil)</h2>
+
+<fieldset><div class='row'><p>
+Performs an XMLHttpRequest request with the given parameters, mirroring a
+request from the Prototype library.
+</p>
+<p>
+The request_method is :<a href="Session.html#M000202">get</a>, :<a
+href="Session.html#M000203">post</a>, :<a
+href="Session.html#M000204">put</a>, :<a
+href="Session.html#M000205">delete</a> or :<a
+href="Session.html#M000206">head</a>; the parameters are <tt>nil</tt>, a
+hash, or a url-encoded or multipart string; the headers are a hash. Keys
+are automatically upcased and prefixed with &#8216;HTTP_&#8217; if not
+already.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>xhr</div></fieldset>
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

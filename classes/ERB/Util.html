@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ERB::Util
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ERB::Util
+    </h1>
+</div>
+<div id="ERB::Util" title="ERB::Util" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_view/erb/util_rb.html">actionpack/lib/action_view/erb/util.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000133">html_escape</a></li>
+<li><a href="#M000135">j</a></li>
+<li><a href="#M000134">json_escape</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>HTML_ESCAPE</h2>
+<fieldset>
+<div class="row">
+{ '&amp;' =&gt; '&amp;amp;',  '&gt;' =&gt; '&amp;gt;',   '&lt;' =&gt; '&amp;lt;', '&quot;' =&gt; '&amp;quot;' }
+</div>
+</fieldset>
+<h2>JSON_ESCAPE</h2>
+<fieldset>
+<div class="row">
+{ '&amp;' =&gt; '\u0026', '&gt;' =&gt; '\u003E', '&lt;' =&gt; '\u003C' }
+</div>
+</fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000133">html_escape</a> (s)</h2>
+
+<fieldset><div class='row'><p>
+A utility method for escaping HTML tag characters. This method is also
+aliased as <tt>h</tt>.
+</p>
+<p>
+In your ERb templates, use this method to escape any unsafe content. For
+example:
+</p>
+<pre>
+  &lt;%=h @person.name %&gt;
+</pre>
+<h4>Example:</h4>
+<pre>
+  puts html_escape(&quot;is a &gt; 0 &amp; a &lt; 10?&quot;)
+  # =&gt; is a &amp;gt; 0 &amp;amp; a &amp;lt; 10?
+</pre></div></fieldset>
+
+
+<h2><a name="M000135">j</a> (s)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Util.html#M000134">json_escape</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000134">json_escape</a> (s)</h2>
+
+<fieldset><div class='row'><p>
+A utility method for escaping HTML entities in JSON strings. This method is
+also aliased as <tt><a href="Util.html#M000135">j</a></tt>.
+</p>
+<p>
+In your ERb templates, use this method to escape any HTML entities:
+</p>
+<pre>
+  &lt;%=j @person.to_json %&gt;
+</pre>
+<h4>Example:</h4>
+<pre>
+  puts json_escape(&quot;is a &gt; 0 &amp; a &lt; 10?&quot;)
+  # =&gt; is a \u003E 0 \u0026 a \u003C 10?
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>j</div></fieldset>
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

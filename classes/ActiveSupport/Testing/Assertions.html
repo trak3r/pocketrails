@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::Testing::Assertions
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Testing::Assertions
+    </h1>
+</div>
+<div id="ActiveSupport::Testing::Assertions" title="ActiveSupport::Testing::Assertions" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/testing/assertions_rb.html">activesupport/lib/active_support/testing/assertions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001095">assert_difference</a></li>
+<li><a href="#M001096">assert_no_difference</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001095">assert_difference</a> (expressions, difference = 1, message = nil) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+<a href="../../Test.html">Test</a> numeric difference between the return
+value of an expression as a result of what is evaluated in the yielded
+block.
+</p>
+<pre>
+  assert_difference 'Article.count' do
+    post :create, :article =&gt; {...}
+  end
+</pre>
+<p>
+An arbitrary expression is passed in and evaluated.
+</p>
+<pre>
+  assert_difference 'assigns(:article).comments(:reload).size' do
+    post :create, :comment =&gt; {...}
+  end
+</pre>
+<p>
+An arbitrary positive or negative difference can be specified. The default
+is +1.
+</p>
+<pre>
+  assert_difference 'Article.count', -1 do
+    post :delete, :id =&gt; ...
+  end
+</pre>
+<p>
+An array of expressions can also be passed in and evaluated.
+</p>
+<pre>
+  assert_difference [ 'Article.count', 'Post.count' ], +2 do
+    post :create, :article =&gt; {...}
+  end
+</pre>
+<p>
+A error message can be specified.
+</p>
+<pre>
+  assert_difference 'Article.count', -1, &quot;An Article should be destroyed&quot; do
+    post :delete, :id =&gt; ...
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001096">assert_no_difference</a> (expressions, message = nil, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Assertion that the numeric result of evaluating an expression is not
+changed before and after invoking the passed in block.
+</p>
+<pre>
+  assert_no_difference 'Article.count' do
+    post :create, :article =&gt; invalid_attributes
+  end
+</pre>
+<p>
+A error message can be specified.
+</p>
+<pre>
+  assert_no_difference 'Article.count', &quot;An Article should not be destroyed&quot; do
+    post :create, :article =&gt; invalid_attributes
+  end
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

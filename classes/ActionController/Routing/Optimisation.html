@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Routing::Optimisation
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Routing::Optimisation
+    </h1>
+</div>
+<div id="ActionController::Routing::Optimisation" title="ActionController::Routing::Optimisation" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/routing/optimisations_rb.html">actionpack/lib/action_controller/routing/optimisations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Much of the slow performance from routes comes from the complexity of
+expiry, <tt>:requirements</tt> matching, defaults providing and figuring
+out which url pattern to use. With named routes we can avoid the expense of
+finding the right route. So if they&#8216;ve provided the right number of
+arguments, and have no <tt>:requirements</tt>, we can just build up a
+string and return it.
+</p>
+<p>
+To support building optimisations for other common cases, the generation
+code is separated into several classes
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000294">generate_optimisation_block</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Class <a href="Optimisation/Optimiser.html" class="link">ActionController::Routing::Optimisation::Optimiser</a><br />
+Class <a href="Optimisation/PositionalArguments.html" class="link">ActionController::Routing::Optimisation::PositionalArguments</a><br />
+Class <a href="Optimisation/PositionalArgumentsWithAdditionalParams.html" class="link">ActionController::Routing::Optimisation::PositionalArgumentsWithAdditionalParams</a><br />
+</div></fieldset>
+
+<h2>Constants</h2>
+<h2>OPTIMISERS</h2>
+<fieldset>
+<div class="row">
+[PositionalArguments, PositionalArgumentsWithAdditionalParams]
+</div>
+</fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000294">generate_optimisation_block</a> (route, kind)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

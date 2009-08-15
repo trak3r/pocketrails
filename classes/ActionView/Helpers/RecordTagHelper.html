@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionView::Helpers::RecordTagHelper
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Helpers::RecordTagHelper
+    </h1>
+</div>
+<div id="ActionView::Helpers::RecordTagHelper" title="ActionView::Helpers::RecordTagHelper" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_view/helpers/record_tag_helper_rb.html">actionpack/lib/action_view/helpers/record_tag_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001283">content_tag_for</a></li>
+<li><a href="#M001282">div_for</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001283">content_tag_for</a> (tag_name, record, *args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+<a href="RecordTagHelper.html#M001283">content_tag_for</a> creates an HTML
+element with id and class parameters that relate to the specified Active
+Record object. For example:
+</p>
+<pre>
+   &lt;% content_tag_for(:tr, @person) do %&gt;
+     &lt;td&gt;&lt;%=h @person.first_name %&gt;&lt;/td&gt;
+     &lt;td&gt;&lt;%=h @person.last_name %&gt;&lt;/td&gt;
+   &lt;% end %&gt;
+</pre>
+<p>
+would produce the following HTML (assuming @person is an instance of a
+Person object, with an id value of 123):
+</p>
+<pre>
+   &lt;tr id=&quot;person_123&quot; class=&quot;person&quot;&gt;....&lt;/tr&gt;
+</pre>
+<p>
+If you require the HTML id attribute to have a prefix, you can specify it:
+</p>
+<pre>
+   &lt;% content_tag_for(:tr, @person, :foo) do %&gt; ...
+</pre>
+<p>
+produces:
+</p>
+<pre>
+   &lt;tr id=&quot;foo_person_123&quot; class=&quot;person&quot;&gt;...
+</pre>
+<p>
+<a href="RecordTagHelper.html#M001283">content_tag_for</a> also accepts a
+hash of options, which will be converted to additional HTML attributes. If
+you specify a <tt>:class</tt> value, it will be combined with the default
+class name for your object. For example:
+</p>
+<pre>
+   &lt;% content_tag_for(:li, @person, :class =&gt; &quot;bar&quot;) %&gt;...
+</pre>
+<p>
+produces:
+</p>
+<pre>
+   &lt;li id=&quot;person_123&quot; class=&quot;person bar&quot;&gt;...
+</pre></div></fieldset>
+
+
+<h2><a name="M001282">div_for</a> (record, *args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Produces a wrapper DIV element with id and class parameters that relate to
+the specified Active Record object. Usage example:
+</p>
+<pre>
+   &lt;% div_for(@person, :class =&gt; &quot;foo&quot;) do %&gt;
+      &lt;%=h @person.name %&gt;
+   &lt;% end %&gt;
+</pre>
+<p>
+produces:
+</p>
+<pre>
+   &lt;div id=&quot;person_123&quot; class=&quot;person foo&quot;&gt; Joe Bloggs &lt;/div&gt;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

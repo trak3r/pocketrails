@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Rails::Generator::Commands::Create
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Generator::Commands::Create
+    </h1>
+</div>
+<div id="Rails::Generator::Commands::Create" title="Rails::Generator::Commands::Create" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/railties/lib/rails_generator/commands_rb.html">railties/lib/rails_generator/commands.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="Base.html">
+               Base
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Create.html">Create</a> is the premier generator command. It
+copies files, creates directories, renders templates, and more.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002018">class_collisions</a></li>
+<li><a href="#M002022">complex_template</a></li>
+<li><a href="#M002023">directory</a></li>
+<li><a href="#M002019">file</a></li>
+<li><a href="#M002020">identical?</a></li>
+<li><a href="#M002025">migration_template</a></li>
+<li><a href="#M002024">readme</a></li>
+<li><a href="#M002026">route_resources</a></li>
+<li><a href="#M002021">template</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>SYNONYM_LOOKUP_URI</h2>
+<fieldset>
+<div class="row">
+&quot;http://wordnet.princeton.edu/perl/webwn?s=%s&quot;
+</div>
+</fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002018">class_collisions</a> (*class_names)</h2>
+
+<fieldset><div class='row'><p>
+Check whether the given class names are already taken by Ruby or <a
+href="../../../Rails.html">Rails</a>. In the future, expand to check other
+namespaces such as the rest of the user&#8216;s app.
+</p></div></fieldset>
+
+
+<h2><a name="M002022">complex_template</a> (relative_source, relative_destination, template_options = {})</h2>
+
+
+
+<h2><a name="M002023">directory</a> (relative_path)</h2>
+
+<fieldset><div class='row'><p>
+<a href="Create.html">Create</a> a <a
+href="Create.html#M002023">directory</a> including any missing parent
+directories. Always skips directories which exist.
+</p></div></fieldset>
+
+
+<h2><a name="M002019">file</a> (relative_source, relative_destination, file_options = {}, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Copy a <a href="Create.html#M002019">file</a> from source to destination
+with collision checking.
+</p>
+<p>
+The file_options hash accepts :chmod and :shebang and :collision options.
+:chmod sets the permissions of the destination <a
+href="Create.html#M002019">file</a>:
+</p>
+<pre>
+  file 'config/empty.log', 'log/test.log', :chmod =&gt; 0664
+</pre>
+<p>
+:shebang sets the #!/usr/bin/ruby line for scripts
+</p>
+<pre>
+  file 'bin/generate.rb', 'script/generate', :chmod =&gt; 0755, :shebang =&gt; '/usr/bin/env ruby'
+</pre>
+<p>
+:collision sets the collision option only for the destination <a
+href="Create.html#M002019">file</a>:
+</p>
+<pre>
+  file 'settings/server.yml', 'config/server.yml', :collision =&gt; :skip
+</pre>
+<p>
+Collisions are handled by checking whether the destination <a
+href="Create.html#M002019">file</a> exists and either skipping the <a
+href="Create.html#M002019">file</a>, forcing overwrite, or asking the user
+what to do.
+</p></div></fieldset>
+
+
+<h2><a name="M002020">identical?</a> (source, destination) {|sf| ...}</h2>
+
+<fieldset><div class='row'><p>
+Checks if the source and the destination <a
+href="Create.html#M002019">file</a> are identical. If passed a block then
+the source <a href="Create.html#M002019">file</a> is a <a
+href="Create.html#M002021">template</a> that needs to first be evaluated
+before being compared to the destination.
+</p></div></fieldset>
+
+
+<h2><a name="M002025">migration_template</a> (relative_source, relative_destination, template_options = {})</h2>
+
+<fieldset><div class='row'><p>
+When creating a migration, it knows to find the first available <a
+href="Create.html#M002019">file</a> in db/migrate and use the migration.rb
+<a href="Create.html#M002021">template</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M002024">readme</a> (*relative_sources)</h2>
+
+<fieldset><div class='row'><p>
+Display a README.
+</p></div></fieldset>
+
+
+<h2><a name="M002026">route_resources</a> (*resources)</h2>
+
+
+
+<h2><a name="M002021">template</a> (relative_source, relative_destination, template_options = {})</h2>
+
+<fieldset><div class='row'><p>
+Generate a <a href="Create.html#M002019">file</a> for a <a
+href="../../../Rails.html">Rails</a> application using an ERuby <a
+href="Create.html#M002021">template</a>. Looks up and evaluates a <a
+href="Create.html#M002021">template</a> by name and writes the result.
+</p>
+<p>
+The <a href="../../../ERB.html">ERB</a> <a
+href="Create.html#M002021">template</a> uses explicit trim mode to best
+control the proliferation of whitespace in generated code. &lt;%- trims
+leading whitespace; -%&gt; trims trailing whitespace including one newline.
+</p>
+<p>
+A hash of <a href="Create.html#M002021">template</a> options may be passed
+as the last argument. The options accepted by the <a
+href="Create.html#M002019">file</a> are accepted as well as :assigns, a
+hash of variable bindings. Example:
+</p>
+<pre>
+  template 'foo', 'bar', :assigns =&gt; { :action =&gt; 'view' }
+</pre>
+<p>
+Template is implemented in terms of <a href="Create.html#M002019">file</a>.
+It calls <a href="Create.html#M002019">file</a> with a block which takes a
+<a href="Create.html#M002019">file</a> handle and returns its rendered
+contents.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

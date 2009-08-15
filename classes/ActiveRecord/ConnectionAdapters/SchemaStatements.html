@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::ConnectionAdapters::SchemaStatements
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::SchemaStatements
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::SchemaStatements" title="ActiveRecord::ConnectionAdapters::SchemaStatements" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/schema_statements_rb.html">activerecord/lib/active_record/connection_adapters/abstract/schema_statements.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001537">add_column</a></li>
+<li><a href="#M001543">add_index</a></li>
+<li><a href="#M001549">add_order_by_for_association_limiting!</a></li>
+<li><a href="#M001550">add_timestamps</a></li>
+<li><a href="#M001547">assume_migrated_upto_version</a></li>
+<li><a href="#M001540">change_column</a></li>
+<li><a href="#M001541">change_column_default</a></li>
+<li><a href="#M001534">change_table</a></li>
+<li><a href="#M001532">columns</a></li>
+<li><a href="#M001533">create_table</a></li>
+<li><a href="#M001548">distinct</a></li>
+<li><a href="#M001536">drop_table</a></li>
+<li><a href="#M001546">initialize_schema_migrations_table</a></li>
+<li><a href="#M001528">native_database_types</a></li>
+<li><a href="#M001552">options_include_default?</a></li>
+<li><a href="#M001538">remove_column</a></li>
+<li><a href="#M001539">remove_columns</a></li>
+<li><a href="#M001544">remove_index</a></li>
+<li><a href="#M001551">remove_timestamps</a></li>
+<li><a href="#M001542">rename_column</a></li>
+<li><a href="#M001535">rename_table</a></li>
+<li><a href="#M001545">structure_dump</a></li>
+<li><a href="#M001530">table_alias_for</a></li>
+<li><a href="#M001529">table_alias_length</a></li>
+<li><a href="#M001531">table_exists?</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001537">add_column</a> (table_name, column_name, type, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Adds a new column to the named table. See <a
+href="TableDefinition.html#M001614">TableDefinition#column</a> for details
+of the options you can use.
+</p></div></fieldset>
+
+
+<h2><a name="M001543">add_index</a> (table_name, column_name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Adds a new index to the table. <tt>column_name</tt> can be a single Symbol,
+or an Array of Symbols.
+</p>
+<p>
+The index will be named after the table and the first column name, unless
+you pass <tt>:name</tt> as an option.
+</p>
+<p>
+When creating an index on multiple <a
+href="SchemaStatements.html#M001532">columns</a>, the first column is used
+as a name for the index. For example, when you specify an index on two <a
+href="SchemaStatements.html#M001532">columns</a> [<tt>:first</tt>,
+<tt>:last</tt>], the DBMS creates an index for both <a
+href="SchemaStatements.html#M001532">columns</a> as well as an index for
+the first column <tt>:first</tt>. Using just the first name for this index
+makes sense, because you will never have to create a singular index with
+this name.
+</p>
+<h5>Examples</h5>
+<h6>Creating a simple index</h6>
+<pre>
+ add_index(:suppliers, :name)
+</pre>
+<p>
+generates
+</p>
+<pre>
+ CREATE INDEX suppliers_name_index ON suppliers(name)
+</pre>
+<h6>Creating a unique index</h6>
+<pre>
+ add_index(:accounts, [:branch_id, :party_id], :unique =&gt; true)
+</pre>
+<p>
+generates
+</p>
+<pre>
+ CREATE UNIQUE INDEX accounts_branch_id_party_id_index ON accounts(branch_id, party_id)
+</pre>
+<h6>Creating a named index</h6>
+<pre>
+ add_index(:accounts, [:branch_id, :party_id], :unique =&gt; true, :name =&gt; 'by_branch_party')
+</pre>
+<p>
+generates
+</p>
+<pre>
+ CREATE UNIQUE INDEX by_branch_party ON accounts(branch_id, party_id)
+</pre></div></fieldset>
+
+
+<h2><a name="M001549">add_order_by_for_association_limiting!</a> (sql, options)</h2>
+
+<fieldset><div class='row'><p>
+ORDER BY clause for the passed order option. PostgreSQL overrides this due
+to its stricter standards compliance.
+</p></div></fieldset>
+
+
+<h2><a name="M001550">add_timestamps</a> (table_name)</h2>
+
+<fieldset><div class='row'><p>
+Adds timestamps (created_at and updated_at) <a
+href="SchemaStatements.html#M001532">columns</a> to the named table.
+</p>
+<h5>Examples</h5>
+<pre>
+ add_timestamps(:suppliers)
+</pre></div></fieldset>
+
+
+<h2><a name="M001547">assume_migrated_upto_version</a> (version)</h2>
+
+
+
+<h2><a name="M001540">change_column</a> (table_name, column_name, type, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Changes the column&#8216;s definition according to the new options. See <a
+href="TableDefinition.html#M001614">TableDefinition#column</a> for details
+of the options you can use.
+</p>
+<h5>Examples</h5>
+<pre>
+ change_column(:suppliers, :name, :string, :limit =&gt; 80)
+ change_column(:accounts, :description, :text)
+</pre></div></fieldset>
+
+
+<h2><a name="M001541">change_column_default</a> (table_name, column_name, default)</h2>
+
+<fieldset><div class='row'><p>
+Sets a new default value for a column. If you want to set the default value
+to <tt>NULL</tt>, you are out of luck. You need to <a
+href="DatabaseStatements.html#M001566">DatabaseStatements#execute</a> the
+appropriate SQL statement yourself.
+</p>
+<h5>Examples</h5>
+<pre>
+ change_column_default(:suppliers, :qualification, 'new')
+ change_column_default(:accounts, :authorized, 1)
+</pre></div></fieldset>
+
+
+<h2><a name="M001534">change_table</a> (table_name) {|Table.new(table_name, self)| ...}</h2>
+
+<fieldset><div class='row'><p>
+A block for changing <a href="SchemaStatements.html#M001532">columns</a> in
+<tt>table</tt>.
+</p>
+<h3>Example</h3>
+<pre>
+ # change_table() yields a Table instance
+ change_table(:suppliers) do |t|
+   t.column :name, :string, :limit =&gt; 60
+   # Other column alterations here
+ end
+</pre>
+<h5>Examples</h5>
+<h6>Add a column</h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.column :name, :string, :limit =&gt; 60
+ end
+</pre>
+<h6>Add 2 integer <a href="SchemaStatements.html#M001532">columns</a></h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.integer :width, :height, :null =&gt; false, :default =&gt; 0
+ end
+</pre>
+<h6>Add created_at/updated_at <a href="SchemaStatements.html#M001532">columns</a></h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.timestamps
+ end
+</pre>
+<h6>Add a foreign key column</h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.references :company
+ end
+</pre>
+<p>
+Creates a <tt>company_id(integer)</tt> column
+</p>
+<h6>Add a polymorphic foreign key column</h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.belongs_to :company, :polymorphic =&gt; true
+ end
+</pre>
+<p>
+Creates <tt>company_type(varchar)</tt> and <tt>company_id(integer)</tt> <a
+href="SchemaStatements.html#M001532">columns</a>
+</p>
+<h6>Remove a column</h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.remove :company
+ end
+</pre>
+<h6>Remove several <a href="SchemaStatements.html#M001532">columns</a></h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.remove :company_id
+   t.remove :width, :height
+ end
+</pre>
+<h6>Remove an index</h6>
+<pre>
+ change_table(:suppliers) do |t|
+   t.remove_index :company_id
+ end
+</pre>
+<p>
+See also <a href="Table.html">Table</a> for details on all of the various
+column transformation
+</p></div></fieldset>
+
+
+<h2><a name="M001532">columns</a> (table_name, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of <a href="Column.html">Column</a> objects for the table
+specified by <tt>table_name</tt>. See the concrete implementation for
+details on the expected parameter values.
+</p></div></fieldset>
+
+
+<h2><a name="M001533">create_table</a> (table_name, options = {}) {|table_definition| ...}</h2>
+
+<fieldset><div class='row'><p>
+Creates a new table with the name <tt>table_name</tt>. <tt>table_name</tt>
+may either be a String or a Symbol.
+</p>
+<p>
+There are two ways to work with <tt><a
+href="SchemaStatements.html#M001533">create_table</a></tt>. You can use the
+block form or the regular form, like this:
+</p>
+<h3>Block form</h3>
+<pre>
+ # create_table() passes a TableDefinition object to the block.
+ # This form will not only create the table, but also columns for the
+ # table.
+ create_table(:suppliers) do |t|
+   t.column :name, :string, :limit =&gt; 60
+   # Other fields here
+ end
+</pre>
+<h3>Regular form</h3>
+<pre>
+ # Creates a table called 'suppliers' with no columns.
+ create_table(:suppliers)
+ # Add a column to 'suppliers'.
+ add_column(:suppliers, :name, :string, {:limit =&gt; 60})
+</pre>
+<p>
+The <tt>options</tt> hash can include the following keys:
+</p>
+<dl>
+<dt><tt>:id</tt></dt><dd>Whether to automatically add a primary key column. Defaults to true. Join
+tables for <tt>has_and_belongs_to_many</tt> should set <tt>:id =&gt;
+false</tt>.
+
+</dd>
+<dt><tt>:primary_key</tt></dt><dd>The name of the primary key, if one is to be added automatically. Defaults
+to <tt>id</tt>.
+
+</dd>
+<dt><tt>:options</tt></dt><dd>Any extra options you want appended to the table definition.
+
+</dd>
+<dt><tt>:temporary</tt></dt><dd>Make a temporary table.
+
+</dd>
+<dt><tt>:force</tt></dt><dd>Set to true to drop the table before creating it. Defaults to false.
+
+</dd>
+</dl>
+<h5>Examples</h5>
+<h6>Add a backend specific option to the generated SQL (MySQL)</h6>
+<pre>
+ create_table(:suppliers, :options =&gt; 'ENGINE=InnoDB DEFAULT CHARSET=utf8')
+</pre>
+<p>
+generates:
+</p>
+<pre>
+ CREATE TABLE suppliers (
+   id int(11) DEFAULT NULL auto_increment PRIMARY KEY
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+</pre>
+<h6>Rename the primary key column</h6>
+<pre>
+ create_table(:objects, :primary_key =&gt; 'guid') do |t|
+   t.column :name, :string, :limit =&gt; 80
+ end
+</pre>
+<p>
+generates:
+</p>
+<pre>
+ CREATE TABLE objects (
+   guid int(11) DEFAULT NULL auto_increment PRIMARY KEY,
+   name varchar(80)
+ )
+</pre>
+<h6>Do not add a primary key column</h6>
+<pre>
+ create_table(:categories_suppliers, :id =&gt; false) do |t|
+   t.column :category_id, :integer
+   t.column :supplier_id, :integer
+ end
+</pre>
+<p>
+generates:
+</p>
+<pre>
+ CREATE TABLE categories_suppliers (
+   category_id int,
+   supplier_id int
+ )
+</pre>
+<p>
+See also <a href="TableDefinition.html#M001614">TableDefinition#column</a>
+for details on how to create <a
+href="SchemaStatements.html#M001532">columns</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001548">distinct</a> (columns, order_by)</h2>
+
+<fieldset><div class='row'><p>
+SELECT DISTINCT clause for a given set of <a
+href="SchemaStatements.html#M001532">columns</a> and a given ORDER BY
+clause. Both PostgreSQL and Oracle overrides this for custom DISTINCT
+syntax.
+</p>
+<pre>
+  distinct(&quot;posts.id&quot;, &quot;posts.created_at desc&quot;)
+</pre></div></fieldset>
+
+
+<h2><a name="M001536">drop_table</a> (table_name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Drops a table from the database.
+</p></div></fieldset>
+
+
+<h2><a name="M001546">initialize_schema_migrations_table</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Should not be called normally, but this operation is non-destructive. The
+migrations module handles this automatically.
+</p></div></fieldset>
+
+
+<h2><a name="M001528">native_database_types</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a Hash of mappings from the abstract data types to the native
+database types. See <a
+href="TableDefinition.html#M001614">TableDefinition#column</a> for details
+on the recognized abstract data types.
+</p></div></fieldset>
+
+
+<h2><a name="M001538">remove_column</a> (table_name, *column_names)</h2>
+
+<fieldset><div class='row'><p>
+Removes the column(s) from the table definition.
+</p>
+<h5>Examples</h5>
+<pre>
+ remove_column(:suppliers, :qualification)
+ remove_columns(:suppliers, :qualification, :experience)
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>remove_columns</div></fieldset>
+
+<h2><a name="M001539">remove_columns</a> (table_name, *column_names)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="SchemaStatements.html#M001538">remove_column</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001544">remove_index</a> (table_name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Remove the given index from the table.
+</p>
+<p>
+Remove the suppliers_name_index in the suppliers table.
+</p>
+<pre>
+  remove_index :suppliers, :name
+</pre>
+<p>
+Remove the index named accounts_branch_id_index in the accounts table.
+</p>
+<pre>
+  remove_index :accounts, :column =&gt; :branch_id
+</pre>
+<p>
+Remove the index named accounts_branch_id_party_id_index in the accounts
+table.
+</p>
+<pre>
+  remove_index :accounts, :column =&gt; [:branch_id, :party_id]
+</pre>
+<p>
+Remove the index named by_branch_party in the accounts table.
+</p>
+<pre>
+  remove_index :accounts, :name =&gt; :by_branch_party
+</pre></div></fieldset>
+
+
+<h2><a name="M001551">remove_timestamps</a> (table_name)</h2>
+
+<fieldset><div class='row'><p>
+Removes the timestamp <a href="SchemaStatements.html#M001532">columns</a>
+(created_at and updated_at) from the table definition.
+</p>
+<h5>Examples</h5>
+<pre>
+ remove_timestamps(:suppliers)
+</pre></div></fieldset>
+
+
+<h2><a name="M001542">rename_column</a> (table_name, column_name, new_column_name)</h2>
+
+<fieldset><div class='row'><p>
+Renames a column.
+</p>
+<h5>Example</h5>
+<pre>
+ rename_column(:suppliers, :description, :name)
+</pre></div></fieldset>
+
+
+<h2><a name="M001535">rename_table</a> (table_name, new_name)</h2>
+
+<fieldset><div class='row'><p>
+Renames a table.
+</p>
+<h5>Example</h5>
+<pre>
+ rename_table('octopuses', 'octopi')
+</pre></div></fieldset>
+
+
+<h2><a name="M001545">structure_dump</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a string of <tt>CREATE TABLE</tt> SQL statement(s) for recreating
+the entire structure of the database.
+</p></div></fieldset>
+
+
+<h2><a name="M001530">table_alias_for</a> (table_name)</h2>
+
+<fieldset><div class='row'><p>
+Truncates a table alias according to the limits of the current adapter.
+</p></div></fieldset>
+
+
+<h2><a name="M001529">table_alias_length</a> ()</h2>
+
+<fieldset><div class='row'><p>
+This is the maximum length a table alias can be
+</p></div></fieldset>
+
+
+<h2><a name="M001531">table_exists?</a> (table_name)</h2>
+
+<fieldset><div class='row'><p>
+def tables(name = nil) end
+</p></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M001552">options_include_default?</a> (options)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

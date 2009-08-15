@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: HashWithIndifferentAccess
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        HashWithIndifferentAccess
+    </h1>
+</div>
+<div id="HashWithIndifferentAccess" title="HashWithIndifferentAccess" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/hash/indifferent_access_rb.html">activesupport/lib/active_support/core_ext/hash/indifferent_access.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+               Hash
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+This class has dubious semantics and we only have it so that people can
+write params[:key] instead of params[&#8216;key&#8217;] and they get the
+same value for both keys.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000064">[]=</a></li>
+<li><a href="#M000076">convert_key</a></li>
+<li><a href="#M000077">convert_value</a></li>
+<li><a href="#M000063">default</a></li>
+<li><a href="#M000071">delete</a></li>
+<li><a href="#M000069">dup</a></li>
+<li><a href="#M000067">fetch</a></li>
+<li><a href="#M000066">key?</a></li>
+<li><a href="#M000070">merge</a></li>
+<li><a href="#M000062">new</a></li>
+<li><a href="#M000072">stringify_keys!</a></li>
+<li><a href="#M000073">symbolize_keys!</a></li>
+<li><a href="#M000075">to_hash</a></li>
+<li><a href="#M000074">to_options!</a></li>
+<li><a href="#M000065">update</a></li>
+<li><a href="#M000068">values_at</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000062">new</a> (constructor = {})</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000064">[]=</a> (key, value)</h2>
+
+<fieldset><div class='row'><p>
+Assigns a <a href="HashWithIndifferentAccess.html#M000062">new</a> value to
+the hash:
+</p>
+<pre>
+  hash = HashWithIndifferentAccess.new
+  hash[:key] = &quot;value&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000076">convert_key</a> (key)</h2>
+
+
+
+<h2><a name="M000077">convert_value</a> (value)</h2>
+
+
+
+<h2><a name="M000063">default</a> (key = nil)</h2>
+
+
+
+<h2><a name="M000071">delete</a> (key)</h2>
+
+<fieldset><div class='row'><p>
+Removes a specified key from the hash.
+</p></div></fieldset>
+
+
+<h2><a name="M000069">dup</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an exact copy of the hash.
+</p></div></fieldset>
+
+
+<h2><a name="M000067">fetch</a> (key, *extras)</h2>
+
+<fieldset><div class='row'><p>
+Fetches the value for the specified key, same as doing hash[key]
+</p></div></fieldset>
+
+
+<h2><a name="M000066">key?</a> (key)</h2>
+
+<fieldset><div class='row'><p>
+Checks the hash for a key matching the argument passed in:
+</p>
+<pre>
+  hash = HashWithIndifferentAccess.new
+  hash[&quot;key&quot;] = &quot;value&quot;
+  hash.key? :key  # =&gt; true
+  hash.key? &quot;key&quot; # =&gt; true
+</pre></div></fieldset>
+
+
+<h2><a name="M000070">merge</a> (hash)</h2>
+
+<fieldset><div class='row'><p>
+Merges the instantized and the specified hashes together, giving precedence
+to the values from the second hash Does not overwrite the existing hash.
+</p></div></fieldset>
+
+
+<h2><a name="M000072">stringify_keys!</a> ()</h2>
+
+
+
+<h2><a name="M000073">symbolize_keys!</a> ()</h2>
+
+
+
+<h2><a name="M000075">to_hash</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Convert to a Hash with String keys.
+</p></div></fieldset>
+
+
+<h2><a name="M000074">to_options!</a> ()</h2>
+
+
+
+<h2><a name="M000065">update</a> (other_hash)</h2>
+
+<fieldset><div class='row'><p>
+Updates the instantized hash with values from the second:
+</p>
+<pre>
+  hash_1 = HashWithIndifferentAccess.new
+  hash_1[:key] = &quot;value&quot;
+
+  hash_2 = HashWithIndifferentAccess.new
+  hash_2[:key] = &quot;New Value!&quot;
+
+  hash_1.update(hash_2) # =&gt; {&quot;key&quot;=&gt;&quot;New Value!&quot;}
+</pre></div></fieldset>
+
+
+<h2><a name="M000068">values_at</a> (*indices)</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of the values at the specified indices:
+</p>
+<pre>
+  hash = HashWithIndifferentAccess.new
+  hash[:a] = &quot;x&quot;
+  hash[:b] = &quot;y&quot;
+  hash.values_at(&quot;a&quot;, &quot;b&quot;) # =&gt; [&quot;x&quot;, &quot;y&quot;]
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

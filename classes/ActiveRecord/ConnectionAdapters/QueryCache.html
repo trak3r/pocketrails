@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::ConnectionAdapters::QueryCache
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::QueryCache
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::QueryCache" title="ActiveRecord::ConnectionAdapters::QueryCache" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/query_cache_rb.html">activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001523">cache</a></li>
+<li><a href="#M001525">clear_query_cache</a></li>
+<li><a href="#M001527">columns_with_query_cache</a></li>
+<li><a href="#M001522">dirties_query_cache</a></li>
+<li><a href="#M001521">included</a></li>
+<li><a href="#M001526">select_all_with_query_cache</a></li>
+<li><a href="#M001524">uncached</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+query_cache
+</label>
+
+[R]
+<label>
+query_cache_enabled
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M001522">dirties_query_cache</a> (base, *method_names)</h2>
+
+
+
+<h2><a name="M001521">included</a> (base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001523">cache</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Enable the query <a href="QueryCache.html#M001523">cache</a> within the
+block.
+</p></div></fieldset>
+
+
+<h2><a name="M001525">clear_query_cache</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Clears the query <a href="QueryCache.html#M001523">cache</a>.
+</p>
+<p>
+One reason you may wish to call this method explicitly is between queries
+that ask the database to randomize results. Otherwise the <a
+href="QueryCache.html#M001523">cache</a> would see the same SQL query and
+repeatedly return the same result each time, silently undermining the
+randomness you were expecting.
+</p></div></fieldset>
+
+
+<h2><a name="M001527">columns_with_query_cache</a> (*args)</h2>
+
+
+
+<h2><a name="M001526">select_all_with_query_cache</a> (*args)</h2>
+
+
+
+<h2><a name="M001524">uncached</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Disable the query <a href="QueryCache.html#M001523">cache</a> within the
+block.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveResource::HttpMock
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveResource::HttpMock
+    </h1>
+</div>
+<div id="ActiveResource::HttpMock" title="ActiveResource::HttpMock" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activeresource/lib/active_resource/http_mock_rb.html">activeresource/lib/active_resource/http_mock.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+One thing that has always been a pain with remote web services is testing.
+The <a href="HttpMock.html">HttpMock</a> class makes it easy to test your
+Active Resource models by creating a set of mock <a
+href="HttpMock.html#M000564">responses</a> to specific <a
+href="HttpMock.html#M000563">requests</a>.
+</p>
+<p>
+To test your Active Resource model, you simply call the <a
+href="HttpMock.html#M000565">ActiveResource::HttpMock.respond_to</a> method
+with an attached block. The block declares a set of URIs with expected
+input, and the output each request should return. The passed in block has
+any number of entries in the following generalized format:
+</p>
+<pre>
+  mock.http_method(path, request_headers = {}, body = nil, status = 200, response_headers = {})
+</pre>
+<ul>
+<li><tt>http_method</tt> - The HTTP method to listen for. This can be
+<tt>get</tt>, <tt>post</tt>, <tt>put</tt>, <tt>delete</tt> or
+<tt>head</tt>.
+
+</li>
+<li><tt>path</tt> - A string, starting with a &quot;/&quot;, defining the URI
+that is expected to be called.
+
+</li>
+<li><tt>request_headers</tt> - Headers that are expected along with the
+request. This argument uses a hash format, such as <tt>{
+&quot;Content-Type&quot; =&gt; &quot;application/xml&quot; }</tt>. This
+mock will only trigger if your tests sends a request with identical
+headers.
+
+</li>
+<li><tt>body</tt> - The data to be returned. This should be a string of Active
+Resource parseable content, such as XML.
+
+</li>
+<li><tt>status</tt> - The HTTP response code, as an integer, to return with the
+response.
+
+</li>
+<li><tt>response_headers</tt> - Headers to be returned with the response. Uses
+the same hash format as <tt>request_headers</tt> listed above.
+
+</li>
+</ul>
+<p>
+In order for a mock to deliver its content, the incoming request must match
+by the <tt>http_method</tt>, <tt>path</tt> and <tt>request_headers</tt>. If
+no match is found an <a
+href="InvalidRequestError.html">InvalidRequestError</a> exception will be
+raised letting you know you need to create a new mock for that request.
+</p>
+<h4>Example</h4>
+<pre>
+  def setup
+    @matz  = { :id =&gt; 1, :name =&gt; &quot;Matz&quot; }.to_xml(:root =&gt; &quot;person&quot;)
+    ActiveResource::HttpMock.respond_to do |mock|
+      mock.post   &quot;/people.xml&quot;,   {}, @matz, 201, &quot;Location&quot; =&gt; &quot;/people/1.xml&quot;
+      mock.get    &quot;/people/1.xml&quot;, {}, @matz
+      mock.put    &quot;/people/1.xml&quot;, {}, nil, 204
+      mock.delete &quot;/people/1.xml&quot;, {}, nil, 200
+    end
+  end
+
+  def test_get_matz
+    person = Person.find(1)
+    assert_equal &quot;Matz&quot;, person.name
+  end
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000563">requests</a></li>
+<li><a href="#M000566">reset!</a></li>
+<li><a href="#M000565">respond_to</a></li>
+<li><a href="#M000564">responses</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000563">requests</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of all request objects that have been sent to the mock.
+You can use this to check if your model actually sent an HTTP request.
+</p>
+<h4>Example</h4>
+<pre>
+  def setup
+    @matz  = { :id =&gt; 1, :name =&gt; &quot;Matz&quot; }.to_xml(:root =&gt; &quot;person&quot;)
+    ActiveResource::HttpMock.respond_to do |mock|
+      mock.get &quot;/people/1.xml&quot;, {}, @matz
+    end
+  end
+
+  def test_should_request_remote_service
+    person = Person.find(1)  # Call the remote service
+
+    # This request object has the same HTTP method and path as declared by the mock
+    expected_request = ActiveResource::Request.new(:get, &quot;/people/1.xml&quot;)
+
+    # Assert that the mock received, and responded to, the expected request from the model
+    assert ActiveResource::HttpMock.requests.include?(expected_request)
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M000566">reset!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Deletes all logged <a href="HttpMock.html#M000563">requests</a> and <a
+href="HttpMock.html#M000564">responses</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M000565">respond_to</a> (pairs = {}) {|mock| ...}</h2>
+
+<fieldset><div class='row'><p>
+Accepts a block which declares a set of <a
+href="HttpMock.html#M000563">requests</a> and <a
+href="HttpMock.html#M000564">responses</a> for the <a
+href="HttpMock.html">HttpMock</a> to respond to. See the main <a
+href="HttpMock.html">ActiveResource::HttpMock</a> description for a more
+detailed explanation.
+</p></div></fieldset>
+
+
+<h2><a name="M000564">responses</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a hash of <tt>request =&gt; response</tt> pairs for all all <a
+href="HttpMock.html#M000564">responses</a> this mock has delivered, where
+<tt>request</tt> is an instance of <a
+href="Request.html">ActiveResource::Request</a> and the response is,
+naturally, an instance of <a
+href="Response.html">ActiveResource::Response</a>.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

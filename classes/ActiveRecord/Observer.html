@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::Observer
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Observer
+    </h1>
+</div>
+<div id="ActiveRecord::Observer" title="ActiveRecord::Observer" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/observer_rb.html">activerecord/lib/active_record/observer.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Observer.html">Observer</a> classes respond to lifecycle callbacks
+to implement trigger-like behavior outside the original class. This is a
+great way to reduce the clutter that normally comes when the model class is
+burdened with functionality that doesn&#8216;t pertain to the core
+responsibility of the class. Example:
+</p>
+<pre>
+  class CommentObserver &lt; ActiveRecord::Observer
+    def after_save(comment)
+      Notifications.deliver_comment(&quot;admin@do.com&quot;, &quot;New comment was posted&quot;, comment)
+    end
+  end
+</pre>
+<p>
+This <a href="Observer.html">Observer</a> sends an email when a
+Comment#save is finished.
+</p>
+<pre>
+  class ContactObserver &lt; ActiveRecord::Observer
+    def after_create(contact)
+      contact.logger.info('New contact added!')
+    end
+
+    def after_destroy(contact)
+      contact.logger.warn(&quot;Contact with an id of #{contact.id} was destroyed!&quot;)
+    end
+  end
+</pre>
+<p>
+This <a href="Observer.html">Observer</a> uses logger to log when specific
+callbacks are triggered.
+</p>
+<h2>Observing a class that can&#8216;t be inferred</h2>
+<p>
+Observers will by default be mapped to the class with which they share a
+name. So CommentObserver will be tied to observing Comment,
+ProductManagerObserver to ProductManager, and so on. If you want to name
+your observer differently than the class you&#8216;re interested in
+observing, you can use the <a
+href="Observer.html#M001822">Observer.observe</a> class method which takes
+either the concrete class (Product) or a symbol for that class (:product):
+</p>
+<pre>
+  class AuditObserver &lt; ActiveRecord::Observer
+    observe :account
+
+    def after_update(account)
+      AuditTrail.new(account, &quot;UPDATED&quot;)
+    end
+  end
+</pre>
+<p>
+If the audit observer needs to watch more than one kind of object, this can
+be specified with multiple arguments:
+</p>
+<pre>
+  class AuditObserver &lt; ActiveRecord::Observer
+    observe :account, :balance
+
+    def after_update(record)
+      AuditTrail.new(record, &quot;UPDATED&quot;)
+    end
+  end
+</pre>
+<p>
+The AuditObserver will now act on both updates to Account and Balance by
+treating them both as records.
+</p>
+<h2>Available callback methods</h2>
+<p>
+The observer can implement callback methods for each of the methods
+described in the <a href="Callbacks.html">Callbacks</a> module.
+</p>
+<h2>Storing Observers in <a href="../Rails.html">Rails</a></h2>
+<p>
+If you&#8216;re using Active Record within <a
+href="../Rails.html">Rails</a>, observer classes are usually stored in
+app/models with the naming convention of app/models/audit_observer.rb.
+</p>
+<h2>Configuration</h2>
+<p>
+In order to activate an observer, list it in the
+<tt>config.active_record.observers</tt> configuration setting in your
+<tt>config/environment.rb</tt> file.
+</p>
+<pre>
+  config.active_record.observers = :comment_observer, :signup_observer
+</pre>
+<p>
+Observers will not be invoked unless you define these in your application
+configuration.
+</p>
+<h2>Loading</h2>
+<p>
+Observers register themselves in the model class they <a
+href="Observer.html#M001822">observe</a>, since it is the class that
+notifies them of events when they occur. As a side-effect, when an observer
+is loaded its corresponding model class is loaded.
+</p>
+<p>
+Up to (and including) <a href="../Rails.html">Rails</a> 2.0.2 observers
+were instantiated between plugins and application initializers. Now
+observers are loaded after application initializers, so observed models can
+make use of extensions.
+</p>
+<p>
+If by any chance you are using observed models in the initialization you
+can still load their observers by calling <tt>ModelObserver.instance</tt>
+before. Observers are singletons and that call instantiates and registers
+them.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001827">add_observer!</a></li>
+<li><a href="#M001824">new</a></li>
+<li><a href="#M001822">observe</a></li>
+<li><a href="#M001823">observed_class</a></li>
+<li><a href="#M001825">observed_classes</a></li>
+<li><a href="#M001826">observed_subclasses</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>Singleton</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001824">new</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Start observing the declared classes and their subclasses.
+</p></div></fieldset>
+
+
+<h2><a name="M001822">observe</a> (*models)</h2>
+
+<fieldset><div class='row'><p>
+Attaches the observer to the supplied model classes.
+</p></div></fieldset>
+
+
+<h2><a name="M001823">observed_class</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The class observed by default is inferred from the observer&#8216;s class
+name:
+</p>
+<pre>
+  assert_equal Person, PersonObserver.observed_class
+</pre></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M001827">add_observer!</a> (klass)</h2>
+
+
+
+<h2><a name="M001825">observed_classes</a> ()</h2>
+
+
+
+<h2><a name="M001826">observed_subclasses</a> ()</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

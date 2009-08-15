@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Module
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Module
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Module" title="ActiveSupport::CoreExtensions::Module" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/core_ext/module/aliasing_rb.html">activesupport/lib/active_support/core_ext/module/aliasing.rb</a>
+                </li>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/core_ext/module/introspection_rb.html">activesupport/lib/active_support/core_ext/module/introspection.rb</a>
+                </li>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/core_ext/module/model_naming_rb.html">activesupport/lib/active_support/core_ext/module/model_naming.rb</a>
+                </li>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/core_ext/module_rb.html">activesupport/lib/active_support/core_ext/module.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Various extensions for the Ruby core <a href="Module.html">Module</a>
+class.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000888">alias_attribute</a></li>
+<li><a href="#M000887">alias_method_chain</a></li>
+<li><a href="#M000893">local_constant_names</a></li>
+<li><a href="#M000892">local_constants</a></li>
+<li><a href="#M000894">model_name</a></li>
+<li><a href="#M000890">parent</a></li>
+<li><a href="#M000889">parent_name</a></li>
+<li><a href="#M000891">parents</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000888">alias_attribute</a> (new_name, old_name)</h2>
+
+<fieldset><div class='row'><p>
+Allows you to make aliases for attributes, which includes getter, setter,
+and query methods.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class Content &lt; ActiveRecord::Base
+    # has a title attribute
+  end
+
+  class Email &lt; Content
+    alias_attribute :subject, :title
+  end
+
+  e = Email.find(1)
+  e.title    # =&gt; &quot;Superstars&quot;
+  e.subject  # =&gt; &quot;Superstars&quot;
+  e.subject? # =&gt; true
+  e.subject = &quot;Megastars&quot;
+  e.title    # =&gt; &quot;Megastars&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000887">alias_method_chain</a> (target, feature) {|aliased_target, punctuation| ...}</h2>
+
+<fieldset><div class='row'><p>
+Encapsulates the common pattern of:
+</p>
+<pre>
+  alias_method :foo_without_feature, :foo
+  alias_method :foo, :foo_with_feature
+</pre>
+<p>
+With this, you simply do:
+</p>
+<pre>
+  alias_method_chain :foo, :feature
+</pre>
+<p>
+And both aliases are set up for you.
+</p>
+<p>
+Query and bang methods (foo?, foo!) keep the same punctuation:
+</p>
+<pre>
+  alias_method_chain :foo?, :feature
+</pre>
+<p>
+is equivalent to
+</p>
+<pre>
+  alias_method :foo_without_feature?, :foo?
+  alias_method :foo?, :foo_with_feature?
+</pre>
+<p>
+so you can safely chain foo, foo?, and foo! with the same feature.
+</p></div></fieldset>
+
+
+<h2><a name="M000893">local_constant_names</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the names of the constants defined locally rather than the
+constants themselves. See <tt><a
+href="Module.html#M000892">local_constants</a></tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000892">local_constants</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the constants that have been defined locally by this object and not
+in an ancestor. This method is exact if running under Ruby 1.9. In previous
+versions it may miss some constants if their definition in some ancestor is
+identical to their definition in the receiver.
+</p></div></fieldset>
+
+
+<h2><a name="M000894">model_name</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an <a href="../ModelName.html">ActiveSupport::ModelName</a> object
+for module. It can be used to retrieve all kinds of naming-related
+information.
+</p></div></fieldset>
+
+
+<h2><a name="M000890">parent</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the module which contains this one according to its name.
+</p>
+<pre>
+  module M
+    module N
+    end
+  end
+  X = M::N
+
+  p M::N.parent # =&gt; M
+  p X.parent    # =&gt; M
+</pre>
+<p>
+The <a href="Module.html#M000890">parent</a> of top-level and anonymous
+modules is <a href="../../Object.html">Object</a>.
+</p>
+<pre>
+  p M.parent          # =&gt; Object
+  p Module.new.parent # =&gt; Object
+</pre></div></fieldset>
+
+
+<h2><a name="M000889">parent_name</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the name of the module containing this one.
+</p>
+<pre>
+  p M::N.parent_name # =&gt; &quot;M&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000891">parents</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns all the <a href="Module.html#M000891">parents</a> of this module
+according to its name, ordered from nested outwards. The receiver is not
+contained within the result.
+</p>
+<pre>
+  module M
+    module N
+    end
+  end
+  X = M::N
+
+  p M.parents    # =&gt; [Object]
+  p M::N.parents # =&gt; [M, Object]
+  p X.parents    # =&gt; [M, Object]
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

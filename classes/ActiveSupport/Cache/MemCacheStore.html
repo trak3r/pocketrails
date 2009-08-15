@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveSupport::Cache::MemCacheStore
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Cache::MemCacheStore
+    </h1>
+</div>
+<div id="ActiveSupport::Cache::MemCacheStore" title="ActiveSupport::Cache::MemCacheStore" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/cache/mem_cache_store_rb.html">activesupport/lib/active_support/cache/mem_cache_store.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="Store.html">
+               Store
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+A cache store implementation which stores data in Memcached: <a
+href="http://www.danga.com/memcached">www.danga.com/memcached</a>/
+</p>
+<p>
+This is currently the most popular cache store for production websites.
+</p>
+<p>
+Special features:
+</p>
+<ul>
+<li>Clustering and load balancing. One can specify multiple memcached servers,
+and <a href="MemCacheStore.html">MemCacheStore</a> will load balance
+between all available servers. If a server goes down, then <a
+href="MemCacheStore.html">MemCacheStore</a> will ignore it until it goes
+back online.
+
+</li>
+<li>Time-based expiry support. See <a
+href="MemCacheStore.html#M000710">write</a> and the +:expires_in+ option.
+
+</li>
+</ul>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000711">clear</a></li>
+<li><a href="#M000709">new</a></li>
+<li><a href="#M000712">stats</a></li>
+<li><a href="#M000710">write</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+addresses
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M000709">new</a> (*addresses)</h2>
+
+<fieldset><div class='row'><p>
+Creates a <a href="MemCacheStore.html#M000709">new</a> <a
+href="MemCacheStore.html">MemCacheStore</a> object, with the given
+memcached server addresses. Each address is either a host name, or a
+host-with-port string in the form of &quot;host_name:port&quot;. For
+example:
+</p>
+<pre>
+  ActiveSupport::Cache::MemCacheStore.new(&quot;localhost&quot;, &quot;server-downstairs.localnetwork:8229&quot;)
+</pre>
+<p>
+If no addresses are specified, then <a
+href="MemCacheStore.html">MemCacheStore</a> will connect to localhost port
+11211 (the default memcached port).
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000711">clear</a> ()</h2>
+
+
+
+<h2><a name="M000712">stats</a> ()</h2>
+
+
+
+<h2><a name="M000710">write</a> (key, value, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Writes a value to the cache.
+</p>
+<p>
+Possible options:
+</p>
+<ul>
+<li>+:unless_exist+ - set to true if you don&#8216;t want to update the cache
+if the key is already set.
+
+</li>
+<li>+:expires_in+ - the number of seconds that this value may stay in the
+cache. See <a
+href="Store.html#M000701">ActiveSupport::Cache::Store#write</a> for an
+example.
+
+</li>
+</ul></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

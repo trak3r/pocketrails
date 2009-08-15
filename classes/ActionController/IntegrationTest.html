@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionController::IntegrationTest
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::IntegrationTest
+    </h1>
+</div>
+<div id="ActionController::IntegrationTest" title="ActionController::IntegrationTest" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/integration_rb.html">actionpack/lib/action_controller/integration.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../ActiveSupport/TestCase.html">
+               ActiveSupport::TestCase
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+An <a href="IntegrationTest.html">IntegrationTest</a> is one that spans
+multiple controllers and actions, tying them all together to ensure they
+work together as expected. It tests more completely than either unit or
+functional tests do, exercising the entire stack, from the dispatcher to
+the database.
+</p>
+<p>
+At its simplest, you simply extend <a
+href="IntegrationTest.html">IntegrationTest</a> and write your tests using
+the get/post methods:
+</p>
+<pre>
+  require &quot;#{File.dirname(__FILE__)}/test_helper&quot;
+
+  class ExampleTest &lt; ActionController::IntegrationTest
+    fixtures :people
+
+    def test_login
+      # get the login page
+      get &quot;/login&quot;
+      assert_equal 200, status
+
+      # post the login and follow through to the home page
+      post &quot;/login&quot;, :username =&gt; people(:jamis).username,
+        :password =&gt; people(:jamis).password
+      follow_redirect!
+      assert_equal 200, status
+      assert_equal &quot;/home&quot;, path
+    end
+  end
+</pre>
+<p>
+However, you can also have multiple session instances open per test, and
+even extend those instances with assertions and methods to create a very
+powerful testing DSL that is specific for your application. You can even
+reference any named routes you happen to have defined!
+</p>
+<pre>
+  require &quot;#{File.dirname(__FILE__)}/test_helper&quot;
+
+  class AdvancedTest &lt; ActionController::IntegrationTest
+    fixtures :people, :rooms
+
+    def test_login_and_speak
+      jamis, david = login(:jamis), login(:david)
+      room = rooms(:office)
+
+      jamis.enter(room)
+      jamis.speak(room, &quot;anybody home?&quot;)
+
+      david.enter(room)
+      david.speak(room, &quot;hello!&quot;)
+    end
+
+    private
+
+      module CustomAssertions
+        def enter(room)
+          # reference a named route, for maximum internal consistency!
+          get(room_url(:id =&gt; room.id))
+          assert(...)
+          ...
+        end
+
+        def speak(room, message)
+          xml_http_request &quot;/say/#{room.id}&quot;, :message =&gt; message
+          assert(...)
+          ...
+        end
+      end
+
+      def login(who)
+        open_session do |sess|
+          sess.extend(CustomAssertions)
+          who = people(who)
+          sess.post &quot;/login&quot;, :username =&gt; who.username,
+            :password =&gt; who.password
+          assert(...)
+        end
+      end
+  end
+</pre>
+</div></fieldset>
+
+
+
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="Integration/Runner.html">Integration::Runner</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

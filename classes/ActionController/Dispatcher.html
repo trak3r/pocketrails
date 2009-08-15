@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionController::Dispatcher
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Dispatcher
+    </h1>
+</div>
+<div id="ActionController::Dispatcher" title="ActionController::Dispatcher" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/dispatcher_rb.html">actionpack/lib/action_controller/dispatcher.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Dispatches requests to the appropriate controller and takes care of
+reloading the app after each request when Dependencies.load? is true.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000482">_call</a></li>
+<li><a href="#M000481">call</a></li>
+<li><a href="#M000488">checkin_connections</a></li>
+<li><a href="#M000484">cleanup_application</a></li>
+<li><a href="#M000473">define_dispatcher_callbacks</a></li>
+<li><a href="#M000474">dispatch</a></li>
+<li><a href="#M000479">dispatch</a></li>
+<li><a href="#M000480">dispatch_cgi</a></li>
+<li><a href="#M000478">dispatch_unlocked</a></li>
+<li><a href="#M000490">failsafe_rescue</a></li>
+<li><a href="#M000476">failsafe_response</a></li>
+<li><a href="#M000485">flush_logger</a></li>
+<li><a href="#M000489">handle_request</a></li>
+<li><a href="#M000486">mark_as_test_request!</a></li>
+<li><a href="#M000477">new</a></li>
+<li><a href="#M000483">reload_application</a></li>
+<li><a href="#M000487">test_request?</a></li>
+<li><a href="#M000475">to_prepare</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="../ActiveSupport/Callbacks.html">ActiveSupport::Callbacks</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000473">define_dispatcher_callbacks</a> (cache_classes)</h2>
+
+
+
+<h2><a name="M000474">dispatch</a> (cgi = nil, session_options = CgiRequest::DEFAULT_SESSION_OPTIONS, output = $stdout)</h2>
+
+<fieldset><div class='row'><p>
+Backward-compatible class method takes CGI-specific args. Deprecated in
+favor of <a href="Dispatcher.html#M000477">Dispatcher.new</a>(output,
+request, response).<a href="Dispatcher.html#M000474">dispatch</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M000476">failsafe_response</a> (fallback_output, status, originating_exception = nil) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+If the block raises, send status code as a last-ditch response.
+</p></div></fieldset>
+
+
+<h2><a name="M000477">new</a> (output = $stdout, request = nil, response = nil)</h2>
+
+
+
+<h2><a name="M000475">to_prepare</a> (identifier = nil, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Add a preparation callback. Preparation callbacks are run before every
+request in development mode, and before the first request in production
+mode.
+</p>
+<p>
+An optional identifier may be supplied for the callback. If provided, <a
+href="Dispatcher.html#M000475">to_prepare</a> may be called again with the
+same identifier to replace the existing callback. Passing an identifier is
+a suggested practice if the code adding a preparation block may be
+reloaded.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000482">_call</a> (env)</h2>
+
+
+
+<h2><a name="M000481">call</a> (env)</h2>
+
+
+
+<h2><a name="M000488">checkin_connections</a> ()</h2>
+
+
+
+<h2><a name="M000484">cleanup_application</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Cleanup the application by clearing out loaded classes so they can be
+reloaded on the next request without restarting the server.
+</p></div></fieldset>
+
+
+<h2><a name="M000479">dispatch</a> ()</h2>
+
+
+
+<h2><a name="M000480">dispatch_cgi</a> (cgi, session_options)</h2>
+
+
+
+<h2><a name="M000478">dispatch_unlocked</a> ()</h2>
+
+
+
+<h2><a name="M000485">flush_logger</a> ()</h2>
+
+
+
+<h2><a name="M000486">mark_as_test_request!</a> ()</h2>
+
+
+
+<h2><a name="M000483">reload_application</a> ()</h2>
+
+
+
+<h2><a name="M000487">test_request?</a> ()</h2>
+
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M000490">failsafe_rescue</a> (exception)</h2>
+
+
+
+<h2><a name="M000489">handle_request</a> ()</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

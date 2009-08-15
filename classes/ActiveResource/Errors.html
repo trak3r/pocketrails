@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveResource::Errors
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveResource::Errors
+    </h1>
+</div>
+<div id="ActiveResource::Errors" title="ActiveResource::Errors" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activeresource/lib/active_resource/validations_rb.html">activeresource/lib/active_resource/validations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Active Resource validation is reported to and from this object, which is
+used by <a href="Base.html#M000603">Base#save</a> to determine whether the
+object in a valid state to be saved. See usage example in <a
+href="Validations.html">Validations</a>.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000553">[]</a></li>
+<li><a href="#M000550">add</a></li>
+<li><a href="#M000549">add_to_base</a></li>
+<li><a href="#M000558">clear</a></li>
+<li><a href="#M000560">count</a></li>
+<li><a href="#M000555">each</a></li>
+<li><a href="#M000556">each_full</a></li>
+<li><a href="#M000562">from_xml</a></li>
+<li><a href="#M000557">full_messages</a></li>
+<li><a href="#M000551">invalid?</a></li>
+<li><a href="#M000561">length</a></li>
+<li><a href="#M000552">on</a></li>
+<li><a href="#M000554">on_base</a></li>
+<li><a href="#M000559">size</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="../Enumerable.html">Enumerable</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+errors
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000553">[]</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Errors.html#M000552">on</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000550">add</a> (attribute, msg)</h2>
+
+<fieldset><div class='row'><p>
+Adds an error to an Active Resource object&#8216;s attribute (named for the
+<tt>attribute</tt> parameter) with the error message in <tt>msg</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_resource = Node.find(1)
+  my_resource.errors.add('name', 'can not be &quot;base&quot;') if my_resource.name == 'base'
+  my_resource.errors.on('name')
+  # =&gt; 'can not be &quot;base&quot;!'
+
+  my_resource.errors.add('desc', 'can not be blank') if my_resource.desc == ''
+  my_resource.valid?
+  # =&gt; false
+  my_resource.errors.on('desc')
+  # =&gt; 'can not be blank!'
+</pre></div></fieldset>
+
+
+<h2><a name="M000549">add_to_base</a> (msg)</h2>
+
+<fieldset><div class='row'><p>
+Add an error to the base Active Resource object rather than an attribute.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_folder = Folder.find(1)
+  my_folder.errors.add_to_base(&quot;You can't edit an existing folder&quot;)
+  my_folder.errors.on_base
+  # =&gt; &quot;You can't edit an existing folder&quot;
+
+  my_folder.errors.add_to_base(&quot;This folder has been tagged as frozen&quot;)
+  my_folder.valid?
+  # =&gt; false
+  my_folder.errors.on_base
+  # =&gt; [&quot;You can't edit an existing folder&quot;, &quot;This folder has been tagged as frozen&quot;]
+</pre></div></fieldset>
+
+
+<h2><a name="M000558">clear</a> ()</h2>
+
+
+
+<h2><a name="M000560">count</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Errors.html#M000559">size</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000555">each</a> () {|attr, msg| ...}</h2>
+
+<fieldset><div class='row'><p>
+Yields <a href="Errors.html#M000555">each</a> attribute and associated
+message per error added.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_person = Person.new(params[:person])
+
+  my_person.errors.add('login', 'can not be empty') if my_person.login == ''
+  my_person.errors.add('password', 'can not be empty') if my_person.password == ''
+  messages = ''
+  my_person.errors.each {|attr, msg| messages += attr.humanize + &quot; &quot; + msg + &quot;&lt;br /&gt;&quot;}
+  messages
+  # =&gt; &quot;Login can not be empty&lt;br /&gt;Password can not be empty&lt;br /&gt;&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000556">each_full</a> () {|msg| ...}</h2>
+
+<fieldset><div class='row'><p>
+Yields <a href="Errors.html#M000555">each</a> full error message added. So
+Person.errors.<a href="Errors.html#M000550">add</a>(&quot;first_name&quot;,
+&quot;can&#8216;t be empty&quot;) will be returned through iteration as
+&quot;First name can&#8216;t be empty&quot;.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_person = Person.new(params[:person])
+
+  my_person.errors.add('login', 'can not be empty') if my_person.login == ''
+  my_person.errors.add('password', 'can not be empty') if my_person.password == ''
+  messages = ''
+  my_person.errors.each_full {|msg| messages += msg + &quot;&lt;br/&gt;&quot;}
+  messages
+  # =&gt; &quot;Login can not be empty&lt;br /&gt;Password can not be empty&lt;br /&gt;&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000562">from_xml</a> (xml)</h2>
+
+<fieldset><div class='row'><p>
+Grabs errors from the XML response.
+</p></div></fieldset>
+
+
+<h2><a name="M000557">full_messages</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns all the full error messages in an array.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_person = Person.new(params[:person])
+
+  my_person.errors.add('login', 'can not be empty') if my_person.login == ''
+  my_person.errors.add('password', 'can not be empty') if my_person.password == ''
+  messages = ''
+  my_person.errors.full_messages.each {|msg| messages += msg + &quot;&lt;br/&gt;&quot;}
+  messages
+  # =&gt; &quot;Login can not be empty&lt;br /&gt;Password can not be empty&lt;br /&gt;&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000551">invalid?</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the specified <tt>attribute</tt> has errors associated with
+it.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_resource = Disk.find(1)
+  my_resource.errors.add('location', 'must be Main') unless my_resource.location == 'Main'
+  my_resource.errors.on('location')
+  # =&gt; 'must be Main!'
+
+  my_resource.errors.invalid?('location')
+  # =&gt; true
+  my_resource.errors.invalid?('name')
+  # =&gt; false
+</pre></div></fieldset>
+
+
+<h2><a name="M000561">length</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Errors.html#M000559">size</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000552">on</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+A method to return the errors associated with <tt>attribute</tt>, which
+returns nil, if no errors are associated with the specified
+<tt>attribute</tt>, the error message if one error is associated with the
+specified <tt>attribute</tt>, or an array of error messages if more than
+one error is associated with the specified <tt>attribute</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_person = Person.new(params[:person])
+  my_person.errors.on('login')
+  # =&gt; nil
+
+  my_person.errors.add('login', 'can not be empty') if my_person.login == ''
+  my_person.errors.on('login')
+  # =&gt; 'can not be empty'
+
+  my_person.errors.add('login', 'can not be longer than 10 characters') if my_person.login.length &gt; 10
+  my_person.errors.on('login')
+  # =&gt; ['can not be empty', 'can not be longer than 10 characters']
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>[]</div></fieldset>
+
+<h2><a name="M000554">on_base</a> ()</h2>
+
+<fieldset><div class='row'><p>
+A method to return errors assigned to <tt>base</tt> object through <a
+href="Errors.html#M000549">add_to_base</a>, which returns nil, if no errors
+are associated with the specified <tt>attribute</tt>, the error message if
+one error is associated with the specified <tt>attribute</tt>, or an array
+of error messages if more than one error is associated with the specified
+<tt>attribute</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_account = Account.find(1)
+  my_account.errors.on_base
+  # =&gt; nil
+
+  my_account.errors.add_to_base(&quot;This account is frozen&quot;)
+  my_account.errors.on_base
+  # =&gt; &quot;This account is frozen&quot;
+
+  my_account.errors.add_to_base(&quot;This account has been closed&quot;)
+  my_account.errors.on_base
+  # =&gt; [&quot;This account is frozen&quot;, &quot;This account has been closed&quot;]
+</pre></div></fieldset>
+
+
+<h2><a name="M000559">size</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the total number of errors added. Two errors added to the same
+attribute will be counted as such with this as well.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_person = Person.new(params[:person])
+  my_person.errors.size
+  # =&gt; 0
+
+  my_person.errors.add('login', 'can not be empty') if my_person.login == ''
+  my_person.errors.add('password', 'can not be empty') if my_person.password == ''
+  my_person.error.size
+  # =&gt; 2
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>count</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>length</div></fieldset>
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

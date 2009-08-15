@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: RailsFCGIHandler
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        RailsFCGIHandler
+    </h1>
+</div>
+<div id="RailsFCGIHandler" title="RailsFCGIHandler" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../files/railties/lib/fcgi_handler_rb.html">railties/lib/fcgi_handler.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000038">close_connection</a></li>
+<li><a href="#M000024">dispatcher_error</a></li>
+<li><a href="#M000023">dispatcher_log</a></li>
+<li><a href="#M000029">exit_handler</a></li>
+<li><a href="#M000028">exit_now_handler</a></li>
+<li><a href="#M000037">gc_countdown</a></li>
+<li><a href="#M000026">install_signal_handler</a></li>
+<li><a href="#M000025">install_signal_handlers</a></li>
+<li><a href="#M000022">logger</a></li>
+<li><a href="#M000034">mark_features!</a></li>
+<li><a href="#M000018">new</a></li>
+<li><a href="#M000019">process!</a></li>
+<li><a href="#M000017">process!</a></li>
+<li><a href="#M000020">process_each_request</a></li>
+<li><a href="#M000021">process_request</a></li>
+<li><a href="#M000033">reload!</a></li>
+<li><a href="#M000030">reload_handler</a></li>
+<li><a href="#M000032">restart!</a></li>
+<li><a href="#M000031">restart_handler</a></li>
+<li><a href="#M000035">restore!</a></li>
+<li><a href="#M000036">run_gc!</a></li>
+<li><a href="#M000027">with_signal_handler</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>SIGNALS</h2>
+<fieldset>
+<div class="row">
+{     'HUP'     =&gt; :reload,     'INT'     =&gt; :exit_now,     'TERM'    =&gt; :exit_now,     'USR1'    =&gt; :exit,     'USR2'    =&gt; :restart
+</div>
+</fieldset>
+<h2>GLOBAL_SIGNALS</h2>
+<fieldset>
+<div class="row">
+SIGNALS.keys - %w(USR1)
+</div>
+</fieldset>
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+gc_request_period
+</label>
+
+[RW]
+<label>
+log_file_path
+</label>
+
+[R]
+<label>
+when_ready
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M000018">new</a> (log_file_path = nil, gc_request_period = nil) {|self if block_given?| ...}</h2>
+
+<fieldset><div class='row'><p>
+Initialize the FastCGI instance with the path to a crash log detailing
+unhandled exceptions (default RAILS_ROOT/log/fastcgi.crash.log) and the
+number of requests to process between garbage collection runs (default nil
+for normal GC behavior.) Optionally, pass a block which takes this instance
+as an argument for further configuration.
+</p></div></fieldset>
+
+
+<h2><a name="M000017">process!</a> (*args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Initialize and run the FastCGI instance, passing arguments through to <a
+href="RailsFCGIHandler.html#M000018">new</a>.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000019">process!</a> (provider = FCGI)</h2>
+
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M000038">close_connection</a> (cgi)</h2>
+
+
+
+<h2><a name="M000024">dispatcher_error</a> (e, msg = &quot;&quot;)</h2>
+
+
+
+<h2><a name="M000023">dispatcher_log</a> (level, msg)</h2>
+
+
+
+<h2><a name="M000029">exit_handler</a> (signal)</h2>
+
+
+
+<h2><a name="M000028">exit_now_handler</a> (signal)</h2>
+
+
+
+<h2><a name="M000037">gc_countdown</a> ()</h2>
+
+
+
+<h2><a name="M000026">install_signal_handler</a> (signal, handler = nil)</h2>
+
+
+
+<h2><a name="M000025">install_signal_handlers</a> ()</h2>
+
+
+
+<h2><a name="M000022">logger</a> ()</h2>
+
+
+
+<h2><a name="M000034">mark_features!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Make a note of $&quot; so we can safely reload this instance.
+</p></div></fieldset>
+
+
+<h2><a name="M000020">process_each_request</a> (provider)</h2>
+
+
+
+<h2><a name="M000021">process_request</a> (cgi)</h2>
+
+
+
+<h2><a name="M000033">reload!</a> ()</h2>
+
+
+
+<h2><a name="M000030">reload_handler</a> (signal)</h2>
+
+
+
+<h2><a name="M000032">restart!</a> ()</h2>
+
+
+
+<h2><a name="M000031">restart_handler</a> (signal)</h2>
+
+
+
+<h2><a name="M000035">restore!</a> ()</h2>
+
+
+
+<h2><a name="M000036">run_gc!</a> ()</h2>
+
+
+
+<h2><a name="M000027">with_signal_handler</a> (signal) {|| ...}</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

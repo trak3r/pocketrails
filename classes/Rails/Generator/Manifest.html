@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Rails::Generator::Manifest
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Generator::Manifest
+    </h1>
+</div>
+<div id="Rails::Generator::Manifest" title="Rails::Generator::Manifest" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/railties/lib/rails_generator/manifest_rb.html">railties/lib/rails_generator/manifest.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Manifest.html">Manifest</a> captures the actions a generator
+performs. Instantiate a manifest with an optional target object, hammer it
+with actions, then <a href="Manifest.html#M002045">replay</a> or <a
+href="Manifest.html#M002046">rewind</a> on the object of your choice.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  manifest = Manifest.new { |m|
+    m.make_directory '/foo'
+    m.create_file '/foo/bar.txt'
+  }
+  manifest.replay(creator)
+  manifest.rewind(destroyer)
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002047">erase</a></li>
+<li><a href="#M002044">method_missing</a></li>
+<li><a href="#M002043">new</a></li>
+<li><a href="#M002045">replay</a></li>
+<li><a href="#M002046">rewind</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+target
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M002043">new</a> (target = nil) {|self if block_given?| ...}</h2>
+
+<fieldset><div class='row'><p>
+Take a default action target. Yield self if block given.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002047">erase</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Erase recorded actions.
+</p></div></fieldset>
+
+
+<h2><a name="M002044">method_missing</a> (action, *args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Record an action.
+</p></div></fieldset>
+
+
+<h2><a name="M002045">replay</a> (target = nil)</h2>
+
+<fieldset><div class='row'><p>
+Replay recorded actions.
+</p></div></fieldset>
+
+
+<h2><a name="M002046">rewind</a> (target = nil)</h2>
+
+<fieldset><div class='row'><p>
+Rewind recorded actions.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

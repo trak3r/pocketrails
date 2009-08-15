@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Rails::Generator::NamedBase
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Generator::NamedBase
+    </h1>
+</div>
+<div id="Rails::Generator::NamedBase" title="Rails::Generator::NamedBase" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/railties/lib/rails_generator/base_rb.html">railties/lib/rails_generator/base.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="Base.html">
+               Base
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The base generator for named components: models, controllers, mailers, etc.
+The target name is taken as the first argument and inflected to singular,
+plural, class, file, and table forms for your convenience. The remaining
+arguments are aliased to <tt>actions</tt> as an array for controller and
+mailer convenience.
+</p>
+<p>
+Several useful local variables and methods are populated in the
+<tt>initialize</tt> method. See below for a list of Attributes and External
+Aliases available to both the manifest and to all templates.
+</p>
+<p>
+If no name is provided, the generator raises a usage error with content
+optionally read from the USAGE file in the generator&#8216;s base path.
+</p>
+<p>
+For example, the <tt>controller</tt> generator takes the first argument as
+the name of the class and subsequent arguments as the names of actions to
+be generated:
+</p>
+<pre>
+  ./script/generate controller Article index new create
+</pre>
+<p>
+See <a href="Base.html">Rails::Generator::Base</a> for a discussion of
+manifests, <a
+href="Commands/Create.html">Rails::Generator::Commands::Create</a> for
+methods available to the manifest, and <a
+href="../Generator.html">Rails::Generator</a> for a general discussion of
+generators.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002042">attributes</a></li>
+<li><a href="#M002041">banner</a></li>
+<li><a href="#M002040">new</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+class_name
+</label>
+
+[R]
+<label>
+class_nesting
+</label>
+
+[R]
+<label>
+class_nesting_depth
+</label>
+
+[R]
+<label>
+class_path
+</label>
+
+[R]
+<label>
+file_path
+</label>
+
+[R]
+<label>
+name
+</label>
+
+[R]
+<label>
+plural_name
+</label>
+
+[R]
+<label>
+singular_name
+</label>
+
+[R]
+<label>
+table_name
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M002040">new</a> (runtime_args, runtime_options = {})</h2>
+
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M002042">attributes</a> ()</h2>
+
+
+
+<h2><a name="M002041">banner</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Override with your own usage <a href="NamedBase.html#M002041">banner</a>.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

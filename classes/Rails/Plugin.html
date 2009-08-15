@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Rails::Plugin
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Plugin
+    </h1>
+</div>
+<div id="Rails::Plugin" title="Rails::Plugin" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/railties/lib/rails/plugin_rb.html">railties/lib/rails/plugin.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The <a href="Plugin.html">Plugin</a> class should be an object which
+provides the following methods:
+</p>
+<ul>
+<li><tt>name</tt> - Used during initialisation to order the plugin (based on
+name and
+
+<pre>
+               the contents of &lt;tt&gt;config.plugins&lt;/tt&gt;).
+</pre>
+</li>
+<li>+<a href="Plugin.html#M002166">valid?</a>+ - Returns true if this plugin
+can be loaded.
+
+</li>
+<li><tt><a href="Plugin.html#M002167">load_paths</a></tt> - Each path within
+the returned array will be added to the <tt>$LOAD_PATH</tt>.
+
+</li>
+<li><tt><a href="Plugin.html#M002168">load</a></tt> - Finally &#8216;<a
+href="Plugin.html#M002168">load</a>&#8217; the plugin.
+
+</li>
+</ul>
+<p>
+These methods are expected by the Rails::Plugin::Locator and
+Rails::Plugin::Loader classes. The default implementation returns the
+<tt>lib</tt> directory as its <tt><a
+href="Plugin.html#M002167">load_paths</a></tt>, and evaluates
+<tt>init.rb</tt> when <tt><a href="Plugin.html#M002168">load</a></tt> is
+called.
+</p>
+<p>
+You can also inspect the about.yml data programmatically:
+</p>
+<pre>
+  plugin = Rails::Plugin.new(path_to_my_plugin)
+  plugin.about[&quot;author&quot;] # =&gt; &quot;James Adam&quot;
+  plugin.about[&quot;url&quot;] # =&gt; &quot;http://interblah.net&quot;
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002170">&lt;=&gt;</a></li>
+<li><a href="#M002171">about</a></li>
+<li><a href="#M002175">controller_path</a></li>
+<li><a href="#M002172">engine?</a></li>
+<li><a href="#M002168">load</a></li>
+<li><a href="#M002167">load_paths</a></li>
+<li><a href="#M002169">loaded?</a></li>
+<li><a href="#M002165">new</a></li>
+<li><a href="#M002173">routed?</a></li>
+<li><a href="#M002176">routing_file</a></li>
+<li><a href="#M002166">valid?</a></li>
+<li><a href="#M002174">view_path</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>Comparable</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+directory
+</label>
+
+[R]
+<label>
+name
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M002165">new</a> (directory)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002170">&lt;=&gt;</a> (other_plugin)</h2>
+
+
+
+<h2><a name="M002171">about</a> ()</h2>
+
+
+
+<h2><a name="M002175">controller_path</a> ()</h2>
+
+
+
+<h2><a name="M002172">engine?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Engines are plugins with an app/ directory.
+</p></div></fieldset>
+
+
+<h2><a name="M002168">load</a> (initializer)</h2>
+
+<fieldset><div class='row'><p>
+Evaluates a plugin&#8216;s init.rb file.
+</p></div></fieldset>
+
+
+<h2><a name="M002167">load_paths</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a list of paths this plugin wishes to make available in
+<tt>$LOAD_PATH</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M002169">loaded?</a> ()</h2>
+
+
+
+<h2><a name="M002173">routed?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the engine ships with a routing file
+</p></div></fieldset>
+
+
+<h2><a name="M002176">routing_file</a> ()</h2>
+
+
+
+<h2><a name="M002166">valid?</a> ()</h2>
+
+
+
+<h2><a name="M002174">view_path</a> ()</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

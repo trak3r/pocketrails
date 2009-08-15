@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Time::Zones::ClassMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Time::Zones::ClassMethods
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Time::Zones::ClassMethods" title="ActiveSupport::CoreExtensions::Time::Zones::ClassMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../../files/activesupport/lib/active_support/core_ext/time/zones_rb.html">activesupport/lib/active_support/core_ext/time/zones.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000802">current</a></li>
+<li><a href="#M000801">use_zone</a></li>
+<li><a href="#M000799">zone</a></li>
+<li><a href="#M000800">zone=</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+zone_default
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000802">current</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>Time.zone.now</tt> when <tt>config.time_zone</tt> is set,
+otherwise just returns <tt>Time.now</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000801">use_zone</a> (time_zone) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Allows override of <tt>Time.zone</tt> locally inside supplied block; resets
+<tt>Time.zone</tt> to existing value when done.
+</p></div></fieldset>
+
+
+<h2><a name="M000799">zone</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="../../../TimeZone.html">TimeZone</a> for the <a
+href="ClassMethods.html#M000802">current</a> request, if this has been set
+(via Time.zone=). If <tt>Time.zone</tt> has not been set for the <a
+href="ClassMethods.html#M000802">current</a> request, returns the <a
+href="../../../TimeZone.html">TimeZone</a> specified in
+<tt>config.time_zone</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000800">zone=</a> (time_zone)</h2>
+
+<fieldset><div class='row'><p>
+Sets <tt>Time.zone</tt> to a <a href="../../../TimeZone.html">TimeZone</a>
+object for the <a href="ClassMethods.html#M000802">current</a>
+request/thread.
+</p>
+<p>
+This method accepts any of the following:
+</p>
+<ul>
+<li>A <a href="../../../../Rails.html">Rails</a> <a
+href="../../../TimeZone.html">TimeZone</a> object.
+
+</li>
+<li>An identifier for a <a href="../../../../Rails.html">Rails</a> <a
+href="../../../TimeZone.html">TimeZone</a> object (e.g., &quot;Eastern Time
+(US &amp; Canada)&quot;, <tt>-5.hours</tt>).
+
+</li>
+<li>A TZInfo::Timezone object.
+
+</li>
+<li>An identifier for a TZInfo::Timezone object (e.g.,
+&quot;America/New_York&quot;).
+
+</li>
+</ul>
+<p>
+Here&#8216;s an example of how you might set <tt>Time.zone</tt> on a per
+request basis &#8212; <tt>current_user.time_zone</tt> just needs to return
+a string identifying the user&#8216;s preferred <a
+href="../../../TimeZone.html">TimeZone</a>:
+</p>
+<pre>
+  class ApplicationController &lt; ActionController::Base
+    before_filter :set_time_zone
+
+    def set_time_zone
+      Time.zone = current_user.time_zone
+    end
+  end
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

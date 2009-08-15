@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: Rails::Generator::Lookup
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Generator::Lookup
+    </h1>
+</div>
+<div id="Rails::Generator::Lookup" title="Rails::Generator::Lookup" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/railties/lib/rails_generator/lookup_rb.html">railties/lib/rails_generator/lookup.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="../Generator.html">Generator</a> lookup is managed by a list of
+sources which return specs describing where to find and how to create
+generators. This module provides class methods for manipulating the source
+list and looking up generator specs, and an <a
+href="Lookup.html#M002028">instance</a> wrapper for quickly instantiating
+generators by name.
+</p>
+<p>
+A spec is not a generator: it&#8216;s a description of where to find the
+generator and how to create it. A source is anything that yields generators
+from each. <a href="PathSource.html">PathSource</a> and <a
+href="GemGeneratorSource.html">GemGeneratorSource</a> are provided.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002027">included</a></li>
+<li><a href="#M002028">instance</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Lookup/ClassMethods.html" class="link">Rails::Generator::Lookup::ClassMethods</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M002027">included</a> (base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002028">instance</a> (generator_name, args, runtime_options = {})</h2>
+
+<fieldset><div class='row'><p>
+Convenience method to instantiate another generator.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

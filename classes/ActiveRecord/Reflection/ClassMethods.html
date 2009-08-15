@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::Reflection::ClassMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Reflection::ClassMethods
+    </h1>
+</div>
+<div id="ActiveRecord::Reflection::ClassMethods" title="ActiveRecord::Reflection::ClassMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/reflection_rb.html">activerecord/lib/active_record/reflection.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Reflection allows you to interrogate Active Record classes and objects
+about their associations and aggregations. This information can, for
+example, be used in a form builder that took an Active Record object and
+created input fields for all of the attributes depending on their type and
+displayed the associations to other objects.
+</p>
+<p>
+You can find the interface for the AggregateReflection and
+AssociationReflection classes in the abstract <a
+href="MacroReflection.html">MacroReflection</a> class.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001488">create_reflection</a></li>
+<li><a href="#M001491">reflect_on_aggregation</a></li>
+<li><a href="#M001490">reflect_on_all_aggregations</a></li>
+<li><a href="#M001492">reflect_on_all_associations</a></li>
+<li><a href="#M001493">reflect_on_association</a></li>
+<li><a href="#M001489">reflections</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001488">create_reflection</a> (macro, name, options, active_record)</h2>
+
+
+
+<h2><a name="M001491">reflect_on_aggregation</a> (aggregation)</h2>
+
+<fieldset><div class='row'><p>
+Returns the AggregateReflection object for the named <tt>aggregation</tt>
+(use the symbol). Example:
+</p>
+<pre>
+  Account.reflect_on_aggregation(:balance) # returns the balance AggregateReflection
+</pre></div></fieldset>
+
+
+<h2><a name="M001490">reflect_on_all_aggregations</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of AggregateReflection objects for all the aggregations in
+the class.
+</p></div></fieldset>
+
+
+<h2><a name="M001492">reflect_on_all_associations</a> (macro = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of AssociationReflection objects for all the associations
+in the class. If you only want to reflect on a certain association type,
+pass in the symbol (<tt>:has_many</tt>, <tt>:has_one</tt>,
+<tt>:belongs_to</tt>) for that as the first parameter. Example:
+</p>
+<pre>
+  Account.reflect_on_all_associations             # returns an array of all associations
+  Account.reflect_on_all_associations(:has_many)  # returns an array of all has_many associations
+</pre></div></fieldset>
+
+
+<h2><a name="M001493">reflect_on_association</a> (association)</h2>
+
+<fieldset><div class='row'><p>
+Returns the AssociationReflection object for the named <tt>association</tt>
+(use the symbol). Example:
+</p>
+<pre>
+  Account.reflect_on_association(:owner) # returns the owner AssociationReflection
+  Invoice.reflect_on_association(:line_items).macro  # returns :has_many
+</pre></div></fieldset>
+
+
+<h2><a name="M001489">reflections</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a hash containing all AssociationReflection objects for the current
+class Example:
+</p>
+<pre>
+  Invoice.reflections
+  Account.reflections
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

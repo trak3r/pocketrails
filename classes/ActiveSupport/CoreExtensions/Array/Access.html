@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Array::Access
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Array::Access
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Array::Access" title="ActiveSupport::CoreExtensions::Array::Access" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/array/access_rb.html">activesupport/lib/active_support/core_ext/array/access.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Makes it easier <a href="Access.html#M000878">to</a> access parts of an
+array.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000882">fifth</a></li>
+<li><a href="#M000883">forty_two</a></li>
+<li><a href="#M000881">fourth</a></li>
+<li><a href="#M000877">from</a></li>
+<li><a href="#M000879">second</a></li>
+<li><a href="#M000880">third</a></li>
+<li><a href="#M000878">to</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000882">fifth</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Equal <a href="Access.html#M000878">to</a> <tt>self[4]</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000883">forty_two</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Equal <a href="Access.html#M000878">to</a> <tt>self[41]</tt>. Also known as
+accessing &quot;the reddit&quot;.
+</p></div></fieldset>
+
+
+<h2><a name="M000881">fourth</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Equal <a href="Access.html#M000878">to</a> <tt>self[3]</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000877">from</a> (position)</h2>
+
+<fieldset><div class='row'><p>
+Returns the tail of the array <a href="Access.html#M000877">from</a>
+<tt>position</tt>.
+</p>
+<pre>
+  %w( a b c d ).from(0)  # =&gt; %w( a b c d )
+  %w( a b c d ).from(2)  # =&gt; %w( c d )
+  %w( a b c d ).from(10) # =&gt; nil
+  %w().from(0)           # =&gt; nil
+</pre></div></fieldset>
+
+
+<h2><a name="M000879">second</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Equal <a href="Access.html#M000878">to</a> <tt>self[1]</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000880">third</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Equal <a href="Access.html#M000878">to</a> <tt>self[2]</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000878">to</a> (position)</h2>
+
+<fieldset><div class='row'><p>
+Returns the beginning of the array up <a href="Access.html#M000878">to</a>
+<tt>position</tt>.
+</p>
+<pre>
+  %w( a b c d ).to(0)  # =&gt; %w( a )
+  %w( a b c d ).to(2)  # =&gt; %w( a b c )
+  %w( a b c d ).to(10) # =&gt; %w( a b c d )
+  %w().to(0)           # =&gt; %w()
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

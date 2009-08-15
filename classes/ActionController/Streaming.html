@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Streaming
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Streaming
+    </h1>
+</div>
+<div id="ActionController::Streaming" title="ActionController::Streaming" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/streaming_rb.html">actionpack/lib/action_controller/streaming.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Methods for sending files and streams to the browser instead of rendering.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000186">send_data</a></li>
+<li><a href="#M000185">send_file</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>DEFAULT_SEND_FILE_OPTIONS</h2>
+<fieldset>
+<div class="row">
+{       :type         =&gt; 'application/octet-stream'.freeze,       :disposition  =&gt; 'attachment'.freeze,       :stream       =&gt; true,       :buffer_size  =&gt; 4096,       :x_sendfile   =&gt; false
+</div>
+</fieldset>
+<h2>X_SENDFILE_HEADER</h2>
+<fieldset>
+<div class="row">
+'X-Sendfile'.freeze
+</div>
+</fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M000186">send_data</a> (data, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Send binary data to the user as a file download. May set content type,
+apparent file name, and specify whether to show data inline or download as
+an attachment.
+</p>
+<p>
+Options:
+</p>
+<ul>
+<li><tt>:filename</tt> - suggests a filename for the browser to use.
+
+</li>
+<li><tt>:type</tt> - specifies an HTTP content type. Defaults to
+&#8216;application/octet-stream&#8217;.
+
+</li>
+<li><tt>:disposition</tt> - specifies whether the file will be shown inline or
+downloaded. Valid values are &#8216;inline&#8217; and
+&#8216;attachment&#8217; (default).
+
+</li>
+<li><tt>:status</tt> - specifies the status code to send with the response.
+Defaults to &#8216;200 OK&#8217;.
+
+</li>
+</ul>
+<p>
+Generic data download:
+</p>
+<pre>
+  send_data buffer
+</pre>
+<p>
+Download a dynamically-generated tarball:
+</p>
+<pre>
+  send_data generate_tgz('dir'), :filename =&gt; 'dir.tgz'
+</pre>
+<p>
+Display an image Active Record in the browser:
+</p>
+<pre>
+  send_data image.data, :type =&gt; image.content_type, :disposition =&gt; 'inline'
+</pre>
+<p>
+See <tt><a href="Streaming.html#M000185">send_file</a></tt> for more
+information on HTTP Content-* headers and caching.
+</p></div></fieldset>
+
+
+<h2><a name="M000185">send_file</a> (path, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Sends the file, by default streaming it 4096 bytes at a time. This way the
+whole file doesn&#8216;t need to be read into memory at once. This makes it
+feasible to send even large files. You can optionally turn off streaming
+and send the whole file at once.
+</p>
+<p>
+Be careful to sanitize the path parameter if it is coming from a web page.
+<tt><a href="Streaming.html#M000185">send_file</a>(params[:path])</tt>
+allows a malicious user to download any file on your server.
+</p>
+<p>
+Options:
+</p>
+<ul>
+<li><tt>:filename</tt> - suggests a filename for the browser to use. Defaults
+to <tt>File.basename(path)</tt>.
+
+</li>
+<li><tt>:type</tt> - specifies an HTTP content type. Defaults to
+&#8216;application/octet-stream&#8217;.
+
+</li>
+<li><tt>:length</tt> - used to manually override the length (in bytes) of the
+content that is going to be sent to the client. Defaults to
+<tt>File.size(path)</tt>.
+
+</li>
+<li><tt>:disposition</tt> - specifies whether the file will be shown inline or
+downloaded. Valid values are &#8216;inline&#8217; and
+&#8216;attachment&#8217; (default).
+
+</li>
+<li><tt>:stream</tt> - whether to send the file to the user agent as it is read
+(<tt>true</tt>) or to read the entire file before sending (<tt>false</tt>).
+Defaults to <tt>true</tt>.
+
+</li>
+<li><tt>:buffer_size</tt> - specifies size (in bytes) of the buffer used to
+stream the file. Defaults to 4096.
+
+</li>
+<li><tt>:status</tt> - specifies the status code to send with the response.
+Defaults to &#8216;200 OK&#8217;.
+
+</li>
+<li><tt>:url_based_filename</tt> - set to <tt>true</tt> if you want the browser
+guess the filename from the URL, which is necessary for i18n filenames on
+certain browsers (setting <tt>:filename</tt> overrides this option).
+
+</li>
+<li><tt>:x_sendfile</tt> - uses X-Sendfile to send the file when set to
+<tt>true</tt>. This is currently only available with Lighttpd/Apache2 and
+specific modules installed and activated. Since this uses the web server to
+send the file, this may lower memory consumption on your server and it will
+not block your application for further requests. See <a
+href="http://blog.lighttpd.net/articles/2006/07/02/x-sendfile">blog.lighttpd.net/articles/2006/07/02/x-sendfile</a>
+and <a
+href="http://tn123.ath.cx/mod_xsendfile">tn123.ath.cx/mod_xsendfile</a>/
+for details. Defaults to <tt>false</tt>.
+
+</li>
+</ul>
+<p>
+The default Content-Type and Content-Disposition headers are set to
+download arbitrary binary files in as many browsers as possible. IE
+versions 4, 5, 5.5, and 6 are all known to have a variety of quirks
+(especially when downloading over SSL).
+</p>
+<p>
+Simple download:
+</p>
+<pre>
+  send_file '/path/to.zip'
+</pre>
+<p>
+Show a JPEG in the browser:
+</p>
+<pre>
+  send_file '/path/to.jpeg', :type =&gt; 'image/jpeg', :disposition =&gt; 'inline'
+</pre>
+<p>
+Show a 404 page in the browser:
+</p>
+<pre>
+  send_file '/path/to/404.html', :type =&gt; 'text/html; charset=utf-8', :status =&gt; 404
+</pre>
+<p>
+Read about the other Content-* HTTP headers if you&#8216;d like to provide
+the user with more information (such as Content-Description) in <a
+href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11">www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11</a>.
+</p>
+<p>
+Also be aware that the document may be cached by proxies and browsers. The
+Pragma and Cache-Control headers declare how the file may be cached by
+intermediaries. They default to require clients to validate with the server
+before releasing cached responses. See <a
+href="http://www.mnot.net/cache_docs">www.mnot.net/cache_docs</a>/ for an
+overview of web caching and <a
+href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9">www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a>
+for the Cache-Control header spec.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

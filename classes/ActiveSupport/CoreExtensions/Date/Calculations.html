@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Date::Calculations
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Date::Calculations
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Date::Calculations" title="ActiveSupport::CoreExtensions::Date::Calculations" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/date/calculations_rb.html">activesupport/lib/active_support/core_ext/date/calculations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Enables the use of time calculations within Time itself
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000953">advance</a></li>
+<li><a href="#M000945">ago</a></li>
+<li><a href="#M000951">at_beginning_of_day</a></li>
+<li><a href="#M000970">at_beginning_of_month</a></li>
+<li><a href="#M000974">at_beginning_of_quarter</a></li>
+<li><a href="#M000965">at_beginning_of_week</a></li>
+<li><a href="#M000978">at_beginning_of_year</a></li>
+<li><a href="#M000972">at_end_of_month</a></li>
+<li><a href="#M000976">at_end_of_quarter</a></li>
+<li><a href="#M000967">at_end_of_week</a></li>
+<li><a href="#M000980">at_end_of_year</a></li>
+<li><a href="#M000950">at_midnight</a></li>
+<li><a href="#M000948">beginning_of_day</a></li>
+<li><a href="#M000969">beginning_of_month</a></li>
+<li><a href="#M000973">beginning_of_quarter</a></li>
+<li><a href="#M000963">beginning_of_week</a></li>
+<li><a href="#M000977">beginning_of_year</a></li>
+<li><a href="#M000954">change</a></li>
+<li><a href="#M000952">end_of_day</a></li>
+<li><a href="#M000971">end_of_month</a></li>
+<li><a href="#M000975">end_of_quarter</a></li>
+<li><a href="#M000966">end_of_week</a></li>
+<li><a href="#M000979">end_of_year</a></li>
+<li><a href="#M000944">future?</a></li>
+<li><a href="#M000947">in</a></li>
+<li><a href="#M000961">last_month</a></li>
+<li><a href="#M000959">last_year</a></li>
+<li><a href="#M000949">midnight</a></li>
+<li><a href="#M000964">monday</a></li>
+<li><a href="#M000955">months_ago</a></li>
+<li><a href="#M000956">months_since</a></li>
+<li><a href="#M000962">next_month</a></li>
+<li><a href="#M000968">next_week</a></li>
+<li><a href="#M000960">next_year</a></li>
+<li><a href="#M000942">past?</a></li>
+<li><a href="#M000946">since</a></li>
+<li><a href="#M000943">today?</a></li>
+<li><a href="#M000982">tomorrow</a></li>
+<li><a href="#M000957">years_ago</a></li>
+<li><a href="#M000958">years_since</a></li>
+<li><a href="#M000981">yesterday</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Calculations/ClassMethods.html" class="link">ActiveSupport::CoreExtensions::Date::Calculations::ClassMethods</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000953">advance</a> (options)</h2>
+
+<fieldset><div class='row'><p>
+Provides precise Date calculations for years, months, and days. The
+<tt>options</tt> parameter takes a hash with any of these keys:
+<tt>:years</tt>, <tt>:months</tt>, <tt>:weeks</tt>, <tt>:days</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000945">ago</a> (seconds)</h2>
+
+<fieldset><div class='row'><p>
+Converts Date to a Time (or DateTime if necessary) with the time portion
+set to the beginning of the day (0:00) and then subtracts the specified
+number of seconds
+</p></div></fieldset>
+
+
+<h2><a name="M000951">at_beginning_of_day</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000948">beginning_of_day</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000970">at_beginning_of_month</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000969">beginning_of_month</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000974">at_beginning_of_quarter</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000973">beginning_of_quarter</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000965">at_beginning_of_week</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000963">beginning_of_week</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000978">at_beginning_of_year</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000977">beginning_of_year</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000972">at_end_of_month</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000971">end_of_month</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000976">at_end_of_quarter</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000975">end_of_quarter</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000967">at_end_of_week</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000966">end_of_week</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000980">at_end_of_year</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000979">end_of_year</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000950">at_midnight</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000948">beginning_of_day</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000948">beginning_of_day</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts Date to a Time (or DateTime if necessary) with the time portion
+set to the beginning of the day (0:00)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>midnight</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>at_midnight</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>at_beginning_of_day</div></fieldset>
+
+<h2><a name="M000969">beginning_of_month</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new ; DateTime objects will have time set to 0:00DateTime
+representing the start of the month (1st of the month; DateTime objects
+will have time set to 0:00)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>at_beginning_of_month</div></fieldset>
+
+<h2><a name="M000973">beginning_of_quarter</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the start of the quarter (1st of
+january, april, july, october; DateTime objects will have time set to 0:00)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>at_beginning_of_quarter</div></fieldset>
+
+<h2><a name="M000963">beginning_of_week</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the &quot;start&quot; of this week
+(i.e, Monday; DateTime objects will have time set to 0:00)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>monday</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>at_beginning_of_week</div></fieldset>
+
+<h2><a name="M000977">beginning_of_year</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the start of the year (1st of
+january; DateTime objects will have time set to 0:00)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>at_beginning_of_year</div></fieldset>
+
+<h2><a name="M000954">change</a> (options)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date where one or more of the elements have been changed
+according to the <tt>options</tt> parameter.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  Date.new(2007, 5, 12).change(:day =&gt; 1)                  # =&gt; Date.new(2007, 5, 1)
+  Date.new(2007, 5, 12).change(:year =&gt; 2005, :month =&gt; 1) # =&gt; Date.new(2005, 1, 12)
+</pre></div></fieldset>
+
+
+<h2><a name="M000952">end_of_day</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts Date to a Time (or DateTime if necessary) with the time portion
+set to the end of the day (23:59:59)
+</p></div></fieldset>
+
+
+<h2><a name="M000971">end_of_month</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the end of the month (last day of
+the month; DateTime objects will have time set to 0:00)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>at_end_of_month</div></fieldset>
+
+<h2><a name="M000975">end_of_quarter</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the end of the quarter (last day
+of march, june, september, december; DateTime objects will have time set to
+23:59:59)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>at_end_of_quarter</div></fieldset>
+
+<h2><a name="M000966">end_of_week</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the end of this week (Sunday,
+DateTime objects will have time set to 23:59:59)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>at_end_of_week</div></fieldset>
+
+<h2><a name="M000979">end_of_year</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Time representing the end of the year (31st of december;
+DateTime objects will have time set to 23:59:59)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>at_end_of_year</div></fieldset>
+
+<h2><a name="M000944">future?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Tells whether the Date object&#8216;s date lies <a
+href="Calculations.html#M000947">in</a> the future
+</p></div></fieldset>
+
+
+<h2><a name="M000947">in</a> (seconds)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000946">since</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000961">last_month</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Short-hand for <a href="Calculations.html#M000955">months_ago</a>(1)
+</p></div></fieldset>
+
+
+<h2><a name="M000959">last_year</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Short-hand for <a href="Calculations.html#M000957">years_ago</a>(1)
+</p></div></fieldset>
+
+
+<h2><a name="M000949">midnight</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000948">beginning_of_day</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000964">monday</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M000963">beginning_of_week</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000955">months_ago</a> (months)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the time a number of specified
+months <a href="Calculations.html#M000945">ago</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000956">months_since</a> (months)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the time a number of specified
+months <a href="Calculations.html#M000947">in</a> the future
+</p></div></fieldset>
+
+
+<h2><a name="M000962">next_month</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Short-hand for <a href="Calculations.html#M000956">months_since</a>(1)
+</p></div></fieldset>
+
+
+<h2><a name="M000968">next_week</a> (day = :monday)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the start of the given day <a
+href="Calculations.html#M000947">in</a> next week (default is Monday).
+</p></div></fieldset>
+
+
+<h2><a name="M000960">next_year</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Short-hand for <a href="Calculations.html#M000958">years_since</a>(1)
+</p></div></fieldset>
+
+
+<h2><a name="M000942">past?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Tells whether the Date object&#8216;s date lies <a
+href="Calculations.html#M000947">in</a> the past
+</p></div></fieldset>
+
+
+<h2><a name="M000946">since</a> (seconds)</h2>
+
+<fieldset><div class='row'><p>
+Converts Date to a Time (or DateTime if necessary) with the time portion
+set to the beginning of the day (0:00) and then adds the specified number
+of seconds
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>in</div></fieldset>
+
+<h2><a name="M000943">today?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Tells whether the Date object&#8216;s date is today
+</p></div></fieldset>
+
+
+<h2><a name="M000982">tomorrow</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Convenience method which returns a new Date/DateTime representing the time
+1 day <a href="Calculations.html#M000946">since</a> the instance time
+</p></div></fieldset>
+
+
+<h2><a name="M000957">years_ago</a> (years)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the time a number of specified
+years <a href="Calculations.html#M000945">ago</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000958">years_since</a> (years)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new Date/DateTime representing the time a number of specified
+years <a href="Calculations.html#M000947">in</a> the future
+</p></div></fieldset>
+
+
+<h2><a name="M000981">yesterday</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Convenience method which returns a new Date/DateTime representing the time
+1 day <a href="Calculations.html#M000945">ago</a>
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

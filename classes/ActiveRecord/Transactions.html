@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::Transactions
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Transactions
+    </h1>
+</div>
+<div id="ActiveRecord::Transactions" title="ActiveRecord::Transactions" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/transactions_rb.html">activerecord/lib/active_record/transactions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+See <a
+href="Transactions/ClassMethods.html">ActiveRecord::Transactions::ClassMethods</a>
+for documentation.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001479">included</a></li>
+<li><a href="#M001481">rollback_active_record_state!</a></li>
+<li><a href="#M001480">transaction</a></li>
+<li><a href="#M001482">with_transaction_returning_status</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Transactions/ClassMethods.html" class="link">ActiveRecord::Transactions::ClassMethods</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001479">included</a> (base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001481">rollback_active_record_state!</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Reset id and @new_record if the <a
+href="Transactions.html#M001480">transaction</a> rolls back.
+</p></div></fieldset>
+
+
+<h2><a name="M001480">transaction</a> (&amp;block)</h2>
+
+<fieldset><div class='row'><p>
+See <a
+href="Transactions/ClassMethods.html">ActiveRecord::Transactions::ClassMethods</a>
+for detailed documentation.
+</p></div></fieldset>
+
+
+<h2><a name="M001482">with_transaction_returning_status</a> (method, *args)</h2>
+
+<fieldset><div class='row'><p>
+Executes <tt>method</tt> within a <a
+href="Transactions.html#M001480">transaction</a> and captures its return
+value as a status flag. If the status is true the <a
+href="Transactions.html#M001480">transaction</a> is committed, otherwise a
+ROLLBACK is issued. In any case the status flag is returned.
+</p>
+<p>
+This method is available within the context of an <a
+href="Base.html">ActiveRecord::Base</a> instance.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

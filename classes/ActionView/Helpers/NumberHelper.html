@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionView::Helpers::NumberHelper
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Helpers::NumberHelper
+    </h1>
+</div>
+<div id="ActionView::Helpers::NumberHelper" title="ActionView::Helpers::NumberHelper" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_view/helpers/number_helper_rb.html">actionpack/lib/action_view/helpers/number_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Provides methods for converting numbers into formatted strings. Methods are
+provided for phone numbers, currency, percentage, precision, positional
+notation, and file size.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001323">number_to_currency</a></li>
+<li><a href="#M001327">number_to_human_size</a></li>
+<li><a href="#M001324">number_to_percentage</a></li>
+<li><a href="#M001322">number_to_phone</a></li>
+<li><a href="#M001325">number_with_delimiter</a></li>
+<li><a href="#M001326">number_with_precision</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001323">number_to_currency</a> (number, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Formats a <tt>number</tt> into a currency string (e.g., $13.65). You can
+customize the format in the <tt>options</tt> hash.
+</p>
+<h4>Options</h4>
+<ul>
+<li><tt>:precision</tt> - Sets the level of precision (defaults to 2).
+
+</li>
+<li><tt>:unit</tt> - Sets the denomination of the currency (defaults to
+&quot;$&quot;).
+
+</li>
+<li><tt>:separator</tt> - Sets the separator between the units (defaults to
+&quot;.&quot;).
+
+</li>
+<li><tt>:delimiter</tt> - Sets the thousands delimiter (defaults to
+&quot;,&quot;).
+
+</li>
+<li><tt>:format</tt> - Sets the format of the output string (defaults to
+&quot;%u%n&quot;). The field types are:
+
+<pre>
+  %u  The currency unit
+  %n  The number
+</pre>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ number_to_currency(1234567890.50)                    # =&gt; $1,234,567,890.50
+ number_to_currency(1234567890.506)                   # =&gt; $1,234,567,890.51
+ number_to_currency(1234567890.506, :precision =&gt; 3)  # =&gt; $1,234,567,890.506
+
+ number_to_currency(1234567890.50, :unit =&gt; &quot;&amp;pound;&quot;, :separator =&gt; &quot;,&quot;, :delimiter =&gt; &quot;&quot;)
+ # =&gt; &amp;pound;1234567890,50
+ number_to_currency(1234567890.50, :unit =&gt; &quot;&amp;pound;&quot;, :separator =&gt; &quot;,&quot;, :delimiter =&gt; &quot;&quot;, :format =&gt; &quot;%n %u&quot;)
+ # =&gt; 1234567890,50 &amp;pound;
+</pre></div></fieldset>
+
+
+<h2><a name="M001327">number_to_human_size</a> (number, *args)</h2>
+
+<fieldset><div class='row'><p>
+Formats the bytes in <tt>size</tt> into a more understandable
+representation (e.g., giving it 1500 yields 1.5 KB). This method is useful
+for reporting file sizes to users. This method returns nil if <tt>size</tt>
+cannot be converted into a number. You can customize the format in the
+<tt>options</tt> hash.
+</p>
+<h4>Options</h4>
+<ul>
+<li><tt>:precision</tt> - Sets the level of precision (defaults to 1).
+
+</li>
+<li><tt>:separator</tt> - Sets the separator between the units (defaults to
+&quot;.&quot;).
+
+</li>
+<li><tt>:delimiter</tt> - Sets the thousands delimiter (defaults to
+&quot;&quot;).
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ number_to_human_size(123)                                          # =&gt; 123 Bytes
+ number_to_human_size(1234)                                         # =&gt; 1.2 KB
+ number_to_human_size(12345)                                        # =&gt; 12.1 KB
+ number_to_human_size(1234567)                                      # =&gt; 1.2 MB
+ number_to_human_size(1234567890)                                   # =&gt; 1.1 GB
+ number_to_human_size(1234567890123)                                # =&gt; 1.1 TB
+ number_to_human_size(1234567, :precision =&gt; 2)                     # =&gt; 1.18 MB
+ number_to_human_size(483989, :precision =&gt; 0)                      # =&gt; 473 KB
+ number_to_human_size(1234567, :precision =&gt; 2, :separator =&gt; ',')  # =&gt; 1,18 MB
+</pre>
+<p>
+You can still use <tt><a
+href="NumberHelper.html#M001327">number_to_human_size</a></tt> with the old
+API that accepts the <tt>precision</tt> as its optional second parameter:
+</p>
+<pre>
+ number_to_human_size(1234567, 2)    # =&gt; 1.18 MB
+ number_to_human_size(483989, 0)     # =&gt; 473 KB
+</pre></div></fieldset>
+
+
+<h2><a name="M001324">number_to_percentage</a> (number, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Formats a <tt>number</tt> as a percentage string (e.g., 65%). You can
+customize the format in the <tt>options</tt> hash.
+</p>
+<h4>Options</h4>
+<ul>
+<li><tt>:precision</tt> - Sets the level of precision (defaults to 3).
+
+</li>
+<li><tt>:separator</tt> - Sets the separator between the units (defaults to
+&quot;.&quot;).
+
+</li>
+<li><tt>:delimiter</tt> - Sets the thousands delimiter (defaults to
+&quot;&quot;).
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ number_to_percentage(100)                                        # =&gt; 100.000%
+ number_to_percentage(100, :precision =&gt; 0)                       # =&gt; 100%
+ number_to_percentage(1000, :delimiter =&gt; '.', :separator =&gt; ',') # =&gt; 1.000,000%
+ number_to_percentage(302.24398923423, :precision =&gt; 5)           # =&gt; 302.24399%
+</pre></div></fieldset>
+
+
+<h2><a name="M001322">number_to_phone</a> (number, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Formats a <tt>number</tt> into a US phone number (e.g., (555) 123-9876).
+You can customize the format in the <tt>options</tt> hash.
+</p>
+<h4>Options</h4>
+<ul>
+<li><tt>:area_code</tt> - Adds parentheses around the area code.
+
+</li>
+<li><tt>:delimiter</tt> - Specifies the delimiter to use (defaults to
+&quot;-&quot;).
+
+</li>
+<li><tt>:extension</tt> - Specifies an extension to add to the end of the
+generated number.
+
+</li>
+<li><tt>:country_code</tt> - Sets the country code for the phone number.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ number_to_phone(1235551234)                                        # =&gt; 123-555-1234
+ number_to_phone(1235551234, :area_code =&gt; true)                    # =&gt; (123) 555-1234
+ number_to_phone(1235551234, :delimiter =&gt; &quot; &quot;)                     # =&gt; 123 555 1234
+ number_to_phone(1235551234, :area_code =&gt; true, :extension =&gt; 555) # =&gt; (123) 555-1234 x 555
+ number_to_phone(1235551234, :country_code =&gt; 1)                    # =&gt; +1-123-555-1234
+
+ number_to_phone(1235551234, :country_code =&gt; 1, :extension =&gt; 1343, :delimiter =&gt; &quot;.&quot;)
+ =&gt; +1.123.555.1234 x 1343
+</pre></div></fieldset>
+
+
+<h2><a name="M001325">number_with_delimiter</a> (number, *args)</h2>
+
+<fieldset><div class='row'><p>
+Formats a <tt>number</tt> with grouped thousands using <tt>delimiter</tt>
+(e.g., 12,324). You can customize the format in the <tt>options</tt> hash.
+</p>
+<h4>Options</h4>
+<ul>
+<li><tt>:delimiter</tt> - Sets the thousands delimiter (defaults to
+&quot;,&quot;).
+
+</li>
+<li><tt>:separator</tt> - Sets the separator between the units (defaults to
+&quot;.&quot;).
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ number_with_delimiter(12345678)                        # =&gt; 12,345,678
+ number_with_delimiter(12345678.05)                     # =&gt; 12,345,678.05
+ number_with_delimiter(12345678, :delimiter =&gt; &quot;.&quot;)     # =&gt; 12.345.678
+ number_with_delimiter(12345678, :seperator =&gt; &quot;,&quot;)     # =&gt; 12,345,678
+ number_with_delimiter(98765432.98, :delimiter =&gt; &quot; &quot;, :separator =&gt; &quot;,&quot;)
+ # =&gt; 98 765 432,98
+</pre>
+<p>
+You can still use <tt><a
+href="NumberHelper.html#M001325">number_with_delimiter</a></tt> with the
+old API that accepts the <tt>delimiter</tt> as its optional second and the
+<tt>separator</tt> as its optional third parameter:
+</p>
+<pre>
+ number_with_delimiter(12345678, &quot; &quot;)                     # =&gt; 12 345.678
+ number_with_delimiter(12345678.05, &quot;.&quot;, &quot;,&quot;)             # =&gt; 12.345.678,05
+</pre></div></fieldset>
+
+
+<h2><a name="M001326">number_with_precision</a> (number, *args)</h2>
+
+<fieldset><div class='row'><p>
+Formats a <tt>number</tt> with the specified level of <tt>:precision</tt>
+(e.g., 112.32 has a precision of 2). You can customize the format in the
+<tt>options</tt> hash.
+</p>
+<h4>Options</h4>
+<ul>
+<li><tt>:precision</tt> - Sets the level of precision (defaults to 3).
+
+</li>
+<li><tt>:separator</tt> - Sets the separator between the units (defaults to
+&quot;.&quot;).
+
+</li>
+<li><tt>:delimiter</tt> - Sets the thousands delimiter (defaults to
+&quot;&quot;).
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ number_with_precision(111.2345)                    # =&gt; 111.235
+ number_with_precision(111.2345, :precision =&gt; 2)   # =&gt; 111.23
+ number_with_precision(13, :precision =&gt; 5)         # =&gt; 13.00000
+ number_with_precision(389.32314, :precision =&gt; 0)  # =&gt; 389
+ number_with_precision(1111.2345, :precision =&gt; 2, :separator =&gt; ',', :delimiter =&gt; '.')
+ # =&gt; 1.111,23
+</pre>
+<p>
+You can still use <tt><a
+href="NumberHelper.html#M001326">number_with_precision</a></tt> with the
+old API that accepts the <tt>precision</tt> as its optional second
+parameter:
+</p>
+<pre>
+  number_with_precision(number_with_precision(111.2345, 2)   # =&gt; 111.23
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

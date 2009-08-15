@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Integer::Time
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Integer::Time
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Integer::Time" title="ActiveSupport::CoreExtensions::Integer::Time" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/integer/time_rb.html">activesupport/lib/active_support/core_ext/integer/time.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Enables the use of time calculations and declarations, like 45.minutes +
+2.hours + 4.years.
+</p>
+<p>
+These methods use Time#advance for precise date calculations when using
+from_now, ago, etc. as well as adding or subtracting their results from a
+<a href="Time.html">Time</a> object. For example:
+</p>
+<pre>
+  # equivalent to Time.now.advance(:months =&gt; 1)
+  1.month.from_now
+
+  # equivalent to Time.now.advance(:years =&gt; 2)
+  2.years.from_now
+
+  # equivalent to Time.now.advance(:months =&gt; 4, :years =&gt; 5)
+  (4.months + 5.years).from_now
+</pre>
+<p>
+While these methods provide precise calculation when used as in the
+examples above, care should be taken to note that this is not true if the
+result of `<a href="Time.html#M000784">months</a>&#8217;, `<a
+href="Time.html#M000786">years</a>&#8217;, etc is converted before use:
+</p>
+<pre>
+  # equivalent to 30.days.to_i.from_now
+  1.month.to_i.from_now
+
+  # equivalent to 365.25.days.to_f.from_now
+  1.year.to_f.from_now
+</pre>
+<p>
+In such cases, Ruby&#8216;s core <a
+href="http://stdlib.rubyonrails.org/libdoc/date/rdoc/index.html">Date</a>
+and <a
+href="http://stdlib.rubyonrails.org/libdoc/time/rdoc/index.html">Time</a>
+should be used for precision date and time arithmetic
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000785">month</a></li>
+<li><a href="#M000784">months</a></li>
+<li><a href="#M000787">year</a></li>
+<li><a href="#M000786">years</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000785">month</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Time.html#M000784">months</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000784">months</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>month</div></fieldset>
+
+<h2><a name="M000787">year</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Time.html#M000786">years</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000786">years</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>year</div></fieldset>
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,2536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::Base
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Base
+    </h1>
+</div>
+<div id="ActiveRecord::Base" title="ActiveRecord::Base" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/base_rb.html">activerecord/lib/active_record/base.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/connection_adapters/abstract/connection_specification_rb.html">activerecord/lib/active_record/connection_adapters/abstract/connection_specification.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/connection_adapters/mysql_adapter_rb.html">activerecord/lib/active_record/connection_adapters/mysql_adapter.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/connection_adapters/postgresql_adapter_rb.html">activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/connection_adapters/sqlite3_adapter_rb.html">activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/connection_adapters/sqlite_adapter_rb.html">activerecord/lib/active_record/connection_adapters/sqlite_adapter.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Active Record objects don&#8216;t specify their <a
+href="Base.html#M001927">attributes</a> directly, but rather infer them
+from the table definition with which they&#8216;re linked. Adding,
+removing, and changing <a href="Base.html#M001927">attributes</a> and their
+type is done directly in the database. Any change is instantly reflected in
+the Active Record objects. The mapping that binds a given Active Record
+class to a certain database table will happen automatically in most common
+cases, but can be overwritten for the uncommon ones.
+</p>
+<p>
+See the mapping rules in <a href="Base.html#M001865">table_name</a> and the
+full example in <a href="../../files/README.html">files/README.html</a> for
+more insight.
+</p>
+<h2>Creation</h2>
+<p>
+Active Records accept constructor parameters either in a <a
+href="Base.html#M001936">hash</a> or as a block. The <a
+href="Base.html#M001936">hash</a> method is especially useful when
+you&#8216;re receiving the data from somewhere else, like an HTTP request.
+It works like this:
+</p>
+<pre>
+  user = User.new(:name =&gt; &quot;David&quot;, :occupation =&gt; &quot;Code Artist&quot;)
+  user.name # =&gt; &quot;David&quot;
+</pre>
+<p>
+You can also use block initialization:
+</p>
+<pre>
+  user = User.new do |u|
+    u.name = &quot;David&quot;
+    u.occupation = &quot;Code Artist&quot;
+  end
+</pre>
+<p>
+And of course you can just <a href="Base.html#M001848">create</a> a bare
+object and specify the <a href="Base.html#M001927">attributes</a> after the
+fact:
+</p>
+<pre>
+  user = User.new
+  user.name = &quot;David&quot;
+  user.occupation = &quot;Code Artist&quot;
+</pre>
+<h2>Conditions</h2>
+<p>
+Conditions can either be specified as a string, array, or <a
+href="Base.html#M001936">hash</a> representing the WHERE-part of an SQL
+statement. The array form is to be used when the condition input is tainted
+and requires sanitization. The string form can be used for statements that
+don&#8216;t involve tainted data. The <a href="Base.html#M001936">hash</a>
+form works much like the array form, except only equality and range is
+possible. Examples:
+</p>
+<pre>
+  class User &lt; ActiveRecord::Base
+    def self.authenticate_unsafely(user_name, password)
+      find(:first, :conditions =&gt; &quot;user_name = '#{user_name}' AND password = '#{password}'&quot;)
+    end
+
+    def self.authenticate_safely(user_name, password)
+      find(:first, :conditions =&gt; [ &quot;user_name = ? AND password = ?&quot;, user_name, password ])
+    end
+
+    def self.authenticate_safely_simply(user_name, password)
+      find(:first, :conditions =&gt; { :user_name =&gt; user_name, :password =&gt; password })
+    end
+  end
+</pre>
+<p>
+The <tt>authenticate_unsafely</tt> method inserts the parameters directly
+into the query and is thus susceptible to SQL-injection attacks if the
+<tt>user_name</tt> and <tt>password</tt> parameters come directly from an
+HTTP request. The <tt>authenticate_safely</tt> and
+<tt>authenticate_safely_simply</tt> both will sanitize the
+<tt>user_name</tt> and <tt>password</tt> before inserting them in the
+query, which will ensure that an attacker can&#8216;t escape the query and
+fake the login (or worse).
+</p>
+<p>
+When using multiple parameters in the conditions, it can easily become hard
+to read exactly what the fourth or fifth question mark is supposed to
+represent. In those cases, you can resort to named bind variables instead.
+That&#8216;s done by replacing the question marks with symbols and
+supplying a <a href="Base.html#M001936">hash</a> with values for the
+matching symbol keys:
+</p>
+<pre>
+  Company.find(:first, :conditions =&gt; [
+    &quot;id = :id AND name = :name AND division = :division AND created_at &gt; :accounting_date&quot;,
+    { :id =&gt; 3, :name =&gt; &quot;37signals&quot;, :division =&gt; &quot;First&quot;, :accounting_date =&gt; '2005-01-01' }
+  ])
+</pre>
+<p>
+Similarly, a simple <a href="Base.html#M001936">hash</a> without a
+statement will generate conditions based on equality with the SQL AND
+operator. For instance:
+</p>
+<pre>
+  Student.find(:all, :conditions =&gt; { :first_name =&gt; &quot;Harvey&quot;, :status =&gt; 1 })
+  Student.find(:all, :conditions =&gt; params[:student])
+</pre>
+<p>
+A range may be used in the <a href="Base.html#M001936">hash</a> to use the
+SQL BETWEEN operator:
+</p>
+<pre>
+  Student.find(:all, :conditions =&gt; { :grade =&gt; 9..12 })
+</pre>
+<p>
+An array may be used in the <a href="Base.html#M001936">hash</a> to use the
+SQL IN operator:
+</p>
+<pre>
+  Student.find(:all, :conditions =&gt; { :grade =&gt; [9,11,12] })
+</pre>
+<h2>Overwriting default accessors</h2>
+<p>
+All column values are automatically available through basic accessors on
+the Active Record object, but sometimes you want to specialize this
+behavior. This can be done by overwriting the default accessors (using the
+same name as the attribute) and calling <tt>read_attribute(attr_name)</tt>
+and <tt>write_attribute(attr_name, value)</tt> to actually change things.
+Example:
+</p>
+<pre>
+  class Song &lt; ActiveRecord::Base
+    # Uses an integer of seconds to hold the length of the song
+
+    def length=(minutes)
+      write_attribute(:length, minutes.to_i * 60)
+    end
+
+    def length
+      read_attribute(:length) / 60
+    end
+  end
+</pre>
+<p>
+You can alternatively use <tt>self[:attribute]=(value)</tt> and
+<tt>self[:attribute]</tt> instead of <tt>write_attribute(:attribute,
+value)</tt> and <tt>read_attribute(:attribute)</tt> as a shorter form.
+</p>
+<h2>Attribute query methods</h2>
+<p>
+In addition to the basic accessors, query methods are also automatically
+available on the Active Record object. Query methods allow you to test
+whether an attribute value is present.
+</p>
+<p>
+For example, an Active Record User with the <tt>name</tt> attribute has a
+<tt>name?</tt> method that you can call to determine whether the user has a
+name:
+</p>
+<pre>
+  user = User.new(:name =&gt; &quot;David&quot;)
+  user.name? # =&gt; true
+
+  anonymous = User.new(:name =&gt; &quot;&quot;)
+  anonymous.name? # =&gt; false
+</pre>
+<h2>Accessing <a href="Base.html#M001927">attributes</a> before they have been typecasted</h2>
+<p>
+Sometimes you want to be able to read the raw attribute data without having
+the column-determined typecast run its course <a
+href="Base.html#M001843">first</a>. That can be done by using the
+<tt>&lt;attribute&gt;_before_type_cast</tt> accessors that <a
+href="Base.html#M001845">all</a> <a href="Base.html#M001927">attributes</a>
+have. For example, if your Account model has a <tt>balance</tt> attribute,
+you can call <tt>account.balance_before_type_cast</tt> or
+<tt>account.id_before_type_cast</tt>.
+</p>
+<p>
+This is especially useful in validation situations where the user might
+supply a string for an integer field and you want to display the original
+string back in an error message. Accessing the attribute normally would
+typecast the string to 0, which isn&#8216;t what you want.
+</p>
+<h2>Dynamic attribute-based finders</h2>
+<p>
+Dynamic attribute-based finders are a cleaner way of getting (and/or
+creating) objects by simple queries without turning to SQL. They work by
+appending the name of an attribute to <tt>find_by_</tt>,
+<tt>find_last_by_</tt>, or <tt>find_all_by_</tt>, so you get finders like
+<tt>Person.find_by_user_name</tt>, <tt>Person.find_all_by_last_name</tt>,
+and <tt>Payment.find_by_transaction_id</tt>. So instead of writing
+<tt>Person.find(:<a href="Base.html#M001843">first</a>, :conditions =&gt;
+[&quot;user_name = ?&quot;, user_name])</tt>, you just do
+<tt>Person.find_by_user_name(user_name)</tt>. And instead of writing
+<tt>Person.find(:<a href="Base.html#M001845">all</a>, :conditions =&gt;
+[&quot;last_name = ?&quot;, last_name])</tt>, you just do
+<tt>Person.find_all_by_last_name(last_name)</tt>.
+</p>
+<p>
+It&#8216;s also possible to use multiple <a
+href="Base.html#M001927">attributes</a> in the same <a
+href="Base.html#M001842">find</a> by separating them with
+&quot;<em>and</em>&quot;, so you get finders like
+<tt>Person.find_by_user_name_and_password</tt> or even
+<tt>Payment.find_by_purchaser_and_state_and_country</tt>. So instead of
+writing <tt>Person.find(:<a href="Base.html#M001843">first</a>, :conditions
+=&gt; [&quot;user_name = ? AND password = ?&quot;, user_name,
+password])</tt>, you just do
+<tt>Person.find_by_user_name_and_password(user_name, password)</tt>.
+</p>
+<p>
+It&#8216;s even possible to use <a href="Base.html#M001845">all</a> the
+additional parameters to <a href="Base.html#M001842">find</a>. For example,
+the full interface for <tt>Payment.find_all_by_amount</tt> is actually
+<tt>Payment.find_all_by_amount(amount, options)</tt>. And the full
+interface to <tt>Person.find_by_user_name</tt> is actually
+<tt>Person.find_by_user_name(user_name, options)</tt>. So you could call
+<tt>Payment.find_all_by_amount(50, :order =&gt;
+&quot;created_on&quot;)</tt>. Also you may call
+<tt>Payment.find_last_by_amount(amount, options)</tt> returning the <a
+href="Base.html#M001844">last</a> record matching that amount and options.
+</p>
+<p>
+The same dynamic finder style can be used to <a
+href="Base.html#M001848">create</a> the object if it doesn&#8216;t already
+exist. This dynamic finder is called with <tt>find_or_create_by_</tt> and
+will return the object if it already exists and otherwise creates it, then
+returns it. Protected <a href="Base.html#M001927">attributes</a>
+won&#8216;t be set unless they are given in a block. For example:
+</p>
+<pre>
+  # No 'Summer' tag exists
+  Tag.find_or_create_by_name(&quot;Summer&quot;) # equal to Tag.create(:name =&gt; &quot;Summer&quot;)
+
+  # Now the 'Summer' tag does exist
+  Tag.find_or_create_by_name(&quot;Summer&quot;) # equal to Tag.find_by_name(&quot;Summer&quot;)
+
+  # Now 'Bob' exist and is an 'admin'
+  User.find_or_create_by_name('Bob', :age =&gt; 40) { |u| u.admin = true }
+</pre>
+<p>
+Use the <tt>find_or_initialize_by_</tt> finder if you want to return a <a
+href="Base.html#M001902">new</a> record without saving it <a
+href="Base.html#M001843">first</a>. Protected <a
+href="Base.html#M001927">attributes</a> won&#8216;t be set unless they are
+given in a block. For example:
+</p>
+<pre>
+  # No 'Winter' tag exists
+  winter = Tag.find_or_initialize_by_name(&quot;Winter&quot;)
+  winter.new_record? # true
+</pre>
+<p>
+To <a href="Base.html#M001842">find</a> by a subset of the <a
+href="Base.html#M001927">attributes</a> to be used for instantiating a <a
+href="Base.html#M001902">new</a> object, pass a <a
+href="Base.html#M001936">hash</a> instead of a list of parameters. For
+example:
+</p>
+<pre>
+  Tag.find_or_create_by_name(:name =&gt; &quot;rails&quot;, :creator =&gt; current_user)
+</pre>
+<p>
+That will either <a href="Base.html#M001842">find</a> an existing tag named
+&quot;rails&quot;, or <a href="Base.html#M001848">create</a> a <a
+href="Base.html#M001902">new</a> one while setting the user that created
+it.
+</p>
+<h2>Saving arrays, hashes, and other non-mappable objects in text <a href="Base.html#M001873">columns</a></h2>
+<p>
+Active Record can <a href="Base.html#M001863">serialize</a> any object in
+text <a href="Base.html#M001873">columns</a> using YAML. To do so, you must
+specify this with a call to the class method <tt><a
+href="Base.html#M001863">serialize</a></tt>. This makes it possible to
+store arrays, hashes, and other non-mappable objects without doing any
+additional work. Example:
+</p>
+<pre>
+  class User &lt; ActiveRecord::Base
+    serialize :preferences
+  end
+
+  user = User.create(:preferences =&gt; { &quot;background&quot; =&gt; &quot;black&quot;, &quot;display&quot; =&gt; large })
+  User.find(user.id).preferences # =&gt; { &quot;background&quot; =&gt; &quot;black&quot;, &quot;display&quot; =&gt; large }
+</pre>
+<p>
+You can also specify a class option as the second parameter that&#8216;ll
+raise an exception if a serialized object is retrieved as a descendent of a
+class not in the hierarchy. Example:
+</p>
+<pre>
+  class User &lt; ActiveRecord::Base
+    serialize :preferences, Hash
+  end
+
+  user = User.create(:preferences =&gt; %w( one two three ))
+  User.find(user.id).preferences    # raises SerializationTypeMismatch
+</pre>
+<h2>Single table inheritance</h2>
+<p>
+Active Record allows inheritance by storing the name of the class in a
+column that by default is named &quot;type&quot; (can be changed by
+overwriting <tt><a
+href="Base.html#M001867">Base.inheritance_column</a></tt>). This means that
+an inheritance looking like this:
+</p>
+<pre>
+  class Company &lt; ActiveRecord::Base; end
+  class Firm &lt; Company; end
+  class Client &lt; Company; end
+  class PriorityClient &lt; Client; end
+</pre>
+<p>
+When you do <tt>Firm.create(:name =&gt; &quot;37signals&quot;)</tt>, this
+record will be saved in the companies table with type = &quot;Firm&quot;.
+You can then fetch this row again using <tt>Company.find(:<a
+href="Base.html#M001843">first</a>, &quot;name =
+&#8216;37signals&#8217;&quot;)</tt> and it will return a Firm object.
+</p>
+<p>
+If you don&#8216;t have a type column defined in your table, single-table
+inheritance won&#8216;t be triggered. In that case, it&#8216;ll work just
+like normal subclasses with no special magic for differentiating between
+them or reloading the right type with <a href="Base.html#M001842">find</a>.
+</p>
+<p>
+Note, <a href="Base.html#M001845">all</a> the <a
+href="Base.html#M001927">attributes</a> for <a
+href="Base.html#M001845">all</a> the cases are kept in the same table. Read
+more: <a
+href="http://www.martinfowler.com/eaaCatalog/singleTableInheritance.html">www.martinfowler.com/eaaCatalog/singleTableInheritance.html</a>
+</p>
+<h2>Connection to multiple databases in different models</h2>
+<p>
+Connections are usually created through <a
+href="Base.html#M001943">ActiveRecord::Base.establish_connection</a> and
+retrieved by <a href="Base.html#M001942">ActiveRecord::Base.connection</a>.
+All classes inheriting from <a href="Base.html">ActiveRecord::Base</a> will
+use this <a href="Base.html#M001942">connection</a>. But you can also set a
+class-specific <a href="Base.html#M001942">connection</a>. For example, if
+Course is an <a href="Base.html">ActiveRecord::Base</a>, but resides in a
+different database, you can just say <tt>Course.establish_connection</tt>
+and Course and <a href="Base.html#M001845">all</a> of its subclasses will
+use this <a href="Base.html#M001942">connection</a> instead.
+</p>
+<p>
+This feature is implemented by keeping a <a
+href="Base.html#M001942">connection</a> pool in <a
+href="Base.html">ActiveRecord::Base</a> that is a Hash indexed by the
+class. If a <a href="Base.html#M001942">connection</a> is requested, the <a
+href="Base.html#M001950">retrieve_connection</a> method will go up the
+class-hierarchy until a <a href="Base.html#M001942">connection</a> is found
+in the <a href="Base.html#M001942">connection</a> pool.
+</p>
+<h2>Exceptions</h2>
+<ul>
+<li><a href="ActiveRecordError.html">ActiveRecordError</a> - Generic error
+class and superclass of <a href="Base.html#M001845">all</a> other errors
+raised by Active Record.
+
+</li>
+<li><a href="AdapterNotSpecified.html">AdapterNotSpecified</a> - The
+configuration <a href="Base.html#M001936">hash</a> used in <tt><a
+href="Base.html#M001943">establish_connection</a></tt> didn&#8216;t include
+an <tt>:adapter</tt> key.
+
+</li>
+<li><a href="AdapterNotFound.html">AdapterNotFound</a> - The <tt>:adapter</tt>
+key used in <tt><a href="Base.html#M001943">establish_connection</a></tt>
+specified a non-existent adapter (or a bad spelling of an existing one).
+
+</li>
+<li><a href="AssociationTypeMismatch.html">AssociationTypeMismatch</a> - The
+object assigned to the association wasn&#8216;t of the type specified in
+the association definition.
+
+</li>
+<li><a href="SerializationTypeMismatch.html">SerializationTypeMismatch</a> -
+The serialized object wasn&#8216;t of the class specified as the second
+parameter.
+
+</li>
+<li><a href="ConnectionNotEstablished.html">ConnectionNotEstablished</a>+ - No
+<a href="Base.html#M001942">connection</a> has been established. Use <tt><a
+href="Base.html#M001943">establish_connection</a></tt> before querying.
+
+</li>
+<li><a href="RecordNotFound.html">RecordNotFound</a> - No record responded to
+the <tt><a href="Base.html#M001842">find</a></tt> method. Either the row
+with the given ID doesn&#8216;t exist or the row didn&#8216;t meet the
+additional restrictions. Some <tt><a href="Base.html#M001842">find</a></tt>
+calls do not raise this exception to signal nothing was found, please check
+its documentation for further details.
+
+</li>
+<li><a href="StatementInvalid.html">StatementInvalid</a> - The database server
+rejected the SQL statement. The precise error is added in the message.
+
+</li>
+<li><a
+href="MultiparameterAssignmentErrors.html">MultiparameterAssignmentErrors</a>
+- Collection of errors that occurred during a mass assignment using the
+<tt><a href="Base.html#M001926">attributes=</a></tt> method. The
+<tt>errors</tt> property of this exception contains an array of <a
+href="AttributeAssignmentError.html">AttributeAssignmentError</a> objects
+that should be inspected to determine which <a
+href="Base.html#M001927">attributes</a> triggered the errors.
+
+</li>
+<li><a href="AttributeAssignmentError.html">AttributeAssignmentError</a> - An
+error occurred while doing a mass assignment through the <tt><a
+href="Base.html#M001926">attributes=</a></tt> method. You can <a
+href="Base.html#M001881">inspect</a> the <tt>attribute</tt> property of the
+exception object to determine which attribute triggered the error.
+
+</li>
+</ul>
+<p>
+<b>Note</b>: The <a href="Base.html#M001927">attributes</a> listed are
+class-level <a href="Base.html#M001927">attributes</a> (accessible from
+both the class and instance level). So it&#8216;s possible to assign a
+logger to the class through <tt>Base.logger=</tt> which will then be used
+by <a href="Base.html#M001845">all</a> instances in the current object
+space.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001934">==</a></li>
+<li><a href="#M001884">===</a></li>
+<li><a href="#M001924">[]</a></li>
+<li><a href="#M001925">[]=</a></li>
+<li><a href="#M001886">abstract_class?</a></li>
+<li><a href="#M001897">aggregate_mapping</a></li>
+<li><a href="#M001845">all</a></li>
+<li><a href="#M001944">allow_concurrency</a></li>
+<li><a href="#M001945">allow_concurrency=</a></li>
+<li><a href="#M001860">attr_accessible</a></li>
+<li><a href="#M001859">attr_protected</a></li>
+<li><a href="#M001861">attr_readonly</a></li>
+<li><a href="#M001929">attribute_for_inspect</a></li>
+<li><a href="#M001932">attribute_names</a></li>
+<li><a href="#M001930">attribute_present?</a></li>
+<li><a href="#M001927">attributes</a></li>
+<li><a href="#M001926">attributes=</a></li>
+<li><a href="#M001928">attributes_before_type_cast</a></li>
+<li><a href="#M001885">base_class</a></li>
+<li><a href="#M001913">becomes</a></li>
+<li><a href="#M001882">benchmark</a></li>
+<li><a href="#M001905">cache_key</a></li>
+<li><a href="#M001894">class_of_active_record_descendant</a></li>
+<li><a href="#M001912">clone</a></li>
+<li><a href="#M001933">column_for_attribute</a></li>
+<li><a href="#M001875">column_names</a></li>
+<li><a href="#M001873">columns</a></li>
+<li><a href="#M001874">columns_hash</a></li>
+<li><a href="#M001893">compute_type</a></li>
+<li><a href="#M001951">connected?</a></li>
+<li><a href="#M001942">connection</a></li>
+<li><a href="#M001948">connection</a></li>
+<li><a href="#M001949">connection_pool</a></li>
+<li><a href="#M001876">content_columns</a></li>
+<li><a href="#M001855">count_by_sql</a></li>
+<li><a href="#M001848">create</a></li>
+<li><a href="#M001919">decrement</a></li>
+<li><a href="#M001920">decrement!</a></li>
+<li><a href="#M001858">decrement_counter</a></li>
+<li><a href="#M001892">default_scope</a></li>
+<li><a href="#M001850">delete</a></li>
+<li><a href="#M001910">delete</a></li>
+<li><a href="#M001854">delete_all</a></li>
+<li><a href="#M001880">descends_from_active_record?</a></li>
+<li><a href="#M001911">destroy</a></li>
+<li><a href="#M001851">destroy</a></li>
+<li><a href="#M001853">destroy_all</a></li>
+<li><a href="#M001935">eql?</a></li>
+<li><a href="#M001943">establish_connection</a></li>
+<li><a href="#M001847">exists?</a></li>
+<li><a href="#M001898">expand_hash_conditions_for_aggregates</a></li>
+<li><a href="#M001842">find</a></li>
+<li><a href="#M001846">find_by_sql</a></li>
+<li><a href="#M001843">first</a></li>
+<li><a href="#M001937">freeze</a></li>
+<li><a href="#M001938">frozen?</a></li>
+<li><a href="#M001931">has_attribute?</a></li>
+<li><a href="#M001936">hash</a></li>
+<li><a href="#M001878">human_attribute_name</a></li>
+<li><a href="#M001879">human_name</a></li>
+<li><a href="#M001903">id</a></li>
+<li><a href="#M001906">id=</a></li>
+<li><a href="#M001917">increment</a></li>
+<li><a href="#M001918">increment!</a></li>
+<li><a href="#M001857">increment_counter</a></li>
+<li><a href="#M001867">inheritance_column</a></li>
+<li><a href="#M001941">inspect</a></li>
+<li><a href="#M001881">inspect</a></li>
+<li><a href="#M001844">last</a></li>
+<li><a href="#M001889">merge_conditions</a></li>
+<li><a href="#M001902">new</a></li>
+<li><a href="#M001907">new_record?</a></li>
+<li><a href="#M001866">primary_key</a></li>
+<li><a href="#M001940">readonly!</a></li>
+<li><a href="#M001939">readonly?</a></li>
+<li><a href="#M001862">readonly_attributes</a></li>
+<li><a href="#M001923">reload</a></li>
+<li><a href="#M001952">remove_connection</a></li>
+<li><a href="#M001877">reset_column_information</a></li>
+<li><a href="#M001887">respond_to?</a></li>
+<li><a href="#M001950">retrieve_connection</a></li>
+<li><a href="#M001901">sanitize_sql_array</a></li>
+<li><a href="#M001896">sanitize_sql_for_assignment</a></li>
+<li><a href="#M001895">sanitize_sql_for_conditions</a></li>
+<li><a href="#M001900">sanitize_sql_hash_for_assignment</a></li>
+<li><a href="#M001899">sanitize_sql_hash_for_conditions</a></li>
+<li><a href="#M001908">save</a></li>
+<li><a href="#M001909">save!</a></li>
+<li><a href="#M001863">serialize</a></li>
+<li><a href="#M001864">serialized_attributes</a></li>
+<li><a href="#M001870">set_inheritance_column</a></li>
+<li><a href="#M001869">set_primary_key</a></li>
+<li><a href="#M001871">set_sequence_name</a></li>
+<li><a href="#M001868">set_table_name</a></li>
+<li><a href="#M001883">silence</a></li>
+<li><a href="#M001888">sti_name</a></li>
+<li><a href="#M001872">table_exists?</a></li>
+<li><a href="#M001865">table_name</a></li>
+<li><a href="#M001904">to_param</a></li>
+<li><a href="#M001921">toggle</a></li>
+<li><a href="#M001922">toggle!</a></li>
+<li><a href="#M001849">update</a></li>
+<li><a href="#M001852">update_all</a></li>
+<li><a href="#M001914">update_attribute</a></li>
+<li><a href="#M001915">update_attributes</a></li>
+<li><a href="#M001916">update_attributes!</a></li>
+<li><a href="#M001856">update_counters</a></li>
+<li><a href="#M001946">verification_timeout</a></li>
+<li><a href="#M001947">verification_timeout=</a></li>
+<li><a href="#M001891">with_exclusive_scope</a></li>
+<li><a href="#M001890">with_scope</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>VALID_FIND_OPTIONS</h2>
+<fieldset>
+<div class="row">
+[ :conditions, :include, :joins, :limit, :offset,                                :order, :select, :readonly, :group, :having, :from, :lock ]
+</div>
+</fieldset>
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+abstract_class
+</label>
+
+Set this to true if this is an abstract class (see <tt><a
+href="Base.html#M001886">abstract_class?</a></tt>).
+
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M001884">===</a> (object)</h2>
+
+<fieldset><div class='row'><p>
+Overwrite the default class equality method to provide support for
+association proxies.
+</p></div></fieldset>
+
+
+<h2><a name="M001886">abstract_class?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns whether this class is a base AR class. If A is a base class and B
+descends from A, then B.base_class will return B.
+</p></div></fieldset>
+
+
+<h2><a name="M001845">all</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+This is an alias for <a href="Base.html#M001842">find</a>(:<a
+href="Base.html#M001845">all</a>). You can pass in <a
+href="Base.html#M001845">all</a> the same arguments to this method as you
+can to <a href="Base.html#M001842">find</a>(:<a
+href="Base.html#M001845">all</a>)
+</p></div></fieldset>
+
+
+<h2><a name="M001944">allow_concurrency</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Deprecated and no longer has any effect.
+</p></div></fieldset>
+
+
+<h2><a name="M001945">allow_concurrency=</a> (flag)</h2>
+
+<fieldset><div class='row'><p>
+Deprecated and no longer has any effect.
+</p></div></fieldset>
+
+
+<h2><a name="M001860">attr_accessible</a> (*attributes)</h2>
+
+<fieldset><div class='row'><p>
+Specifies a white list of model <a href="Base.html#M001927">attributes</a>
+that can be set via mass-assignment, such as <tt><a
+href="Base.html#M001902">new</a>(<a
+href="Base.html#M001927">attributes</a>)</tt>, <tt><a
+href="Base.html#M001915">update_attributes</a>(<a
+href="Base.html#M001927">attributes</a>)</tt>, or <tt><a
+href="Base.html#M001926">attributes=</a>(<a
+href="Base.html#M001927">attributes</a>)</tt>
+</p>
+<p>
+This is the opposite of the <tt><a
+href="Base.html#M001859">attr_protected</a></tt> macro: Mass-assignment
+will only set <a href="Base.html#M001927">attributes</a> in this list, to
+assign to the rest of <a href="Base.html#M001927">attributes</a> you can
+use direct writer methods. This is meant to protect sensitive <a
+href="Base.html#M001927">attributes</a> from being overwritten by malicious
+users tampering with URLs or forms. If you&#8216;d rather start from an <a
+href="Base.html#M001845">all</a>-open default and restrict <a
+href="Base.html#M001927">attributes</a> as needed, have a look at <tt><a
+href="Base.html#M001859">attr_protected</a></tt>.
+</p>
+<pre>
+  class Customer &lt; ActiveRecord::Base
+    attr_accessible :name, :nickname
+  end
+
+  customer = Customer.new(:name =&gt; &quot;David&quot;, :nickname =&gt; &quot;Dave&quot;, :credit_rating =&gt; &quot;Excellent&quot;)
+  customer.credit_rating # =&gt; nil
+  customer.attributes = { :name =&gt; &quot;Jolly fellow&quot;, :credit_rating =&gt; &quot;Superb&quot; }
+  customer.credit_rating # =&gt; nil
+
+  customer.credit_rating = &quot;Average&quot;
+  customer.credit_rating # =&gt; &quot;Average&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001859">attr_protected</a> (*attributes)</h2>
+
+<fieldset><div class='row'><p>
+Attributes named in this macro are protected from mass-assignment, such as
+<tt><a href="Base.html#M001902">new</a>(<a
+href="Base.html#M001927">attributes</a>)</tt>, <tt><a
+href="Base.html#M001915">update_attributes</a>(<a
+href="Base.html#M001927">attributes</a>)</tt>, or <tt><a
+href="Base.html#M001926">attributes=</a>(<a
+href="Base.html#M001927">attributes</a>)</tt>.
+</p>
+<p>
+Mass-assignment to these <a href="Base.html#M001927">attributes</a> will
+simply be ignored, to assign to them you can use direct writer methods.
+This is meant to protect sensitive <a
+href="Base.html#M001927">attributes</a> from being overwritten by malicious
+users tampering with URLs or forms.
+</p>
+<pre>
+  class Customer &lt; ActiveRecord::Base
+    attr_protected :credit_rating
+  end
+
+  customer = Customer.new(&quot;name&quot; =&gt; David, &quot;credit_rating&quot; =&gt; &quot;Excellent&quot;)
+  customer.credit_rating # =&gt; nil
+  customer.attributes = { &quot;description&quot; =&gt; &quot;Jolly fellow&quot;, &quot;credit_rating&quot; =&gt; &quot;Superb&quot; }
+  customer.credit_rating # =&gt; nil
+
+  customer.credit_rating = &quot;Average&quot;
+  customer.credit_rating # =&gt; &quot;Average&quot;
+</pre>
+<p>
+To start from an <a href="Base.html#M001845">all</a>-closed default and
+enable <a href="Base.html#M001927">attributes</a> as needed, have a look at
+<tt><a href="Base.html#M001860">attr_accessible</a></tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001861">attr_readonly</a> (*attributes)</h2>
+
+<fieldset><div class='row'><p>
+Attributes listed as readonly can be set for a <a
+href="Base.html#M001902">new</a> record, but will be ignored in database
+updates afterwards.
+</p></div></fieldset>
+
+
+<h2><a name="M001885">base_class</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the base AR subclass that this class descends from. If A extends
+AR::Base, A.base_class will return A. If B descends from A through some
+arbitrarily deep hierarchy, B.base_class will return A.
+</p></div></fieldset>
+
+
+<h2><a name="M001882">benchmark</a> (title, log_level = Logger::DEBUG, use_silence = true) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Log and <a href="Base.html#M001882">benchmark</a> multiple statements in a
+single block. Example:
+</p>
+<pre>
+  Project.benchmark(&quot;Creating project&quot;) do
+    project = Project.create(&quot;name&quot; =&gt; &quot;stuff&quot;)
+    project.create_manager(&quot;name&quot; =&gt; &quot;David&quot;)
+    project.milestones &lt;&lt; Milestone.find(:all)
+  end
+</pre>
+<p>
+The <a href="Base.html#M001882">benchmark</a> is only recorded if the
+current level of the logger is less than or equal to the
+<tt>log_level</tt>, which makes it easy to include benchmarking statements
+in production software that will remain inexpensive because the <a
+href="Base.html#M001882">benchmark</a> will only be conducted if the log
+level is low enough.
+</p>
+<p>
+The logging of the multiple statements is turned off unless
+<tt>use_silence</tt> is set to false.
+</p></div></fieldset>
+
+
+<h2><a name="M001875">column_names</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of column names as strings.
+</p></div></fieldset>
+
+
+<h2><a name="M001873">columns</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of column objects for the table associated with this
+class.
+</p></div></fieldset>
+
+
+<h2><a name="M001874">columns_hash</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="Base.html#M001936">hash</a> of column objects for the
+table associated with this class.
+</p></div></fieldset>
+
+
+<h2><a name="M001951">connected?</a> ()</h2>
+
+
+
+<h2><a name="M001948">connection</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="Base.html#M001942">connection</a> currently associated
+with the class. This can also be used to &quot;borrow&quot; the <a
+href="Base.html#M001942">connection</a> to do database work unrelated to
+any of the specific Active Records.
+</p></div></fieldset>
+
+
+<h2><a name="M001949">connection_pool</a> ()</h2>
+
+
+
+<h2><a name="M001876">content_columns</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of column objects where the primary <a
+href="Base.html#M001903">id</a>, <a href="Base.html#M001845">all</a> <a
+href="Base.html#M001873">columns</a> ending in &quot;_id&quot; or
+&quot;_count&quot;, and <a href="Base.html#M001873">columns</a> used for
+single table inheritance have been removed.
+</p></div></fieldset>
+
+
+<h2><a name="M001855">count_by_sql</a> (sql)</h2>
+
+<fieldset><div class='row'><p>
+Returns the result of an SQL statement that should only include a COUNT(*)
+in the SELECT part. The use of this method should be restricted to
+complicated SQL queries that can&#8216;t be executed using the
+ActiveRecord::Calculations class methods. Look into those before using
+this.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>sql</tt> - An SQL statement which should return a count query from the
+database, see the example below.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  Product.count_by_sql &quot;SELECT COUNT(*) FROM sales s, customers c WHERE s.customer_id = c.id&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001848">create</a> (attributes = nil) {|object| ...}</h2>
+
+<fieldset><div class='row'><p>
+Creates an object (or multiple objects) and saves it to the database, if
+validations pass. The resulting object is returned whether the object was
+saved successfully to the database or not.
+</p>
+<p>
+The <tt><a href="Base.html#M001927">attributes</a></tt> parameter can be
+either be a Hash or an Array of Hashes. These Hashes describe the <a
+href="Base.html#M001927">attributes</a> on the objects that are to be
+created.
+</p>
+<h4>Examples</h4>
+<pre>
+  # Create a single new object
+  User.create(:first_name =&gt; 'Jamie')
+
+  # Create an Array of new objects
+  User.create([{ :first_name =&gt; 'Jamie' }, { :first_name =&gt; 'Jeremy' }])
+
+  # Create a single object and pass it into a block to set other attributes.
+  User.create(:first_name =&gt; 'Jamie') do |u|
+    u.is_admin = false
+  end
+
+  # Creating an Array of new objects using a block, where the block is executed for each object:
+  User.create([{ :first_name =&gt; 'Jamie' }, { :first_name =&gt; 'Jeremy' }]) do |u|
+    u.is_admin = false
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001858">decrement_counter</a> (counter_name, id)</h2>
+
+<fieldset><div class='row'><p>
+Decrement a number field by one, usually representing a count.
+</p>
+<p>
+This works the same as <a href="Base.html#M001857">increment_counter</a>
+but reduces the column value by 1 instead of increasing it.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>counter_name</tt> - The name of the field that should be decremented.
+
+</li>
+<li><tt><a href="Base.html#M001903">id</a></tt> - The <a
+href="Base.html#M001903">id</a> of the object that should be decremented.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # Decrement the post_count column for the record with an id of 5
+  DiscussionBoard.decrement_counter(:post_count, 5)
+</pre></div></fieldset>
+
+
+<h2><a name="M001850">delete</a> (id)</h2>
+
+<fieldset><div class='row'><p>
+Delete an object (or multiple objects) where the <tt><a
+href="Base.html#M001903">id</a></tt> given matches the <a
+href="Base.html#M001866">primary_key</a>. A SQL <tt>DELETE</tt> command is
+executed on the database which means that no callbacks are fired off
+running this. This is an efficient method of deleting records that
+don&#8216;t need cleaning up after or other actions to be taken.
+</p>
+<p>
+Objects are <em>not</em> instantiated with this method, and so +:dependent+
+rules defined on associations are not honered.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt><a href="Base.html#M001903">id</a></tt> - Can be either an Integer or
+an Array of Integers.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # Delete a single object
+  Todo.delete(1)
+
+  # Delete multiple objects
+  todos = [1,2,3]
+  Todo.delete(todos)
+</pre></div></fieldset>
+
+
+<h2><a name="M001854">delete_all</a> (conditions = nil)</h2>
+
+<fieldset><div class='row'><p>
+Deletes the records matching <tt>conditions</tt> without instantiating the
+records <a href="Base.html#M001843">first</a>, and hence not calling the
+<tt><a href="Base.html#M001851">destroy</a></tt> method nor invoking
+callbacks. This is a single SQL DELETE statement that goes straight to the
+database, much more efficient than <tt><a
+href="Base.html#M001853">destroy_all</a></tt>. Be careful with relations
+though, in particular <tt>:dependent</tt> rules defined on associations are
+not honored.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>conditions</tt> - Conditions are specified the same way as with <tt><a
+href="Base.html#M001842">find</a></tt> method.
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+  Post.delete_all(&quot;person_id = 5 AND (category = 'Something' OR category = 'Else')&quot;)
+  Post.delete_all([&quot;person_id = ? AND (category = ? OR category = ?)&quot;, 5, 'Something', 'Else'])
+</pre>
+<p>
+Both calls <a href="Base.html#M001850">delete</a> the affected posts <a
+href="Base.html#M001845">all</a> at once with a single DELETE statement. If
+you need to <a href="Base.html#M001851">destroy</a> dependent associations
+or call your <tt>before_*</tt> or <tt>after_destroy</tt> callbacks, use the
+<tt><a href="Base.html#M001853">destroy_all</a></tt> method instead.
+</p></div></fieldset>
+
+
+<h2><a name="M001880">descends_from_active_record?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+True if this isn&#8216;t a concrete subclass needing a STI type condition.
+</p></div></fieldset>
+
+
+<h2><a name="M001851">destroy</a> (id)</h2>
+
+<fieldset><div class='row'><p>
+Destroy an object (or multiple objects) that has the given <a
+href="Base.html#M001903">id</a>, the object is instantiated <a
+href="Base.html#M001843">first</a>, therefore <a
+href="Base.html#M001845">all</a> callbacks and filters are fired off before
+the object is deleted. This method is less efficient than
+ActiveRecord#delete but allows cleanup methods and other actions to be run.
+</p>
+<p>
+This essentially finds the object (or multiple objects) with the given <a
+href="Base.html#M001903">id</a>, creates a <a
+href="Base.html#M001902">new</a> object from the <a
+href="Base.html#M001927">attributes</a>, and then calls <a
+href="Base.html#M001851">destroy</a> on it.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt><a href="Base.html#M001903">id</a></tt> - Can be either an Integer or
+an Array of Integers.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # Destroy a single object
+  Todo.destroy(1)
+
+  # Destroy multiple objects
+  todos = [1,2,3]
+  Todo.destroy(todos)
+</pre></div></fieldset>
+
+
+<h2><a name="M001853">destroy_all</a> (conditions = nil)</h2>
+
+<fieldset><div class='row'><p>
+Destroys the records matching <tt>conditions</tt> by instantiating each
+record and calling their <tt><a href="Base.html#M001851">destroy</a></tt>
+method. This means at least 2*N database queries to <a
+href="Base.html#M001851">destroy</a> N records, so avoid <tt><a
+href="Base.html#M001853">destroy_all</a></tt> if you are deleting many
+records. If you want to simply <a href="Base.html#M001850">delete</a>
+records without worrying about dependent associations or callbacks, use the
+much faster <tt><a href="Base.html#M001854">delete_all</a></tt> method
+instead.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>conditions</tt> - Conditions are specified the same way as with <tt><a
+href="Base.html#M001842">find</a></tt> method.
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+  Person.destroy_all(&quot;last_login &lt; '2004-04-04'&quot;)
+</pre>
+<p>
+This loads and destroys each person one by one, including its dependent
+associations and before_ and after_destroy callbacks.
+</p>
+<p>
+<tt>conditions</tt> can be anything that <tt><a
+href="Base.html#M001842">find</a></tt> also accepts:
+</p>
+<pre>
+  Person.destroy_all(:last_login =&gt; 6.hours.ago)
+</pre></div></fieldset>
+
+
+<h2><a name="M001943">establish_connection</a> (spec = nil)</h2>
+
+<fieldset><div class='row'><p>
+Establishes the <a href="Base.html#M001942">connection</a> to the database.
+Accepts a <a href="Base.html#M001936">hash</a> as input where the
+<tt>:adapter</tt> key must be specified with the name of a database adapter
+(in lower-case) example for regular databases (MySQL, Postgresql, etc):
+</p>
+<pre>
+  ActiveRecord::Base.establish_connection(
+    :adapter  =&gt; &quot;mysql&quot;,
+    :host     =&gt; &quot;localhost&quot;,
+    :username =&gt; &quot;myuser&quot;,
+    :password =&gt; &quot;mypass&quot;,
+    :database =&gt; &quot;somedatabase&quot;
+  )
+</pre>
+<p>
+Example for SQLite database:
+</p>
+<pre>
+  ActiveRecord::Base.establish_connection(
+    :adapter =&gt; &quot;sqlite&quot;,
+    :database  =&gt; &quot;path/to/dbfile&quot;
+  )
+</pre>
+<p>
+Also accepts keys as strings (for parsing from YAML for example):
+</p>
+<pre>
+  ActiveRecord::Base.establish_connection(
+    &quot;adapter&quot; =&gt; &quot;sqlite&quot;,
+    &quot;database&quot;  =&gt; &quot;path/to/dbfile&quot;
+  )
+</pre>
+<p>
+The exceptions <a href="AdapterNotSpecified.html">AdapterNotSpecified</a>,
+<a href="AdapterNotFound.html">AdapterNotFound</a> and ArgumentError may be
+returned on an error.
+</p></div></fieldset>
+
+
+<h2><a name="M001847">exists?</a> (id_or_conditions)</h2>
+
+<fieldset><div class='row'><p>
+Checks whether a record exists in the database that matches conditions
+given. These conditions can either be a single integer representing a
+primary key <a href="Base.html#M001903">id</a> to be found, or a condition
+to be matched like using ActiveRecord#find.
+</p>
+<p>
+The <tt>id_or_conditions</tt> parameter can be an Integer or a String if
+you want to search the primary key column of the table for a matching <a
+href="Base.html#M001903">id</a>, or if you&#8216;re looking to match
+against a condition you can use an Array or a Hash.
+</p>
+<p>
+Possible gotcha: You can&#8216;t pass in a condition as a string e.g.
+&quot;name = &#8216;Jamie&#8217;&quot;, this would be sanitized and then
+queried against the primary key column as &quot;<a
+href="Base.html#M001903">id</a> = &#8216;name = \&#8217;Jamie&quot;
+</p>
+<h4>Examples</h4>
+<pre>
+  Person.exists?(5)
+  Person.exists?('5')
+  Person.exists?(:name =&gt; &quot;David&quot;)
+  Person.exists?(['name LIKE ?', &quot;%#{query}%&quot;])
+</pre></div></fieldset>
+
+
+<h2><a name="M001842">find</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Find operates with four different retrieval approaches:
+</p>
+<ul>
+<li>Find by <a href="Base.html#M001903">id</a> - This can either be a specific
+<a href="Base.html#M001903">id</a> (1), a list of ids (1, 5, 6), or an
+array of ids ([5, 6, 10]). If no record can be found for <a
+href="Base.html#M001845">all</a> of the listed ids, then <a
+href="RecordNotFound.html">RecordNotFound</a> will be raised.
+
+</li>
+<li>Find <a href="Base.html#M001843">first</a> - This will return the <a
+href="Base.html#M001843">first</a> record matched by the options used.
+These options can either be specific conditions or merely an order. If no
+record can be matched, <tt>nil</tt> is returned. Use <tt>Model.find(:<a
+href="Base.html#M001843">first</a>, *args)</tt> or its shortcut
+<tt>Model.first(*args)</tt>.
+
+</li>
+<li>Find <a href="Base.html#M001844">last</a> - This will return the <a
+href="Base.html#M001844">last</a> record matched by the options used. These
+options can either be specific conditions or merely an order. If no record
+can be matched, <tt>nil</tt> is returned. Use <tt>Model.find(:<a
+href="Base.html#M001844">last</a>, *args)</tt> or its shortcut
+<tt>Model.last(*args)</tt>.
+
+</li>
+<li>Find <a href="Base.html#M001845">all</a> - This will return <a
+href="Base.html#M001845">all</a> the records matched by the options used.
+If no records are found, an empty array is returned. Use <tt>Model.find(:<a
+href="Base.html#M001845">all</a>, *args)</tt> or its shortcut
+<tt>Model.all(*args)</tt>.
+
+</li>
+</ul>
+<p>
+All approaches accept an options <a href="Base.html#M001936">hash</a> as
+their <a href="Base.html#M001844">last</a> parameter.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>:conditions</tt> - An SQL fragment like &quot;administrator = 1&quot;,
+<tt>[ &quot;user_name = ?&quot;, username ]</tt>, or <tt>[&quot;user_name =
+:user_name&quot;, { :user_name =&gt; user_name }]</tt>. See conditions in
+the intro.
+
+</li>
+<li><tt>:order</tt> - An SQL fragment like &quot;created_at DESC, name&quot;.
+
+</li>
+<li><tt>:group</tt> - An attribute name by which the result should be grouped.
+Uses the <tt>GROUP BY</tt> SQL-clause.
+
+</li>
+<li><tt>:having</tt> - Combined with +:group+ this can be used to filter the
+records that a <tt>GROUP BY</tt> returns. Uses the <tt>HAVING</tt>
+SQL-clause.
+
+</li>
+<li><tt>:limit</tt> - An integer determining the limit on the number of rows
+that should be returned.
+
+</li>
+<li><tt>:offset</tt> - An integer determining the offset from where the rows
+should be fetched. So at 5, it would skip rows 0 through 4.
+
+</li>
+<li><tt>:joins</tt> - Either an SQL fragment for additional joins like
+&quot;LEFT JOIN comments ON comments.post_id = <a
+href="Base.html#M001903">id</a>&quot; (rarely needed) or named associations
+in the same form used for the <tt>:include</tt> option, which will perform
+an <tt>INNER JOIN</tt> on the associated table(s). If the value is a
+string, then the records will be returned read-only since they will have <a
+href="Base.html#M001927">attributes</a> that do not correspond to the
+table&#8216;s <a href="Base.html#M001873">columns</a>. Pass <tt>:readonly
+=&gt; false</tt> to override.
+
+</li>
+<li><tt>:include</tt> - Names associations that should be loaded alongside. The
+symbols named refer to already defined associations. See eager loading
+under Associations.
+
+</li>
+<li><tt>:select</tt> - By default, this is &quot;*&quot; as in &quot;SELECT *
+FROM&quot;, but can be changed if you, for example, want to do a join but
+not include the joined <a href="Base.html#M001873">columns</a>. Takes a
+string with the SELECT SQL fragment (e.g. &quot;<a
+href="Base.html#M001903">id</a>, name&quot;).
+
+</li>
+<li><tt>:from</tt> - By default, this is the table name of the class, but can
+be changed to an alternate table name (or even the name of a database
+view).
+
+</li>
+<li><tt>:readonly</tt> - Mark the returned records read-only so they cannot be
+saved or updated.
+
+</li>
+<li><tt>:lock</tt> - An SQL fragment like &quot;FOR UPDATE&quot; or &quot;LOCK
+IN SHARE MODE&quot;. <tt>:lock =&gt; true</tt> gives <a
+href="Base.html#M001942">connection</a>&#8216;s default exclusive lock,
+usually &quot;FOR UPDATE&quot;.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # find by id
+  Person.find(1)       # returns the object for ID = 1
+  Person.find(1, 2, 6) # returns an array for objects with IDs in (1, 2, 6)
+  Person.find([7, 17]) # returns an array for objects with IDs in (7, 17)
+  Person.find([1])     # returns an array for the object with ID = 1
+  Person.find(1, :conditions =&gt; &quot;administrator = 1&quot;, :order =&gt; &quot;created_on DESC&quot;)
+</pre>
+<p>
+Note that returned records may not be in the same order as the ids you
+provide since database rows are unordered. Give an explicit <tt>:order</tt>
+to ensure the results are sorted.
+</p>
+<h4>Examples</h4>
+<pre>
+  # find first
+  Person.find(:first) # returns the first object fetched by SELECT * FROM people
+  Person.find(:first, :conditions =&gt; [ &quot;user_name = ?&quot;, user_name])
+  Person.find(:first, :conditions =&gt; [ &quot;user_name = :u&quot;, { :u =&gt; user_name }])
+  Person.find(:first, :order =&gt; &quot;created_on DESC&quot;, :offset =&gt; 5)
+
+  # find last
+  Person.find(:last) # returns the last object fetched by SELECT * FROM people
+  Person.find(:last, :conditions =&gt; [ &quot;user_name = ?&quot;, user_name])
+  Person.find(:last, :order =&gt; &quot;created_on DESC&quot;, :offset =&gt; 5)
+
+  # find all
+  Person.find(:all) # returns an array of objects for all the rows fetched by SELECT * FROM people
+  Person.find(:all, :conditions =&gt; [ &quot;category IN (?)&quot;, categories], :limit =&gt; 50)
+  Person.find(:all, :conditions =&gt; { :friends =&gt; [&quot;Bob&quot;, &quot;Steve&quot;, &quot;Fred&quot;] }
+  Person.find(:all, :offset =&gt; 10, :limit =&gt; 10)
+  Person.find(:all, :include =&gt; [ :account, :friends ])
+  Person.find(:all, :group =&gt; &quot;category&quot;)
+</pre>
+<p>
+Example for <a href="Base.html#M001842">find</a> with a lock: Imagine two
+concurrent transactions: each will read <tt>person.visits == 2</tt>, add 1
+to it, and <a href="Base.html#M001908">save</a>, resulting in two saves of
+<tt>person.visits = 3</tt>. By locking the row, the second transaction has
+to wait until the <a href="Base.html#M001843">first</a> is finished; we get
+the expected <tt>person.visits == 4</tt>.
+</p>
+<pre>
+  Person.transaction do
+    person = Person.find(1, :lock =&gt; true)
+    person.visits += 1
+    person.save!
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001846">find_by_sql</a> (sql)</h2>
+
+<fieldset><div class='row'><p>
+Executes a custom SQL query against your database and returns <a
+href="Base.html#M001845">all</a> the results. The results will be returned
+as an array with <a href="Base.html#M001873">columns</a> requested
+encapsulated as <a href="Base.html#M001927">attributes</a> of the model you
+call this method from. If you call <tt>Product.find_by_sql</tt> then the
+results will be returned in a Product object with the <a
+href="Base.html#M001927">attributes</a> you specified in the SQL query.
+</p>
+<p>
+If you call a complicated SQL query which spans multiple tables the <a
+href="Base.html#M001873">columns</a> specified by the SELECT will be <a
+href="Base.html#M001927">attributes</a> of the model, whether or not they
+are <a href="Base.html#M001873">columns</a> of the corresponding table.
+</p>
+<p>
+The <tt>sql</tt> parameter is a full SQL query as a string. It will be
+called as is, there will be no database agnostic conversions performed.
+This should be a <a href="Base.html#M001844">last</a> resort because using,
+for example, MySQL specific terms will lock you to using that particular
+database engine or require you to change your call if you switch engines.
+</p>
+<h4>Examples</h4>
+<pre>
+  # A simple SQL query spanning multiple tables
+  Post.find_by_sql &quot;SELECT p.title, c.author FROM posts p, comments c WHERE p.id = c.post_id&quot;
+  &gt; [#&lt;Post:0x36bff9c @attributes={&quot;title&quot;=&gt;&quot;Ruby Meetup&quot;, &quot;first_name&quot;=&gt;&quot;Quentin&quot;}&gt;, ...]
+
+  # You can use the same string replacement techniques as you can with ActiveRecord#find
+  Post.find_by_sql [&quot;SELECT title FROM posts WHERE author = ? AND created &gt; ?&quot;, author_id, start_date]
+  &gt; [#&lt;Post:0x36bff9c @attributes={&quot;first_name&quot;=&gt;&quot;The Cheap Man Buys Twice&quot;}&gt;, ...]
+</pre></div></fieldset>
+
+
+<h2><a name="M001843">first</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+A convenience wrapper for <tt><a href="Base.html#M001842">find</a>(:<a
+href="Base.html#M001843">first</a>, *args)</tt>. You can pass in <a
+href="Base.html#M001845">all</a> the same arguments to this method as you
+can to <tt><a href="Base.html#M001842">find</a>(:<a
+href="Base.html#M001843">first</a>)</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001878">human_attribute_name</a> (attribute_key_name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Transforms attribute key names into a more humane format, such as
+&quot;First name&quot; instead of &quot;first_name&quot;. Example:
+</p>
+<pre>
+  Person.human_attribute_name(&quot;first_name&quot;) # =&gt; &quot;First name&quot;
+</pre>
+<p>
+This used to be depricated in favor of humanize, but is now preferred,
+because it automatically uses the <a href="../I18n.html">I18n</a> module
+now. Specify <tt>options</tt> with additional translating options.
+</p></div></fieldset>
+
+
+<h2><a name="M001879">human_name</a> (options = {})</h2>
+
+<fieldset><div class='row'><p>
+Transform the modelname into a more humane format, using <a
+href="../I18n.html">I18n</a>. Defaults to the basic humanize method.
+Default scope of the translation is activerecord.models Specify
+<tt>options</tt> with additional translating options.
+</p></div></fieldset>
+
+
+<h2><a name="M001857">increment_counter</a> (counter_name, id)</h2>
+
+<fieldset><div class='row'><p>
+Increment a number field by one, usually representing a count.
+</p>
+<p>
+This is used for caching aggregate values, so that they don&#8216;t need to
+be computed every time. For example, a DiscussionBoard may cache post_count
+and comment_count otherwise every time the board is shown it would have to
+run an SQL query to <a href="Base.html#M001842">find</a> how many posts and
+comments there are.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>counter_name</tt> - The name of the field that should be incremented.
+
+</li>
+<li><tt><a href="Base.html#M001903">id</a></tt> - The <a
+href="Base.html#M001903">id</a> of the object that should be incremented.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # Increment the post_count column for the record with an id of 5
+  DiscussionBoard.increment_counter(:post_count, 5)
+</pre></div></fieldset>
+
+
+<h2><a name="M001867">inheritance_column</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Defines the column name for use with single table inheritance &#8212; can
+be set in subclasses like so: self.inheritance_column = &quot;type_id&quot;
+</p></div></fieldset>
+
+
+<h2><a name="M001881">inspect</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a string like &#8216;Post <a
+href="Base.html#M001903">id</a>:integer, title:string, body:text&#8216;
+</p></div></fieldset>
+
+
+<h2><a name="M001844">last</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+A convenience wrapper for <tt><a href="Base.html#M001842">find</a>(:<a
+href="Base.html#M001844">last</a>, *args)</tt>. You can pass in <a
+href="Base.html#M001845">all</a> the same arguments to this method as you
+can to <tt><a href="Base.html#M001842">find</a>(:<a
+href="Base.html#M001844">last</a>)</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001889">merge_conditions</a> (*conditions)</h2>
+
+<fieldset><div class='row'><p>
+Merges conditions so that the result is a valid <tt>condition</tt>
+</p></div></fieldset>
+
+
+<h2><a name="M001902">new</a> (attributes = nil) {|self if block_given?| ...}</h2>
+
+<fieldset><div class='row'><p>
+New objects can be instantiated as either empty (pass no construction
+parameter) or pre-set with <a href="Base.html#M001927">attributes</a> but
+not yet saved (pass a <a href="Base.html#M001936">hash</a> with key names
+matching the associated table column names). In both instances, valid
+attribute keys are determined by the column names of the associated table
+&#8212; hence you can&#8216;t have <a
+href="Base.html#M001927">attributes</a> that aren&#8216;t part of the table
+<a href="Base.html#M001873">columns</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001866">primary_key</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Defines the primary key field &#8212; can be overridden in subclasses.
+Overwriting will negate any effect of the primary_key_prefix_type setting,
+though.
+</p></div></fieldset>
+
+
+<h2><a name="M001862">readonly_attributes</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of <a href="Base.html#M001845">all</a> the <a
+href="Base.html#M001927">attributes</a> that have been specified as
+readonly.
+</p></div></fieldset>
+
+
+<h2><a name="M001952">remove_connection</a> (klass = self)</h2>
+
+
+
+<h2><a name="M001877">reset_column_information</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Resets <a href="Base.html#M001845">all</a> the cached information about <a
+href="Base.html#M001873">columns</a>, which will cause them to be reloaded
+on the next request.
+</p>
+<p>
+The most common usage pattern for this method is probably in a migration,
+when just after creating a table you want to populate it with some default
+values, eg:
+</p>
+<pre>
+ class CreateJobLevels &lt; ActiveRecord::Migration
+   def self.up
+     create_table :job_levels do |t|
+       t.integer :id
+       t.string :name
+
+       t.timestamps
+     end
+
+     JobLevel.reset_column_information
+     %w{assistant executive manager director}.each do |type|
+       JobLevel.create(:name =&gt; type)
+     end
+   end
+
+   def self.down
+     drop_table :job_levels
+   end
+ end
+</pre></div></fieldset>
+
+
+<h2><a name="M001887">respond_to?</a> (method_id, include_private = false)</h2>
+
+
+
+<h2><a name="M001950">retrieve_connection</a> ()</h2>
+
+
+
+<h2><a name="M001863">serialize</a> (attr_name, class_name = Object)</h2>
+
+<fieldset><div class='row'><p>
+If you have an attribute that needs to be saved to the database as an
+object, and retrieved as the same object, then specify the name of that
+attribute using this method and it will be handled automatically. The
+serialization is done through YAML. If <tt>class_name</tt> is specified,
+the serialized object must be of that class on retrieval or <a
+href="SerializationTypeMismatch.html">SerializationTypeMismatch</a> will be
+raised.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>attr_name</tt> - The field name that should be serialized.
+
+</li>
+<li><tt>class_name</tt> - Optional, class name that the object type should be
+equal to.
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+  # Serialize a preferences attribute
+  class User
+    serialize :preferences
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001864">serialized_attributes</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="Base.html#M001936">hash</a> of <a
+href="Base.html#M001845">all</a> the <a
+href="Base.html#M001927">attributes</a> that have been specified for
+serialization as keys and their class restriction as values.
+</p></div></fieldset>
+
+
+<h2><a name="M001870">set_inheritance_column</a> (value = nil, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Sets the name of the inheritance column to use to the given value, or (if
+the value # is nil or false) to the value returned by the given block.
+</p>
+<pre>
+  class Project &lt; ActiveRecord::Base
+    set_inheritance_column do
+      original_inheritance_column + &quot;_id&quot;
+    end
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001869">set_primary_key</a> (value = nil, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Sets the name of the primary key column to use to the given value, or (if
+the value is nil or false) to the value returned by the given block.
+</p>
+<pre>
+  class Project &lt; ActiveRecord::Base
+    set_primary_key &quot;sysid&quot;
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001871">set_sequence_name</a> (value = nil, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Sets the name of the sequence to use when generating ids to the given
+value, or (if the value is nil or false) to the value returned by the given
+block. This is required for Oracle and is useful for any database which
+relies on sequences for primary key generation.
+</p>
+<p>
+If a sequence name is not explicitly set when using Oracle or Firebird, it
+will default to the commonly used pattern of: #{<a
+href="Base.html#M001865">table_name</a>}_seq
+</p>
+<p>
+If a sequence name is not explicitly set when using PostgreSQL, it will
+discover the sequence corresponding to your primary key for you.
+</p>
+<pre>
+  class Project &lt; ActiveRecord::Base
+    set_sequence_name &quot;projectseq&quot;   # default would have been &quot;project_seq&quot;
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001868">set_table_name</a> (value = nil, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Sets the table name to use to the given value, or (if the value is nil or
+false) to the value returned by the given block.
+</p>
+<pre>
+  class Project &lt; ActiveRecord::Base
+    set_table_name &quot;project&quot;
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001883">silence</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Silences the logger for the duration of the block.
+</p></div></fieldset>
+
+
+<h2><a name="M001888">sti_name</a> ()</h2>
+
+
+
+<h2><a name="M001872">table_exists?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Indicates whether the table associated with this class exists
+</p></div></fieldset>
+
+
+<h2><a name="M001865">table_name</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Guesses the table name (in forced lower-case) based on the name of the
+class in the inheritance hierarchy descending directly from <a
+href="Base.html">ActiveRecord::Base</a>. So if the hierarchy looks like:
+Reply &lt; Message &lt; <a href="Base.html">ActiveRecord::Base</a>, then
+Message is used to guess the table name even when called on Reply. The
+rules used to do the guess are handled by the Inflector class in Active
+Support, which knows almost <a href="Base.html#M001845">all</a> common
+English inflections. You can add <a href="Base.html#M001902">new</a>
+inflections in config/initializers/inflections.rb.
+</p>
+<p>
+Nested classes are given table names prefixed by the singular form of the
+parent&#8216;s table name. Enclosing modules are not considered.
+</p>
+<h4>Examples</h4>
+<pre>
+  class Invoice &lt; ActiveRecord::Base; end;
+  file                  class               table_name
+  invoice.rb            Invoice             invoices
+
+  class Invoice &lt; ActiveRecord::Base; class Lineitem &lt; ActiveRecord::Base; end; end;
+  file                  class               table_name
+  invoice.rb            Invoice::Lineitem   invoice_lineitems
+
+  module Invoice; class Lineitem &lt; ActiveRecord::Base; end; end;
+  file                  class               table_name
+  invoice/lineitem.rb   Invoice::Lineitem   lineitems
+</pre>
+<p>
+Additionally, the class-level <tt>table_name_prefix</tt> is prepended and
+the <tt>table_name_suffix</tt> is appended. So if you have
+&quot;myapp_&quot; as a prefix, the table name guess for an Invoice class
+<a href="Base.html#M001913">becomes</a> &quot;myapp_invoices&quot;.
+Invoice::Lineitem <a href="Base.html#M001913">becomes</a>
+&quot;myapp_invoice_lineitems&quot;.
+</p>
+<p>
+You can also overwrite this class method to allow for unguessable links,
+such as a Mouse class with a link to a &quot;mice&quot; table. Example:
+</p>
+<pre>
+  class Mouse &lt; ActiveRecord::Base
+    set_table_name &quot;mice&quot;
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001849">update</a> (id, attributes)</h2>
+
+<fieldset><div class='row'><p>
+Updates an object (or multiple objects) and saves it to the database, if
+validations pass. The resulting object is returned whether the object was
+saved successfully to the database or not.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt><a href="Base.html#M001903">id</a></tt> - This should be the <a
+href="Base.html#M001903">id</a> or an array of ids to be updated.
+
+</li>
+<li><tt><a href="Base.html#M001927">attributes</a></tt> - This should be a Hash
+of <a href="Base.html#M001927">attributes</a> to be set on the object, or
+an array of Hashes.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # Updating one record:
+  Person.update(15, { :user_name =&gt; 'Samuel', :group =&gt; 'expert' })
+
+  # Updating multiple records:
+  people = { 1 =&gt; { &quot;first_name&quot; =&gt; &quot;David&quot; }, 2 =&gt; { &quot;first_name&quot; =&gt; &quot;Jeremy&quot; } }
+  Person.update(people.keys, people.values)
+</pre></div></fieldset>
+
+
+<h2><a name="M001852">update_all</a> (updates, conditions = nil, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Updates <a href="Base.html#M001845">all</a> records with details given if
+they match a set of conditions supplied, limits and order can also be
+supplied. This method constructs a single SQL UPDATE statement and sends it
+straight to the database. It does not instantiate the involved models and
+it does not trigger Active Record callbacks.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>updates</tt> - A string of column and value pairs that will be set on
+any records that match conditions.
+
+<pre>
+            What goes into the SET clause.
+</pre>
+</li>
+<li><tt>conditions</tt> - An SQL fragment like &quot;administrator = 1&quot; or
+[ &quot;user_name = ?&quot;, username ]. See conditions in the intro for
+more info.
+
+</li>
+<li><tt>options</tt> - Additional options are <tt>:limit</tt> and
+<tt>:order</tt>, see the examples for usage.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # Update all billing objects with the 3 different attributes given
+  Billing.update_all( &quot;category = 'authorized', approved = 1, author = 'David'&quot; )
+
+  # Update records that match our conditions
+  Billing.update_all( &quot;author = 'David'&quot;, &quot;title LIKE '%Rails%'&quot; )
+
+  # Update records that match our conditions but limit it to 5 ordered by date
+  Billing.update_all( &quot;author = 'David'&quot;, &quot;title LIKE '%Rails%'&quot;,
+                        :order =&gt; 'created_at', :limit =&gt; 5 )
+</pre></div></fieldset>
+
+
+<h2><a name="M001856">update_counters</a> (id, counters)</h2>
+
+<fieldset><div class='row'><p>
+A generic &quot;counter updater&quot; implementation, intended primarily to
+be used by <a href="Base.html#M001857">increment_counter</a> and <a
+href="Base.html#M001858">decrement_counter</a>, but which may also be
+useful on its own. It simply does a direct SQL <a
+href="Base.html#M001849">update</a> for the record with the given ID,
+altering the given <a href="Base.html#M001936">hash</a> of counters by the
+amount given by the corresponding value:
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt><a href="Base.html#M001903">id</a></tt> - The <a
+href="Base.html#M001903">id</a> of the object you wish to <a
+href="Base.html#M001849">update</a> a counter on.
+
+</li>
+<li><tt>counters</tt> - An Array of Hashes containing the names of the fields
+to <a href="Base.html#M001849">update</a> as keys and the amount to <a
+href="Base.html#M001849">update</a> the field by as values.
+
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  # For the Post with id of 5, decrement the comment_count by 1, and
+  # increment the action_count by 1
+  Post.update_counters 5, :comment_count =&gt; -1, :action_count =&gt; 1
+  # Executes the following SQL:
+  # UPDATE posts
+  #    SET comment_count = comment_count - 1,
+  #        action_count = action_count + 1
+  #  WHERE id = 5
+</pre></div></fieldset>
+
+
+<h2><a name="M001946">verification_timeout</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Deprecated and no longer has any effect.
+</p></div></fieldset>
+
+
+<h2><a name="M001947">verification_timeout=</a> (flag)</h2>
+
+<fieldset><div class='row'><p>
+Deprecated and no longer has any effect.
+</p></div></fieldset>
+
+
+<h2>Protected Class methods</h2>
+<h2><a name="M001897">aggregate_mapping</a> (reflection)</h2>
+
+
+
+<h2><a name="M001894">class_of_active_record_descendant</a> (klass)</h2>
+
+<fieldset><div class='row'><p>
+Returns the class descending directly from Active Record in the inheritance
+hierarchy.
+</p></div></fieldset>
+
+
+<h2><a name="M001893">compute_type</a> (type_name)</h2>
+
+<fieldset><div class='row'><p>
+Returns the class type of the record using the current module as a prefix.
+So descendents of MyApp::Business::Account would appear as
+MyApp::Business::AccountSubclass.
+</p></div></fieldset>
+
+
+<h2><a name="M001892">default_scope</a> (options = {})</h2>
+
+<fieldset><div class='row'><p>
+Sets the default options for the model. The format of the
+<tt>method_scoping</tt> argument is the same as in <a
+href="Base.html#M001890">with_scope</a>.
+</p>
+<pre>
+  class Person &lt; ActiveRecord::Base
+    default_scope :find =&gt; { :order =&gt; 'last_name, first_name' }
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001898">expand_hash_conditions_for_aggregates</a> (attrs)</h2>
+
+<fieldset><div class='row'><p>
+Accepts a <a href="Base.html#M001936">hash</a> of SQL conditions and
+replaces those <a href="Base.html#M001927">attributes</a> that correspond
+to a <tt>composed_of</tt> relationship with their expanded aggregate
+attribute values. Given:
+</p>
+<pre>
+    class Person &lt; ActiveRecord::Base
+      composed_of :address, :class_name =&gt; &quot;Address&quot;,
+        :mapping =&gt; [%w(address_street street), %w(address_city city)]
+    end
+</pre>
+<p>
+Then:
+</p>
+<pre>
+    { :address =&gt; Address.new(&quot;813 abc st.&quot;, &quot;chicago&quot;) }
+      # =&gt; { :address_street =&gt; &quot;813 abc st.&quot;, :address_city =&gt; &quot;chicago&quot; }
+</pre></div></fieldset>
+
+
+<h2><a name="M001901">sanitize_sql_array</a> (ary)</h2>
+
+<fieldset><div class='row'><p>
+Accepts an array of conditions. The array has each value sanitized and
+interpolated into the SQL statement.
+</p>
+<pre>
+  [&quot;name='%s' and group_id='%s'&quot;, &quot;foo'bar&quot;, 4]  returns  &quot;name='foo''bar' and group_id='4'&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001896">sanitize_sql_for_assignment</a> (assignments)</h2>
+
+<fieldset><div class='row'><p>
+Accepts an array, <a href="Base.html#M001936">hash</a>, or string of SQL
+conditions and sanitizes them into a valid SQL fragment for a SET clause.
+</p>
+<pre>
+  { :name =&gt; nil, :group_id =&gt; 4 }  returns &quot;name = NULL , group_id='4'&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001895">sanitize_sql_for_conditions</a> (condition)</h2>
+
+<fieldset><div class='row'><p>
+Accepts an array, <a href="Base.html#M001936">hash</a>, or string of SQL
+conditions and sanitizes them into a valid SQL fragment for a WHERE clause.
+</p>
+<pre>
+  [&quot;name='%s' and group_id='%s'&quot;, &quot;foo'bar&quot;, 4]  returns  &quot;name='foo''bar' and group_id='4'&quot;
+  { :name =&gt; &quot;foo'bar&quot;, :group_id =&gt; 4 }  returns &quot;name='foo''bar' and group_id='4'&quot;
+  &quot;name='foo''bar' and group_id='4'&quot; returns &quot;name='foo''bar' and group_id='4'&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001900">sanitize_sql_hash_for_assignment</a> (attrs)</h2>
+
+<fieldset><div class='row'><p>
+Sanitizes a <a href="Base.html#M001936">hash</a> of attribute/value pairs
+into SQL conditions for a SET clause.
+</p>
+<pre>
+  { :status =&gt; nil, :group_id =&gt; 1 }
+    # =&gt; &quot;status = NULL , group_id = 1&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001899">sanitize_sql_hash_for_conditions</a> (attrs, table_name = quoted_table_name)</h2>
+
+<fieldset><div class='row'><p>
+Sanitizes a <a href="Base.html#M001936">hash</a> of attribute/value pairs
+into SQL conditions for a WHERE clause.
+</p>
+<pre>
+  { :name =&gt; &quot;foo'bar&quot;, :group_id =&gt; 4 }
+    # =&gt; &quot;name='foo''bar' and group_id= 4&quot;
+  { :status =&gt; nil, :group_id =&gt; [1,2,3] }
+    # =&gt; &quot;status IS NULL and group_id IN (1,2,3)&quot;
+  { :age =&gt; 13..18 }
+    # =&gt; &quot;age BETWEEN 13 AND 18&quot;
+  { 'other_records.id' =&gt; 7 }
+    # =&gt; &quot;`other_records`.`id` = 7&quot;
+  { :other_records =&gt; { :id =&gt; 7 } }
+    # =&gt; &quot;`other_records`.`id` = 7&quot;
+</pre>
+<p>
+And for value objects on a composed_of relationship:
+</p>
+<pre>
+  { :address =&gt; Address.new(&quot;123 abc st.&quot;, &quot;chicago&quot;) }
+    # =&gt; &quot;address_street='123 abc st.' and address_city='chicago'&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001891">with_exclusive_scope</a> (method_scoping = {}, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Works like <a href="Base.html#M001890">with_scope</a>, but discards any
+nested properties.
+</p></div></fieldset>
+
+
+<h2><a name="M001890">with_scope</a> (method_scoping = {}, action = :merge) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Scope parameters to method calls within the block. Takes a <a
+href="Base.html#M001936">hash</a> of method_name =&gt; parameters <a
+href="Base.html#M001936">hash</a>. method_name may be <tt>:<a
+href="Base.html#M001842">find</a></tt> or <tt>:<a
+href="Base.html#M001848">create</a></tt>. <tt>:<a
+href="Base.html#M001842">find</a></tt> parameters may include the
+<tt>:conditions</tt>, <tt>:joins</tt>, <tt>:include</tt>, <tt>:offset</tt>,
+<tt>:limit</tt>, and <tt>:readonly</tt> options. <tt>:<a
+href="Base.html#M001848">create</a></tt> parameters are an <a
+href="Base.html#M001927">attributes</a> <a
+href="Base.html#M001936">hash</a>.
+</p>
+<pre>
+  class Article &lt; ActiveRecord::Base
+    def self.create_with_scope
+      with_scope(:find =&gt; { :conditions =&gt; &quot;blog_id = 1&quot; }, :create =&gt; { :blog_id =&gt; 1 }) do
+        find(1) # =&gt; SELECT * from articles WHERE blog_id = 1 AND id = 1
+        a = create(1)
+        a.blog_id # =&gt; 1
+      end
+    end
+  end
+</pre>
+<p>
+In nested scopings, <a href="Base.html#M001845">all</a> previous parameters
+are overwritten by the innermost rule, with the exception of
+<tt>:conditions</tt> and <tt>:include</tt> options in <tt>:<a
+href="Base.html#M001842">find</a></tt>, which are merged.
+</p>
+<pre>
+  class Article &lt; ActiveRecord::Base
+    def self.find_with_scope
+      with_scope(:find =&gt; { :conditions =&gt; &quot;blog_id = 1&quot;, :limit =&gt; 1 }, :create =&gt; { :blog_id =&gt; 1 }) do
+        with_scope(:find =&gt; { :limit =&gt; 10 })
+          find(:all) # =&gt; SELECT * from articles WHERE blog_id = 1 LIMIT 10
+        end
+        with_scope(:find =&gt; { :conditions =&gt; &quot;author_id = 3&quot; })
+          find(:all) # =&gt; SELECT * from articles WHERE blog_id = 1 AND author_id = 3 LIMIT 1
+        end
+      end
+    end
+  end
+</pre>
+<p>
+You can ignore any previous scopings by using the <tt><a
+href="Base.html#M001891">with_exclusive_scope</a></tt> method.
+</p>
+<pre>
+  class Article &lt; ActiveRecord::Base
+    def self.find_with_exclusive_scope
+      with_scope(:find =&gt; { :conditions =&gt; &quot;blog_id = 1&quot;, :limit =&gt; 1 }) do
+        with_exclusive_scope(:find =&gt; { :limit =&gt; 10 })
+          find(:all) # =&gt; SELECT * from articles LIMIT 10
+        end
+      end
+    end
+  end
+</pre>
+<p>
+<b>Note</b>: the +:<a href="Base.html#M001842">find</a>+ scope also has
+effect on <a href="Base.html#M001849">update</a> and deletion methods, like
+<tt><a href="Base.html#M001852">update_all</a></tt> and <tt><a
+href="Base.html#M001854">delete_all</a></tt>.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001934">==</a> (comparison_object)</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the <tt>comparison_object</tt> is the same object, or is of
+the same type and has the same <a href="Base.html#M001903">id</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001924">[]</a> (attr_name)</h2>
+
+<fieldset><div class='row'><p>
+Returns the value of the attribute identified by <tt>attr_name</tt> after
+it has been typecast (for example, &quot;2004-12-12&quot; in a data column
+is cast to a date object, like Date.new(2004, 12, 12)). (Alias for the
+protected read_attribute method).
+</p></div></fieldset>
+
+
+<h2><a name="M001925">[]=</a> (attr_name, value)</h2>
+
+<fieldset><div class='row'><p>
+Updates the attribute identified by <tt>attr_name</tt> with the specified
+<tt>value</tt>. (Alias for the protected write_attribute method).
+</p></div></fieldset>
+
+
+<h2><a name="M001929">attribute_for_inspect</a> (attr_name)</h2>
+
+<fieldset><div class='row'><p>
+Format <a href="Base.html#M001927">attributes</a> nicely for <a
+href="Base.html#M001881">inspect</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001932">attribute_names</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of names for the <a
+href="Base.html#M001927">attributes</a> available on this object sorted
+alphabetically.
+</p></div></fieldset>
+
+
+<h2><a name="M001930">attribute_present?</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the specified <tt>attribute</tt> has been set by the user
+or by a database load and is neither nil nor empty? (the latter only
+applies to objects that respond to empty?, most notably Strings).
+</p></div></fieldset>
+
+
+<h2><a name="M001927">attributes</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="Base.html#M001936">hash</a> of <a
+href="Base.html#M001845">all</a> the <a
+href="Base.html#M001927">attributes</a> with their names as keys and the
+values of the <a href="Base.html#M001927">attributes</a> as values.
+</p></div></fieldset>
+
+
+<h2><a name="M001926">attributes=</a> (new_attributes, guard_protected_attributes = true)</h2>
+
+<fieldset><div class='row'><p>
+Allows you to set <a href="Base.html#M001845">all</a> the <a
+href="Base.html#M001927">attributes</a> at once by passing in a <a
+href="Base.html#M001936">hash</a> with keys matching the attribute names
+(which again matches the column names).
+</p>
+<p>
+If <tt>guard_protected_attributes</tt> is true (the default), then
+sensitive <a href="Base.html#M001927">attributes</a> can be protected from
+this form of mass-assignment by using the <tt><a
+href="Base.html#M001859">attr_protected</a></tt> macro. Or you can
+alternatively specify which <a href="Base.html#M001927">attributes</a>
+<b>can</b> be accessed with the <tt><a
+href="Base.html#M001860">attr_accessible</a></tt> macro. Then <a
+href="Base.html#M001845">all</a> the <a
+href="Base.html#M001927">attributes</a> not included in that won&#8216;t be
+allowed to be mass-assigned.
+</p>
+<pre>
+  class User &lt; ActiveRecord::Base
+    attr_protected :is_admin
+  end
+
+  user = User.new
+  user.attributes = { :username =&gt; 'Phusion', :is_admin =&gt; true }
+  user.username   # =&gt; &quot;Phusion&quot;
+  user.is_admin?  # =&gt; false
+
+  user.send(:attributes=, { :username =&gt; 'Phusion', :is_admin =&gt; true }, false)
+  user.is_admin?  # =&gt; true
+</pre></div></fieldset>
+
+
+<h2><a name="M001928">attributes_before_type_cast</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="Base.html#M001936">hash</a> of <a
+href="Base.html#M001927">attributes</a> before typecasting and
+deserialization.
+</p></div></fieldset>
+
+
+<h2><a name="M001913">becomes</a> (klass)</h2>
+
+<fieldset><div class='row'><p>
+Returns an instance of the specified <tt>klass</tt> with the <a
+href="Base.html#M001927">attributes</a> of the current record. This is
+mostly useful in relation to single-table inheritance structures where you
+want a subclass to appear as the superclass. This can be used along with
+record identification in Action Pack to allow, say, <tt>Client &lt;
+Company</tt> to do something like render <tt>:partial =&gt;
+@client.becomes(Company)</tt> to render that instance using the
+companies/company partial instead of clients/client.
+</p>
+<p>
+Note: The <a href="Base.html#M001902">new</a> instance will share a link to
+the same <a href="Base.html#M001927">attributes</a> as the original class.
+So any change to the <a href="Base.html#M001927">attributes</a> in either
+instance will affect the other.
+</p></div></fieldset>
+
+
+<h2><a name="M001905">cache_key</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a cache key that can be used to identify this record.
+</p>
+<h4>Examples</h4>
+<pre>
+  Product.new.cache_key     # =&gt; &quot;products/new&quot;
+  Product.find(5).cache_key # =&gt; &quot;products/5&quot; (updated_at not available)
+  Person.find(5).cache_key  # =&gt; &quot;people/5-20071224150000&quot; (updated_at available)
+</pre></div></fieldset>
+
+
+<h2><a name="M001912">clone</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="Base.html#M001912">clone</a> of the record that
+hasn&#8216;t been assigned an <a href="Base.html#M001903">id</a> yet and is
+treated as a <a href="Base.html#M001902">new</a> record. Note that this is
+a &quot;shallow&quot; <a href="Base.html#M001912">clone</a>: it copies the
+object&#8216;s <a href="Base.html#M001927">attributes</a> only, not its
+associations. The extent of a &quot;deep&quot; <a
+href="Base.html#M001912">clone</a> is application-specific and is therefore
+left to the application to implement according to its need.
+</p></div></fieldset>
+
+
+<h2><a name="M001933">column_for_attribute</a> (name)</h2>
+
+<fieldset><div class='row'><p>
+Returns the column object for the named attribute.
+</p></div></fieldset>
+
+
+<h2><a name="M001942">connection</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="Base.html#M001942">connection</a> currently associated
+with the class. This can also be used to &quot;borrow&quot; the <a
+href="Base.html#M001942">connection</a> to do database work that
+isn&#8216;t easily done without going straight to SQL.
+</p></div></fieldset>
+
+
+<h2><a name="M001919">decrement</a> (attribute, by = 1)</h2>
+
+<fieldset><div class='row'><p>
+Initializes <tt>attribute</tt> to zero if <tt>nil</tt> and subtracts the
+value passed as <tt>by</tt> (default is 1). The <a
+href="Base.html#M001919">decrement</a> is performed directly on the
+underlying attribute, no setter is invoked. Only makes sense for
+number-based <a href="Base.html#M001927">attributes</a>. Returns
+<tt>self</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001920">decrement!</a> (attribute, by = 1)</h2>
+
+<fieldset><div class='row'><p>
+Wrapper around <tt><a href="Base.html#M001919">decrement</a></tt> that
+saves the record. This method differs from its non-bang version in that it
+passes through the attribute setter. Saving is not subjected to validation
+checks. Returns <tt>true</tt> if the record could be saved.
+</p></div></fieldset>
+
+
+<h2><a name="M001910">delete</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Deletes the record in the database and freezes this instance to reflect
+that no changes should be made (since they can&#8216;t be persisted).
+</p>
+<p>
+Unlike <a href="Base.html#M001851">destroy</a>, this method doesn&#8216;t
+run any <tt>before_delete</tt> and <tt>after_delete</tt> callbacks, nor
+will it enforce any association +:dependent+ rules.
+</p>
+<p>
+In addition to deleting this record, any defined <tt>before_delete</tt> and
+<tt>after_delete</tt> callbacks are run, and +:dependent+ rules defined on
+associations are run.
+</p></div></fieldset>
+
+
+<h2><a name="M001911">destroy</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Deletes the record in the database and freezes this instance to reflect
+that no changes should be made (since they can&#8216;t be persisted).
+</p></div></fieldset>
+
+
+<h2><a name="M001935">eql?</a> (comparison_object)</h2>
+
+<fieldset><div class='row'><p>
+Delegates to ==
+</p></div></fieldset>
+
+
+<h2><a name="M001937">freeze</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Freeze the <a href="Base.html#M001927">attributes</a> <a
+href="Base.html#M001936">hash</a> such that associations are still
+accessible, even on destroyed records.
+</p></div></fieldset>
+
+
+<h2><a name="M001938">frozen?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> if the <a href="Base.html#M001927">attributes</a> <a
+href="Base.html#M001936">hash</a> has been frozen.
+</p></div></fieldset>
+
+
+<h2><a name="M001931">has_attribute?</a> (attr_name)</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the given attribute is in the <a
+href="Base.html#M001927">attributes</a> <a
+href="Base.html#M001936">hash</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001936">hash</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Delegates to <a href="Base.html#M001903">id</a> in order to allow two
+records of the same type and <a href="Base.html#M001903">id</a> to work
+with something like:
+</p>
+<pre>
+  [ Person.find(1), Person.find(2), Person.find(3) ] &amp; [ Person.find(1), Person.find(4) ] # =&gt; [ Person.find(1) ]
+</pre></div></fieldset>
+
+
+<h2><a name="M001903">id</a> ()</h2>
+
+<fieldset><div class='row'><p>
+A model instance&#8216;s primary key is always available as model.id
+whether you name it the default &#8216;<a
+href="Base.html#M001903">id</a>&#8217; or set it to something else.
+</p></div></fieldset>
+
+
+<h2><a name="M001906">id=</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+Sets the primary ID.
+</p></div></fieldset>
+
+
+<h2><a name="M001917">increment</a> (attribute, by = 1)</h2>
+
+<fieldset><div class='row'><p>
+Initializes <tt>attribute</tt> to zero if <tt>nil</tt> and adds the value
+passed as <tt>by</tt> (default is 1). The <a
+href="Base.html#M001917">increment</a> is performed directly on the
+underlying attribute, no setter is invoked. Only makes sense for
+number-based <a href="Base.html#M001927">attributes</a>. Returns
+<tt>self</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001918">increment!</a> (attribute, by = 1)</h2>
+
+<fieldset><div class='row'><p>
+Wrapper around <tt><a href="Base.html#M001917">increment</a></tt> that
+saves the record. This method differs from its non-bang version in that it
+passes through the attribute setter. Saving is not subjected to validation
+checks. Returns <tt>true</tt> if the record could be saved.
+</p></div></fieldset>
+
+
+<h2><a name="M001941">inspect</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the contents of the record as a nicely formatted string.
+</p></div></fieldset>
+
+
+<h2><a name="M001907">new_record?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if this object hasn&#8216;t been saved yet &#8212; that is, a
+record for the object doesn&#8216;t exist yet.
+</p></div></fieldset>
+
+
+<h2><a name="M001940">readonly!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Marks this record as read only.
+</p></div></fieldset>
+
+
+<h2><a name="M001939">readonly?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> if the record is read only. Records loaded through
+joins with piggy-back <a href="Base.html#M001927">attributes</a> will be
+marked as read only since they cannot be saved.
+</p></div></fieldset>
+
+
+<h2><a name="M001923">reload</a> (options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Reloads the <a href="Base.html#M001927">attributes</a> of this object from
+the database. The optional options argument is passed to <a
+href="Base.html#M001842">find</a> when reloading so you may do e.g.
+record.reload(:lock =&gt; true) to <a href="Base.html#M001923">reload</a>
+the same record with an exclusive row lock.
+</p></div></fieldset>
+
+
+<h2><a name="M001908">save(perform_validation = true)<br />
+</a></h2>
+
+<fieldset><div class='row'><p>
+Saves the model.
+</p>
+<p>
+If the model is <a href="Base.html#M001902">new</a> a record gets created
+in the database, otherwise the existing record gets updated.
+</p>
+<p>
+If <tt>perform_validation</tt> is true validations run. If any of them fail
+the action is cancelled and <tt><a href="Base.html#M001908">save</a></tt>
+returns <tt>false</tt>. If the flag is false validations are bypassed
+altogether. See <a href="Validations.html">ActiveRecord::Validations</a>
+for more information.
+</p>
+<p>
+There&#8216;s a series of callbacks associated with <tt><a
+href="Base.html#M001908">save</a></tt>. If any of the <tt>before_*</tt>
+callbacks return <tt>false</tt> the action is cancelled and <tt><a
+href="Base.html#M001908">save</a></tt> returns <tt>false</tt>. See <a
+href="Callbacks.html">ActiveRecord::Callbacks</a> for further details.
+</p></div></fieldset>
+
+
+<h2><a name="M001909">save!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Saves the model.
+</p>
+<p>
+If the model is <a href="Base.html#M001902">new</a> a record gets created
+in the database, otherwise the existing record gets updated.
+</p>
+<p>
+With <tt><a href="Base.html#M001909">save!</a></tt> validations always run.
+If any of them fail <a
+href="RecordInvalid.html">ActiveRecord::RecordInvalid</a> gets raised. See
+<a href="Validations.html">ActiveRecord::Validations</a> for more
+information.
+</p>
+<p>
+There&#8216;s a series of callbacks associated with <tt><a
+href="Base.html#M001909">save!</a></tt>. If any of the <tt>before_*</tt>
+callbacks return <tt>false</tt> the action is cancelled and <tt><a
+href="Base.html#M001909">save!</a></tt> raises <a
+href="RecordNotSaved.html">ActiveRecord::RecordNotSaved</a>. See <a
+href="Callbacks.html">ActiveRecord::Callbacks</a> for further details.
+</p></div></fieldset>
+
+
+<h2><a name="M001904">to_param</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a String, which Action Pack uses for constructing an URL to this
+object. The default implementation returns this record&#8216;s <a
+href="Base.html#M001903">id</a> as a String, or nil if this record&#8216;s
+unsaved.
+</p>
+<p>
+For example, suppose that you have a Users model, and that you have a
+<tt>map.resources :users</tt> route. Normally, <tt>users_path</tt> will
+construct an URI with the user object&#8216;s &#8216;<a
+href="Base.html#M001903">id</a>&#8217; in it:
+</p>
+<pre>
+  user = User.find_by_name('Phusion')
+  user_path(user)  # =&gt; &quot;/users/1&quot;
+</pre>
+<p>
+You can override <tt><a href="Base.html#M001904">to_param</a></tt> in your
+model to make <tt>users_path</tt> construct an URI using the user&#8216;s
+name instead of the user&#8216;s <a href="Base.html#M001903">id</a>:
+</p>
+<pre>
+  class User &lt; ActiveRecord::Base
+    def to_param  # overridden
+      name
+    end
+  end
+
+  user = User.find_by_name('Phusion')
+  user_path(user)  # =&gt; &quot;/users/Phusion&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001921">toggle</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Assigns to <tt>attribute</tt> the boolean opposite of <tt>attribute?</tt>.
+So if the predicate returns <tt>true</tt> the attribute will become
+<tt>false</tt>. This method toggles directly the underlying value without
+calling any setter. Returns <tt>self</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001922">toggle!</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Wrapper around <tt><a href="Base.html#M001921">toggle</a></tt> that saves
+the record. This method differs from its non-bang version in that it passes
+through the attribute setter. Saving is not subjected to validation checks.
+Returns <tt>true</tt> if the record could be saved.
+</p></div></fieldset>
+
+
+<h2><a name="M001914">update_attribute</a> (name, value)</h2>
+
+<fieldset><div class='row'><p>
+Updates a single attribute and saves the record without going through the
+normal validation procedure. This is especially useful for boolean flags on
+existing records. The regular <tt><a
+href="Base.html#M001914">update_attribute</a></tt> method in <a
+href="Base.html">Base</a> is replaced with this when the validations module
+is mixed in, which it is by default.
+</p></div></fieldset>
+
+
+<h2><a name="M001915">update_attributes</a> (attributes)</h2>
+
+<fieldset><div class='row'><p>
+Updates <a href="Base.html#M001845">all</a> the <a
+href="Base.html#M001927">attributes</a> from the passed-in Hash and saves
+the record. If the object is invalid, the saving will fail and false will
+be returned.
+</p></div></fieldset>
+
+
+<h2><a name="M001916">update_attributes!</a> (attributes)</h2>
+
+<fieldset><div class='row'><p>
+Updates an object just like <a
+href="Base.html#M001915">Base.update_attributes</a> but calls <a
+href="Base.html#M001909">save!</a> instead of <a
+href="Base.html#M001908">save</a> so an exception is raised if the record
+is invalid.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

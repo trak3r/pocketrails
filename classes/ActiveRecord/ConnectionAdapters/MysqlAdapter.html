@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::ConnectionAdapters::MysqlAdapter
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::MysqlAdapter
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::MysqlAdapter" title="ActiveRecord::ConnectionAdapters::MysqlAdapter" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/mysql_adapter_rb.html">activerecord/lib/active_record/connection_adapters/mysql_adapter.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="AbstractAdapter.html">
+               AbstractAdapter
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The MySQL adapter will work with both Ruby/MySQL, which is a Ruby-based
+MySQL adapter that comes bundled with Active Record, and with the faster
+C-based MySQL/Ruby adapter (available both as a gem and from <a
+href="http://www.tmtm.org/en/mysql/ruby">www.tmtm.org/en/mysql/ruby</a>/).
+</p>
+<p>
+Options:
+</p>
+<ul>
+<li><tt>:host</tt> - Defaults to &quot;localhost&quot;.
+
+</li>
+<li><tt>:port</tt> - Defaults to 3306.
+
+</li>
+<li><tt>:socket</tt> - Defaults to &quot;/tmp/mysql.sock&quot;.
+
+</li>
+<li><tt>:username</tt> - Defaults to &quot;root&quot;
+
+</li>
+<li><tt>:password</tt> - Defaults to nothing.
+
+</li>
+<li><tt>:database</tt> - The name of the database. No default, must be
+provided.
+
+</li>
+<li><tt>:encoding</tt> - (Optional) Sets the client encoding by executing
+&quot;SET NAMES &lt;encoding&gt;&quot; after connection.
+
+</li>
+<li><tt>:sslca</tt> - Necessary to use MySQL with an SSL connection.
+
+</li>
+<li><tt>:sslkey</tt> - Necessary to use MySQL with an SSL connection.
+
+</li>
+<li><tt>:sslcert</tt> - Necessary to use MySQL with an SSL connection.
+
+</li>
+<li><tt>:sslcapath</tt> - Necessary to use MySQL with an SSL connection.
+
+</li>
+<li><tt>:sslcipher</tt> - Necessary to use MySQL with an SSL connection.
+
+</li>
+</ul>
+<p>
+By default, the <a href="MysqlAdapter.html">MysqlAdapter</a> will consider
+all columns of type <tt>tinyint(1)</tt> as boolean. If you wish to disable
+this emulation (which was the default behavior in versions 0.13.1 and
+earlier) you can add the following line to your environment.rb file:
+</p>
+<pre>
+  ActiveRecord::ConnectionAdapters::MysqlAdapter.emulate_booleans = false
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001623">active?</a></li>
+<li><a href="#M001637">case_sensitive_equality_operator</a></li>
+<li><a href="#M001634">change_column_null</a></li>
+<li><a href="#M001630">charset</a></li>
+<li><a href="#M001631">collation</a></li>
+<li><a href="#M001628">create_database</a></li>
+<li><a href="#M001629">current_database</a></li>
+<li><a href="#M001625">disconnect!</a></li>
+<li><a href="#M001632">drop_table</a></li>
+<li><a href="#M001638">limited_update_conditions</a></li>
+<li><a href="#M001619">new</a></li>
+<li><a href="#M001620">quote</a></li>
+<li><a href="#M001622">quoted_false</a></li>
+<li><a href="#M001621">quoted_true</a></li>
+<li><a href="#M001624">reconnect!</a></li>
+<li><a href="#M001633">rename_table</a></li>
+<li><a href="#M001626">reset!</a></li>
+<li><a href="#M001627">select_rows</a></li>
+<li><a href="#M001636">show_variable</a></li>
+<li><a href="#M001635">type_to_sql</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>ADAPTER_NAME</h2>
+<fieldset>
+<div class="row">
+'MySQL'.freeze
+</div>
+</fieldset>
+<h2>LOST_CONNECTION_ERROR_MESSAGES</h2>
+<fieldset>
+<div class="row">
+[         &quot;Server shutdown in progress&quot;,         &quot;Broken pipe&quot;,         &quot;Lost connection to MySQL server during query&quot;,         &quot;MySQL server has gone away&quot; ]
+</div>
+</fieldset>
+<h2>QUOTED_FALSE</h2>
+<fieldset>
+<div class="row">
+'1'.freeze, '0'.freeze
+</div>
+</fieldset>
+<h2>NATIVE_DATABASE_TYPES</h2>
+<fieldset>
+<div class="row">
+{         :primary_key =&gt; &quot;int(11) DEFAULT NULL auto_increment PRIMARY KEY&quot;.freeze,         :string      =&gt; { :name =&gt; &quot;varchar&quot;, :limit =&gt; 255 },         :text        =&gt; { :name =&gt; &quot;text&quot; },         :integer     =&gt; { :name =&gt; &quot;int&quot;, :limit =&gt; 4 },         :float       =&gt; { :name =&gt; &quot;float&quot; },         :decimal     =&gt; { :name =&gt; &quot;decimal&quot; },         :datetime    =&gt; { :name =&gt; &quot;datetime&quot; },         :timestamp   =&gt; { :name =&gt; &quot;datetime&quot; },         :time        =&gt; { :name =&gt; &quot;time&quot; },         :date        =&gt; { :name =&gt; &quot;date&quot; },         :binary      =&gt; { :name =&gt; &quot;blob&quot; },         :boolean     =&gt; { :name =&gt; &quot;tinyint&quot;, :limit =&gt; 1 }
+</div>
+</fieldset>
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001619">new</a> (connection, logger, connection_options, config)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001623">active?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+CONNECTION MANAGEMENT ====================================
+</p></div></fieldset>
+
+
+<h2><a name="M001637">case_sensitive_equality_operator</a> ()</h2>
+
+
+
+<h2><a name="M001634">change_column_null</a> (table_name, column_name, null, default = nil)</h2>
+
+
+
+<h2><a name="M001630">charset</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the database character set.
+</p></div></fieldset>
+
+
+<h2><a name="M001631">collation</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the database <a href="MysqlAdapter.html#M001631">collation</a>
+strategy.
+</p></div></fieldset>
+
+
+<h2><a name="M001628">create_database</a> (name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Create a <a href="MysqlAdapter.html#M001619">new</a> MySQL database with
+optional <tt>:<a href="MysqlAdapter.html#M001630">charset</a></tt> and
+<tt>:<a href="MysqlAdapter.html#M001631">collation</a></tt>. Charset
+defaults to utf8.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  create_database 'charset_test', :charset =&gt; 'latin1', :collation =&gt; 'latin1_bin'
+  create_database 'matt_development'
+  create_database 'matt_development', :charset =&gt; :big5
+</pre></div></fieldset>
+
+
+<h2><a name="M001629">current_database</a> ()</h2>
+
+
+
+<h2><a name="M001625">disconnect!</a> ()</h2>
+
+
+
+<h2><a name="M001632">drop_table</a> (table_name, options = {})</h2>
+
+
+
+<h2><a name="M001638">limited_update_conditions</a> (where_sql, quoted_table_name, quoted_primary_key)</h2>
+
+
+
+<h2><a name="M001620">quote</a> (value, column = nil)</h2>
+
+<fieldset><div class='row'><p>
+QUOTING ==================================================
+</p></div></fieldset>
+
+
+<h2><a name="M001622">quoted_false</a> ()</h2>
+
+
+
+<h2><a name="M001621">quoted_true</a> ()</h2>
+
+
+
+<h2><a name="M001624">reconnect!</a> ()</h2>
+
+
+
+<h2><a name="M001633">rename_table</a> (table_name, new_name)</h2>
+
+
+
+<h2><a name="M001626">reset!</a> ()</h2>
+
+
+
+<h2><a name="M001627">select_rows</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+DATABASE STATEMENTS ======================================
+</p></div></fieldset>
+
+
+<h2><a name="M001636">show_variable</a> (name)</h2>
+
+<fieldset><div class='row'><p>
+SHOW VARIABLES LIKE &#8216;name&#8216;
+</p></div></fieldset>
+
+
+<h2><a name="M001635">type_to_sql</a> (type, limit = nil, precision = nil, scale = nil)</h2>
+
+<fieldset><div class='row'><p>
+Maps logical <a href="../../Rails.html">Rails</a> types to MySQL-specific
+data types.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

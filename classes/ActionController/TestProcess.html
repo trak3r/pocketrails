@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::TestProcess
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::TestProcess
+    </h1>
+</div>
+<div id="ActionController::TestProcess" title="ActionController::TestProcess" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/test_process_rb.html">actionpack/lib/action_controller/test_process.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000155">assigns</a></li>
+<li><a href="#M000160">build_request_uri</a></li>
+<li><a href="#M000158">cookies</a></li>
+<li><a href="#M000163">find_all_tag</a></li>
+<li><a href="#M000162">find_tag</a></li>
+<li><a href="#M000165">fixture_file_upload</a></li>
+<li><a href="#M000157">flash</a></li>
+<li><a href="#M000161">html_document</a></li>
+<li><a href="#M000151">included</a></li>
+<li><a href="#M000164">method_missing</a></li>
+<li><a href="#M000152">process</a></li>
+<li><a href="#M000159">redirect_to_url</a></li>
+<li><a href="#M000156">session</a></li>
+<li><a href="#M000166">with_routing</a></li>
+<li><a href="#M000154">xhr</a></li>
+<li><a href="#M000153">xml_http_request</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000151">included</a> (base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000155">assigns</a> (key = nil)</h2>
+
+
+
+<h2><a name="M000160">build_request_uri</a> (action, parameters)</h2>
+
+
+
+<h2><a name="M000158">cookies</a> ()</h2>
+
+
+
+<h2><a name="M000163">find_all_tag</a> (conditions)</h2>
+
+
+
+<h2><a name="M000162">find_tag</a> (conditions)</h2>
+
+
+
+<h2><a name="M000165">fixture_file_upload</a> (path, mime_type = nil, binary = false)</h2>
+
+<fieldset><div class='row'><p>
+Shortcut for <tt><a
+href="TestUploadedFile.html#M000453">ActionController::TestUploadedFile.new</a>(ActionController::TestCase.fixture_path
++ path, type)</tt>:
+</p>
+<pre>
+  post :change_avatar, :avatar =&gt; fixture_file_upload('/files/spongebob.png', 'image/png')
+</pre>
+<p>
+To upload binary files on Windows, pass <tt>:binary</tt> as the last
+parameter. This will not affect other platforms:
+</p>
+<pre>
+  post :change_avatar, :avatar =&gt; fixture_file_upload('/files/spongebob.png', 'image/png', :binary)
+</pre></div></fieldset>
+
+
+<h2><a name="M000157">flash</a> ()</h2>
+
+
+
+<h2><a name="M000161">html_document</a> ()</h2>
+
+
+
+<h2><a name="M000164">method_missing</a> (selector, *args, &amp;block)</h2>
+
+
+
+<h2><a name="M000152">process</a> (action, parameters = nil, session = nil, flash = nil)</h2>
+
+<fieldset><div class='row'><p>
+execute the request and set/volley the response
+</p></div></fieldset>
+
+
+<h2><a name="M000159">redirect_to_url</a> ()</h2>
+
+
+
+<h2><a name="M000156">session</a> ()</h2>
+
+
+
+<h2><a name="M000166">with_routing</a> () {|temporary_routes| ...}</h2>
+
+<fieldset><div class='row'><p>
+A helper to make it easier to test different route configurations. This
+method temporarily replaces ActionController::Routing::Routes with a new
+RouteSet instance.
+</p>
+<p>
+The new instance is yielded to the passed block. Typically the block will
+create some routes using <tt>map.draw { map.connect &#8230; }</tt>:
+</p>
+<pre>
+  with_routing do |set|
+    set.draw do |map|
+      map.connect ':controller/:action/:id'
+        assert_equal(
+          ['/content/10/show', {}],
+          map.generate(:controller =&gt; 'content', :id =&gt; 10, :action =&gt; 'show')
+      end
+    end
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M000154">xhr</a> (request_method, action, parameters = nil, session = nil, flash = nil)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TestProcess.html#M000153">xml_http_request</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000153">xml_http_request</a> (request_method, action, parameters = nil, session = nil, flash = nil)</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>xhr</div></fieldset>
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

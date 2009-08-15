@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::ConnectionAdapters::Table
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::Table
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::Table" title="ActiveRecord::ConnectionAdapters::Table" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/schema_definitions_rb.html">activerecord/lib/active_record/connection_adapters/abstract/schema_definitions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Represents a SQL table in an abstract way for updating a table. Also see <a
+href="TableDefinition.html">TableDefinition</a> and <a
+href="SchemaStatements.html#M001533">SchemaStatements#create_table</a>
+</p>
+<p>
+Available transformations are:
+</p>
+<pre>
+  change_table :table do |t|
+    t.column
+    t.index
+    t.timestamps
+    t.change
+    t.change_default
+    t.rename
+    t.references
+    t.belongs_to
+    t.string
+    t.text
+    t.integer
+    t.float
+    t.decimal
+    t.datetime
+    t.timestamp
+    t.time
+    t.date
+    t.binary
+    t.boolean
+    t.remove
+    t.remove_references
+    t.remove_belongs_to
+    t.remove_index
+    t.remove_timestamps
+  end
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001660">belongs_to</a></li>
+<li><a href="#M001653">change</a></li>
+<li><a href="#M001654">change_default</a></li>
+<li><a href="#M001650">column</a></li>
+<li><a href="#M001651">index</a></li>
+<li><a href="#M001649">new</a></li>
+<li><a href="#M001659">references</a></li>
+<li><a href="#M001655">remove</a></li>
+<li><a href="#M001662">remove_belongs_to</a></li>
+<li><a href="#M001656">remove_index</a></li>
+<li><a href="#M001661">remove_references</a></li>
+<li><a href="#M001657">remove_timestamps</a></li>
+<li><a href="#M001658">rename</a></li>
+<li><a href="#M001652">timestamps</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001649">new</a> (table_name, base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001660">belongs_to</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Table.html#M001659">references</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001653">change</a> (column_name, type, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Changes the <a href="Table.html#M001650">column</a>&#8216;s definition
+according to the <a href="Table.html#M001649">new</a> options. See <a
+href="TableDefinition.html#M001614">TableDefinition#column</a> for details
+of the options you can use.
+</p>
+<h5>Examples</h5>
+<pre>
+ t.change(:name, :string, :limit =&gt; 80)
+ t.change(:description, :text)
+</pre></div></fieldset>
+
+
+<h2><a name="M001654">change_default</a> (column_name, default)</h2>
+
+<fieldset><div class='row'><p>
+Sets a <a href="Table.html#M001649">new</a> default value for a <a
+href="Table.html#M001650">column</a>. See <a
+href="SchemaStatements.html#M001541">SchemaStatements#change_column_default</a>
+</p>
+<h5>Examples</h5>
+<pre>
+ t.change_default(:qualification, 'new')
+ t.change_default(:authorized, 1)
+</pre></div></fieldset>
+
+
+<h2><a name="M001650">column</a> (column_name, type, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Adds a <a href="Table.html#M001649">new</a> <a
+href="Table.html#M001650">column</a> to the named table. See <a
+href="TableDefinition.html#M001614">TableDefinition#column</a> for details
+of the options you can use.
+</p>
+<h5>Example</h5>
+<h6>Creating a simple <a href="Table.html#M001650">column</a></h6>
+<pre>
+ t.column(:name, :string)
+</pre></div></fieldset>
+
+
+<h2><a name="M001651">index</a> (column_name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Adds a <a href="Table.html#M001649">new</a> <a
+href="Table.html#M001651">index</a> to the table. <tt>column_name</tt> can
+be a single Symbol, or an Array of Symbols. See <a
+href="SchemaStatements.html#M001543">SchemaStatements#add_index</a>
+</p>
+<h5>Examples</h5>
+<h6>Creating a simple <a href="Table.html#M001651">index</a></h6>
+<pre>
+ t.index(:name)
+</pre>
+<h6>Creating a unique <a href="Table.html#M001651">index</a></h6>
+<pre>
+ t.index([:branch_id, :party_id], :unique =&gt; true)
+</pre>
+<h6>Creating a named <a href="Table.html#M001651">index</a></h6>
+<pre>
+ t.index([:branch_id, :party_id], :unique =&gt; true, :name =&gt; 'by_branch_party')
+</pre></div></fieldset>
+
+
+<h2><a name="M001659">references</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Adds a reference. Optionally adds a <tt>type</tt> <a
+href="Table.html#M001650">column</a>. <tt><a
+href="Table.html#M001659">references</a></tt> and <tt><a
+href="Table.html#M001660">belongs_to</a></tt> are acceptable.
+</p>
+<h5>Examples</h5>
+<pre>
+ t.references(:goat)
+ t.references(:goat, :polymorphic =&gt; true)
+ t.belongs_to(:goat)
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>belongs_to</div></fieldset>
+
+<h2><a name="M001655">remove</a> (*column_names)</h2>
+
+<fieldset><div class='row'><p>
+Removes the <a href="Table.html#M001650">column</a>(s) from the table
+definition.
+</p>
+<h5>Examples</h5>
+<pre>
+ t.remove(:qualification)
+ t.remove(:qualification, :experience)
+</pre></div></fieldset>
+
+
+<h2><a name="M001662">remove_belongs_to</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Table.html#M001661">remove_references</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001656">remove_index</a> (options = {})</h2>
+
+<fieldset><div class='row'><p>
+Removes the given <a href="Table.html#M001651">index</a> from the table.
+</p>
+<h5>Examples</h5>
+<h6>Remove the suppliers_name_index in the suppliers table</h6>
+<pre>
+  t.remove_index :name
+</pre>
+<h6>Remove the <a href="Table.html#M001651">index</a> named accounts_branch_id_index in the accounts table</h6>
+<pre>
+  t.remove_index :column =&gt; :branch_id
+</pre>
+<h6>Remove the <a href="Table.html#M001651">index</a> named accounts_branch_id_party_id_index in the accounts table</h6>
+<pre>
+  t.remove_index :column =&gt; [:branch_id, :party_id]
+</pre>
+<h6>Remove the <a href="Table.html#M001651">index</a> named by_branch_party in the accounts table</h6>
+<pre>
+  t.remove_index :name =&gt; :by_branch_party
+</pre></div></fieldset>
+
+
+<h2><a name="M001661">remove_references</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Removes a reference. Optionally removes a <tt>type</tt> <a
+href="Table.html#M001650">column</a>. <tt><a
+href="Table.html#M001661">remove_references</a></tt> and <tt><a
+href="Table.html#M001662">remove_belongs_to</a></tt> are acceptable.
+</p>
+<h5>Examples</h5>
+<pre>
+ t.remove_references(:goat)
+ t.remove_references(:goat, :polymorphic =&gt; true)
+ t.remove_belongs_to(:goat)
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>remove_belongs_to</div></fieldset>
+
+<h2><a name="M001657">remove_timestamps</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Removes the timestamp columns (created_at and updated_at) from the table.
+</p>
+<h5>Example</h5>
+<pre>
+ t.remove_timestamps
+</pre></div></fieldset>
+
+
+<h2><a name="M001658">rename</a> (column_name, new_column_name)</h2>
+
+<fieldset><div class='row'><p>
+Renames a <a href="Table.html#M001650">column</a>.
+</p>
+<h5>Example</h5>
+<pre>
+ t.rename(:description, :name)
+</pre></div></fieldset>
+
+
+<h2><a name="M001652">timestamps</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Adds <a href="Table.html#M001652">timestamps</a> (created_at and
+updated_at) columns to the table. See <a
+href="SchemaStatements.html#M001550">SchemaStatements#add_timestamps</a>
+</p>
+<h5>Example</h5>
+<pre>
+ t.timestamps
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

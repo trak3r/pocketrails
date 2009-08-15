@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::DateTime::Conversions
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::DateTime::Conversions
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::DateTime::Conversions" title="ActiveSupport::CoreExtensions::DateTime::Conversions" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/date_time/conversions_rb.html">activesupport/lib/active_support/core_ext/date_time/conversions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Converting datetimes to formatted strings, dates, and times.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000989">formatted_offset</a></li>
+<li><a href="#M000990">readable_inspect</a></li>
+<li><a href="#M000991">to_date</a></li>
+<li><a href="#M000993">to_datetime</a></li>
+<li><a href="#M000995">to_f</a></li>
+<li><a href="#M000988">to_formatted_s</a></li>
+<li><a href="#M000992">to_time</a></li>
+<li><a href="#M000994">xmlschema</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000989">formatted_offset</a> (colon = true, alternate_utc_string = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns the <tt>utc_offset</tt> as an +HH:MM formatted string. Examples:
+</p>
+<pre>
+  datetime = DateTime.civil(2000, 1, 1, 0, 0, 0, Rational(-6, 24))
+  datetime.formatted_offset         # =&gt; &quot;-06:00&quot;
+  datetime.formatted_offset(false)  # =&gt; &quot;-0600&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000990">readable_inspect</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Overrides the default inspect method with a human readable one, e.g.,
+&quot;Mon, 21 Feb 2005 14:30:00 +0000&quot;
+</p></div></fieldset>
+
+
+<h2><a name="M000991">to_date</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts self to a Ruby Date object; time portion is discarded
+</p></div></fieldset>
+
+
+<h2><a name="M000993">to_datetime</a> ()</h2>
+
+<fieldset><div class='row'><p>
+To be able to keep Times, Dates and DateTimes interchangeable on
+conversions
+</p></div></fieldset>
+
+
+<h2><a name="M000995">to_f</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts self to a floating-point number of seconds since the Unix epoch
+</p></div></fieldset>
+
+
+<h2><a name="M000988">to_formatted_s</a> (format = :default)</h2>
+
+<fieldset><div class='row'><p>
+Convert to a formatted string. See Time::DATE_FORMATS for predefined
+formats.
+</p>
+<p>
+This method is aliased to <tt>to_s</tt>.
+</p>
+<h3>Examples:</h3>
+<pre>
+  datetime = DateTime.civil(2007, 12, 4, 0, 0, 0, 0)   # =&gt; Tue, 04 Dec 2007 00:00:00 +0000
+
+  datetime.to_formatted_s(:db)            # =&gt; &quot;2007-12-04 00:00:00&quot;
+  datetime.to_s(:db)                      # =&gt; &quot;2007-12-04 00:00:00&quot;
+  datetime.to_s(:number)                  # =&gt; &quot;20071204000000&quot;
+  datetime.to_formatted_s(:short)         # =&gt; &quot;04 Dec 00:00&quot;
+  datetime.to_formatted_s(:long)          # =&gt; &quot;December 04, 2007 00:00&quot;
+  datetime.to_formatted_s(:long_ordinal)  # =&gt; &quot;December 4th, 2007 00:00&quot;
+  datetime.to_formatted_s(:rfc822)        # =&gt; &quot;Tue, 04 Dec 2007 00:00:00 +0000&quot;
+</pre>
+<h2>Adding your own datetime formats to <a href="Conversions.html#M000988">to_formatted_s</a></h2>
+<p>
+DateTime formats are shared with Time. You can add your own to the
+Time::DATE_FORMATS hash. Use the format name as the hash key and either a
+strftime string or Proc instance that takes a time or datetime argument as
+the value.
+</p>
+<pre>
+  # config/initializers/time_formats.rb
+  Time::DATE_FORMATS[:month_and_year] = &quot;%B %Y&quot;
+  Time::DATE_FORMATS[:short_ordinal] = lambda { |time| time.strftime(&quot;%B #{time.day.ordinalize}&quot;) }
+</pre></div></fieldset>
+
+
+<h2><a name="M000992">to_time</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Attempts to convert self to a Ruby Time object; returns self if out of
+range of Ruby Time class If self has an offset other than 0, self will just
+be returned unaltered, since there&#8216;s no clean way to map it to a Time
+</p></div></fieldset>
+
+
+<h2><a name="M000994">xmlschema</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts datetime to an appropriate format for use in XML
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveResource::Validations
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveResource::Validations
+    </h1>
+</div>
+<div id="ActiveResource::Validations" title="ActiveResource::Validations" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activeresource/lib/active_resource/validations_rb.html">activeresource/lib/active_resource/validations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="../Module.html">Module</a> to support validation and <a
+href="Validations.html#M000548">errors</a> with Active Resource objects.
+The module overrides <a href="Base.html#M000603">Base#save</a> to rescue
+ActiveResource::ResourceInvalid exceptions and parse the <a
+href="Validations.html#M000548">errors</a> returned in the web service
+response. The module also adds an <tt><a
+href="Validations.html#M000548">errors</a></tt> collection that mimics the
+interface of the <a href="Validations.html#M000548">errors</a> provided by
+<a href="../ActiveRecord/Errors.html">ActiveRecord::Errors</a>.
+</p>
+<h4>Example</h4>
+<p>
+Consider a Person resource on the server requiring both a
+<tt>first_name</tt> and a <tt>last_name</tt> with a
+<tt>validates_presence_of :first_name, :last_name</tt> declaration in the
+model:
+</p>
+<pre>
+  person = Person.new(:first_name =&gt; &quot;Jim&quot;, :last_name =&gt; &quot;&quot;)
+  person.save                   # =&gt; false (server returns an HTTP 422 status code and errors)
+  person.valid?                 # =&gt; false
+  person.errors.empty?          # =&gt; false
+  person.errors.count           # =&gt; 1
+  person.errors.full_messages   # =&gt; [&quot;Last name can't be empty&quot;]
+  person.errors.on(:last_name)  # =&gt; &quot;can't be empty&quot;
+  person.last_name = &quot;Halpert&quot;
+  person.save                   # =&gt; true (and person is now saved to the remote service)
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000548">errors</a></li>
+<li><a href="#M000546">save_with_validation</a></li>
+<li><a href="#M000547">valid?</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000548">errors</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="Errors.html">Errors</a> object that holds all
+information about attribute error messages.
+</p></div></fieldset>
+
+
+<h2><a name="M000546">save_with_validation</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Validate a resource and save (POST) it to the remote web service.
+</p></div></fieldset>
+
+
+<h2><a name="M000547">valid?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Checks for <a href="Validations.html#M000548">errors</a> on an object
+(i.e., is resource.errors empty?).
+</p>
+<h4>Examples</h4>
+<pre>
+  my_person = Person.create(params[:person])
+  my_person.valid?
+  # =&gt; true
+
+  my_person.errors.add('login', 'can not be empty') if my_person.login == ''
+  my_person.valid?
+  # =&gt; false
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

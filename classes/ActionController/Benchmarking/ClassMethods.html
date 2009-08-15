@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Benchmarking::ClassMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Benchmarking::ClassMethods
+    </h1>
+</div>
+<div id="ActionController::Benchmarking::ClassMethods" title="ActionController::Benchmarking::ClassMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/benchmarking_rb.html">actionpack/lib/action_controller/benchmarking.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000251">benchmark</a></li>
+<li><a href="#M000252">silence</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000251">benchmark</a> (title, log_level = Logger::DEBUG, use_silence = true) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Log and <a href="ClassMethods.html#M000251">benchmark</a> the workings of a
+single block and <a href="ClassMethods.html#M000252">silence</a> whatever
+logging that may have happened inside it (unless <tt>use_silence</tt> is
+set to false).
+</p>
+<p>
+The <a href="ClassMethods.html#M000251">benchmark</a> is only recorded if
+the current level of the logger matches the <tt>log_level</tt>, which makes
+it easy to include benchmarking statements in production software that will
+remain inexpensive because the <a
+href="ClassMethods.html#M000251">benchmark</a> will only be conducted if
+the log level is low enough.
+</p></div></fieldset>
+
+
+<h2><a name="M000252">silence</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Silences the logger for the duration of the block.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

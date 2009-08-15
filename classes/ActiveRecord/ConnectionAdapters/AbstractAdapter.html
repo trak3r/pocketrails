@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::ConnectionAdapters::AbstractAdapter
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::AbstractAdapter
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::AbstractAdapter" title="ActiveRecord::ConnectionAdapters::AbstractAdapter" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract_adapter_rb.html">activerecord/lib/active_record/connection_adapters/abstract_adapter.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+ActiveRecord supports multiple database systems. <a
+href="AbstractAdapter.html">AbstractAdapter</a> and related classes form
+the abstraction layer which makes this possible. An <a
+href="AbstractAdapter.html">AbstractAdapter</a> represents a connection to
+a database, and provides an abstract interface for database-specific
+functionality such as establishing a connection, escaping values, building
+the right SQL fragments for &#8217;:offset&#8217; and &#8217;:limit&#8217;
+options, etc.
+</p>
+<p>
+All the concrete database adapters follow the interface laid down in this
+class. <a href="../Base.html#M001942">ActiveRecord::Base.connection</a>
+returns an <a href="AbstractAdapter.html">AbstractAdapter</a> object, which
+you can use.
+</p>
+<p>
+Most of the methods in the adapter are useful during migrations. Most
+notably, the instance methods provided by SchemaStatement are very useful.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001729">active?</a></li>
+<li><a href="#M001722">adapter_name</a></li>
+<li><a href="#M001738">decrement_open_transactions</a></li>
+<li><a href="#M001728">disable_referential_integrity</a></li>
+<li><a href="#M001731">disconnect!</a></li>
+<li><a href="#M001741">format_log_entry</a></li>
+<li><a href="#M001737">increment_open_transactions</a></li>
+<li><a href="#M001740">log</a></li>
+<li><a href="#M001739">log_info</a></li>
+<li><a href="#M001736">open_transactions</a></li>
+<li><a href="#M001726">prefetch_primary_key?</a></li>
+<li><a href="#M001727">quote_table_name</a></li>
+<li><a href="#M001735">raw_connection</a></li>
+<li><a href="#M001730">reconnect!</a></li>
+<li><a href="#M001733">requires_reloading?</a></li>
+<li><a href="#M001732">reset!</a></li>
+<li><a href="#M001724">supports_count_distinct?</a></li>
+<li><a href="#M001725">supports_ddl_transactions?</a></li>
+<li><a href="#M001723">supports_migrations?</a></li>
+<li><a href="#M001734">verify!</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="Quoting.html">Quoting</a></li>
+<li><a href="DatabaseStatements.html">DatabaseStatements</a></li>
+<li><a href="SchemaStatements.html">SchemaStatements</a></li>
+<li><a href="QueryCache.html">QueryCache</a></li>
+<li><a href="../../ActiveSupport/Callbacks.html">ActiveSupport::Callbacks</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001729">active?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Checks whether the connection to the database is still active. This
+includes checking whether the database is actually capable of responding,
+i.e. whether the connection isn&#8216;t stale.
+</p></div></fieldset>
+
+
+<h2><a name="M001722">adapter_name</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the human-readable name of the adapter. Use mixed case - one can
+always use downcase if needed.
+</p></div></fieldset>
+
+
+<h2><a name="M001738">decrement_open_transactions</a> ()</h2>
+
+
+
+<h2><a name="M001728">disable_referential_integrity</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Override to turn off referential integrity while executing
+<tt>&amp;block</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001731">disconnect!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Disconnects from the database if already connected. Otherwise, this method
+does nothing.
+</p></div></fieldset>
+
+
+<h2><a name="M001737">increment_open_transactions</a> ()</h2>
+
+
+
+<h2><a name="M001739">log_info</a> (sql, name, seconds)</h2>
+
+
+
+<h2><a name="M001736">open_transactions</a> ()</h2>
+
+
+
+<h2><a name="M001726">prefetch_primary_key?</a> (table_name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Should primary key values be selected from their corresponding sequence
+before the insert statement? If true, next_sequence_value is called before
+each insert to set the record&#8216;s primary key. This is false for all
+adapters but Firebird.
+</p></div></fieldset>
+
+
+<h2><a name="M001727">quote_table_name</a> (name)</h2>
+
+<fieldset><div class='row'><p>
+Override to return the quoted table name. Defaults to column quoting.
+</p></div></fieldset>
+
+
+<h2><a name="M001735">raw_connection</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Provides access to the underlying database driver for this adapter. For
+example, this method returns a Mysql object in case of <a
+href="MysqlAdapter.html">MysqlAdapter</a>, and a PGconn object in case of
+<a href="PostgreSQLAdapter.html">PostgreSQLAdapter</a>.
+</p>
+<p>
+This is useful for when you need to call a proprietary method such as
+PostgreSQL&#8216;s lo_* methods.
+</p></div></fieldset>
+
+
+<h2><a name="M001730">reconnect!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Disconnects from the database if already connected, and establishes a new
+connection with the database.
+</p></div></fieldset>
+
+
+<h2><a name="M001733">requires_reloading?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if its safe to reload the connection between requests for
+development mode.
+</p></div></fieldset>
+
+
+<h2><a name="M001732">reset!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Reset the state of this connection, directing the DBMS to clear
+transactions and other connection-related server-side state. Usually a
+database-dependent operation.
+</p>
+<p>
+The default implementation does nothing; the implementation should be
+overridden by concrete adapters.
+</p></div></fieldset>
+
+
+<h2><a name="M001724">supports_count_distinct?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Does this adapter support using DISTINCT within COUNT? This is
+<tt>true</tt> for all adapters except sqlite.
+</p></div></fieldset>
+
+
+<h2><a name="M001725">supports_ddl_transactions?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Does this adapter support DDL rollbacks in transactions? That is, would
+CREATE TABLE or ALTER TABLE get rolled back by a transaction? PostgreSQL,
+SQL Server, and others support this. MySQL and others do not.
+</p></div></fieldset>
+
+
+<h2><a name="M001723">supports_migrations?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Does this adapter support migrations? Backend specific, as the abstract
+adapter always returns <tt>false</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001734">verify!</a> (*ignored)</h2>
+
+<fieldset><div class='row'><p>
+Checks whether the connection to the database is still active (i.e. not
+stale). This is done under the hood by calling <tt><a
+href="AbstractAdapter.html#M001729">active?</a></tt>. If the connection is
+no longer active, then this method will reconnect to the database.
+</p></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M001741">format_log_entry</a> (message, dump = nil)</h2>
+
+
+
+<h2><a name="M001740">log</a> (sql, name) {|| ...}</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionController::Routing::Optimisation::PositionalArgumentsWithAdditionalParams
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Routing::Optimisation::PositionalArgumentsWithAdditionalParams
+    </h1>
+</div>
+<div id="ActionController::Routing::Optimisation::PositionalArgumentsWithAdditionalParams" title="ActionController::Routing::Optimisation::PositionalArgumentsWithAdditionalParams" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/actionpack/lib/action_controller/routing/optimisations_rb.html">actionpack/lib/action_controller/routing/optimisations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="PositionalArguments.html">
+               PositionalArguments
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+This case is mostly the same as the positional arguments case above, but it
+supports additional query parameters as the last argument
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000299">applicable?</a></li>
+<li><a href="#M000298">generation_code</a></li>
+<li><a href="#M000297">guard_conditions</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000299">applicable?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+To avoid generating &quot;<a
+href="http://localhost/?host=foo.example.com">localhost/?host=foo.example.com</a>&quot;
+we can&#8216;t use this optimisation on routes without any segments
+</p></div></fieldset>
+
+
+<h2><a name="M000298">generation_code</a> ()</h2>
+
+<fieldset><div class='row'><p>
+This case uses almost the same code as positional arguments, but add a
+question mark and args.last.to_query on the end, unless the last arg is
+empty
+</p></div></fieldset>
+
+
+<h2><a name="M000297">guard_conditions</a> ()</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

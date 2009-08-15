@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::Locking::Pessimistic
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Locking::Pessimistic
+    </h1>
+</div>
+<div id="ActiveRecord::Locking::Pessimistic" title="ActiveRecord::Locking::Pessimistic" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/locking/pessimistic_rb.html">activerecord/lib/active_record/locking/pessimistic.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Pessimistic.html">Locking::Pessimistic</a> provides support for
+row-level locking using SELECT &#8230; FOR UPDATE and other lock types.
+</p>
+<p>
+Pass <tt>:lock =&gt; true</tt> to <a
+href="../Base.html#M001842">ActiveRecord::Base.find</a> to obtain an
+exclusive lock on the selected rows:
+</p>
+<pre>
+  # select * from accounts where id=1 for update
+  Account.find(1, :lock =&gt; true)
+</pre>
+<p>
+Pass <tt>:lock =&gt; &#8216;some locking clause&#8216;</tt> to give a
+database-specific locking clause of your own such as &#8216;LOCK IN SHARE
+MODE&#8217; or &#8216;FOR UPDATE NOWAIT&#8217;.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  Account.transaction do
+    # select * from accounts where name = 'shugo' limit 1 for update
+    shugo = Account.find(:first, :conditions =&gt; &quot;name = 'shugo'&quot;, :lock =&gt; true)
+    yuko = Account.find(:first, :conditions =&gt; &quot;name = 'yuko'&quot;, :lock =&gt; true)
+    shugo.balance -= 100
+    shugo.save!
+    yuko.balance += 100
+    yuko.save!
+  end
+</pre>
+<p>
+You can also use ActiveRecord::Base#lock! method to lock one record by id.
+This may be better if you don&#8216;t need to lock every row. Example:
+</p>
+<pre>
+  Account.transaction do
+    # select * from accounts where ...
+    accounts = Account.find(:all, :conditions =&gt; ...)
+    account1 = accounts.detect { |account| ... }
+    account2 = accounts.detect { |account| ... }
+    # select * from accounts where id=? for update
+    account1.lock!
+    account2.lock!
+    account1.balance -= 100
+    account1.save!
+    account2.balance += 100
+    account2.save!
+  end
+</pre>
+<p>
+Database-specific information on row locking:
+</p>
+<pre>
+  MySQL: http://dev.mysql.com/doc/refman/5.1/en/innodb-locking-reads.html
+  PostgreSQL: http://www.postgresql.org/docs/8.1/interactive/sql-select.html#SQL-FOR-UPDATE-SHARE
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001471">lock!</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001471">lock!</a> (lock = true)</h2>
+
+<fieldset><div class='row'><p>
+Obtain a row lock on this record. Reloads the record to obtain the
+requested lock. Pass an SQL locking clause to append the end of the SELECT
+statement or pass true for &quot;FOR UPDATE&quot; (the default, an
+exclusive row lock). Returns the locked record.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

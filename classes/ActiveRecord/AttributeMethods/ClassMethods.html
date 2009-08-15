@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::AttributeMethods::ClassMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::AttributeMethods::ClassMethods
+    </h1>
+</div>
+<div id="ActiveRecord::AttributeMethods::ClassMethods" title="ActiveRecord::AttributeMethods::ClassMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/attribute_methods_rb.html">activerecord/lib/active_record/attribute_methods.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Declare and check for suffixed attribute methods.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001458">attribute_method_suffix</a></li>
+<li><a href="#M001466">cache_attribute?</a></li>
+<li><a href="#M001464">cache_attributes</a></li>
+<li><a href="#M001465">cached_attributes</a></li>
+<li><a href="#M001461">define_attribute_methods</a></li>
+<li><a href="#M001463">define_read_methods</a></li>
+<li><a href="#M001460">generated_methods?</a></li>
+<li><a href="#M001462">instance_method_already_implemented?</a></li>
+<li><a href="#M001459">match_attribute_method?</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001458">attribute_method_suffix</a> (*suffixes)</h2>
+
+<fieldset><div class='row'><p>
+Declares a method available for all attributes with the given suffix. Uses
+<tt>method_missing</tt> and <tt>respond_to?</tt> to rewrite the method
+</p>
+<pre>
+  #{attr}#{suffix}(*args, &amp;block)
+</pre>
+<p>
+to
+</p>
+<pre>
+  attribute#{suffix}(#{attr}, *args, &amp;block)
+</pre>
+<p>
+An <tt>attribute#{suffix}</tt> instance method must exist and accept at
+least the <tt>attr</tt> argument.
+</p>
+<p>
+For example:
+</p>
+<pre>
+  class Person &lt; ActiveRecord::Base
+    attribute_method_suffix '_changed?'
+
+    private
+      def attribute_changed?(attr)
+        ...
+      end
+  end
+
+  person = Person.find(1)
+  person.name_changed?    # =&gt; false
+  person.name = 'Hubert'
+  person.name_changed?    # =&gt; true
+</pre></div></fieldset>
+
+
+<h2><a name="M001466">cache_attribute?</a> (attr_name)</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> if the provided attribute is being cached.
+</p></div></fieldset>
+
+
+<h2><a name="M001464">cache_attributes</a> (*attribute_names)</h2>
+
+<fieldset><div class='row'><p>
+<tt><a href="ClassMethods.html#M001464">cache_attributes</a></tt> allows
+you to declare which converted attribute values should be cached. Usually
+caching only pays off for attributes with expensive conversion methods,
+like time related columns (e.g. <tt>created_at</tt>, <tt>updated_at</tt>).
+</p></div></fieldset>
+
+
+<h2><a name="M001465">cached_attributes</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the attributes which are cached. By default time related columns
+with datatype <tt>:datetime, :timestamp, :time, :date</tt> are cached.
+</p></div></fieldset>
+
+
+<h2><a name="M001461">define_attribute_methods</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Generates all the attribute related methods for columns in the database
+accessors, mutators and query methods.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>define_read_methods</div></fieldset>
+
+<h2><a name="M001463">define_read_methods</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="ClassMethods.html#M001461">define_attribute_methods</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001460">generated_methods?</a> ()</h2>
+
+
+
+<h2><a name="M001462">instance_method_already_implemented?</a> (method_name)</h2>
+
+<fieldset><div class='row'><p>
+Checks whether the method is defined in the model or any of its subclasses
+that also derive from Active Record. Raises <a
+href="../DangerousAttributeError.html">DangerousAttributeError</a> if the
+method is defined by Active Record though.
+</p></div></fieldset>
+
+
+<h2><a name="M001459">match_attribute_method?</a> (method_name)</h2>
+
+<fieldset><div class='row'><p>
+Returns MatchData if method_name is an attribute method.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

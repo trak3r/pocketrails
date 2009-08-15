@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::RecordIdentifier
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::RecordIdentifier
+    </h1>
+</div>
+<div id="ActionController::RecordIdentifier" title="ActionController::RecordIdentifier" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/record_identifier_rb.html">actionpack/lib/action_controller/record_identifier.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The record identifier encapsulates a number of naming conventions for
+dealing with records, like Active Records or Active <a
+href="Resources.html">Resources</a> or pretty much any other model type
+that has an id. These patterns are then used to try elevate the view
+actions to a higher logical level. Example:
+</p>
+<pre>
+  # routes
+  map.resources :posts
+
+  # view
+  &lt;% div_for(post) do %&gt;     &lt;div id=&quot;post_45&quot; class=&quot;post&quot;&gt;
+    &lt;%= post.body %&gt;           What a wonderful world!
+  &lt;% end %&gt;                  &lt;/div&gt;
+
+  # controller
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(post) } # Calls polymorphic_url(post) which in turn calls post_url(post)
+      format.js do
+        # Calls: new Effect.fade('post_45');
+        render(:update) { |page| page[post].visual_effect(:fade) }
+      end
+    end
+  end
+</pre>
+<p>
+As the example above shows, you can stop caring to a large extent what the
+actual id of the post is. You just know that one is being assigned and that
+the subsequent calls in redirect_to and the RJS expect that same naming
+convention and allows you to write less code if you follow it.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000235">dom_class</a></li>
+<li><a href="#M000236">dom_id</a></li>
+<li><a href="#M000234">partial_path</a></li>
+<li><a href="#M000237">plural_class_name</a></li>
+<li><a href="#M000238">singular_class_name</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>JOIN</h2>
+<fieldset>
+<div class="row">
+'_'.freeze
+</div>
+</fieldset>
+<h2>NEW</h2>
+<fieldset>
+<div class="row">
+'new'.freeze
+</div>
+</fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000235">dom_class</a> (record_or_class, prefix = nil)</h2>
+
+<fieldset><div class='row'><p>
+The DOM class convention is to use the singular form of an object or class.
+Examples:
+</p>
+<pre>
+  dom_class(post)   # =&gt; &quot;post&quot;
+  dom_class(Person) # =&gt; &quot;person&quot;
+</pre>
+<p>
+If you need to address multiple instances of the same class in the same
+view, you can prefix the <a
+href="RecordIdentifier.html#M000235">dom_class</a>:
+</p>
+<pre>
+  dom_class(post, :edit)   # =&gt; &quot;edit_post&quot;
+  dom_class(Person, :edit) # =&gt; &quot;edit_person&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000236">dom_id</a> (record, prefix = nil)</h2>
+
+<fieldset><div class='row'><p>
+The DOM id convention is to use the singular form of an object or class
+with the id following an underscore. If no id is found, prefix with
+&quot;new_&quot; instead. Examples:
+</p>
+<pre>
+  dom_id(Post.find(45))       # =&gt; &quot;post_45&quot;
+  dom_id(Post.new)            # =&gt; &quot;new_post&quot;
+</pre>
+<p>
+If you need to address multiple instances of the same class in the same
+view, you can prefix the <a
+href="RecordIdentifier.html#M000236">dom_id</a>:
+</p>
+<pre>
+  dom_id(Post.find(45), :edit) # =&gt; &quot;edit_post_45&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000234">partial_path</a> (record_or_class, controller_path = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns plural/singular for a record or class. Example:
+</p>
+<pre>
+  partial_path(post)                   # =&gt; &quot;posts/post&quot;
+  partial_path(Person)                 # =&gt; &quot;people/person&quot;
+  partial_path(Person, &quot;admin/games&quot;)  # =&gt; &quot;admin/people/person&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000237">plural_class_name</a> (record_or_class)</h2>
+
+<fieldset><div class='row'><p>
+Returns the plural class name of a record or class. Examples:
+</p>
+<pre>
+  plural_class_name(post)             # =&gt; &quot;posts&quot;
+  plural_class_name(Highrise::Person) # =&gt; &quot;highrise_people&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000238">singular_class_name</a> (record_or_class)</h2>
+
+<fieldset><div class='row'><p>
+Returns the singular class name of a record or class. Examples:
+</p>
+<pre>
+  singular_class_name(post)             # =&gt; &quot;post&quot;
+  singular_class_name(Highrise::Person) # =&gt; &quot;highrise_person&quot;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

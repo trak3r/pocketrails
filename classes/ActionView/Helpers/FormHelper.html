@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionView::Helpers::FormHelper
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Helpers::FormHelper
+    </h1>
+</div>
+<div id="ActionView::Helpers::FormHelper" title="ActionView::Helpers::FormHelper" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_view/helpers/form_helper_rb.html">actionpack/lib/action_view/helpers/form_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Form helpers are designed to make working with models much easier compared
+to using just standard HTML elements by providing a set of methods for
+creating forms based on your models. This helper generates the HTML for
+forms, providing a method for each sort of input (e.g., text, password,
+select, and so on). When the form is submitted (i.e., when the user hits
+the submit button or <tt>form.submit</tt> is called via JavaScript), the
+form inputs will be bundled into the <tt>params</tt> object and passed back
+to the controller.
+</p>
+<p>
+There are two types of form helpers: those that specifically work with
+model attributes and those that don&#8216;t. This helper deals with those
+that work with model attributes; to see an example of form helpers that
+don&#8216;t work with model attributes, check the <a
+href="FormTagHelper.html">ActionView::Helpers::FormTagHelper</a>
+documentation.
+</p>
+<p>
+The core method of this helper, <a
+href="FormHelper.html#M001244">form_for</a>, gives you the ability to
+create a form for a model instance; for example, let&#8216;s say that you
+have a model <tt>Person</tt> and want to create a new instance of it:
+</p>
+<pre>
+    # Note: a @person variable will have been created in the controller.
+    # For example: @person = Person.new
+    &lt;% form_for :person, @person, :url =&gt; { :action =&gt; &quot;create&quot; } do |f| %&gt;
+      &lt;%= f.text_field :first_name %&gt;
+      &lt;%= f.text_field :last_name %&gt;
+      &lt;%= submit_tag 'Create' %&gt;
+    &lt;% end %&gt;
+</pre>
+<p>
+The HTML generated for this would be:
+</p>
+<pre>
+    &lt;form action=&quot;/persons/create&quot; method=&quot;post&quot;&gt;
+      &lt;input id=&quot;person_first_name&quot; name=&quot;person[first_name]&quot; size=&quot;30&quot; type=&quot;text&quot; /&gt;
+      &lt;input id=&quot;person_last_name&quot; name=&quot;person[last_name]&quot; size=&quot;30&quot; type=&quot;text&quot; /&gt;
+      &lt;input name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Create&quot; /&gt;
+    &lt;/form&gt;
+</pre>
+<p>
+If you are using a partial for your form fields, you can use this shortcut:
+</p>
+<pre>
+    &lt;% form_for :person, @person, :url =&gt; { :action =&gt; &quot;create&quot; } do |f| %&gt;
+      &lt;%= render :partial =&gt; f %&gt;
+      &lt;%= submit_tag 'Create' %&gt;
+    &lt;% end %&gt;
+</pre>
+<p>
+This example will render the <tt>people/_form</tt> partial, setting a local
+variable called <tt>form</tt> which references the yielded FormBuilder.
+</p>
+<p>
+The <tt>params</tt> object created when this form is submitted would look
+like:
+</p>
+<pre>
+    {&quot;action&quot;=&gt;&quot;create&quot;, &quot;controller&quot;=&gt;&quot;persons&quot;, &quot;person&quot;=&gt;{&quot;first_name&quot;=&gt;&quot;William&quot;, &quot;last_name&quot;=&gt;&quot;Smith&quot;}}
+</pre>
+<p>
+The params hash has a nested <tt>person</tt> value, which can therefore be
+accessed with <tt>params[:person]</tt> in the controller. If were
+editing/updating an instance (e.g., <tt>Person.find(1)</tt> rather than
+<tt>Person.new</tt> in the controller), the objects attribute values are
+filled into the form (e.g., the <tt>person_first_name</tt> field would have
+that person&#8216;s first name in it).
+</p>
+<p>
+If the object name contains square brackets the id for the object will be
+inserted. For example:
+</p>
+<pre>
+  &lt;%= text_field &quot;person[]&quot;, &quot;name&quot; %&gt;
+</pre>
+<p>
+&#8230;will generate the following ERb.
+</p>
+<pre>
+  &lt;input type=&quot;text&quot; id=&quot;person_&lt;%= @person.id %&gt;_name&quot; name=&quot;person[&lt;%= @person.id %&gt;][name]&quot; value=&quot;&lt;%= @person.name %&gt;&quot; /&gt;
+</pre>
+<p>
+If the helper is being used to generate a repetitive sequence of similar
+form elements, for example in a partial used by
+<tt>render_collection_of_partials</tt>, the <tt>index</tt> option may come
+in handy. Example:
+</p>
+<pre>
+  &lt;%= text_field &quot;person&quot;, &quot;name&quot;, &quot;index&quot; =&gt; 1 %&gt;
+</pre>
+<p>
+&#8230;becomes&#8230;
+</p>
+<pre>
+  &lt;input type=&quot;text&quot; id=&quot;person_1_name&quot; name=&quot;person[1][name]&quot; value=&quot;&lt;%= @person.name %&gt;&quot; /&gt;
+</pre>
+<p>
+An <tt>index</tt> option may also be passed to <tt><a
+href="FormHelper.html#M001244">form_for</a></tt> and <tt><a
+href="FormHelper.html#M001245">fields_for</a></tt>. This automatically
+applies the <tt>index</tt> to all the nested fields.
+</p>
+<p>
+There are also methods for helping to build form tags in <a
+href="FormOptionsHelper.html">classes/ActionView/Helpers/FormOptionsHelper.html</a>,
+<a href="DateHelper.html">classes/ActionView/Helpers/DateHelper.html</a>,
+and <a
+href="ActiveRecordHelper.html">classes/ActionView/Helpers/ActiveRecordHelper.html</a>
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001252">check_box</a></li>
+<li><a href="#M001245">fields_for</a></li>
+<li><a href="#M001250">file_field</a></li>
+<li><a href="#M001244">form_for</a></li>
+<li><a href="#M001249">hidden_field</a></li>
+<li><a href="#M001246">label</a></li>
+<li><a href="#M001248">password_field</a></li>
+<li><a href="#M001253">radio_button</a></li>
+<li><a href="#M001251">text_area</a></li>
+<li><a href="#M001247">text_field</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001252">check_box</a> (object_name, method, options = {}, checked_value = &quot;1&quot;, unchecked_value = &quot;0&quot;)</h2>
+
+<fieldset><div class='row'><p>
+Returns a checkbox tag tailored for accessing a specified attribute
+(identified by <tt>method</tt>) on an object assigned to the template
+(identified by <tt>object</tt>). This object must be an instance object
+(@object) and not a local object. It&#8216;s intended that <tt>method</tt>
+returns an integer and if that integer is above zero, then the checkbox is
+checked. Additional options on the input tag can be passed as a hash with
+<tt>options</tt>. The <tt>checked_value</tt> defaults to 1 while the
+default <tt>unchecked_value</tt> is set to 0 which is convenient for
+boolean values.
+</p>
+<h4>Gotcha</h4>
+<p>
+The HTML specification says unchecked check boxes are not successful, and
+thus web browsers do not send them. Unfortunately this introduces a gotcha:
+if an Invoice model has a <tt>paid</tt> flag, and in the form that edits a
+paid invoice the user unchecks its check box, no <tt>paid</tt> parameter is
+sent. So, any mass-assignment idiom like
+</p>
+<pre>
+  @invoice.update_attributes(params[:invoice])
+</pre>
+<p>
+wouldn&#8216;t update the flag.
+</p>
+<p>
+To prevent this the helper generates a hidden field with the same name as
+the checkbox after the very check box. So, the client either sends only the
+hidden field (representing the check box is unchecked), or both fields.
+Since the HTML specification says key/value pairs have to be sent in the
+same order they appear in the form and <a href="../../Rails.html">Rails</a>
+parameters extraction always gets the first occurrence of any given key,
+that works in ordinary forms.
+</p>
+<p>
+Unfortunately that workaround does not work when the check box goes within
+an array-like parameter, as in
+</p>
+<pre>
+  &lt;% fields_for &quot;project[invoice_attributes][]&quot;, invoice, :index =&gt; nil do |form| %&gt;
+    &lt;%= form.check_box :paid %&gt;
+    ...
+  &lt;% end %&gt;
+</pre>
+<p>
+because parameter name repetition is precisely what <a
+href="../../Rails.html">Rails</a> seeks to distinguish the elements of the
+array.
+</p>
+<h4>Examples</h4>
+<pre>
+  # Let's say that @post.validated? is 1:
+  check_box(&quot;post&quot;, &quot;validated&quot;)
+  # =&gt; &lt;input type=&quot;checkbox&quot; id=&quot;post_validated&quot; name=&quot;post[validated]&quot; value=&quot;1&quot; /&gt;
+  #    &lt;input name=&quot;post[validated]&quot; type=&quot;hidden&quot; value=&quot;0&quot; /&gt;
+
+  # Let's say that @puppy.gooddog is &quot;no&quot;:
+  check_box(&quot;puppy&quot;, &quot;gooddog&quot;, {}, &quot;yes&quot;, &quot;no&quot;)
+  # =&gt; &lt;input type=&quot;checkbox&quot; id=&quot;puppy_gooddog&quot; name=&quot;puppy[gooddog]&quot; value=&quot;yes&quot; /&gt;
+  #    &lt;input name=&quot;puppy[gooddog]&quot; type=&quot;hidden&quot; value=&quot;no&quot; /&gt;
+
+  check_box(&quot;eula&quot;, &quot;accepted&quot;, { :class =&gt; 'eula_check' }, &quot;yes&quot;, &quot;no&quot;)
+  # =&gt; &lt;input type=&quot;checkbox&quot; class=&quot;eula_check&quot; id=&quot;eula_accepted&quot; name=&quot;eula[accepted]&quot; value=&quot;yes&quot; /&gt;
+  #    &lt;input name=&quot;eula[accepted]&quot; type=&quot;hidden&quot; value=&quot;no&quot; /&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001245">fields_for</a> (record_or_name_or_array, *args) {|builder.new(object_name, object, self, options, block)| ...}</h2>
+
+<fieldset><div class='row'><p>
+Creates a scope around a specific model object like <a
+href="FormHelper.html#M001244">form_for</a>, but doesn&#8216;t create the
+form tags themselves. This makes <a
+href="FormHelper.html#M001245">fields_for</a> suitable for specifying
+additional model objects in the same form:
+</p>
+<h4>Examples</h4>
+<pre>
+  &lt;% form_for @person, :url =&gt; { :action =&gt; &quot;update&quot; } do |person_form| %&gt;
+    First name: &lt;%= person_form.text_field :first_name %&gt;
+    Last name : &lt;%= person_form.text_field :last_name %&gt;
+
+    &lt;% fields_for @person.permission do |permission_fields| %&gt;
+      Admin?  : &lt;%= permission_fields.check_box :admin %&gt;
+    &lt;% end %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+&#8230;or if you have an object that needs to be represented as a different
+parameter, like a Client that acts as a Person:
+</p>
+<pre>
+  &lt;% fields_for :person, @client do |permission_fields| %&gt;
+    Admin?: &lt;%= permission_fields.check_box :admin %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+&#8230;or if you don&#8216;t have an object, just a name of the parameter
+</p>
+<pre>
+  &lt;% fields_for :person do |permission_fields| %&gt;
+    Admin?: &lt;%= permission_fields.check_box :admin %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+Note: This also works for the methods in FormOptionHelper and <a
+href="DateHelper.html">DateHelper</a> that are designed to work with an
+object as base, like FormOptionHelper#collection_select and <a
+href="DateHelper.html#M001339">DateHelper#datetime_select</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001250">file_field</a> (object_name, method, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns an file upload input tag tailored for accessing a specified
+attribute (identified by <tt>method</tt>) on an object assigned to the
+template (identified by <tt>object</tt>). Additional options on the input
+tag can be passed as a hash with <tt>options</tt>. These options will be
+tagged onto the HTML as an HTML element attribute as in the example shown.
+</p>
+<h4>Examples</h4>
+<pre>
+  file_field(:user, :avatar)
+  # =&gt; &lt;input type=&quot;file&quot; id=&quot;user_avatar&quot; name=&quot;user[avatar]&quot; /&gt;
+
+  file_field(:post, :attached, :accept =&gt; 'text/html')
+  # =&gt; &lt;input type=&quot;file&quot; id=&quot;post_attached&quot; name=&quot;post[attached]&quot; /&gt;
+
+  file_field(:attachment, :file, :class =&gt; 'file_input')
+  # =&gt; &lt;input type=&quot;file&quot; id=&quot;attachment_file&quot; name=&quot;attachment[file]&quot; class=&quot;file_input&quot; /&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001244">form_for</a> (record_or_name_or_array, *args, &amp;proc)</h2>
+
+<fieldset><div class='row'><p>
+Creates a form and a scope around a specific model object that is used as a
+base for questioning about values for the fields.
+</p>
+<p>
+<a href="../../Rails.html">Rails</a> provides succinct resource-oriented
+form generation with <tt><a
+href="FormHelper.html#M001244">form_for</a></tt> like this:
+</p>
+<pre>
+  &lt;% form_for @offer do |f| %&gt;
+    &lt;%= f.label :version, 'Version' %&gt;:
+    &lt;%= f.text_field :version %&gt;&lt;br /&gt;
+    &lt;%= f.label :author, 'Author' %&gt;:
+    &lt;%= f.text_field :author %&gt;&lt;br /&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+There, <tt><a href="FormHelper.html#M001244">form_for</a></tt> is able to
+generate the rest of RESTful form parameters based on introspection on the
+record, but to understand what it does we need to dig first into the
+alternative generic usage it is based upon.
+</p>
+<h3>Generic <a href="FormHelper.html#M001244">form_for</a></h3>
+<p>
+The generic way to call <tt><a
+href="FormHelper.html#M001244">form_for</a></tt> yields a form builder
+around a model:
+</p>
+<pre>
+  &lt;% form_for :person, :url =&gt; { :action =&gt; &quot;update&quot; } do |f| %&gt;
+    &lt;%= f.error_messages %&gt;
+    First name: &lt;%= f.text_field :first_name %&gt;&lt;br /&gt;
+    Last name : &lt;%= f.text_field :last_name %&gt;&lt;br /&gt;
+    Biography : &lt;%= f.text_area :biography %&gt;&lt;br /&gt;
+    Admin?    : &lt;%= f.check_box :admin %&gt;&lt;br /&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+There, the first argument is a symbol or string with the name of the object
+the form is about, and also the name of the instance variable the object is
+stored in.
+</p>
+<p>
+The form builder acts as a regular form helper that somehow carries the
+model. Thus, the idea is that
+</p>
+<pre>
+  &lt;%= f.text_field :first_name %&gt;
+</pre>
+<p>
+gets expanded to
+</p>
+<pre>
+  &lt;%= text_field :person, :first_name %&gt;
+</pre>
+<p>
+If the instance variable is not <tt>@person</tt> you can pass the actual
+record as the second argument:
+</p>
+<pre>
+  &lt;% form_for :person, person, :url =&gt; { :action =&gt; &quot;update&quot; } do |f| %&gt;
+    ...
+  &lt;% end %&gt;
+</pre>
+<p>
+In that case you can think
+</p>
+<pre>
+  &lt;%= f.text_field :first_name %&gt;
+</pre>
+<p>
+gets expanded to
+</p>
+<pre>
+  &lt;%= text_field :person, :first_name, :object =&gt; person %&gt;
+</pre>
+<p>
+You can even display error messages of the wrapped model this way:
+</p>
+<pre>
+  &lt;%= f.error_messages %&gt;
+</pre>
+<p>
+In any of its variants, the rightmost argument to <tt><a
+href="FormHelper.html#M001244">form_for</a></tt> is an optional hash of
+options:
+</p>
+<ul>
+<li><tt>:url</tt> - The URL the form is submitted to. It takes the same fields
+you pass to <tt>url_for</tt> or <tt>link_to</tt>. In particular you may
+pass here a named route directly as well. Defaults to the current action.
+
+</li>
+<li><tt>:html</tt> - Optional HTML attributes for the form tag.
+
+</li>
+</ul>
+<p>
+Worth noting is that the <tt><a
+href="FormHelper.html#M001244">form_for</a></tt> tag is called in a ERb
+evaluation block, not an ERb output block. So that&#8216;s <tt>&lt;%
+%&gt;</tt>, not <tt>&lt;%= %&gt;</tt>.
+</p>
+<p>
+Also note that <tt><a href="FormHelper.html#M001244">form_for</a></tt>
+doesn&#8216;t create an exclusive scope. It&#8216;s still possible to use
+both the stand-alone <a href="FormHelper.html">FormHelper</a> methods and
+methods from <a href="FormTagHelper.html">FormTagHelper</a>. For example:
+</p>
+<pre>
+  &lt;% form_for :person, @person, :url =&gt; { :action =&gt; &quot;update&quot; } do |f| %&gt;
+    First name: &lt;%= f.text_field :first_name %&gt;
+    Last name : &lt;%= f.text_field :last_name %&gt;
+    Biography : &lt;%= text_area :person, :biography %&gt;
+    Admin?    : &lt;%= check_box_tag &quot;person[admin]&quot;, @person.company.admin? %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+This also works for the methods in FormOptionHelper and <a
+href="DateHelper.html">DateHelper</a> that are designed to work with an
+object as base, like FormOptionHelper#collection_select and <a
+href="DateHelper.html#M001339">DateHelper#datetime_select</a>.
+</p>
+<h3>Resource-oriented style</h3>
+<p>
+As we said above, in addition to manually configuring the <tt><a
+href="FormHelper.html#M001244">form_for</a></tt> call, you can rely on
+automated resource identification, which will use the conventions and named
+routes of that approach. This is the preferred way to use <tt><a
+href="FormHelper.html#M001244">form_for</a></tt> nowadays.
+</p>
+<p>
+For example, if <tt>@post</tt> is an existing record you want to edit
+</p>
+<pre>
+  &lt;% form_for @post do |f| %&gt;
+    ...
+  &lt;% end %&gt;
+</pre>
+<p>
+is equivalent to something like:
+</p>
+<pre>
+  &lt;% form_for :post, @post, :url =&gt; post_path(@post), :html =&gt; { :method =&gt; :put, :class =&gt; &quot;edit_post&quot;, :id =&gt; &quot;edit_post_45&quot; } do |f| %&gt;
+    ...
+  &lt;% end %&gt;
+</pre>
+<p>
+And for new records
+</p>
+<pre>
+  &lt;% form_for(Post.new) do |f| %&gt;
+    ...
+  &lt;% end %&gt;
+</pre>
+<p>
+expands to
+</p>
+<pre>
+  &lt;% form_for :post, Post.new, :url =&gt; posts_path, :html =&gt; { :class =&gt; &quot;new_post&quot;, :id =&gt; &quot;new_post&quot; } do |f| %&gt;
+    ...
+  &lt;% end %&gt;
+</pre>
+<p>
+You can also overwrite the individual conventions, like this:
+</p>
+<pre>
+  &lt;% form_for(@post, :url =&gt; super_post_path(@post)) do |f| %&gt;
+    ...
+  &lt;% end %&gt;
+</pre>
+<p>
+And for namespaced routes, like <tt>admin_post_url</tt>:
+</p>
+<pre>
+  &lt;% form_for([:admin, @post]) do |f| %&gt;
+   ...
+  &lt;% end %&gt;
+</pre>
+<h3>Customized form builders</h3>
+<p>
+You can also build forms using a customized FormBuilder class. Subclass
+FormBuilder and override or define some more helpers, then use your custom
+builder. For example, let&#8216;s say you made a helper to automatically
+add labels to form inputs.
+</p>
+<pre>
+  &lt;% form_for :person, @person, :url =&gt; { :action =&gt; &quot;update&quot; }, :builder =&gt; LabellingFormBuilder do |f| %&gt;
+    &lt;%= f.text_field :first_name %&gt;
+    &lt;%= f.text_field :last_name %&gt;
+    &lt;%= text_area :person, :biography %&gt;
+    &lt;%= check_box_tag &quot;person[admin]&quot;, @person.company.admin? %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+In this case, if you use this:
+</p>
+<pre>
+  &lt;%= render :partial =&gt; f %&gt;
+</pre>
+<p>
+The rendered template is <tt>people/_labelling_form</tt> and the local
+variable referencing the form builder is called <tt>labelling_form</tt>.
+</p>
+<p>
+In many cases you will want to wrap the above in another helper, so you
+could do something like the following:
+</p>
+<pre>
+  def labelled_form_for(record_or_name_or_array, *args, &amp;proc)
+    options = args.extract_options!
+    form_for(record_or_name_or_array, *(args &lt;&lt; options.merge(:builder =&gt; LabellingFormBuilder)), &amp;proc)
+  end
+</pre>
+<p>
+If you don&#8216;t need to attach a form to a model instance, then check
+out <a href="FormTagHelper.html#M001386">FormTagHelper#form_tag</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001249">hidden_field</a> (object_name, method, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns a hidden input tag tailored for accessing a specified attribute
+(identified by <tt>method</tt>) on an object assigned to the template
+(identified by <tt>object</tt>). Additional options on the input tag can be
+passed as a hash with <tt>options</tt>. These options will be tagged onto
+the HTML as an HTML element attribute as in the example shown.
+</p>
+<h4>Examples</h4>
+<pre>
+  hidden_field(:signup, :pass_confirm)
+  # =&gt; &lt;input type=&quot;hidden&quot; id=&quot;signup_pass_confirm&quot; name=&quot;signup[pass_confirm]&quot; value=&quot;#{@signup.pass_confirm}&quot; /&gt;
+
+  hidden_field(:post, :tag_list)
+  # =&gt; &lt;input type=&quot;hidden&quot; id=&quot;post_tag_list&quot; name=&quot;post[tag_list]&quot; value=&quot;#{@post.tag_list}&quot; /&gt;
+
+  hidden_field(:user, :token)
+  # =&gt; &lt;input type=&quot;hidden&quot; id=&quot;user_token&quot; name=&quot;user[token]&quot; value=&quot;#{@user.token}&quot; /&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001246">label</a> (object_name, method, text = nil, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="FormHelper.html#M001246">label</a> tag tailored for
+labelling an input field for a specified attribute (identified by
+<tt>method</tt>) on an object assigned to the template (identified by
+<tt>object</tt>). The text of <a href="FormHelper.html#M001246">label</a>
+will default to the attribute name unless you specify it explicitly.
+Additional options on the <a href="FormHelper.html#M001246">label</a> tag
+can be passed as a hash with <tt>options</tt>. These options will be tagged
+onto the HTML as an HTML element attribute as in the example shown.
+</p>
+<h4>Examples</h4>
+<pre>
+  label(:post, :title)
+  # =&gt; &lt;label for=&quot;post_title&quot;&gt;Title&lt;/label&gt;
+
+  label(:post, :title, &quot;A short title&quot;)
+  # =&gt; &lt;label for=&quot;post_title&quot;&gt;A short title&lt;/label&gt;
+
+  label(:post, :title, &quot;A short title&quot;, :class =&gt; &quot;title_label&quot;)
+  # =&gt; &lt;label for=&quot;post_title&quot; class=&quot;title_label&quot;&gt;A short title&lt;/label&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001248">password_field</a> (object_name, method, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns an input tag of the &quot;password&quot; type tailored for
+accessing a specified attribute (identified by <tt>method</tt>) on an
+object assigned to the template (identified by <tt>object</tt>). Additional
+options on the input tag can be passed as a hash with <tt>options</tt>.
+These options will be tagged onto the HTML as an HTML element attribute as
+in the example shown.
+</p>
+<h4>Examples</h4>
+<pre>
+  password_field(:login, :pass, :size =&gt; 20)
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;login_pass&quot; name=&quot;login[pass]&quot; size=&quot;20&quot; value=&quot;#{@login.pass}&quot; /&gt;
+
+  password_field(:account, :secret, :class =&gt; &quot;form_input&quot;)
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;account_secret&quot; name=&quot;account[secret]&quot; value=&quot;#{@account.secret}&quot; class=&quot;form_input&quot; /&gt;
+
+  password_field(:user, :password, :onchange =&gt; &quot;if $('user[password]').length &gt; 30 { alert('Your password needs to be shorter!'); }&quot;)
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;user_password&quot; name=&quot;user[password]&quot; value=&quot;#{@user.password}&quot; onchange = &quot;if $('user[password]').length &gt; 30 { alert('Your password needs to be shorter!'); }&quot;/&gt;
+
+  password_field(:account, :pin, :size =&gt; 20, :class =&gt; 'form_input')
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;account_pin&quot; name=&quot;account[pin]&quot; size=&quot;20&quot; value=&quot;#{@account.pin}&quot; class=&quot;form_input&quot; /&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001253">radio_button</a> (object_name, method, tag_value, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns a radio button tag for accessing a specified attribute (identified
+by <tt>method</tt>) on an object assigned to the template (identified by
+<tt>object</tt>). If the current value of <tt>method</tt> is
+<tt>tag_value</tt> the radio button will be checked. Additional options on
+the input tag can be passed as a hash with <tt>options</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  # Let's say that @post.category returns &quot;rails&quot;:
+  radio_button(&quot;post&quot;, &quot;category&quot;, &quot;rails&quot;)
+  radio_button(&quot;post&quot;, &quot;category&quot;, &quot;java&quot;)
+  # =&gt; &lt;input type=&quot;radio&quot; id=&quot;post_category_rails&quot; name=&quot;post[category]&quot; value=&quot;rails&quot; checked=&quot;checked&quot; /&gt;
+  #    &lt;input type=&quot;radio&quot; id=&quot;post_category_java&quot; name=&quot;post[category]&quot; value=&quot;java&quot; /&gt;
+
+  radio_button(&quot;user&quot;, &quot;receive_newsletter&quot;, &quot;yes&quot;)
+  radio_button(&quot;user&quot;, &quot;receive_newsletter&quot;, &quot;no&quot;)
+  # =&gt; &lt;input type=&quot;radio&quot; id=&quot;user_receive_newsletter_yes&quot; name=&quot;user[receive_newsletter]&quot; value=&quot;yes&quot; /&gt;
+  #    &lt;input type=&quot;radio&quot; id=&quot;user_receive_newsletter_no&quot; name=&quot;user[receive_newsletter]&quot; value=&quot;no&quot; checked=&quot;checked&quot; /&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001251">text_area</a> (object_name, method, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns a textarea opening and closing tag set tailored for accessing a
+specified attribute (identified by <tt>method</tt>) on an object assigned
+to the template (identified by <tt>object</tt>). Additional options on the
+input tag can be passed as a hash with <tt>options</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  text_area(:post, :body, :cols =&gt; 20, :rows =&gt; 40)
+  # =&gt; &lt;textarea cols=&quot;20&quot; rows=&quot;40&quot; id=&quot;post_body&quot; name=&quot;post[body]&quot;&gt;
+  #      #{@post.body}
+  #    &lt;/textarea&gt;
+
+  text_area(:comment, :text, :size =&gt; &quot;20x30&quot;)
+  # =&gt; &lt;textarea cols=&quot;20&quot; rows=&quot;30&quot; id=&quot;comment_text&quot; name=&quot;comment[text]&quot;&gt;
+  #      #{@comment.text}
+  #    &lt;/textarea&gt;
+
+  text_area(:application, :notes, :cols =&gt; 40, :rows =&gt; 15, :class =&gt; 'app_input')
+  # =&gt; &lt;textarea cols=&quot;40&quot; rows=&quot;15&quot; id=&quot;application_notes&quot; name=&quot;application[notes]&quot; class=&quot;app_input&quot;&gt;
+  #      #{@application.notes}
+  #    &lt;/textarea&gt;
+
+  text_area(:entry, :body, :size =&gt; &quot;20x20&quot;, :disabled =&gt; 'disabled')
+  # =&gt; &lt;textarea cols=&quot;20&quot; rows=&quot;20&quot; id=&quot;entry_body&quot; name=&quot;entry[body]&quot; disabled=&quot;disabled&quot;&gt;
+  #      #{@entry.body}
+  #    &lt;/textarea&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001247">text_field</a> (object_name, method, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns an input tag of the &quot;text&quot; type tailored for accessing a
+specified attribute (identified by <tt>method</tt>) on an object assigned
+to the template (identified by <tt>object</tt>). Additional options on the
+input tag can be passed as a hash with <tt>options</tt>. These options will
+be tagged onto the HTML as an HTML element attribute as in the example
+shown.
+</p>
+<h4>Examples</h4>
+<pre>
+  text_field(:post, :title, :size =&gt; 20)
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;post_title&quot; name=&quot;post[title]&quot; size=&quot;20&quot; value=&quot;#{@post.title}&quot; /&gt;
+
+  text_field(:post, :title, :class =&gt; &quot;create_input&quot;)
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;post_title&quot; name=&quot;post[title]&quot; value=&quot;#{@post.title}&quot; class=&quot;create_input&quot; /&gt;
+
+  text_field(:session, :user, :onchange =&gt; &quot;if $('session[user]').value == 'admin' { alert('Your login can not be admin!'); }&quot;)
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;session_user&quot; name=&quot;session[user]&quot; value=&quot;#{@session.user}&quot; onchange = &quot;if $('session[user]').value == 'admin' { alert('Your login can not be admin!'); }&quot;/&gt;
+
+  text_field(:snippet, :code, :size =&gt; 20, :class =&gt; 'code_input')
+  # =&gt; &lt;input type=&quot;text&quot; id=&quot;snippet_code&quot; name=&quot;snippet[code]&quot; size=&quot;20&quot; value=&quot;#{@snippet.code}&quot; class=&quot;code_input&quot; /&gt;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

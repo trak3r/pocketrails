@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionView::Base
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Base
+    </h1>
+</div>
+<div id="ActionView::Base" title="ActionView::Base" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_view/base_rb.html">actionpack/lib/action_view/base.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/actionpack/lib/action_view/helpers/active_record_helper_rb.html">actionpack/lib/action_view/helpers/active_record_helper.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/actionpack/lib/action_view/helpers/form_helper_rb.html">actionpack/lib/action_view/helpers/form_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Action View templates can be written in three ways. If the <a
+href="Base.html#M001439">template</a> file has a <tt>.erb</tt> (or
+<tt>.rhtml</tt>) extension then it uses a mixture of ERb (included in Ruby)
+and HTML. If the <a href="Base.html#M001439">template</a> file has a
+<tt>.builder</tt> (or <tt>.rxml</tt>) extension then Jim Weirich&#8216;s
+Builder::XmlMarkup library is used. If the <a
+href="Base.html#M001439">template</a> file has a <tt>.rjs</tt> extension
+then it will use ActionView::Helpers::PrototypeHelper::JavaScriptGenerator.
+</p>
+<h1>ERb</h1>
+<p>
+You trigger ERb by using embeddings such as &lt;% %&gt;, &lt;% -%&gt;, and
+&lt;%= %&gt;. The &lt;%= %&gt; tag set is used when you want output.
+Consider the following loop for names:
+</p>
+<pre>
+  &lt;b&gt;Names of all the people&lt;/b&gt;
+  &lt;% for person in @people %&gt;
+    Name: &lt;%= person.name %&gt;&lt;br/&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+The loop is setup in regular embedding tags &lt;% %&gt; and the name is
+written using the output embedding tag &lt;%= %&gt;. Note that this is not
+just a usage suggestion. Regular output functions like print or puts
+won&#8216;t work with ERb templates. So this would be wrong:
+</p>
+<pre>
+  Hi, Mr. &lt;% puts &quot;Frodo&quot; %&gt;
+</pre>
+<p>
+If you absolutely must write from within a function, you can use the
+TextHelper#concat.
+</p>
+<p>
+&lt;%- and -%&gt; suppress leading and trailing whitespace, including the
+trailing newline, and can be used interchangeably with &lt;% and %&gt;.
+</p>
+<h2>Using sub templates</h2>
+<p>
+Using sub templates allows you to sidestep tedious replication and extract
+common display structures in shared templates. The classic example is the
+use of a header and footer (even though the Action Pack-way would be to use
+Layouts):
+</p>
+<pre>
+  &lt;%= render &quot;shared/header&quot; %&gt;
+  Something really specific and terrific
+  &lt;%= render &quot;shared/footer&quot; %&gt;
+</pre>
+<p>
+As you see, we use the output embeddings for the render methods. The render
+call itself will just return a string holding the result of the rendering.
+The output embedding writes it to the current <a
+href="Base.html#M001439">template</a>.
+</p>
+<p>
+But you don&#8216;t have to restrict yourself to static includes. Templates
+can share variables amongst themselves by using instance variables defined
+using the regular embedding tags. Like this:
+</p>
+<pre>
+  &lt;% @page_title = &quot;A Wonderful Hello&quot; %&gt;
+  &lt;%= render &quot;shared/header&quot; %&gt;
+</pre>
+<p>
+Now the header can pick up on the <tt>@page_title</tt> variable and use it
+for outputting a title tag:
+</p>
+<pre>
+  &lt;title&gt;&lt;%= @page_title %&gt;&lt;/title&gt;
+</pre>
+<h2>Passing local variables to sub templates</h2>
+<p>
+You can pass local variables to sub templates by using a hash with the
+variable names as keys and the objects as values:
+</p>
+<pre>
+  &lt;%= render &quot;shared/header&quot;, { :headline =&gt; &quot;Welcome&quot;, :person =&gt; person } %&gt;
+</pre>
+<p>
+These can now be accessed in <tt>shared/header</tt> with:
+</p>
+<pre>
+  Headline: &lt;%= headline %&gt;
+  First name: &lt;%= person.first_name %&gt;
+</pre>
+<p>
+If you need to find out whether a certain local variable has been assigned
+a value in a particular render call, you need to use the following pattern:
+</p>
+<pre>
+  &lt;% if local_assigns.has_key? :headline %&gt;
+    Headline: &lt;%= headline %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+Testing using <tt>defined? headline</tt> will not work. This is an
+implementation restriction.
+</p>
+<h2><a href="Template.html">Template</a> caching</h2>
+<p>
+By default, <a href="../Rails.html">Rails</a> will compile each <a
+href="Base.html#M001439">template</a> to a method in order to render it.
+When you alter a <a href="Base.html#M001439">template</a>, <a
+href="../Rails.html">Rails</a> will check the file&#8216;s modification
+time and recompile it.
+</p>
+<h2>Builder</h2>
+<p>
+Builder templates are a more programmatic alternative to ERb. They are
+especially useful for generating XML content. An XmlMarkup object named
+<tt>xml</tt> is automatically made available to templates with a
+<tt>.builder</tt> extension.
+</p>
+<p>
+Here are some basic examples:
+</p>
+<pre>
+  xml.em(&quot;emphasized&quot;)                              # =&gt; &lt;em&gt;emphasized&lt;/em&gt;
+  xml.em { xml.b(&quot;emph &amp; bold&quot;) }                   # =&gt; &lt;em&gt;&lt;b&gt;emph &amp;amp; bold&lt;/b&gt;&lt;/em&gt;
+  xml.a(&quot;A Link&quot;, &quot;href&quot;=&gt;&quot;http://onestepback.org&quot;) # =&gt; &lt;a href=&quot;http://onestepback.org&quot;&gt;A Link&lt;/a&gt;
+  xml.target(&quot;name&quot;=&gt;&quot;compile&quot;, &quot;option&quot;=&gt;&quot;fast&quot;)   # =&gt; &lt;target option=&quot;fast&quot; name=&quot;compile&quot;\&gt;
+                                                    # NOTE: order of attributes is not specified.
+</pre>
+<p>
+Any method with a block will be treated as an XML markup tag with nested
+markup in the block. For example, the following:
+</p>
+<pre>
+  xml.div {
+    xml.h1(@person.name)
+    xml.p(@person.bio)
+  }
+</pre>
+<p>
+would produce something like:
+</p>
+<pre>
+  &lt;div&gt;
+    &lt;h1&gt;David Heinemeier Hansson&lt;/h1&gt;
+    &lt;p&gt;A product of Danish Design during the Winter of '79...&lt;/p&gt;
+  &lt;/div&gt;
+</pre>
+<p>
+A full-length RSS example actually used on Basecamp:
+</p>
+<pre>
+  xml.rss(&quot;version&quot; =&gt; &quot;2.0&quot;, &quot;xmlns:dc&quot; =&gt; &quot;http://purl.org/dc/elements/1.1/&quot;) do
+    xml.channel do
+      xml.title(@feed_title)
+      xml.link(@url)
+      xml.description &quot;Basecamp: Recent items&quot;
+      xml.language &quot;en-us&quot;
+      xml.ttl &quot;40&quot;
+
+      for item in @recent_items
+        xml.item do
+          xml.title(item_title(item))
+          xml.description(item_description(item)) if item_description(item)
+          xml.pubDate(item_pubDate(item))
+          xml.guid(@person.firm.account.url + @recent_items.url(item))
+          xml.link(@person.firm.account.url + @recent_items.url(item))
+
+          xml.tag!(&quot;dc:creator&quot;, item.author_name) if item_has_creator?(item)
+        end
+      end
+    end
+  end
+</pre>
+<p>
+More builder documentation can be found at <a
+href="http://builder.rubyforge.org">builder.rubyforge.org</a>.
+</p>
+<h2>JavaScriptGenerator</h2>
+<p>
+JavaScriptGenerator templates end in <tt>.rjs</tt>. Unlike conventional
+templates which are used to render the results of an action, these
+templates generate instructions on how to modify an already rendered page.
+This makes it easy to modify multiple elements on your page in one
+declarative Ajax response. Actions with these templates are called in the
+background with Ajax and make updates to the page where the request
+originated from.
+</p>
+<p>
+An instance of the JavaScriptGenerator object named <tt>page</tt> is
+automatically made available to your <a
+href="Base.html#M001439">template</a>, which is implicitly wrapped in an
+ActionView::Helpers::PrototypeHelper#update_page block.
+</p>
+<p>
+When an <tt>.rjs</tt> action is called with <tt>link_to_remote</tt>, the
+generated JavaScript is automatically evaluated. Example:
+</p>
+<pre>
+  link_to_remote :url =&gt; {:action =&gt; 'delete'}
+</pre>
+<p>
+The subsequently rendered <tt>delete.rjs</tt> might look like:
+</p>
+<pre>
+  page.replace_html  'sidebar', :partial =&gt; 'sidebar'
+  page.remove        &quot;person-#{@person.id}&quot;
+  page.visual_effect :highlight, 'user-list'
+</pre>
+<p>
+This refreshes the sidebar, removes a person element and highlights the
+user list.
+</p>
+<p>
+See the ActionView::Helpers::PrototypeHelper::GeneratorMethods
+documentation for more details.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001435">exempt_from_layout</a></li>
+<li><a href="#M001436">process_view_paths</a></li>
+<li><a href="#M001439">template</a></li>
+<li><a href="#M001438">template_format</a></li>
+<li><a href="#M001437">view_paths=</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>Helpers</li>
+<li><a href="Partials.html">Partials</a></li>
+<li><a href="../ERB/Util.html">::ERB::Util</a></li>
+<li>CompiledTemplates</li>
+</ul>
+</div>
+</fieldset>  
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Class <a href="Base/ProxyModule.html" class="link">ActionView::Base::ProxyModule</a><br />
+</div></fieldset>
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+assigns
+</label>
+
+[RW]
+<label>
+base_path
+</label>
+
+[RW]
+<label>
+controller
+</label>
+
+[R]
+<label>
+helpers
+</label>
+
+[RW]
+<label>
+output_buffer
+</label>
+
+[RW]
+<label>
+template_extension
+</label>
+
+[W]
+<label>
+template_format
+</label>
+
+[R]
+<label>
+view_paths
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M001435">exempt_from_layout</a> (*extensions)</h2>
+
+<fieldset><div class='row'><p>
+Don&#8216;t render layouts for templates with the given extensions.
+</p></div></fieldset>
+
+
+<h2><a name="M001436">process_view_paths</a> (value)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001439">template</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Access the current <a href="Base.html#M001439">template</a> being rendered.
+Returns a <a href="Template.html">ActionView::Template</a> object.
+</p></div></fieldset>
+
+
+<h2><a name="M001438">template_format</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The format to be used when choosing between multiple templates with the
+same name but differing formats. See +Request#template_format+ for more
+details.
+</p></div></fieldset>
+
+
+<h2><a name="M001437">view_paths=</a> (paths)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Flash
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Flash
+    </h1>
+</div>
+<div id="ActionController::Flash" title="ActionController::Flash" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/flash_rb.html">actionpack/lib/action_controller/flash.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The flash provides a way to pass temporary objects between actions.
+Anything you place in the flash will be exposed to the very next action and
+then cleared out. This is a great way of doing notices and alerts, such as
+a create action that sets <tt>flash[:notice] = &quot;Successfully
+created&quot;</tt> before redirecting to a display action that can then
+expose the flash to its template. Actually, that exposure is automatically
+done. Example:
+</p>
+<pre>
+  class WeblogController &lt; ActionController::Base
+    def create
+      # save post
+      flash[:notice] = &quot;Successfully created post&quot;
+      redirect_to :action =&gt; &quot;display&quot;, :params =&gt; { :id =&gt; post.id }
+    end
+
+    def display
+      # doesn't need to assign the flash notice to the template, that's done automatically
+    end
+  end
+
+  display.erb
+    &lt;% if flash[:notice] %&gt;&lt;div class=&quot;notice&quot;&gt;&lt;%= flash[:notice] %&gt;&lt;/div&gt;&lt;% end %&gt;
+</pre>
+<p>
+This example just places a string in the flash, but you can put any object
+in there. And of course, you can put as many as you like at a time too.
+Just remember: They&#8216;ll be gone by the time the next action has been
+performed.
+</p>
+<p>
+See docs on the <a href="Flash/FlashHash.html">FlashHash</a> class for more
+details about the flash.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000247">included</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>InstanceMethods</li>
+</ul>
+</div>
+</fieldset>  
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Class <a href="Flash/FlashHash.html" class="link">ActionController::Flash::FlashHash</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000247">included</a> (base)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

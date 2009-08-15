@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::Errors
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Errors
+    </h1>
+</div>
+<div id="ActiveRecord::Errors" title="ActiveRecord::Errors" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/validations_rb.html">activerecord/lib/active_record/validations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Active Record validation is reported to and from this object, which is used
+by <a href="Base.html#M001908">Base#save</a> to determine whether the
+object is in a valid state to be saved. See usage example in <a
+href="Validations.html">Validations</a>.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001811">[]</a></li>
+<li><a href="#M001805">add</a></li>
+<li><a href="#M001807">add_on_blank</a></li>
+<li><a href="#M001806">add_on_empty</a></li>
+<li><a href="#M001804">add_to_base</a></li>
+<li><a href="#M001817">clear</a></li>
+<li><a href="#M001819">count</a></li>
+<li><a href="#M001803">default_error_messages</a></li>
+<li><a href="#M001813">each</a></li>
+<li><a href="#M001814">each_full</a></li>
+<li><a href="#M001816">empty?</a></li>
+<li><a href="#M001815">full_messages</a></li>
+<li><a href="#M001808">generate_message</a></li>
+<li><a href="#M001809">invalid?</a></li>
+<li><a href="#M001820">length</a></li>
+<li><a href="#M001810">on</a></li>
+<li><a href="#M001812">on_base</a></li>
+<li><a href="#M001818">size</a></li>
+<li><a href="#M001821">to_xml</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="../Enumerable.html">Enumerable</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001803">default_error_messages</a> ()</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001811">[]</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Errors.html#M001810">on</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001805">add</a> (attribute, message = nil, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Adds an error message (<tt>messsage</tt>) to the <tt>attribute</tt>, which
+will be returned <a href="Errors.html#M001810">on</a> a call to <tt><a
+href="Errors.html#M001810">on</a>(attribute)</tt> for the same attribute
+and ensure that this error object returns false when asked if <tt><a
+href="Errors.html#M001816">empty?</a></tt>. More than one error can be
+added to the same <tt>attribute</tt> in which case an array will be
+returned <a href="Errors.html#M001810">on</a> a call to <tt><a
+href="Errors.html#M001810">on</a>(attribute)</tt>. If no <tt>messsage</tt>
+is supplied, :invalid is assumed. If <tt>message</tt> is a Symbol, it will
+be translated, using the appropriate scope (see translate_error).
+</p></div></fieldset>
+
+
+<h2><a name="M001807">add_on_blank</a> (attributes, custom_message = nil)</h2>
+
+<fieldset><div class='row'><p>
+Will <a href="Errors.html#M001805">add</a> an error message to <a
+href="Errors.html#M001813">each</a> of the attributes in
+<tt>attributes</tt> that is blank (using Object#blank?).
+</p></div></fieldset>
+
+
+<h2><a name="M001806">add_on_empty</a> (attributes, custom_message = nil)</h2>
+
+<fieldset><div class='row'><p>
+Will <a href="Errors.html#M001805">add</a> an error message to <a
+href="Errors.html#M001813">each</a> of the attributes in
+<tt>attributes</tt> that is empty.
+</p></div></fieldset>
+
+
+<h2><a name="M001804">add_to_base</a> (msg)</h2>
+
+<fieldset><div class='row'><p>
+Adds an error to the base object instead of any particular attribute. This
+is used to report errors that don&#8216;t tie to any specific attribute,
+but rather to the object as a whole. These error messages don&#8216;t get
+prepended with any field name when iterating with <tt><a
+href="Errors.html#M001814">each_full</a></tt>, so they should be complete
+sentences.
+</p></div></fieldset>
+
+
+<h2><a name="M001817">clear</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Removes all errors that have been added.
+</p></div></fieldset>
+
+
+<h2><a name="M001819">count</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Errors.html#M001818">size</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001813">each</a> () {|attr, msg| ...}</h2>
+
+<fieldset><div class='row'><p>
+Yields <a href="Errors.html#M001813">each</a> attribute and associated
+message per error added.
+</p>
+<pre>
+  class Company &lt; ActiveRecord::Base
+    validates_presence_of :name, :address, :email
+    validates_length_of :name, :in =&gt; 5..30
+  end
+
+  company = Company.create(:address =&gt; '123 First St.')
+  company.errors.each{|attr,msg| puts &quot;#{attr} - #{msg}&quot; }
+  # =&gt; name - is too short (minimum is 5 characters)
+  #    name - can't be blank
+  #    address - can't be blank
+</pre></div></fieldset>
+
+
+<h2><a name="M001814">each_full</a> () {|msg| ...}</h2>
+
+<fieldset><div class='row'><p>
+Yields <a href="Errors.html#M001813">each</a> full error message added. So
+<tt>Person.errors.<a
+href="Errors.html#M001805">add</a>(&quot;first_name&quot;,
+&quot;can&#8216;t be empty&quot;)</tt> will be returned through iteration
+as &quot;First name can&#8216;t be empty&quot;.
+</p>
+<pre>
+  class Company &lt; ActiveRecord::Base
+    validates_presence_of :name, :address, :email
+    validates_length_of :name, :in =&gt; 5..30
+  end
+
+  company = Company.create(:address =&gt; '123 First St.')
+  company.errors.each_full{|msg| puts msg }
+  # =&gt; Name is too short (minimum is 5 characters)
+  #    Name can't be blank
+  #    Address can't be blank
+</pre></div></fieldset>
+
+
+<h2><a name="M001816">empty?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if no errors have been added.
+</p></div></fieldset>
+
+
+<h2><a name="M001815">full_messages</a> (options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns all the full error messages in an array.
+</p>
+<pre>
+  class Company &lt; ActiveRecord::Base
+    validates_presence_of :name, :address, :email
+    validates_length_of :name, :in =&gt; 5..30
+  end
+
+  company = Company.create(:address =&gt; '123 First St.')
+  company.errors.full_messages # =&gt;
+    [&quot;Name is too short (minimum is 5 characters)&quot;, &quot;Name can't be blank&quot;, &quot;Address can't be blank&quot;]
+</pre></div></fieldset>
+
+
+<h2><a name="M001808">generate_message</a> (attribute, message = :invalid, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Translates an error message in it&#8216;s default scope
+(<tt>activerecord.errrors.messages</tt>). Error messages are first looked
+up in <tt>models.MODEL.attributes.ATTRIBUTE.MESSAGE</tt>, if it&#8216;s not
+there, it&#8216;s looked up in <tt>models.MODEL.MESSAGE</tt> and if that is
+not there it returns the translation of the default message (e.g.
+<tt>activerecord.errors.messages.MESSAGE</tt>). The translated model name,
+translated attribute name and the value are available for interpolation.
+</p>
+<p>
+When using inheritence in your models, it will check all the inherited
+models too, but only if the model itself hasn&#8216;t been found. Say you
+have <tt>class Admin &lt; User; end</tt> and you wanted the translation for
+the <tt>:blank</tt> error <tt>message</tt> for the <tt>title</tt>
+<tt>attribute</tt>, it looks for these translations:
+</p>
+<p>
+&lt;ol&gt;
+&lt;li&gt;<tt>activerecord.errors.models.admin.attributes.title.blank</tt>&lt;/li&gt;
+&lt;li&gt;<tt>activerecord.errors.models.admin.blank</tt>&lt;/li&gt;
+&lt;li&gt;<tt>activerecord.errors.models.user.attributes.title.blank</tt>&lt;/li&gt;
+&lt;li&gt;<tt>activerecord.errors.models.user.blank</tt>&lt;/li&gt;
+&lt;li&gt;<tt>activerecord.errors.messages.blank</tt>&lt;/li&gt;
+&lt;li&gt;any default you provided through the <tt>options</tt> hash (in
+the activerecord.errors scope)&lt;/li&gt; &lt;/ol&gt;
+</p></div></fieldset>
+
+
+<h2><a name="M001809">invalid?</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the specified <tt>attribute</tt> has errors associated with
+it.
+</p>
+<pre>
+  class Company &lt; ActiveRecord::Base
+    validates_presence_of :name, :address, :email
+    validates_length_of :name, :in =&gt; 5..30
+  end
+
+  company = Company.create(:address =&gt; '123 First St.')
+  company.errors.invalid?(:name)      # =&gt; true
+  company.errors.invalid?(:address)   # =&gt; false
+</pre></div></fieldset>
+
+
+<h2><a name="M001820">length</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Errors.html#M001818">size</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001810">on</a> (attribute)</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>nil</tt>, if no errors are associated with the specified
+<tt>attribute</tt>. Returns the error message, if one error is associated
+with the specified <tt>attribute</tt>. Returns an array of error messages,
+if more than one error is associated with the specified <tt>attribute</tt>.
+</p>
+<pre>
+  class Company &lt; ActiveRecord::Base
+    validates_presence_of :name, :address, :email
+    validates_length_of :name, :in =&gt; 5..30
+  end
+
+  company = Company.create(:address =&gt; '123 First St.')
+  company.errors.on(:name)      # =&gt; [&quot;is too short (minimum is 5 characters)&quot;, &quot;can't be blank&quot;]
+  company.errors.on(:email)     # =&gt; &quot;can't be blank&quot;
+  company.errors.on(:address)   # =&gt; nil
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>[]</div></fieldset>
+
+<h2><a name="M001812">on_base</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns errors assigned to the base object through <tt><a
+href="Errors.html#M001804">add_to_base</a></tt> according to the normal
+rules of <tt><a href="Errors.html#M001810">on</a>(attribute)</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001818">size</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the total number of errors added. Two errors added to the same
+attribute will be counted as such.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>count</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>length</div></fieldset>
+
+<h2><a name="M001821">to_xml</a> (options={})</h2>
+
+<fieldset><div class='row'><p>
+Returns an XML representation of this error object.
+</p>
+<pre>
+  class Company &lt; ActiveRecord::Base
+    validates_presence_of :name, :address, :email
+    validates_length_of :name, :in =&gt; 5..30
+  end
+
+  company = Company.create(:address =&gt; '123 First St.')
+  company.errors.to_xml
+  # =&gt;  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  #     &lt;errors&gt;
+  #       &lt;error&gt;Name is too short (minimum is 5 characters)&lt;/error&gt;
+  #       &lt;error&gt;Name can't be blank&lt;/error&gt;
+  #       &lt;error&gt;Address can't be blank&lt;/error&gt;
+  #     &lt;/errors&gt;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

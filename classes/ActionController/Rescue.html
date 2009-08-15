@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Rescue
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Rescue
+    </h1>
+</div>
+<div id="ActionController::Rescue" title="ActionController::Rescue" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/rescue_rb.html">actionpack/lib/action_controller/rescue.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Actions that fail to perform as expected throw exceptions. These exceptions
+can either be rescued for the public view (with a nice user-friendly
+explanation) or for the developers view (with tons of debugging
+information). The developers view is already implemented by the Action
+Controller, but the public view should be tailored to your specific
+application.
+</p>
+<p>
+The default behavior for public exceptions is to render a static html file
+with the name of the error code thrown. If no such file exists, an empty
+response is sent with the correct status code.
+</p>
+<p>
+You can override what constitutes a local request by overriding the <tt><a
+href="Rescue.html#M000181">local_request?</a></tt> method in your own
+controller. Custom rescue behavior is achieved by overriding the <tt><a
+href="Rescue.html#M000179">rescue_action_in_public</a></tt> and <tt><a
+href="Rescue.html#M000182">rescue_action_locally</a></tt> methods.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000181">local_request?</a></li>
+<li><a href="#M000178">log_error</a></li>
+<li><a href="#M000180">render_optional_error_file</a></li>
+<li><a href="#M000177">rescue_action</a></li>
+<li><a href="#M000179">rescue_action_in_public</a></li>
+<li><a href="#M000182">rescue_action_locally</a></li>
+<li><a href="#M000183">rescue_action_without_handler</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Rescue/ClassMethods.html" class="link">ActionController::Rescue::ClassMethods</a><br />
+</div></fieldset>
+
+<h2>Constants</h2>
+<h2>LOCALHOST</h2>
+<fieldset>
+<div class="row">
+'127.0.0.1'.freeze
+</div>
+</fieldset>
+<h2>DEFAULT_RESCUE_RESPONSE</h2>
+<fieldset>
+<div class="row">
+:internal_server_error
+</div>
+</fieldset>
+<h2>DEFAULT_RESCUE_RESPONSES</h2>
+<fieldset>
+<div class="row">
+{       'ActionController::RoutingError'             =&gt; :not_found,       'ActionController::UnknownAction'            =&gt; :not_found,       'ActiveRecord::RecordNotFound'               =&gt; :not_found,       'ActiveRecord::StaleObjectError'             =&gt; :conflict,       'ActiveRecord::RecordInvalid'                =&gt; :unprocessable_entity,       'ActiveRecord::RecordNotSaved'               =&gt; :unprocessable_entity,       'ActionController::MethodNotAllowed'         =&gt; :method_not_allowed,       'ActionController::NotImplemented'           =&gt; :not_implemented,       'ActionController::InvalidAuthenticityToken' =&gt; :unprocessable_entity
+</div>
+</fieldset>
+<h2>DEFAULT_RESCUE_TEMPLATE</h2>
+<fieldset>
+<div class="row">
+'diagnostics'
+</div>
+</fieldset>
+<h2>DEFAULT_RESCUE_TEMPLATES</h2>
+<fieldset>
+<div class="row">
+{       'ActionView::MissingTemplate'       =&gt; 'missing_template',       'ActionController::RoutingError'    =&gt; 'routing_error',       'ActionController::UnknownAction'   =&gt; 'unknown_action',       'ActionView::TemplateError'         =&gt; 'template_error'
+</div>
+</fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M000181">local_request?</a> (</h2>
+
+<fieldset><div class='row'><p>
+True if the request came from localhost, 127.0.0.1. Override this method if
+you wish to redefine the meaning of a local request to include remote IP
+addresses or other criteria.
+</p></div></fieldset>
+
+
+<h2><a name="M000178">log_error</a> (exception)</h2>
+
+<fieldset><div class='row'><p>
+Overwrite to implement custom logging of errors. By default logs as fatal.
+</p></div></fieldset>
+
+
+<h2><a name="M000180">render_optional_error_file</a> (status_code)</h2>
+
+<fieldset><div class='row'><p>
+Attempts to render a static error page based on the <tt>status_code</tt>
+thrown, or just return headers if no such file exists. For example, if a
+500 error is being handled <a href="../Rails.html">Rails</a> will first
+attempt to render the file at <tt>public/500.html</tt>. If the file
+doesn&#8216;t exist, the body of the response will be left empty.
+</p></div></fieldset>
+
+
+<h2><a name="M000177">rescue_action</a> (exception)</h2>
+
+<fieldset><div class='row'><p>
+Exception handler called when the performance of an action raises an
+exception.
+</p></div></fieldset>
+
+
+<h2><a name="M000179">rescue_action_in_public</a> (exception)</h2>
+
+<fieldset><div class='row'><p>
+Overwrite to implement public exception handling (for requests answering
+false to <tt><a href="Rescue.html#M000181">local_request?</a></tt>). By
+default will call <a
+href="Rescue.html#M000180">render_optional_error_file</a>. Override this
+method to provide more user friendly error messages.
+</p></div></fieldset>
+
+
+<h2><a name="M000182">rescue_action_locally</a> (exception)</h2>
+
+<fieldset><div class='row'><p>
+Render detailed diagnostics for unhandled exceptions rescued from a
+controller action.
+</p></div></fieldset>
+
+
+<h2><a name="M000183">rescue_action_without_handler</a> (exception)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Rails::Generator::Commands::Base
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Generator::Commands::Base
+    </h1>
+</div>
+<div id="Rails::Generator::Commands::Base" title="Rails::Generator::Commands::Base" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/railties/lib/rails_generator/commands_rb.html">railties/lib/rails_generator/commands.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+               DelegateClass(Rails::Generator::Base)
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="../../Generator.html">Generator</a> commands delegate <a
+href="../Base.html">Rails::Generator::Base</a> and implement a standard set
+of actions. Their behavior is defined by the way they respond to these
+actions: <a href="Create.html">Create</a> brings life; <a
+href="Destroy.html">Destroy</a> brings death; <a href="List.html">List</a>
+passively observes.
+</p>
+<p>
+<a href="../Commands.html">Commands</a> are invoked by replaying (or
+rewinding) the generator&#8216;s manifest of actions. See <a
+href="../Manifest.html">Rails::Generator::Manifest</a> and
+Rails::Generator::Base#manifest method that generator subclasses are
+required to override.
+</p>
+<p>
+<a href="../Commands.html">Commands</a> allows generators to &quot;plug
+in&quot; invocation behavior, which corresponds to the GoF Strategy
+pattern.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001996">class_collisions</a></li>
+<li><a href="#M001998">current_migration_number</a></li>
+<li><a href="#M001995">dependency</a></li>
+<li><a href="#M002001">existing_migrations</a></li>
+<li><a href="#M002004">gsub_file</a></li>
+<li><a href="#M001994">invoke!</a></li>
+<li><a href="#M002000">migration_directory</a></li>
+<li><a href="#M002002">migration_exists?</a></li>
+<li><a href="#M001999">next_migration_number</a></li>
+<li><a href="#M002003">next_migration_string</a></li>
+<li><a href="#M001997">readme</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001996">class_collisions</a> (*class_names)</h2>
+
+<fieldset><div class='row'><p>
+Does nothing for all commands except <a href="Create.html">Create</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001995">dependency</a> (generator_name, args, runtime_options = {})</h2>
+
+
+
+<h2><a name="M001994">invoke!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Replay action manifest. <a href="RewindBase.html">RewindBase</a> subclass
+rewinds manifest.
+</p></div></fieldset>
+
+
+<h2><a name="M001997">readme</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Does nothing for all commands except <a href="Create.html">Create</a>.
+</p></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M001998">current_migration_number</a> ()</h2>
+
+
+
+<h2><a name="M002001">existing_migrations</a> (file_name)</h2>
+
+
+
+<h2><a name="M002004">gsub_file</a> (relative_destination, regexp, *args, &amp;block)</h2>
+
+
+
+<h2><a name="M002000">migration_directory</a> (relative_path)</h2>
+
+
+
+<h2><a name="M002002">migration_exists?</a> (file_name)</h2>
+
+
+
+<h2><a name="M001999">next_migration_number</a> ()</h2>
+
+
+
+<h2><a name="M002003">next_migration_string</a> (padding = 3)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

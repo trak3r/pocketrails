@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::SessionManagement::ClassMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::SessionManagement::ClassMethods
+    </h1>
+</div>
+<div id="ActionController::SessionManagement::ClassMethods" title="ActionController::SessionManagement::ClassMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/session_management_rb.html">actionpack/lib/action_controller/session_management.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000231">session</a></li>
+<li><a href="#M000232">session=</a></li>
+<li><a href="#M000230">session_options</a></li>
+<li><a href="#M000229">session_store</a></li>
+<li><a href="#M000228">session_store=</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000231">session</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Specify how sessions ought to be managed for a subset of the actions on the
+controller. Like filters, you can specify <tt>:only</tt> and
+<tt>:except</tt> clauses to restrict the subset, otherwise options apply to
+all actions on this controller.
+</p>
+<p>
+The <a href="ClassMethods.html#M000231">session</a> options are
+inheritable, as well, so if you specify them in a parent controller, they
+apply to controllers that extend the parent.
+</p>
+<p>
+Usage:
+</p>
+<pre>
+  # turn off session management for all actions.
+  session :off
+
+  # turn off session management for all actions _except_ foo and bar.
+  session :off, :except =&gt; %w(foo bar)
+
+  # turn off session management for only the foo and bar actions.
+  session :off, :only =&gt; %w(foo bar)
+
+  # the session will only work over HTTPS, but only for the foo action
+  session :only =&gt; :foo, :session_secure =&gt; true
+
+  # the session by default uses HttpOnly sessions for security reasons.
+  # this can be switched off.
+  session :only =&gt; :foo, :session_http_only =&gt; false
+
+  # the session will only be disabled for 'foo', and only if it is
+  # requested as a web service
+  session :off, :only =&gt; :foo,
+          :if =&gt; Proc.new { |req| req.parameters[:ws] }
+
+  # the session will be disabled for non html/ajax requests
+  session :off,
+    :if =&gt; Proc.new { |req| !(req.format.html? || req.format.js?) }
+
+  # turn the session back on, useful when it was turned off in the
+  # application controller, and you need it on in another controller
+  session :on
+</pre>
+<p>
+All <a href="ClassMethods.html#M000231">session</a> options described for
+<a href="../Base.html#M000450">ActionController::Base.process_cgi</a> are
+valid arguments.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>session=</div></fieldset>
+
+<h2><a name="M000232">session=</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="ClassMethods.html#M000231">session</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000230">session_options</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the hash used to configure the <a
+href="ClassMethods.html#M000231">session</a>. Example use:
+</p>
+<pre>
+  ActionController::Base.session_options[:session_secure] = true # session only available over HTTPS
+</pre></div></fieldset>
+
+
+<h2><a name="M000229">session_store</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="ClassMethods.html#M000231">session</a> store class
+currently used.
+</p></div></fieldset>
+
+
+<h2><a name="M000228">session_store=</a> (store)</h2>
+
+<fieldset><div class='row'><p>
+Set the <a href="ClassMethods.html#M000231">session</a> store to be used
+for keeping the <a href="ClassMethods.html#M000231">session</a> data
+between requests. By default, sessions are stored in browser cookies
+(<tt>:cookie_store</tt>), but you can also specify one of the other
+included stores (<tt>:active_record_store</tt>, <tt>:p_store</tt>,
+<tt>:drb_store</tt>, <tt>:mem_cache_store</tt>, or <tt>:memory_store</tt>)
+or your own custom class.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

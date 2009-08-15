@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      File: plugin.rb
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        plugin.rb
+    </h1>
+</div>
+<div id="settings" title="Settings" class="panel">
+    <h2>Path</h2>
+    <fieldset>
+        <div class="row">
+            railties/lib/commands/plugin.rb
+        </div>
+    </fieldset>
+    <h2>Modified</h2>
+    <fieldset>
+        <div class="row">
+            Mon Dec 01 19:24:32 -0500 2008
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="../../../../classes/Rails.html">Rails</a> <a
+href="../../../../classes/Plugin.html">Plugin</a> Manager.
+</p>
+<p>
+Listing available plugins:
+</p>
+<pre>
+  $ ./script/plugin list
+  continuous_builder            http://dev.rubyonrails.com/svn/rails/plugins/continuous_builder
+  asset_timestamping            http://svn.aviditybytes.com/rails/plugins/asset_timestamping
+  enumerations_mixin            http://svn.protocool.com/rails/plugins/enumerations_mixin/trunk
+  calculations                  http://techno-weenie.net/svn/projects/calculations/
+  ...
+</pre>
+<p>
+Installing plugins:
+</p>
+<pre>
+  $ ./script/plugin install continuous_builder asset_timestamping
+</pre>
+<p>
+Finding <a href="../../../../classes/Repositories.html">Repositories</a>:
+</p>
+<pre>
+  $ ./script/plugin discover
+</pre>
+<p>
+Adding <a href="../../../../classes/Repositories.html">Repositories</a>:
+</p>
+<pre>
+  $ ./script/plugin source http://svn.protocool.com/rails/plugins/
+</pre>
+<p>
+How it works:
+</p>
+<pre>
+  * Maintains a list of subversion repositories that are assumed to have
+    a plugin directory structure. Manage them with the (source, unsource,
+    and sources commands)
+
+  * The discover command scrapes the following page for things that
+    look like subversion repositories with plugins:
+    http://wiki.rubyonrails.org/rails/pages/Plugins
+
+  * Unless you specify that you want to use svn, script/plugin uses plain old
+    HTTP for downloads.  The following bullets are true if you specify
+    that you want to use svn.
+
+  * If `vendor/plugins` is under subversion control, the script will
+    modify the svn:externals property and perform an update. You can
+    use normal subversion commands to keep the plugins up to date.
+
+  * Or, if `vendor/plugins` is not under subversion control, the
+    plugin is pulled via `svn checkout` or `svn export` but looks
+    exactly the same.
+</pre>
+<p>
+Specifying revisions:
+</p>
+<pre>
+  * Subversion revision is a single integer.
+
+  * Git revision format:
+    - full - 'refs/tags/1.8.0' or 'refs/heads/experimental'
+    - short: 'experimental' (equivalent to 'refs/heads/experimental')
+             'tag 1.8.0' (equivalent to 'refs/tags/1.8.0')
+</pre>
+<p>
+This is Free Software, copyright 2005 by Ryan Tomayko (rtomayko@gmail.com)
+and is licensed MIT: (<a
+href="http://www.opensource.org/licenses/mit-license.php">www.opensource.org/licenses/mit-license.php</a>)
+</p>
+</div></fieldset>
+
+<h2>Required Files</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>open-uri</li>
+<li>fileutils</li>
+<li>tempfile</li>
+<li>active_support/core_ext/kernel</li>
+<li>optparse</li>
+<li>open-uri</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>FileUtils</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

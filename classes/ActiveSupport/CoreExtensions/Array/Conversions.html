@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Array::Conversions
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Array::Conversions
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Array::Conversions" title="ActiveSupport::CoreExtensions::Array::Conversions" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/array/conversions_rb.html">activesupport/lib/active_support/core_ext/array/conversions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000875">to_formatted_s</a></li>
+<li><a href="#M000873">to_param</a></li>
+<li><a href="#M000874">to_query</a></li>
+<li><a href="#M000872">to_sentence</a></li>
+<li><a href="#M000876">to_xml</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000875">to_formatted_s</a> (format = :default)</h2>
+
+<fieldset><div class='row'><p>
+Converts a collection of elements into a formatted string by calling
+<tt>to_s</tt> on all elements and joining them:
+</p>
+<pre>
+  Blog.find(:all).to_formatted_s # =&gt; &quot;First PostSecond PostThird Post&quot;
+</pre>
+<p>
+Adding in the <tt>:db</tt> argument as the format yields a prettier output:
+</p>
+<pre>
+  Blog.find(:all).to_formatted_s(:db) # =&gt; &quot;First Post,Second Post,Third Post&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000873">to_param</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Calls <tt><a href="Conversions.html#M000873">to_param</a></tt> on all its
+elements and joins the result with slashes. This is used by
+<tt>url_for</tt> in Action Pack.
+</p></div></fieldset>
+
+
+<h2><a name="M000874">to_query</a> (key)</h2>
+
+<fieldset><div class='row'><p>
+Converts an array into a string suitable for use as a URL query string,
+using the given <tt>key</tt> as the param name.
+</p>
+<pre>
+  ['Rails', 'coding'].to_query('hobbies') # =&gt; &quot;hobbies%5B%5D=Rails&amp;hobbies%5B%5D=coding&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000872">to_sentence</a> (options = {})</h2>
+
+<fieldset><div class='row'><p>
+Converts the array to a comma-separated sentence where the last element is
+joined by the connector word. Options:
+</p>
+<ul>
+<li><tt>:connector</tt> - The word used to join the last element in arrays with
+two or more elements (default: &quot;and&quot;)
+
+</li>
+<li><tt>:skip_last_comma</tt> - Set to true to return &quot;a, b and c&quot;
+instead of &quot;a, b, and c&quot;.
+
+</li>
+</ul></div></fieldset>
+
+
+<h2><a name="M000876">to_xml</a> (options = {}) {|xml if block_given?| ...}</h2>
+
+<fieldset><div class='row'><p>
+Returns a string that represents this array in XML by sending <tt><a
+href="Conversions.html#M000876">to_xml</a></tt> to each element. Active
+Record collections delegate their representation in XML to this method.
+</p>
+<p>
+All elements are expected to respond to <tt><a
+href="Conversions.html#M000876">to_xml</a></tt>, if any of them does not an
+exception is raised.
+</p>
+<p>
+The root node reflects the class name of the first element in plural if all
+elements belong to the same type and that&#8216;s not Hash:
+</p>
+<pre>
+  customer.projects.to_xml
+
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;projects type=&quot;array&quot;&gt;
+    &lt;project&gt;
+      &lt;amount type=&quot;decimal&quot;&gt;20000.0&lt;/amount&gt;
+      &lt;customer-id type=&quot;integer&quot;&gt;1567&lt;/customer-id&gt;
+      &lt;deal-date type=&quot;date&quot;&gt;2008-04-09&lt;/deal-date&gt;
+      ...
+    &lt;/project&gt;
+    &lt;project&gt;
+      &lt;amount type=&quot;decimal&quot;&gt;57230.0&lt;/amount&gt;
+      &lt;customer-id type=&quot;integer&quot;&gt;1567&lt;/customer-id&gt;
+      &lt;deal-date type=&quot;date&quot;&gt;2008-04-15&lt;/deal-date&gt;
+      ...
+    &lt;/project&gt;
+  &lt;/projects&gt;
+</pre>
+<p>
+Otherwise the root element is &quot;records&quot;:
+</p>
+<pre>
+  [{:foo =&gt; 1, :bar =&gt; 2}, {:baz =&gt; 3}].to_xml
+
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;records type=&quot;array&quot;&gt;
+    &lt;record&gt;
+      &lt;bar type=&quot;integer&quot;&gt;2&lt;/bar&gt;
+      &lt;foo type=&quot;integer&quot;&gt;1&lt;/foo&gt;
+    &lt;/record&gt;
+    &lt;record&gt;
+      &lt;baz type=&quot;integer&quot;&gt;3&lt;/baz&gt;
+    &lt;/record&gt;
+  &lt;/records&gt;
+</pre>
+<p>
+If the collection is empty the root element is &quot;nil-classes&quot; by
+default:
+</p>
+<pre>
+  [].to_xml
+
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;nil-classes type=&quot;array&quot;/&gt;
+</pre>
+<p>
+To ensure a meaningful root element use the <tt>:root</tt> option:
+</p>
+<pre>
+  customer_with_no_projects.projects.to_xml(:root =&gt; &quot;projects&quot;)
+
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;projects type=&quot;array&quot;/&gt;
+</pre>
+<p>
+By default root children have as node name the one of the root
+singularized. You can change it with the <tt>:children</tt> option.
+</p>
+<p>
+The <tt>options</tt> hash is passed downwards:
+</p>
+<pre>
+  Message.all.to_xml(:skip_types =&gt; true)
+
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;messages&gt;
+    &lt;message&gt;
+      &lt;created-at&gt;2008-03-07T09:58:18+01:00&lt;/created-at&gt;
+      &lt;id&gt;1&lt;/id&gt;
+      &lt;name&gt;1&lt;/name&gt;
+      &lt;updated-at&gt;2008-03-07T09:58:18+01:00&lt;/updated-at&gt;
+      &lt;user-id&gt;1&lt;/user-id&gt;
+    &lt;/message&gt;
+  &lt;/messages&gt;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

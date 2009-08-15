@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::ConnectionAdapters::ConnectionPool
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::ConnectionPool
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::ConnectionPool" title="ActiveRecord::ConnectionAdapters::ConnectionPool" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/connection_pool_rb.html">activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Connection pool base class for managing ActiveRecord database connections.
+</p>
+<h2>Introduction</h2>
+<p>
+A <a href="ConnectionPool.html#M001664">connection</a> pool synchronizes
+thread access to a limited number of database connections. The basic idea
+is that each thread checks out a database <a
+href="ConnectionPool.html#M001664">connection</a> from the pool, uses that
+<a href="ConnectionPool.html#M001664">connection</a>, and checks the <a
+href="ConnectionPool.html#M001664">connection</a> back in. <a
+href="ConnectionPool.html">ConnectionPool</a> is completely thread-safe,
+and will ensure that a <a href="ConnectionPool.html#M001664">connection</a>
+cannot be used by two threads at the same time, as long as <a
+href="ConnectionPool.html">ConnectionPool</a>&#8216;s contract is correctly
+followed. It will also handle cases in which there are more threads than
+connections: if all connections have been checked out, and a thread tries
+to <a href="ConnectionPool.html#M001671">checkout</a> a <a
+href="ConnectionPool.html#M001664">connection</a> anyway, then <a
+href="ConnectionPool.html">ConnectionPool</a> will wait until some other
+thread has checked in a <a
+href="ConnectionPool.html#M001664">connection</a>.
+</p>
+<h2>Obtaining (checking out) a <a href="ConnectionPool.html#M001664">connection</a></h2>
+<p>
+Connections can be obtained and used from a <a
+href="ConnectionPool.html#M001664">connection</a> pool in several ways:
+</p>
+<ol>
+<li>Simply use <a href="../Base.html#M001942">ActiveRecord::Base.connection</a>
+as with ActiveRecord 2.1 and earlier (pre-<a
+href="ConnectionPool.html#M001664">connection</a>-pooling). Eventually,
+when you&#8216;re done with the <a
+href="ConnectionPool.html#M001664">connection</a>(s) and wish it to be
+returned to the pool, you call
+ActiveRecord::Base.clear_active_connections!. This will be the default
+behavior for ActiveRecord when used in conjunction with ActionPack&#8216;s
+request handling cycle.
+
+</li>
+<li>Manually check out a <a href="ConnectionPool.html#M001664">connection</a>
+from the pool with <a
+href="../Base.html#M001949">ActiveRecord::Base.connection_pool</a>.<a
+href="ConnectionPool.html#M001671">checkout</a>. You are responsible for
+returning this <a href="ConnectionPool.html#M001664">connection</a> to the
+pool when finished by calling <a
+href="../Base.html#M001949">ActiveRecord::Base.connection_pool</a>.<a
+href="ConnectionPool.html#M001672">checkin</a>(<a
+href="ConnectionPool.html#M001664">connection</a>).
+
+</li>
+<li>Use <a
+href="../Base.html#M001949">ActiveRecord::Base.connection_pool</a>.<a
+href="ConnectionPool.html#M001666">with_connection</a>(&amp;block), which
+obtains a <a href="ConnectionPool.html#M001664">connection</a>, yields it
+as the sole argument to the block, and returns it to the pool after the
+block completes.
+
+</li>
+</ol>
+<p>
+Connections in the pool are actually <a
+href="AbstractAdapter.html">AbstractAdapter</a> objects (or objects
+compatible with <a href="AbstractAdapter.html">AbstractAdapter</a>&#8216;s
+interface).
+</p>
+<h2>Options</h2>
+<p>
+There are two <a
+href="ConnectionPool.html#M001664">connection</a>-pooling-related options
+that you can add to your database <a
+href="ConnectionPool.html#M001664">connection</a> configuration:
+</p>
+<ul>
+<li><tt>pool</tt>: number indicating size of <a
+href="ConnectionPool.html#M001664">connection</a> pool (default 5)
+
+</li>
+<li><tt>wait_timeout</tt>: number of seconds to block and wait for a <a
+href="ConnectionPool.html#M001664">connection</a> before giving up and
+raising a timeout error (default 5 seconds).
+
+</li>
+</ul>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001672">checkin</a></li>
+<li><a href="#M001671">checkout</a></li>
+<li><a href="#M001669">clear_reloadable_connections!</a></li>
+<li><a href="#M001670">clear_stale_cached_connections!</a></li>
+<li><a href="#M001667">connected?</a></li>
+<li><a href="#M001664">connection</a></li>
+<li><a href="#M001668">disconnect!</a></li>
+<li><a href="#M001663">new</a></li>
+<li><a href="#M001665">release_connection</a></li>
+<li><a href="#M001666">with_connection</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+spec
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M001663">new</a> (spec)</h2>
+
+<fieldset><div class='row'><p>
+Creates a <a href="ConnectionPool.html#M001663">new</a> <a
+href="ConnectionPool.html">ConnectionPool</a> object. <tt>spec</tt> is a
+ConnectionSpecification object which describes database <a
+href="ConnectionPool.html#M001664">connection</a> information (e.g.
+adapter, host name, username, password, etc), as well as the maximum size
+for this <a href="ConnectionPool.html">ConnectionPool</a>.
+</p>
+<p>
+The default <a href="ConnectionPool.html">ConnectionPool</a> maximum size
+is 5.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001672">checkin</a> (conn)</h2>
+
+<fieldset><div class='row'><p>
+Check-in a database <a href="ConnectionPool.html#M001664">connection</a>
+back into the pool, indicating that you no longer need this <a
+href="ConnectionPool.html#M001664">connection</a>.
+</p>
+<p>
+<tt>conn</tt>: an <a href="AbstractAdapter.html">AbstractAdapter</a>
+object, which was obtained by earlier by calling <tt><a
+href="ConnectionPool.html#M001671">checkout</a></tt> on this pool.
+</p></div></fieldset>
+
+
+<h2><a name="M001671">checkout</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Check-out a database <a href="ConnectionPool.html#M001664">connection</a>
+from the pool, indicating that you want to use it. You should call <a
+href="ConnectionPool.html#M001672">checkin</a> when you no longer need
+this.
+</p>
+<p>
+This is done by either returning an existing <a
+href="ConnectionPool.html#M001664">connection</a>, or by creating a <a
+href="ConnectionPool.html#M001663">new</a> <a
+href="ConnectionPool.html#M001664">connection</a>. If the maximum number of
+connections for this pool has already been reached, but the pool is empty
+(i.e. they&#8216;re all being used), then this method will wait until a
+thread has checked in a <a
+href="ConnectionPool.html#M001664">connection</a>. The wait time is bounded
+however: if no <a href="ConnectionPool.html#M001664">connection</a> can be
+checked out within the timeout specified for this pool, then a <a
+href="../ConnectionTimeoutError.html">ConnectionTimeoutError</a> exception
+will be raised.
+</p>
+<p>
+Returns: an <a href="AbstractAdapter.html">AbstractAdapter</a> object.
+</p>
+<p>
+Raises:
+</p>
+<ul>
+<li><a href="../ConnectionTimeoutError.html">ConnectionTimeoutError</a>: no <a
+href="ConnectionPool.html#M001664">connection</a> can be obtained from the
+pool within the timeout period.
+
+</li>
+</ul></div></fieldset>
+
+
+<h2><a name="M001669">clear_reloadable_connections!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Clears the cache which maps classes
+</p></div></fieldset>
+
+
+<h2><a name="M001670">clear_stale_cached_connections!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Return any checked-out connections back to the pool by threads that are no
+longer alive.
+</p></div></fieldset>
+
+
+<h2><a name="M001667">connected?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if a <a href="ConnectionPool.html#M001664">connection</a> has
+already been opened.
+</p></div></fieldset>
+
+
+<h2><a name="M001664">connection</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Retrieve the <a href="ConnectionPool.html#M001664">connection</a>
+associated with the current thread, or call <a
+href="ConnectionPool.html#M001671">checkout</a> to obtain one if necessary.
+</p>
+<p>
+<a href="ConnectionPool.html#M001664">connection</a> can be called any
+number of times; the <a href="ConnectionPool.html#M001664">connection</a>
+is held in a hash keyed by the thread id.
+</p></div></fieldset>
+
+
+<h2><a name="M001668">disconnect!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Disconnects all connections in the pool, and clears the pool.
+</p></div></fieldset>
+
+
+<h2><a name="M001665">release_connection</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Signal that the thread is finished with the current <a
+href="ConnectionPool.html#M001664">connection</a>. <a
+href="ConnectionPool.html#M001665">release_connection</a> releases the <a
+href="ConnectionPool.html#M001664">connection</a>-thread association and
+returns the <a href="ConnectionPool.html#M001664">connection</a> to the
+pool.
+</p></div></fieldset>
+
+
+<h2><a name="M001666">with_connection</a> () {|conn| ...}</h2>
+
+<fieldset><div class='row'><p>
+Reserve a <a href="ConnectionPool.html#M001664">connection</a>, and yield
+it to a block. Ensure the <a
+href="ConnectionPool.html#M001664">connection</a> is checked back in when
+finished.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Mime::Type
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Mime::Type
+    </h1>
+</div>
+<div id="Mime::Type" title="Mime::Type" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/mime_type_rb.html">actionpack/lib/action_controller/mime_type.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Encapsulates the notion of a mime type. Can be used at render time, for
+example, with:
+</p>
+<pre>
+  class PostsController &lt; ActionController::Base
+    def show
+      @post = Post.find(params[:id])
+
+      respond_to do |format|
+        format.html
+        format.ics { render :text =&gt; post.to_ics, :mime_type =&gt; Mime::Type[&quot;text/calendar&quot;]  }
+        format.xml { render :xml =&gt; @people.to_xml }
+      end
+    end
+  end
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002206">==</a></li>
+<li><a href="#M002205">===</a></li>
+<li><a href="#M002209">browser_generated?</a></li>
+<li><a href="#M002208">html?</a></li>
+<li><a href="#M002196">lookup</a></li>
+<li><a href="#M002197">lookup_by_extension</a></li>
+<li><a href="#M002201">new</a></li>
+<li><a href="#M002200">parse</a></li>
+<li><a href="#M002199">register</a></li>
+<li><a href="#M002198">register_alias</a></li>
+<li><a href="#M002202">to_s</a></li>
+<li><a href="#M002203">to_str</a></li>
+<li><a href="#M002204">to_sym</a></li>
+<li><a href="#M002195">unverifiable_types</a></li>
+<li><a href="#M002207">verify_request?</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M002196">lookup</a> (string)</h2>
+
+
+
+<h2><a name="M002197">lookup_by_extension</a> (extension)</h2>
+
+
+
+<h2><a name="M002201">new</a> (string, symbol = nil, synonyms = [])</h2>
+
+
+
+<h2><a name="M002200">parse</a> (accept_header)</h2>
+
+
+
+<h2><a name="M002199">register</a> (string, symbol, mime_type_synonyms = [], extension_synonyms = [], skip_lookup = false)</h2>
+
+
+
+<h2><a name="M002198">register_alias</a> (string, symbol, extension_synonyms = [])</h2>
+
+<fieldset><div class='row'><p>
+Registers an alias that&#8216;s not used on mime type <a
+href="Type.html#M002196">lookup</a>, but can be referenced directly.
+Especially useful for rendering different HTML versions depending on the
+user agent, like an iPhone.
+</p></div></fieldset>
+
+
+<h2><a name="M002195">unverifiable_types</a> ()</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002206">==</a> (mime_type)</h2>
+
+
+
+<h2><a name="M002205">===</a> (list)</h2>
+
+
+
+<h2><a name="M002209">browser_generated?</a> ()</h2>
+
+
+
+<h2><a name="M002208">html?</a> ()</h2>
+
+
+
+<h2><a name="M002202">to_s</a> ()</h2>
+
+
+
+<h2><a name="M002203">to_str</a> ()</h2>
+
+
+
+<h2><a name="M002204">to_sym</a> ()</h2>
+
+
+
+<h2><a name="M002207">verify_request?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if Action Pack should check requests using this <a
+href="../Mime.html">Mime</a> <a href="Type.html">Type</a> for possible
+request forgery. See <a
+href="../ActionController/RequestForgeryProtection.html">ActionController::RequestForgeryProtection</a>.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

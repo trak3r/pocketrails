@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveSupport::BacktraceCleaner
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::BacktraceCleaner
+    </h1>
+</div>
+<div id="ActiveSupport::BacktraceCleaner" title="ActiveSupport::BacktraceCleaner" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/backtrace_cleaner_rb.html">activesupport/lib/active_support/backtrace_cleaner.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Many backtraces include too much information that&#8216;s not relevant for
+the context. This makes it hard to find the signal in the backtrace and
+adds debugging time. With a <a
+href="BacktraceCleaner.html">BacktraceCleaner</a>, you can setup filters
+and silencers for your particular context, so only the relevant lines are
+included.
+</p>
+<p>
+If you need to reconfigure an existing <a
+href="BacktraceCleaner.html">BacktraceCleaner</a>, like the one in <a
+href="../Rails.html">Rails</a>, to show as much as possible, you can always
+call BacktraceCleaner#remove_silencers!
+</p>
+<p>
+Example:
+</p>
+<pre>
+  bc = BacktraceCleaner.new
+  bc.add_filter   { |line| line.gsub(Rails.root, '') }
+  bc.add_silencer { |line| line =~ /mongrel|rubygems/ }
+  bc.clean(exception.backtrace) # will strip the Rails.root prefix and skip any lines from mongrel or rubygems
+</pre>
+<p>
+Inspired by the Quiet Backtrace gem by Thoughtbot.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001209">add_filter</a></li>
+<li><a href="#M001210">add_silencer</a></li>
+<li><a href="#M001208">clean</a></li>
+<li><a href="#M001207">new</a></li>
+<li><a href="#M001211">remove_silencers!</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001207">new</a> ()</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001209">add_filter</a> (&amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Adds a filter from the block provided. Each line in the backtrace will be
+mapped against this filter.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  # Will turn &quot;/my/rails/root/app/models/person.rb&quot; into &quot;/app/models/person.rb&quot;
+  backtrace_cleaner.add_filter { |line| line.gsub(Rails.root, '') }
+</pre></div></fieldset>
+
+
+<h2><a name="M001210">add_silencer</a> (&amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Adds a silencer from the block provided. If the silencer returns true for a
+given line, it&#8216;ll be excluded from the <a
+href="BacktraceCleaner.html#M001208">clean</a> backtrace.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  # Will reject all lines that include the word &quot;mongrel&quot;, like &quot;/gems/mongrel/server.rb&quot; or &quot;/app/my_mongrel_server/rb&quot;
+  backtrace_cleaner.add_silencer { |line| line =~ /mongrel/ }
+</pre></div></fieldset>
+
+
+<h2><a name="M001208">clean</a> (backtrace)</h2>
+
+<fieldset><div class='row'><p>
+Returns the backtrace after all filters and silencers has been run against
+it. Filters run first, then silencers.
+</p></div></fieldset>
+
+
+<h2><a name="M001211">remove_silencers!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Will remove all silencers, but leave in the filters. This is useful if your
+context of debugging suddenly expands as you suspect a bug in the libraries
+you use.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

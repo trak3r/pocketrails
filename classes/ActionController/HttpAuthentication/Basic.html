@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::HttpAuthentication::Basic
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::HttpAuthentication::Basic
+    </h1>
+</div>
+<div id="ActionController::HttpAuthentication::Basic" title="ActionController::HttpAuthentication::Basic" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/http_authentication_rb.html">actionpack/lib/action_controller/http_authentication.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Makes it dead easy to do HTTP <a href="Basic.html">Basic</a>
+authentication.
+</p>
+<p>
+Simple <a href="Basic.html">Basic</a> example:
+</p>
+<pre>
+  class PostsController &lt; ApplicationController
+    USER_NAME, PASSWORD = &quot;dhh&quot;, &quot;secret&quot;
+
+    before_filter :authenticate, :except =&gt; [ :index ]
+
+    def index
+      render :text =&gt; &quot;Everyone can see me!&quot;
+    end
+
+    def edit
+      render :text =&gt; &quot;I'm only accessible if you know the password&quot;
+    end
+
+    private
+      def authenticate
+        authenticate_or_request_with_http_basic do |user_name, password|
+          user_name == USER_NAME &amp;&amp; password == PASSWORD
+        end
+      end
+  end
+</pre>
+<p>
+Here is a more advanced <a href="Basic.html">Basic</a> example where only
+Atom feeds and the XML API is protected by HTTP authentication, the regular
+HTML interface is protected by a session approach:
+</p>
+<pre>
+  class ApplicationController &lt; ActionController::Base
+    before_filter :set_account, :authenticate
+
+    protected
+      def set_account
+        @account = Account.find_by_url_name(request.subdomains.first)
+      end
+
+      def authenticate
+        case request.format
+        when Mime::XML, Mime::ATOM
+          if user = authenticate_with_http_basic { |u, p| @account.users.authenticate(u, p) }
+            @current_user = user
+          else
+            request_http_basic_authentication
+          end
+        else
+          if session_authenticated?
+            @current_user = @account.users.find(session[:authenticated][:user_id])
+          else
+            redirect_to(login_url) and return false
+          end
+        end
+      end
+  end
+</pre>
+<p>
+In your integration tests, you can do something like this:
+</p>
+<pre>
+  def test_access_granted_from_xml
+    get(
+      &quot;/notes/1.xml&quot;, nil,
+      :authorization =&gt; ActionController::HttpAuthentication::Basic.encode_credentials(users(:dhh).name, users(:dhh).password)
+    )
+
+    assert_equal 200, status
+  end
+</pre>
+<p>
+On shared hosts, Apache sometimes doesn&#8216;t pass authentication headers
+to FCGI instances. If your environment matches this description and you
+cannot <a href="Basic.html#M000168">authenticate</a>, try this rule in your
+Apache setup:
+</p>
+<pre>
+  RewriteRule ^(.*)$ dispatch.fcgi [E=X-HTTP_AUTHORIZATION:%{HTTP:Authorization},QSA,L]
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000168">authenticate</a></li>
+<li><a href="#M000173">authentication_request</a></li>
+<li><a href="#M000170">authorization</a></li>
+<li><a href="#M000171">decode_credentials</a></li>
+<li><a href="#M000172">encode_credentials</a></li>
+<li><a href="#M000169">user_name_and_password</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Basic/ControllerMethods.html" class="link">ActionController::HttpAuthentication::Basic::ControllerMethods</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000168">authenticate</a> (controller, &amp;login_procedure)</h2>
+
+
+
+<h2><a name="M000173">authentication_request</a> (controller, realm)</h2>
+
+
+
+<h2><a name="M000170">authorization</a> (request)</h2>
+
+
+
+<h2><a name="M000171">decode_credentials</a> (request)</h2>
+
+
+
+<h2><a name="M000172">encode_credentials</a> (user_name, password)</h2>
+
+
+
+<h2><a name="M000169">user_name_and_password</a> (request)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

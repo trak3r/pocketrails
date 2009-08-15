@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveSupport::Multibyte::Chars
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Multibyte::Chars
+    </h1>
+</div>
+<div id="ActiveSupport::Multibyte::Chars" title="ActiveSupport::Multibyte::Chars" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/multibyte/chars_rb.html">activesupport/lib/active_support/multibyte/chars.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Chars.html">Chars</a> enables you to work transparently with UTF-8
+encoding in the Ruby String class without having extensive knowledge about
+the encoding. A <a href="Chars.html">Chars</a> object accepts a string upon
+initialization and proxies String methods in an encoding safe manner. All
+the normal String methods are also implemented on the proxy.
+</p>
+<p>
+String methods are proxied through the <a href="Chars.html">Chars</a>
+object, and can be accessed through the <tt>mb_chars</tt> method. Methods
+which would normally return a String object now return a <a
+href="Chars.html">Chars</a> object so methods can be chained.
+</p>
+<pre>
+  &quot;The Perfect String  &quot;.mb_chars.downcase.strip.normalize #=&gt; &quot;the perfect string&quot;
+</pre>
+<p>
+<a href="Chars.html">Chars</a> objects are perfectly interchangeable with
+String objects as long as no explicit class checks are made. If certain
+methods do explicitly check the class, call <tt>to_s</tt> before you pass
+chars objects to them.
+</p>
+<pre>
+  bad.explicit_checking_method &quot;T&quot;.mb_chars.downcase.to_s
+</pre>
+<p>
+The default <a href="Chars.html">Chars</a> implementation assumes that the
+encoding of the string is UTF-8, if you want to handle different encodings
+you can write your own multibyte string handler and configure it through
+ActiveSupport::Multibyte.proxy_class.
+</p>
+<pre>
+  class CharsForUTF32
+    def size
+      @wrapped_string.size / 4
+    end
+
+    def self.accepts?(string)
+      string.length % 4 == 0
+    end
+  end
+
+  ActiveSupport::Multibyte.proxy_class = CharsForUTF32
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000644">+</a></li>
+<li><a href="#M000643">&lt;=&gt;</a></li>
+<li><a href="#M000645">=~</a></li>
+<li><a href="#M000661">[]</a></li>
+<li><a href="#M000650">[]=</a></li>
+<li><a href="#M000640">acts_like_string?</a></li>
+<li><a href="#M000664">capitalize</a></li>
+<li><a href="#M000653">center</a></li>
+<li><a href="#M000667">compose</a></li>
+<li><a href="#M000676">compose_codepoints</a></li>
+<li><a href="#M000642">consumes?</a></li>
+<li><a href="#M000666">decompose</a></li>
+<li><a href="#M000675">decompose_codepoints</a></li>
+<li><a href="#M000663">downcase</a></li>
+<li><a href="#M000668">g_length</a></li>
+<li><a href="#M000673">g_pack</a></li>
+<li><a href="#M000672">g_unpack</a></li>
+<li><a href="#M000671">in_char_class?</a></li>
+<li><a href="#M000648">include?</a></li>
+<li><a href="#M000649">index</a></li>
+<li><a href="#M000647">insert</a></li>
+<li><a href="#M000658">length</a></li>
+<li><a href="#M000652">ljust</a></li>
+<li><a href="#M000655">lstrip</a></li>
+<li><a href="#M000638">method_missing</a></li>
+<li><a href="#M000637">new</a></li>
+<li><a href="#M000665">normalize</a></li>
+<li><a href="#M000674">reorder_characters</a></li>
+<li><a href="#M000639">respond_to?</a></li>
+<li><a href="#M000659">reverse</a></li>
+<li><a href="#M000651">rjust</a></li>
+<li><a href="#M000654">rstrip</a></li>
+<li><a href="#M000657">size</a></li>
+<li><a href="#M000660">slice</a></li>
+<li><a href="#M000646">split</a></li>
+<li><a href="#M000656">strip</a></li>
+<li><a href="#M000669">tidy_bytes</a></li>
+<li><a href="#M000677">tidy_bytes</a></li>
+<li><a href="#M000670">u_unpack</a></li>
+<li><a href="#M000662">upcase</a></li>
+<li><a href="#M000641">wants?</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>Comparable</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Constants</h2>
+<h2>HANGUL_SBASE</h2>
+<fieldset>
+<div class="row">
+0xAC00
+
+Hangul character boundaries and properties
+
+
+</div>
+</fieldset>
+<h2>HANGUL_LBASE</h2>
+<fieldset>
+<div class="row">
+0x1100
+</div>
+</fieldset>
+<h2>HANGUL_VBASE</h2>
+<fieldset>
+<div class="row">
+0x1161
+</div>
+</fieldset>
+<h2>HANGUL_TBASE</h2>
+<fieldset>
+<div class="row">
+0x11A7
+</div>
+</fieldset>
+<h2>HANGUL_LCOUNT</h2>
+<fieldset>
+<div class="row">
+19
+</div>
+</fieldset>
+<h2>HANGUL_VCOUNT</h2>
+<fieldset>
+<div class="row">
+21
+</div>
+</fieldset>
+<h2>HANGUL_TCOUNT</h2>
+<fieldset>
+<div class="row">
+28
+</div>
+</fieldset>
+<h2>HANGUL_NCOUNT</h2>
+<fieldset>
+<div class="row">
+HANGUL_VCOUNT * HANGUL_TCOUNT
+</div>
+</fieldset>
+<h2>HANGUL_SCOUNT</h2>
+<fieldset>
+<div class="row">
+11172
+</div>
+</fieldset>
+<h2>HANGUL_SLAST</h2>
+<fieldset>
+<div class="row">
+HANGUL_SBASE + HANGUL_SCOUNT
+</div>
+</fieldset>
+<h2>HANGUL_JAMO_FIRST</h2>
+<fieldset>
+<div class="row">
+0x1100
+</div>
+</fieldset>
+<h2>HANGUL_JAMO_LAST</h2>
+<fieldset>
+<div class="row">
+0x11FF
+</div>
+</fieldset>
+<h2>UNICODE_WHITESPACE</h2>
+<fieldset>
+<div class="row">
+[         (0x0009..0x000D).to_a, # White_Space # Cc   [5] &lt;control-0009&gt;..&lt;control-000D&gt;         0x0020,                # White_Space # Zs       SPACE         0x0085,                # White_Space # Cc       &lt;control-0085&gt;         0x00A0,                # White_Space # Zs       NO-BREAK SPACE         0x1680,                # White_Space # Zs       OGHAM SPACE MARK         0x180E,                # White_Space # Zs       MONGOLIAN VOWEL SEPARATOR         (0x2000..0x200A).to_a, # White_Space # Zs  [11] EN QUAD..HAIR SPACE         0x2028,                # White_Space # Zl       LINE SEPARATOR         0x2029,                # White_Space # Zp       PARAGRAPH SEPARATOR         0x202F,                # White_Space # Zs       NARROW NO-BREAK SPACE         0x205F,                # White_Space # Zs       MEDIUM MATHEMATICAL SPACE         0x3000,                # White_Space # Zs       IDEOGRAPHIC SPACE       ].flatten.freeze
+
+All the unicode whitespace
+
+
+</div>
+</fieldset>
+<h2>UNICODE_LEADERS_AND_TRAILERS</h2>
+<fieldset>
+<div class="row">
+UNICODE_WHITESPACE + [65279]
+
+BOM (byte order mark) can also be seen as whitespace, it&#8216;s a
+non-rendering character used to distinguish between little and big endian.
+This is not an issue in utf-8, so it must be ignored.
+
+
+</div>
+</fieldset>
+<h2>UNICODE_TRAILERS_PAT</h2>
+<fieldset>
+<div class="row">
+/(#{codepoints_to_pattern(UNICODE_LEADERS_AND_TRAILERS)})+\Z/
+</div>
+</fieldset>
+<h2>UNICODE_LEADERS_PAT</h2>
+<fieldset>
+<div class="row">
+/\A(#{codepoints_to_pattern(UNICODE_LEADERS_AND_TRAILERS)})+/
+</div>
+</fieldset>
+<h2>UTF8_PAT</h2>
+<fieldset>
+<div class="row">
+/\A(?:                      [\x00-\x7f]                                     |                      [\xc2-\xdf] [\x80-\xbf]                         |                      \xe0        [\xa0-\xbf] [\x80-\xbf]             |                      [\xe1-\xef] [\x80-\xbf] [\x80-\xbf]             |                      \xf0        [\x90-\xbf] [\x80-\xbf] [\x80-\xbf] |                      [\xf1-\xf3] [\x80-\xbf] [\x80-\xbf] [\x80-\xbf] |                      \xf4        [\x80-\x8f] [\x80-\xbf] [\x80-\xbf]                     )*\z/xn
+
+Borrowed from the Kconv library by Shinji KONO - (also as seen on the W3C
+site)
+
+
+</div>
+</fieldset>
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+wrapped_string
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M000676">compose_codepoints</a> (codepoints)</h2>
+
+<fieldset><div class='row'><p>
+Compose decomposed characters to the composed form.
+</p></div></fieldset>
+
+
+<h2><a name="M000642">consumes?</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> when the proxy class can handle the string. Returns
+<tt>false</tt> otherwise.
+</p></div></fieldset>
+
+
+<h2><a name="M000675">decompose_codepoints</a> (type, codepoints)</h2>
+
+<fieldset><div class='row'><p>
+Decompose composed characters to the decomposed form.
+</p></div></fieldset>
+
+
+<h2><a name="M000673">g_pack</a> (unpacked)</h2>
+
+<fieldset><div class='row'><p>
+Reverse operation of <a href="Chars.html#M000672">g_unpack</a>.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  Chars.g_pack(Chars.g_unpack('क्षि')) #=&gt; 'क्षि'
+</pre></div></fieldset>
+
+
+<h2><a name="M000672">g_unpack</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Unpack the string at grapheme boundaries. Returns a list of character
+lists.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  Chars.g_unpack('क्षि') #=&gt; [[2325, 2381], [2359], [2367]]
+  Chars.g_unpack('Café') #=&gt; [[67], [97], [102], [233]]
+</pre></div></fieldset>
+
+
+<h2><a name="M000671">in_char_class?</a> (codepoint, classes)</h2>
+
+<fieldset><div class='row'><p>
+Detect whether the codepoint is in a certain character class. Returns
+<tt>true</tt> when it&#8216;s in the specified character class and
+<tt>false</tt> otherwise. Valid character classes are: <tt>:cr</tt>,
+<tt>:lf</tt>, <tt>:l</tt>, <tt>:v</tt>, <tt>:lv</tt>, <tt>:lvt</tt> and
+<tt>:t</tt>.
+</p>
+<p>
+Primarily used by the grapheme cluster support.
+</p></div></fieldset>
+
+
+<h2><a name="M000637">new</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Creates a <a href="Chars.html#M000637">new</a> <a
+href="Chars.html">Chars</a> instance by wrapping <em>string</em>.
+</p></div></fieldset>
+
+
+<h2><a name="M000674">reorder_characters</a> (codepoints)</h2>
+
+<fieldset><div class='row'><p>
+Re-order codepoints so the string becomes canonical.
+</p></div></fieldset>
+
+
+<h2><a name="M000677">tidy_bytes</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Replaces all ISO-8859-1 or CP1252 characters by their UTF-8 equivalent
+resulting in a valid UTF-8 string.
+</p></div></fieldset>
+
+
+<h2><a name="M000670">u_unpack</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Unpack the string at codepoints boundaries. Raises an <a
+href="EncodingError.html">EncodingError</a> when the encoding of the string
+isn&#8216;t valid UTF-8.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  Chars.u_unpack('Café') #=&gt; [67, 97, 102, 233]
+</pre></div></fieldset>
+
+
+<h2><a name="M000641">wants?</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> if the <a href="Chars.html">Chars</a> class can and
+should act as a proxy for the string <em>string</em>. Returns
+<tt>false</tt> otherwise.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000644">+</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="Chars.html#M000637">new</a> <a
+href="Chars.html">Chars</a> object containing the <em>other</em> object
+concatenated to the string.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  ('Café'.mb_chars + ' périferôl').to_s #=&gt; &quot;Café périferôl&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000643">&lt;=&gt;</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>-1</tt>, <tt>0</tt> or <tt>+1</tt> depending on whether the <a
+href="Chars.html">Chars</a> object is to be sorted before, equal or after
+the object on the right side of the operation. It accepts any object that
+implements <tt>to_s</tt>. See <tt>String#&lt;=&gt;</tt> for more details.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'é'.mb_chars &lt;=&gt; 'ü'.mb_chars #=&gt; -1
+</pre></div></fieldset>
+
+
+<h2><a name="M000645">=~</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Like <tt>String#=~</tt> only it returns the character offset (in
+codepoints) instead of the byte offset.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'Café périferôl'.mb_chars =~ /ô/ #=&gt; 12
+</pre></div></fieldset>
+
+
+<h2><a name="M000661">[]</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Chars.html#M000660">slice</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000650">[]=</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Like <tt>String#[]=</tt>, except instead of byte offsets you specify
+character offsets.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  s = &quot;Müller&quot;
+  s.mb_chars[2] = &quot;e&quot; # Replace character with offset 2
+  s
+  #=&gt; &quot;Müeler&quot;
+
+  s = &quot;Müller&quot;
+  s.mb_chars[1, 2] = &quot;ö&quot; # Replace 2 characters at character offset 1
+  s
+  #=&gt; &quot;Möler&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000640">acts_like_string?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Enable more predictable duck-typing on String-like classes. See
+Object#acts_like?.
+</p></div></fieldset>
+
+
+<h2><a name="M000664">capitalize</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts the first character to uppercase and the remainder to lowercase.
+</p>
+<p>
+Example:
+</p>
+<pre>
+ 'über'.mb_chars.capitalize.to_s #=&gt; &quot;Über&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000653">center</a> (integer, padstr=' ')</h2>
+
+<fieldset><div class='row'><p>
+Works just like <tt>String#center</tt>, only integer specifies characters
+instead of bytes.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  &quot;¾ cup&quot;.mb_chars.center(8).to_s
+  #=&gt; &quot; ¾ cup  &quot;
+
+  &quot;¾ cup&quot;.mb_chars.center(8, &quot; &quot;).to_s # Use non-breaking whitespace
+  #=&gt; &quot; ¾ cup  &quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000667">compose</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Performs composition on all the characters.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'é'.length #=&gt; 3
+  'é'.mb_chars.compose.to_s.length #=&gt; 2
+</pre></div></fieldset>
+
+
+<h2><a name="M000666">decompose</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Performs canonical decomposition on all the characters.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'é'.length #=&gt; 2
+  'é'.mb_chars.decompose.to_s.length #=&gt; 3
+</pre></div></fieldset>
+
+
+<h2><a name="M000663">downcase</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Convert characters in the string to lowercase.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'VĚDA A VÝZKUM'.mb_chars.downcase.to_s #=&gt; &quot;věda a výzkum&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000668">g_length</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the number of grapheme clusters in the string.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'क्षि'.mb_chars.length #=&gt; 4
+  'क्षि'.mb_chars.g_length #=&gt; 3
+</pre></div></fieldset>
+
+
+<h2><a name="M000648">include?</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> if contained string contains <em>other</em>. Returns
+<tt>false</tt> otherwise.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'Café'.mb_chars.include?('é') #=&gt; true
+</pre></div></fieldset>
+
+
+<h2><a name="M000649">index</a> (needle, offset=0)</h2>
+
+<fieldset><div class='row'><p>
+Returns the position <em>needle</em> in the string, counting in codepoints.
+Returns <tt>nil</tt> if <em>needle</em> isn&#8216;t found.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'Café périferôl'.mb_chars.index('ô') #=&gt; 12
+  'Café périferôl'.mb_chars.index(/\w/u) #=&gt; 0
+</pre></div></fieldset>
+
+
+<h2><a name="M000647">insert</a> (offset, fragment)</h2>
+
+<fieldset><div class='row'><p>
+Inserts the passed string at specified codepoint offsets.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'Café'.mb_chars.insert(4, ' périferôl').to_s #=&gt; &quot;Café périferôl&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000658">length</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Chars.html#M000657">size</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000652">ljust</a> (integer, padstr=' ')</h2>
+
+<fieldset><div class='row'><p>
+Works just like <tt>String#ljust</tt>, only integer specifies characters
+instead of bytes.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  &quot;¾ cup&quot;.mb_chars.rjust(8).to_s
+  #=&gt; &quot;¾ cup   &quot;
+
+  &quot;¾ cup&quot;.mb_chars.rjust(8, &quot; &quot;).to_s # Use non-breaking whitespace
+  #=&gt; &quot;¾ cup   &quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000655">lstrip</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Strips entire range of Unicode whitespace from the left of the string.
+</p></div></fieldset>
+
+
+<h2><a name="M000638">method_missing</a> (method, *args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Forward all undefined methods to the wrapped string.
+</p></div></fieldset>
+
+
+<h2><a name="M000665">normalize</a> (form=ActiveSupport::Multibyte.default_normalization_form)</h2>
+
+<fieldset><div class='row'><p>
+Returns the KC normalization of the string by default. NFKC is considered
+the best normalization form for passing strings to databases and
+validations.
+</p>
+<ul>
+<li><tt>str</tt> - The string to perform normalization on.
+
+</li>
+<li><tt>form</tt> - The form you want to <a
+href="Chars.html#M000665">normalize</a> in. Should be one of the following:
+<tt>:c</tt>, <tt>:kc</tt>, <tt>:d</tt>, or <tt>:kd</tt>. Default is
+ActiveSupport::Multibyte.default_normalization_form
+
+</li>
+</ul></div></fieldset>
+
+
+<h2><a name="M000639">respond_to?</a> (method, include_private=false)</h2>
+
+<fieldset><div class='row'><p>
+Returns <tt>true</tt> if <em>obj</em> responds to the given method. Private
+methods are included in the search only if the optional second parameter
+evaluates to <tt>true</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000659">reverse</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Reverses all characters in the string.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'Café'.mb_chars.reverse.to_s #=&gt; 'éfaC'
+</pre></div></fieldset>
+
+
+<h2><a name="M000651">rjust</a> (integer, padstr=' ')</h2>
+
+<fieldset><div class='row'><p>
+Works just like <tt>String#rjust</tt>, only integer specifies characters
+instead of bytes.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  &quot;¾ cup&quot;.mb_chars.rjust(8).to_s
+  #=&gt; &quot;   ¾ cup&quot;
+
+  &quot;¾ cup&quot;.mb_chars.rjust(8, &quot; &quot;).to_s # Use non-breaking whitespace
+  #=&gt; &quot;   ¾ cup&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000654">rstrip</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Strips entire range of Unicode whitespace from the right of the string.
+</p></div></fieldset>
+
+
+<h2><a name="M000657">size</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the number of codepoints in the string
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>length</div></fieldset>
+
+<h2><a name="M000660">slice</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Implements Unicode-aware <a href="Chars.html#M000660">slice</a> with
+codepoints. Slicing on one point returns the codepoints for that character.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'こんにちは'.mb_chars.slice(2..3).to_s #=&gt; &quot;にち&quot;
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>[]</div></fieldset>
+
+<h2><a name="M000646">split</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Works just like <tt>String#split</tt>, with the exception that the items in
+the resulting list are <a href="Chars.html">Chars</a> instances instead of
+String. This makes chaining methods easier.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'Café périferôl'.mb_chars.split(/é/).map { |part| part.upcase.to_s } #=&gt; [&quot;CAF&quot;, &quot; P&quot;, &quot;RIFERÔL&quot;]
+</pre></div></fieldset>
+
+
+<h2><a name="M000656">strip</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Strips entire range of Unicode whitespace from the right and left of the
+string.
+</p></div></fieldset>
+
+
+<h2><a name="M000669">tidy_bytes</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Replaces all ISO-8859-1 or CP1252 characters by their UTF-8 equivalent
+resulting in a valid UTF-8 string.
+</p></div></fieldset>
+
+
+<h2><a name="M000662">upcase</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Convert characters in the string to uppercase.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  'Laurent, òu sont les tests?'.mb_chars.upcase.to_s #=&gt; &quot;LAURENT, ÒU SONT LES TESTS?&quot;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

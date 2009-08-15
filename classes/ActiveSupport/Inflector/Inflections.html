@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveSupport::Inflector::Inflections
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Inflector::Inflections
+    </h1>
+</div>
+<div id="ActiveSupport::Inflector::Inflections" title="ActiveSupport::Inflector::Inflections" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/inflector_rb.html">activesupport/lib/active_support/inflector.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+A singleton instance of this class is yielded by <a
+href="../Inflector.html#M000736">Inflector.inflections</a>, which can then
+be used to specify additional inflection rules. Examples:
+</p>
+<pre>
+  ActiveSupport::Inflector.inflections do |inflect|
+    inflect.plural /^(ox)$/i, '\1\2en'
+    inflect.singular /^(ox)en/i, '\1'
+
+    inflect.irregular 'octopus', 'octopi'
+
+    inflect.uncountable &quot;equipment&quot;
+  end
+</pre>
+<p>
+New rules are added at the top. So in the example above, the <a
+href="Inflections.html#M000757">irregular</a> rule for octopus will now be
+the first of the pluralization and singularization rules that is runs. This
+guarantees that your rules run before any of the rules that may already
+have been loaded.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000760">clear</a></li>
+<li><a href="#M000759">human</a></li>
+<li><a href="#M000757">irregular</a></li>
+<li><a href="#M000754">new</a></li>
+<li><a href="#M000755">plural</a></li>
+<li><a href="#M000756">singular</a></li>
+<li><a href="#M000758">uncountable</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>Singleton</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+humans
+</label>
+
+[R]
+<label>
+plurals
+</label>
+
+[R]
+<label>
+singulars
+</label>
+
+[R]
+<label>
+uncountables
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M000754">new</a> ()</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000760">clear</a> (scope = :all)</h2>
+
+<fieldset><div class='row'><p>
+Clears the loaded inflections within a given scope (default is
+<tt>:all</tt>). Give the scope as a symbol of the inflection type, the
+options are: <tt>:plurals</tt>, <tt>:singulars</tt>,
+<tt>:uncountables</tt>, <tt>:humans</tt>.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  clear :all
+  clear :plurals
+</pre></div></fieldset>
+
+
+<h2><a name="M000759">human</a> (rule, replacement)</h2>
+
+<fieldset><div class='row'><p>
+Specifies a humanized form of a string by a regular expression rule or by a
+string mapping. When using a regular expression based replacement, the
+normal humanize formatting is called after the replacement. When a string
+is used, the <a href="Inflections.html#M000759">human</a> form should be
+specified as desired (example: &#8216;The name&#8217;, not
+&#8216;the_name&#8217;)
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  human /_cnt$/i, '\1_count'
+  human &quot;legacy_col_person_name&quot;, &quot;Name&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000757">irregular</a> (singular, plural)</h2>
+
+<fieldset><div class='row'><p>
+Specifies a <a href="Inflections.html#M000754">new</a> <a
+href="Inflections.html#M000757">irregular</a> that applies to both
+pluralization and singularization at the same time. This can only be used
+for strings, not regular expressions. You simply pass the <a
+href="Inflections.html#M000757">irregular</a> in <a
+href="Inflections.html#M000756">singular</a> and <a
+href="Inflections.html#M000755">plural</a> form.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  irregular 'octopus', 'octopi'
+  irregular 'person', 'people'
+</pre></div></fieldset>
+
+
+<h2><a name="M000755">plural</a> (rule, replacement)</h2>
+
+<fieldset><div class='row'><p>
+Specifies a <a href="Inflections.html#M000754">new</a> pluralization rule
+and its replacement. The rule can either be a string or a regular
+expression. The replacement should always be a string that may include
+references to the matched data from the rule.
+</p></div></fieldset>
+
+
+<h2><a name="M000756">singular</a> (rule, replacement)</h2>
+
+<fieldset><div class='row'><p>
+Specifies a <a href="Inflections.html#M000754">new</a> singularization rule
+and its replacement. The rule can either be a string or a regular
+expression. The replacement should always be a string that may include
+references to the matched data from the rule.
+</p></div></fieldset>
+
+
+<h2><a name="M000758">uncountable</a> (*words)</h2>
+
+<fieldset><div class='row'><p>
+Add <a href="Inflections.html#M000758">uncountable</a> words that
+shouldn&#8216;t be attempted inflected.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  uncountable &quot;money&quot;
+  uncountable &quot;money&quot;, &quot;information&quot;
+  uncountable %w( money information rice )
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

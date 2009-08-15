@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Rails::Configuration
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Configuration
+    </h1>
+</div>
+<div id="Rails::Configuration" title="Rails::Configuration" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/railties/lib/initializer_rb.html">railties/lib/initializer.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The <a href="Configuration.html">Configuration</a> class holds all the
+parameters for the <a href="Initializer.html">Initializer</a> and ships
+with defaults that suites most <a href="../Rails.html">Rails</a>
+applications. But it&#8216;s possible to overwrite everything. Usually,
+you&#8216;ll create an <a href="Configuration.html">Configuration</a> file
+implicitly through the block running on the <a
+href="Initializer.html">Initializer</a>, but it&#8216;s also possible to
+create the <a href="Configuration.html">Configuration</a> instance in
+advance and pass it in like this:
+</p>
+<pre>
+  config = Rails::Configuration.new
+  Rails::Initializer.run(:process, config)
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002144">after_initialize</a></li>
+<li><a href="#M002145">after_initialize_blocks</a></li>
+<li><a href="#M002136">breakpoint_server</a></li>
+<li><a href="#M002137">breakpoint_server=</a></li>
+<li><a href="#M002148">builtin_directories</a></li>
+<li><a href="#M002141">database_configuration</a></li>
+<li><a href="#M002143">environment</a></li>
+<li><a href="#M002142">environment_path</a></li>
+<li><a href="#M002149">framework_paths</a></li>
+<li><a href="#M002135">gem</a></li>
+<li><a href="#M002147">middleware</a></li>
+<li><a href="#M002138">new</a></li>
+<li><a href="#M002133">plugins=</a></li>
+<li><a href="#M002134">reload_plugins?</a></li>
+<li><a href="#M002139">set_root_path!</a></li>
+<li><a href="#M002140">threadsafe!</a></li>
+<li><a href="#M002146">to_prepare</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+action_controller
+</label>
+
+A stub for setting options on <a
+href="../ActionController/Base.html">ActionController::Base</a>.
+
+
+[RW]
+<label>
+action_mailer
+</label>
+
+A stub for setting options on <a
+href="../ActionMailer/Base.html">ActionMailer::Base</a>.
+
+
+[RW]
+<label>
+action_view
+</label>
+
+A stub for setting options on <a
+href="../ActionView/Base.html">ActionView::Base</a>.
+
+
+[RW]
+<label>
+active_record
+</label>
+
+A stub for setting options on <a
+href="../ActiveRecord/Base.html">ActiveRecord::Base</a>.
+
+
+[RW]
+<label>
+active_resource
+</label>
+
+A stub for setting options on <a
+href="../ActiveResource/Base.html">ActiveResource::Base</a>.
+
+
+[RW]
+<label>
+active_support
+</label>
+
+A stub for setting options on ActiveSupport.
+
+
+[RW]
+<label>
+cache_classes
+</label>
+
+Whether or not classes should be cached (set to false if you want
+application classes to be reloaded on each request)
+
+
+[RW]
+<label>
+cache_store
+</label>
+
+The specific cache store to use. By default, the <a
+href="../ActiveSupport/Cache/Store.html">ActiveSupport::Cache::Store</a>
+will be used.
+
+
+[RW]
+<label>
+controller_paths
+</label>
+
+The list of paths that should be searched for controllers. (Defaults to
+<tt>app/controllers</tt>.)
+
+
+[RW]
+<label>
+database_configuration_file
+</label>
+
+The path to the database configuration file to use. (Defaults to
+<tt>config/database.yml</tt>.)
+
+
+[RW]
+<label>
+dependency_loading
+</label>
+
+Enables or disables dependency loading during the request cycle. Setting
+<tt>dependency_loading</tt> to true will allow <a
+href="Configuration.html#M002138">new</a> classes to be loaded during a
+request. Setting it to false will disable this behavior.
+
+<p>
+Those who want to run in a threaded <a
+href="Configuration.html#M002143">environment</a> should disable this
+option and eager load or require all there classes on initialization.
+</p>
+<p>
+If <tt>cache_classes</tt> is disabled, dependency loaded will always be on.
+</p>
+
+[RW]
+<label>
+eager_load_paths
+</label>
+
+An array of paths from which <a href="../Rails.html">Rails</a> will eager
+load on boot if cache classes is enabled. All elements of this array must
+also be in <tt>load_paths</tt>.
+
+
+[RW]
+<label>
+frameworks
+</label>
+
+The list of rails framework components that should be loaded. (Defaults to
+<tt>:active_record</tt>, <tt>:action_controller</tt>,
+<tt>:action_view</tt>, <tt>:action_mailer</tt>, and
+<tt>:active_resource</tt>).
+
+
+[RW]
+<label>
+gems
+</label>
+
+An array of gems that this rails application depends on. <a
+href="../Rails.html">Rails</a> will automatically load these gems during
+installation, and allow you to install any missing gems with:
+
+<pre>
+  rake gems:install
+</pre>
+<p>
+You can add gems with the <a href="Configuration.html#M002135">gem</a>
+method.
+</p>
+
+[RW]
+<label>
+i18n
+</label>
+
+Accessor for i18n settings.
+
+
+[RW]
+<label>
+load_once_paths
+</label>
+
+An array of paths from which <a href="../Rails.html">Rails</a> will
+automatically load from only once. All elements of this array must also be
+in <tt>load_paths</tt>.
+
+
+[RW]
+<label>
+load_paths
+</label>
+
+An array of additional paths to prepend to the load path. By default, all
+<tt>app</tt>, <tt>lib</tt>, <tt>vendor</tt> and mock paths are included in
+this list.
+
+
+[RW]
+<label>
+log_level
+</label>
+
+The log level to use for the default <a href="../Rails.html">Rails</a>
+logger. In production mode, this defaults to <tt>:info</tt>. In development
+mode, it defaults to <tt>:debug</tt>.
+
+
+[RW]
+<label>
+log_path
+</label>
+
+The path to the log file to use. Defaults to log/#{<a
+href="Configuration.html#M002143">environment</a>}.log (e.g.
+log/development.log or log/production.log).
+
+
+[RW]
+<label>
+logger
+</label>
+
+The specific logger to use. By default, a logger will be created and
+initialized using log_path and log_level, but a programmer may specifically
+set the logger to use via this accessor and it will be used directly.
+
+
+[RW]
+<label>
+plugin_loader
+</label>
+
+The class that handles loading each plugin. Defaults to
+Rails::Plugin::Loader, but a sub class would have access to fine grained
+modification of the loading behavior. See the implementation of
+Rails::Plugin::Loader for more details.
+
+
+[RW]
+<label>
+plugin_locators
+</label>
+
+The classes that handle finding the desired plugins that you&#8216;d like
+to load for your application. By default it is the
+Rails::Plugin::FileSystemLocator which finds plugins to load in
+<tt>vendor/plugins</tt>. You can hook into <a
+href="Configuration.html#M002135">gem</a> location by subclassing
+Rails::Plugin::Locator and adding it onto the list of
+<tt>plugin_locators</tt>.
+
+
+[RW]
+<label>
+plugin_paths
+</label>
+
+The path to the root of the plugins directory. By default, it is in
+<tt>vendor/plugins</tt>.
+
+
+[R]
+<label>
+plugins
+</label>
+
+The list of plugins to load. If this is set to <tt>nil</tt>, all plugins
+will be loaded. If this is set to <tt>[]</tt>, no plugins will be loaded.
+Otherwise, plugins will be loaded in the order specified.
+
+
+[RW]
+<label>
+preload_frameworks
+</label>
+
+Whether to preload all frameworks at startup.
+
+
+[RW]
+<label>
+reload_plugins
+</label>
+
+Enables or disables plugin reloading. You can get around this setting per
+plugin. If <tt><a
+href="Configuration.html#M002134">reload_plugins?</a></tt> is false, add
+this to your plugin&#8216;s <tt>init.rb</tt> to make it reloadable:
+
+<pre>
+  ActiveSupport::Dependencies.load_once_paths.delete lib_path
+</pre>
+<p>
+If <tt><a href="Configuration.html#M002134">reload_plugins?</a></tt> is
+true, add this to your plugin&#8216;s <tt>init.rb</tt> to only load it
+once:
+</p>
+<pre>
+  ActiveSupport::Dependencies.load_once_paths &lt;&lt; lib_path
+</pre>
+
+[R]
+<label>
+root_path
+</label>
+
+The application&#8216;s base directory.
+
+
+[RW]
+<label>
+routes_configuration_file
+</label>
+
+The path to the routes configuration file to use. (Defaults to
+<tt>config/routes.rb</tt>.)
+
+
+[RW]
+<label>
+time_zone
+</label>
+
+Sets the default <tt>time_zone</tt>. Setting this will enable
+<tt>time_zone</tt> awareness for Active Record models and set the Active
+Record default timezone to <tt>:utc</tt>.
+
+
+[RW]
+<label>
+view_path
+</label>
+
+The root of the application&#8216;s views. (Defaults to
+<tt>app/views</tt>.)
+
+
+[RW]
+<label>
+whiny_nils
+</label>
+
+Set to <tt>true</tt> if you want to be warned (noisily) when you try to
+invoke any method of <tt>nil</tt>. Set to <tt>false</tt> for the standard
+Ruby behavior.
+
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M002138">new</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Create a <a href="Configuration.html#M002138">new</a> <a
+href="Configuration.html">Configuration</a> instance, initialized with the
+default values.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002144">after_initialize</a> (&amp;after_initialize_block)</h2>
+
+<fieldset><div class='row'><p>
+Adds a block which will be executed after rails has been fully initialized.
+Useful for per-<a href="Configuration.html#M002143">environment</a>
+configuration which depends on the framework being fully initialized.
+</p></div></fieldset>
+
+
+<h2><a name="M002145">after_initialize_blocks</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the blocks added with <a
+href="Configuration.html#M002144">Configuration#after_initialize</a>
+</p></div></fieldset>
+
+
+<h2><a name="M002136">breakpoint_server</a> (_ = nil)</h2>
+
+<fieldset><div class='row'><p>
+Deprecated options:
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>breakpoint_server=</div></fieldset>
+
+<h2><a name="M002137">breakpoint_server=</a> (_ = nil)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Configuration.html#M002136">breakpoint_server</a>
+</p></div></fieldset>
+
+
+<h2><a name="M002148">builtin_directories</a> ()</h2>
+
+
+
+<h2><a name="M002141">database_configuration</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Loads and returns the contents of the database_configuration_file. The
+contents of the file are processed via <a href="../ERB.html">ERB</a> before
+being sent through YAML::load.
+</p></div></fieldset>
+
+
+<h2><a name="M002143">environment</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Return the currently selected <a
+href="Configuration.html#M002143">environment</a>. By default, it returns
+the value of the RAILS_ENV constant.
+</p></div></fieldset>
+
+
+<h2><a name="M002142">environment_path</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The path to the current <a
+href="Configuration.html#M002143">environment</a>&#8216;s file
+(<tt>development.rb</tt>, etc.). By default the file is at
+<tt>config/environments/#{<a
+href="Configuration.html#M002143">environment</a>}.rb</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M002149">framework_paths</a> ()</h2>
+
+
+
+<h2><a name="M002135">gem</a> (name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Adds a single <a href="../Gem.html">Gem</a> dependency to the rails
+application. By default, it will require the library with the same name as
+the <a href="Configuration.html#M002135">gem</a>. Use :lib to specify a
+different name.
+</p>
+<pre>
+  # gem 'aws-s3', '&gt;= 0.4.0'
+  # require 'aws/s3'
+  config.gem 'aws-s3', :lib =&gt; 'aws/s3', :version =&gt; '&gt;= 0.4.0',      #     :source =&gt; &quot;http://code.whytheluckystiff.net&quot;
+</pre>
+<p>
+To require a library be installed, but not attempt to load it, pass :lib
+=&gt; false
+</p>
+<pre>
+  config.gem 'qrp', :version =&gt; '0.4.1', :lib =&gt; false
+</pre></div></fieldset>
+
+
+<h2><a name="M002147">middleware</a> ()</h2>
+
+
+
+<h2><a name="M002133">plugins=</a> (plugins)</h2>
+
+
+
+<h2><a name="M002134">reload_plugins?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if plugin reloading is enabled.
+</p></div></fieldset>
+
+
+<h2><a name="M002139">set_root_path!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Set the root_path to RAILS_ROOT and canonicalize it.
+</p></div></fieldset>
+
+
+<h2><a name="M002140">threadsafe!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Enable threaded mode. Allows concurrent requests to controller actions and
+multiple database connections. Also disables automatic dependency loading
+after boot
+</p></div></fieldset>
+
+
+<h2><a name="M002146">to_prepare</a> (&amp;callback)</h2>
+
+<fieldset><div class='row'><p>
+Add a preparation callback that will run before every request in
+development mode, or before the first request in production.
+</p>
+<p>
+See Dispatcher#to_prepare.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

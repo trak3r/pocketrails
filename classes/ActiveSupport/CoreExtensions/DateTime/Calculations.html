@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::DateTime::Calculations
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::DateTime::Calculations
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::DateTime::Calculations" title="ActiveSupport::CoreExtensions::DateTime::Calculations" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/date_time/calculations_rb.html">activesupport/lib/active_support/core_ext/date_time/calculations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Enables the use of time calculations within DateTime itself
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001000">advance</a></li>
+<li><a href="#M001001">ago</a></li>
+<li><a href="#M001007">at_beginning_of_day</a></li>
+<li><a href="#M001006">at_midnight</a></li>
+<li><a href="#M001004">beginning_of_day</a></li>
+<li><a href="#M000999">change</a></li>
+<li><a href="#M001013">compare_with_coercion</a></li>
+<li><a href="#M001008">end_of_day</a></li>
+<li><a href="#M000997">future?</a></li>
+<li><a href="#M001010">getutc</a></li>
+<li><a href="#M001003">in</a></li>
+<li><a href="#M001005">midnight</a></li>
+<li><a href="#M000996">past?</a></li>
+<li><a href="#M000998">seconds_since_midnight</a></li>
+<li><a href="#M001002">since</a></li>
+<li><a href="#M001009">utc</a></li>
+<li><a href="#M001011">utc?</a></li>
+<li><a href="#M001012">utc_offset</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Calculations/ClassMethods.html" class="link">ActiveSupport::CoreExtensions::DateTime::Calculations::ClassMethods</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001000">advance</a> (options)</h2>
+
+<fieldset><div class='row'><p>
+Uses Date to provide precise Time calculations for years, months, and days.
+The <tt>options</tt> parameter takes a hash with any of these keys:
+<tt>:years</tt>, <tt>:months</tt>, <tt>:weeks</tt>, <tt>:days</tt>,
+<tt>:hours</tt>, <tt>:minutes</tt>, <tt>:seconds</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001001">ago</a> (seconds)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new DateTime representing the time a number of seconds <a
+href="Calculations.html#M001001">ago</a> Do not use this method <a
+href="Calculations.html#M001003">in</a> combination with x.months, use
+months_ago instead!
+</p></div></fieldset>
+
+
+<h2><a name="M001007">at_beginning_of_day</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M001004">beginning_of_day</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001006">at_midnight</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M001004">beginning_of_day</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001004">beginning_of_day</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new DateTime representing the start of the day (0:00)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>midnight</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>at_midnight</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>at_beginning_of_day</div></fieldset>
+
+<h2><a name="M000999">change</a> (options)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new DateTime where one or more of the elements have been changed
+according to the <tt>options</tt> parameter. The time options (hour,
+minute, sec) reset cascadingly, so if only the hour is passed, then minute
+and sec is set to 0. If the hour and minute is passed, then sec is set to
+0.
+</p></div></fieldset>
+
+
+<h2><a name="M001013">compare_with_coercion</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Layers additional behavior on DateTime#&lt;=&gt; so that Time and <a
+href="../../TimeWithZone.html">ActiveSupport::TimeWithZone</a> instances
+can be compared with a DateTime
+</p></div></fieldset>
+
+
+<h2><a name="M001008">end_of_day</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a new DateTime representing the end of the day (23:59:59)
+</p></div></fieldset>
+
+
+<h2><a name="M000997">future?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Tells whether the DateTime object&#8216;s datetime lies <a
+href="Calculations.html#M001003">in</a> the future
+</p></div></fieldset>
+
+
+<h2><a name="M001010">getutc</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M001009">utc</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001003">in</a> (seconds)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M001002">since</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001005">midnight</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Calculations.html#M001004">beginning_of_day</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000996">past?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Tells whether the DateTime object&#8216;s datetime lies <a
+href="Calculations.html#M001003">in</a> the past
+</p></div></fieldset>
+
+
+<h2><a name="M000998">seconds_since_midnight</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Seconds <a href="Calculations.html#M001002">since</a> <a
+href="Calculations.html#M001005">midnight</a>: DateTime.now.<a
+href="Calculations.html#M000998">seconds_since_midnight</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001002">since</a> (seconds)</h2>
+
+<fieldset><div class='row'><p>
+Returns a new DateTime representing the time a number of seconds <a
+href="Calculations.html#M001002">since</a> the instance time Do not use
+this method <a href="Calculations.html#M001003">in</a> combination with
+x.months, use months_since instead!
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>in</div></fieldset>
+
+<h2><a name="M001009">utc</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Adjusts DateTime to UTC by adding its offset value; offset is set to 0
+</p>
+<p>
+Example:
+</p>
+<pre>
+  DateTime.civil(2005, 2, 21, 10, 11, 12, Rational(-6, 24))       # =&gt; Mon, 21 Feb 2005 10:11:12 -0600
+  DateTime.civil(2005, 2, 21, 10, 11, 12, Rational(-6, 24)).utc   # =&gt; Mon, 21 Feb 2005 16:11:12 +0000
+</pre></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>getutc</div></fieldset>
+
+<h2><a name="M001011">utc?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if offset == 0
+</p></div></fieldset>
+
+
+<h2><a name="M001012">utc_offset</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the offset value <a href="Calculations.html#M001003">in</a> seconds
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

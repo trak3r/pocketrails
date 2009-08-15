@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionView::Helpers::CacheHelper
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Helpers::CacheHelper
+    </h1>
+</div>
+<div id="ActionView::Helpers::CacheHelper" title="ActionView::Helpers::CacheHelper" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_view/helpers/cache_helper_rb.html">actionpack/lib/action_view/helpers/cache_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+This helper to exposes a method for caching of view fragments. See <a
+href="../../ActionController/Caching/Fragments.html">ActionController::Caching::Fragments</a>
+for usage instructions.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001329">cache</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001329">cache</a> (name = {}, options = nil, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+A method for caching fragments of a view rather than an entire action or
+page. This technique is useful caching pieces like menus, lists of news
+topics, static HTML fragments, and so on. This method takes a block that
+contains the content you wish to <a
+href="CacheHelper.html#M001329">cache</a>. See <a
+href="../../ActionController/Caching/Fragments.html">ActionController::Caching::Fragments</a>
+for more information.
+</p>
+<h4>Examples</h4>
+<p>
+If you wanted to <a href="CacheHelper.html#M001329">cache</a> a navigation
+menu, you could do the following.
+</p>
+<pre>
+  &lt;% cache do %&gt;
+    &lt;%= render :partial =&gt; &quot;menu&quot; %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+You can also <a href="CacheHelper.html#M001329">cache</a> static
+content&#8230;
+</p>
+<pre>
+  &lt;% cache do %&gt;
+     &lt;p&gt;Hello users!  Welcome to our website!&lt;/p&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+&#8230;and static content mixed with RHTML content.
+</p>
+<pre>
+   &lt;% cache do %&gt;
+     Topics:
+     &lt;%= render :partial =&gt; &quot;topics&quot;, :collection =&gt; @topic_list %&gt;
+     &lt;i&gt;Topics listed alphabetically&lt;/i&gt;
+   &lt;% end %&gt;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

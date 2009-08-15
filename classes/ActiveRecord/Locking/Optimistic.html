@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::Locking::Optimistic
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Locking::Optimistic
+    </h1>
+</div>
+<div id="ActiveRecord::Locking::Optimistic" title="ActiveRecord::Locking::Optimistic" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/locking/optimistic_rb.html">activerecord/lib/active_record/locking/optimistic.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><h2>What is <a href="Optimistic.html">Optimistic</a> <a href="../Locking.html">Locking</a></h2>
+<p>
+<a href="Optimistic.html">Optimistic</a> locking allows multiple users to
+access the same record for edits, and assumes a minimum of conflicts with
+the data. It does this by checking whether another process has made changes
+to a record since it was opened, an <a
+href="../StaleObjectError.html">ActiveRecord::StaleObjectError</a> is
+thrown if that has occurred and the update is ignored.
+</p>
+<p>
+Check out <a href="Pessimistic.html">ActiveRecord::Locking::Pessimistic</a>
+for an alternative.
+</p>
+<h2>Usage</h2>
+<p>
+Active Records support optimistic locking if the field
+<tt>lock_version</tt> is present. Each update to the record increments the
+lock_version column and the locking facilities ensure that records
+instantiated twice will let the last one saved raise a <a
+href="../StaleObjectError.html">StaleObjectError</a> if the first was also
+updated. Example:
+</p>
+<pre>
+  p1 = Person.find(1)
+  p2 = Person.find(1)
+
+  p1.first_name = &quot;Michael&quot;
+  p1.save
+
+  p2.first_name = &quot;should fail&quot;
+  p2.save # Raises a ActiveRecord::StaleObjectError
+</pre>
+<p>
+You&#8216;re then responsible for dealing with the conflict by rescuing the
+exception and either rolling back, merging, or otherwise apply the business
+logic needed to resolve the conflict.
+</p>
+<p>
+You must ensure that your database schema defaults the lock_version column
+to 0.
+</p>
+<p>
+This behavior can be turned off by setting
+<tt>ActiveRecord::Base.lock_optimistically = false</tt>. To override the
+name of the lock_version column, invoke the <tt>set_locking_column</tt>
+method. This method uses the same syntax as <tt>set_table_name</tt>
+</p>
+</div></fieldset>
+
+
+
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Optimistic/ClassMethods.html" class="link">ActiveRecord::Locking::Optimistic::ClassMethods</a><br />
+</div></fieldset>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

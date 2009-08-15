@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::String::Multibyte
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::String::Multibyte
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::String::Multibyte" title="ActiveSupport::CoreExtensions::String::Multibyte" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/string/multibyte_rb.html">activesupport/lib/active_support/core_ext/string/multibyte.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Implements multibyte methods for easier access to multibyte characters in a
+String instance.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001023">chars</a></li>
+<li><a href="#M001022">is_utf8?</a></li>
+<li><a href="#M001025">is_utf8?</a></li>
+<li><a href="#M001024">mb_chars</a></li>
+<li><a href="#M001021">mb_chars</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001023">chars</a> ()</h2>
+
+
+
+<h2><a name="M001022">is_utf8?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the string has UTF-8 semantics (a String used for purely
+byte resources is unlikely to have them), returns false otherwise.
+</p></div></fieldset>
+
+
+<h2><a name="M001025">is_utf8?</a> (</h2>
+
+
+
+<h2><a name="M001024">mb_chars</a> (</h2>
+
+
+
+<h2><a name="M001021">mb_chars</a> ()</h2>
+
+<fieldset><div class='row'><h2><a href="Multibyte.html">Multibyte</a> proxy</h2>
+<p>
+<tt><a href="Multibyte.html#M001021">mb_chars</a></tt> is a multibyte safe
+proxy for string methods.
+</p>
+<p>
+In Ruby 1.8 and older it creates and returns an instance of the <a
+href="../../Multibyte/Chars.html">ActiveSupport::Multibyte::Chars</a> class
+which encapsulates the original string. A Unicode safe version of all the
+String methods are defined on this proxy class. If the proxy class
+doesn&#8216;t respond to a certain method, it&#8216;s forwarded to the
+encapsuled string.
+</p>
+<pre>
+  name = 'Claus Müller'
+  name.reverse  #=&gt; &quot;rell??M sualC&quot;
+  name.length   #=&gt; 13
+
+  name.mb_chars.reverse.to_s   #=&gt; &quot;rellüM sualC&quot;
+  name.mb_chars.length         #=&gt; 12
+</pre>
+<p>
+In Ruby 1.9 and newer <tt><a
+href="Multibyte.html#M001021">mb_chars</a></tt> returns <tt>self</tt>
+because String is (mostly) encoding aware. This means that it becomes easy
+to run one version of your code on multiple Ruby versions.
+</p>
+<h2>Method chaining</h2>
+<p>
+All the methods on the Chars proxy which normally return a string will
+return a Chars object. This allows method chaining on the result of any of
+these methods.
+</p>
+<pre>
+  name.mb_chars.reverse.length #=&gt; 12
+</pre>
+<h2>Interoperability and configuration</h2>
+<p>
+The Chars object tries to be as interchangeable with String objects as
+possible: sorting and comparing between String and Char work like expected.
+The bang! methods change the internal string representation in the Chars
+object. Interoperability problems can be resolved easily with a
+<tt>to_s</tt> call.
+</p>
+<p>
+For more information about the methods defined on the Chars proxy see <a
+href="../../Multibyte/Chars.html">ActiveSupport::Multibyte::Chars</a>. For
+information about how to change the default <a
+href="Multibyte.html">Multibyte</a> behaviour see ActiveSupport::Multibyte.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

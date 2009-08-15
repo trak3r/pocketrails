@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Array::Grouping
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Array::Grouping
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Array::Grouping" title="ActiveSupport::CoreExtensions::Array::Grouping" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/array/grouping_rb.html">activesupport/lib/active_support/core_ext/array/grouping.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000885">in_groups</a></li>
+<li><a href="#M000884">in_groups_of</a></li>
+<li><a href="#M000886">split</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000885">in_groups</a> (number, fill_with = nil) {|g| ...}</h2>
+
+<fieldset><div class='row'><p>
+Splits or iterates over the array in <tt>number</tt> of groups, padding any
+remaining slots with <tt>fill_with</tt> unless it is <tt>false</tt>.
+</p>
+<pre>
+  %w(1 2 3 4 5 6 7 8 9 10).in_groups(3) {|group| p group}
+  [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;]
+  [&quot;5&quot;, &quot;6&quot;, &quot;7&quot;, nil]
+  [&quot;8&quot;, &quot;9&quot;, &quot;10&quot;, nil]
+
+  %w(1 2 3 4 5 6 7).in_groups(3, '&amp;nbsp;') {|group| p group}
+  [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
+  [&quot;4&quot;, &quot;5&quot;, &quot;&amp;nbsp;&quot;]
+  [&quot;6&quot;, &quot;7&quot;, &quot;&amp;nbsp;&quot;]
+
+  %w(1 2 3 4 5 6 7).in_groups(3, false) {|group| p group}
+  [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
+  [&quot;4&quot;, &quot;5&quot;]
+  [&quot;6&quot;, &quot;7&quot;]
+</pre></div></fieldset>
+
+
+<h2><a name="M000884">in_groups_of</a> (number, fill_with = nil) {|slice| ...}</h2>
+
+<fieldset><div class='row'><p>
+Splits or iterates over the array in groups of size <tt>number</tt>,
+padding any remaining slots with <tt>fill_with</tt> unless it is
+<tt>false</tt>.
+</p>
+<pre>
+  %w(1 2 3 4 5 6 7).in_groups_of(3) {|group| p group}
+  [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
+  [&quot;4&quot;, &quot;5&quot;, &quot;6&quot;]
+  [&quot;7&quot;, nil, nil]
+
+  %w(1 2 3).in_groups_of(2, '&amp;nbsp;') {|group| p group}
+  [&quot;1&quot;, &quot;2&quot;]
+  [&quot;3&quot;, &quot;&amp;nbsp;&quot;]
+
+  %w(1 2 3).in_groups_of(2, false) {|group| p group}
+  [&quot;1&quot;, &quot;2&quot;]
+  [&quot;3&quot;]
+</pre></div></fieldset>
+
+
+<h2><a name="M000886">split</a> (value = nil) {|element| ...}</h2>
+
+<fieldset><div class='row'><p>
+Divides the array into one or more subarrays based on a delimiting
+<tt>value</tt> or the result of an optional block.
+</p>
+<pre>
+  [1, 2, 3, 4, 5].split(3)                # =&gt; [[1, 2], [4, 5]]
+  (1..10).to_a.split { |i| i % 3 == 0 }   # =&gt; [[1, 2], [4, 5], [7, 8], [10]]
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

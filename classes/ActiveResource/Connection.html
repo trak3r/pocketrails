@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveResource::Connection
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveResource::Connection
+    </h1>
+</div>
+<div id="ActiveResource::Connection" title="ActiveResource::Connection" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activeresource/lib/active_resource/connection_rb.html">activeresource/lib/active_resource/connection.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activeresource/lib/active_resource/http_mock_rb.html">activeresource/lib/active_resource/http_mock.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Class to handle connections to remote web services. This class is used by
+<a href="Base.html">ActiveResource::Base</a> to interface with REST
+services.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000633">delete</a></li>
+<li><a href="#M000632">get</a></li>
+<li><a href="#M000636">head</a></li>
+<li><a href="#M000627">new</a></li>
+<li><a href="#M000630">password=</a></li>
+<li><a href="#M000635">post</a></li>
+<li><a href="#M000634">put</a></li>
+<li><a href="#M000626">requests</a></li>
+<li><a href="#M000628">site=</a></li>
+<li><a href="#M000631">timeout=</a></li>
+<li><a href="#M000629">user=</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>HTTP_FORMAT_HEADER_NAMES</h2>
+<fieldset>
+<div class="row">
+{  :get =&gt; 'Accept',       :put =&gt; 'Content-Type',       :post =&gt; 'Content-Type',       :delete =&gt; 'Accept'
+</div>
+</fieldset>
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+format
+</label>
+
+[R]
+<label>
+password
+</label>
+
+[R]
+<label>
+site
+</label>
+
+[R]
+<label>
+timeout
+</label>
+
+[R]
+<label>
+user
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M000627">new</a> (site, format = ActiveResource::Formats[:xml])</h2>
+
+<fieldset><div class='row'><p>
+The <tt>site</tt> parameter is required and will set the <tt>site</tt>
+attribute to the URI for the remote resource service.
+</p></div></fieldset>
+
+
+<h2><a name="M000626">requests</a> ()</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000633">delete</a> (path, headers = {})</h2>
+
+<fieldset><div class='row'><p>
+Execute a DELETE request (see HTTP protocol documentation if unfamiliar).
+Used to <a href="Connection.html#M000633">delete</a> resources.
+</p></div></fieldset>
+
+
+<h2><a name="M000632">get</a> (path, headers = {})</h2>
+
+<fieldset><div class='row'><p>
+Execute a GET request. Used to <a href="Connection.html#M000632">get</a>
+(find) resources.
+</p></div></fieldset>
+
+
+<h2><a name="M000636">head</a> (path, headers = {})</h2>
+
+<fieldset><div class='row'><p>
+Execute a HEAD request. Used to obtain meta-information about resources,
+such as whether they exist and their size (via response headers).
+</p></div></fieldset>
+
+
+<h2><a name="M000630">password=</a> (password)</h2>
+
+<fieldset><div class='row'><p>
+Set password for remote service.
+</p></div></fieldset>
+
+
+<h2><a name="M000635">post</a> (path, body = '', headers = {})</h2>
+
+<fieldset><div class='row'><p>
+Execute a POST request. Used to create <a
+href="Connection.html#M000627">new</a> resources.
+</p></div></fieldset>
+
+
+<h2><a name="M000634">put</a> (path, body = '', headers = {})</h2>
+
+<fieldset><div class='row'><p>
+Execute a PUT request (see HTTP protocol documentation if unfamiliar). Used
+to update resources.
+</p></div></fieldset>
+
+
+<h2><a name="M000628">site=</a> (site)</h2>
+
+<fieldset><div class='row'><p>
+Set URI for remote service.
+</p></div></fieldset>
+
+
+<h2><a name="M000631">timeout=</a> (timeout)</h2>
+
+<fieldset><div class='row'><p>
+Set the number of seconds after which HTTP <a
+href="Connection.html#M000626">requests</a> to the remote service should
+time out.
+</p></div></fieldset>
+
+
+<h2><a name="M000629">user=</a> (user)</h2>
+
+<fieldset><div class='row'><p>
+Set user for remote service.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionController::TestCase
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::TestCase
+    </h1>
+</div>
+<div id="ActionController::TestCase" title="ActionController::TestCase" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/test_case_rb.html">actionpack/lib/action_controller/test_case.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../ActiveSupport/TestCase.html">
+               ActiveSupport::TestCase
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Superclass for ActionController functional <a
+href="TestCase.html#M000332">tests</a>. Functional <a
+href="TestCase.html#M000332">tests</a> allow you to test a single
+controller action per test method. This should not be confused with
+integration <a href="TestCase.html#M000332">tests</a> (see <a
+href="IntegrationTest.html">ActionController::IntegrationTest</a>), which
+are more like &quot;stories&quot; that can involve multiple controllers and
+mutliple actions (i.e. multiple different HTTP requests).
+</p>
+<h2>Basic example</h2>
+<p>
+Functional <a href="TestCase.html#M000332">tests</a> are written as
+follows:
+</p>
+<ol>
+<li>First, one uses the <tt>get</tt>, <tt>post</tt>, <tt>put</tt>,
+<tt>delete</tt> or <tt>head</tt> method to simulate an HTTP request.
+
+</li>
+<li>Then, one asserts whether the current state is as expected.
+&quot;State&quot; can be anything: the controller&#8216;s HTTP response,
+the database contents, etc.
+
+</li>
+</ol>
+<p>
+For example:
+</p>
+<pre>
+  class BooksControllerTest &lt; ActionController::TestCase
+    def test_create
+      # Simulate a POST response with the given HTTP parameters.
+      post(:create, :book =&gt; { :title =&gt; &quot;Love Hina&quot; })
+
+      # Assert that the controller tried to redirect us to
+      # the created book's URI.
+      assert_response :found
+
+      # Assert that the controller really put the book in the database.
+      assert_not_nil Book.find_by_title(&quot;Love Hina&quot;)
+    end
+  end
+</pre>
+<h2>Special instance variables</h2>
+<p>
+<a href="TestCase.html">ActionController::TestCase</a> will also
+automatically provide the following instance variables for use in the <a
+href="TestCase.html#M000332">tests</a>:
+</p>
+<table>
+<tr><td valign="top"><b>@controller</b>:</td><td>The controller instance that will be tested.
+
+</td></tr>
+<tr><td valign="top"><b>@request</b>:</td><td>An ActionController::TestRequest, representing the current HTTP request.
+You can modify this object before sending the HTTP request. For example,
+you might want to set some session properties before sending a GET request.
+
+</td></tr>
+<tr><td valign="top"><b>@response</b>:</td><td>An <a href="TestResponse.html">ActionController::TestResponse</a> object,
+representing the response of the last HTTP response. In the above example,
+<tt>@response</tt> becomes valid after calling <tt>post</tt>. If the
+various assert methods are not sufficient, then you may use this object to
+inspect the HTTP response in detail.
+
+</td></tr>
+</table>
+<p>
+(Earlier versions of <a href="../Rails.html">Rails</a> required each
+functional test to subclass Test::Unit::TestCase and define @controller,
+@request, @response in <tt>setup</tt>.)
+</p>
+<h2>Controller is automatically inferred</h2>
+<p>
+<a href="TestCase.html">ActionController::TestCase</a> will automatically
+infer the controller under test from the test class name. If the controller
+cannot be inferred from the test class name, you can explicity set it with
+<tt><a href="TestCase.html#M000332">tests</a></tt>.
+</p>
+<pre>
+  class SpecialEdgeCaseWidgetsControllerTest &lt; ActionController::TestCase
+    tests WidgetController
+  end
+</pre>
+<h2>Testing controller internals</h2>
+<p>
+In addition to these specific assertions, you also have easy access to
+various collections that the regular test/unit assertions can be used
+against. These collections are:
+</p>
+<ul>
+<li>assigns: Instance variables assigned in the action that are available for
+the view.
+
+</li>
+<li>session: Objects being saved in the session.
+
+</li>
+<li>flash: The flash objects currently in the session.
+
+</li>
+<li>cookies: <a href="Cookies.html">Cookies</a> being sent to the user on this
+request.
+
+</li>
+</ul>
+<p>
+These collections can be used just like any other hash:
+</p>
+<pre>
+  assert_not_nil assigns(:person) # makes sure that a @person instance variable was set
+  assert_equal &quot;Dave&quot;, cookies[:name] # makes sure that a cookie called :name was set as &quot;Dave&quot;
+  assert flash.empty? # makes sure that there's nothing in the flash
+</pre>
+<p>
+For historic reasons, the assigns hash uses string-based keys. So
+assigns[:person] won&#8216;t work, but assigns[&quot;person&quot;] will. To
+appease our yearning for symbols, though, an alternative accessor has been
+devised using a method call instead of index referencing. So
+assigns(:person) will work just like assigns[&quot;person&quot;], but
+again, assigns[:person] will not work.
+</p>
+<p>
+On top of the collections, you have the complete url that a given action
+redirected to available in redirect_to_url.
+</p>
+<p>
+For redirects within the same controller, you can even call follow_redirect
+and the redirect will be followed, triggering another action call which can
+then be asserted against.
+</p>
+<h2>Manipulating the request collections</h2>
+<p>
+The collections described above link to the response, so you can test if
+what the actions were expected to do happened. But sometimes you also want
+to manipulate these collections in the incoming request. This is really
+only relevant for sessions and cookies, though. For sessions, you just do:
+</p>
+<pre>
+  @request.session[:key] = &quot;value&quot;
+</pre>
+<p>
+For cookies, you need to manually create the cookie, like this:
+</p>
+<pre>
+  @request.cookies[&quot;key&quot;] = CGI::Cookie.new(&quot;key&quot;, &quot;value&quot;)
+</pre>
+<h2>Testing named routes</h2>
+<p>
+If you&#8216;re using named routes, they can be easily tested using the
+original named routes&#8217; methods straight in the test case. Example:
+</p>
+<pre>
+ assert_redirected_to page_url(:title =&gt; 'foo')
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000334">controller_class</a></li>
+<li><a href="#M000333">controller_class=</a></li>
+<li><a href="#M000335">determine_default_controller_class</a></li>
+<li><a href="#M000336">prepare_controller_class</a></li>
+<li><a href="#M000338">rescue_action_in_public!</a></li>
+<li><a href="#M000337">setup_controller_request_and_response</a></li>
+<li><a href="#M000332">tests</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="TestCase/Assertions.html">Assertions</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="TestCase/Assertions.html" class="link">ActionController::TestCase::Assertions</a><br />
+Module <a href="TestCase/RaiseActionExceptions.html" class="link">ActionController::TestCase::RaiseActionExceptions</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000334">controller_class</a> ()</h2>
+
+
+
+<h2><a name="M000333">controller_class=</a> (new_class)</h2>
+
+
+
+<h2><a name="M000335">determine_default_controller_class</a> (name)</h2>
+
+
+
+<h2><a name="M000336">prepare_controller_class</a> (new_class)</h2>
+
+
+
+<h2><a name="M000332">tests</a> (controller_class)</h2>
+
+<fieldset><div class='row'><p>
+Sets the controller class name. Useful if the name can&#8216;t be inferred
+from test class. Expects <tt><a
+href="TestCase.html#M000334">controller_class</a></tt> as a constant.
+Example: <tt><a href="TestCase.html#M000332">tests</a>
+WidgetController</tt>.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000338">rescue_action_in_public!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Cause the action to be rescued according to the regular rules for
+rescue_action when the visitor is not local
+</p></div></fieldset>
+
+
+<h2><a name="M000337">setup_controller_request_and_response</a> ()</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

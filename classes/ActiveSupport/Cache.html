@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::Cache
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Cache
+    </h1>
+</div>
+<div id="ActiveSupport::Cache" title="ActiveSupport::Cache" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/cache/compressed_mem_cache_store_rb.html">activesupport/lib/active_support/cache/compressed_mem_cache_store.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/cache/drb_store_rb.html">activesupport/lib/active_support/cache/drb_store.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/cache/file_store_rb.html">activesupport/lib/active_support/cache/file_store.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/cache/mem_cache_store_rb.html">activesupport/lib/active_support/cache/mem_cache_store.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/cache/memory_store_rb.html">activesupport/lib/active_support/cache/memory_store.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/cache/synchronized_memory_store_rb.html">activesupport/lib/active_support/cache/synchronized_memory_store.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/cache_rb.html">activesupport/lib/active_support/cache.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+See <a href="Cache/Store.html">ActiveSupport::Cache::Store</a> for
+documentation.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000697">expand_cache_key</a></li>
+<li><a href="#M000696">lookup_store</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Class <a href="Cache/CompressedMemCacheStore.html" class="link">ActiveSupport::Cache::CompressedMemCacheStore</a><br />
+Class <a href="Cache/FileStore.html" class="link">ActiveSupport::Cache::FileStore</a><br />
+Class <a href="Cache/MemCacheStore.html" class="link">ActiveSupport::Cache::MemCacheStore</a><br />
+Class <a href="Cache/MemoryStore.html" class="link">ActiveSupport::Cache::MemoryStore</a><br />
+Class <a href="Cache/Store.html" class="link">ActiveSupport::Cache::Store</a><br />
+Class <a href="Cache/SynchronizedMemoryStore.html" class="link">ActiveSupport::Cache::SynchronizedMemoryStore</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000697">expand_cache_key</a> (key, namespace = nil)</h2>
+
+
+
+<h2><a name="M000696">lookup_store</a> (*store_option)</h2>
+
+<fieldset><div class='row'><p>
+Creates a new CacheStore object according to the given options.
+</p>
+<p>
+If no arguments are passed to this method, then a new <a
+href="Cache/MemoryStore.html">ActiveSupport::Cache::MemoryStore</a> object
+will be returned.
+</p>
+<p>
+If you pass a Symbol as the first argument, then a corresponding cache
+store class under the <a href="Cache.html">ActiveSupport::Cache</a>
+namespace will be created. For example:
+</p>
+<pre>
+  ActiveSupport::Cache.lookup_store(:memory_store)
+  # =&gt; returns a new ActiveSupport::Cache::MemoryStore object
+
+  ActiveSupport::Cache.lookup_store(:drb_store)
+  # =&gt; returns a new ActiveSupport::Cache::DRbStore object
+</pre>
+<p>
+Any additional arguments will be passed to the corresponding cache store
+class&#8216;s constructor:
+</p>
+<pre>
+  ActiveSupport::Cache.lookup_store(:file_store, &quot;/tmp/cache&quot;)
+  # =&gt; same as: ActiveSupport::Cache::FileStore.new(&quot;/tmp/cache&quot;)
+</pre>
+<p>
+If the first argument is not a Symbol, then it will simply be returned:
+</p>
+<pre>
+  ActiveSupport::Cache.lookup_store(MyOwnCacheStore.new)
+  # =&gt; returns MyOwnCacheStore.new
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

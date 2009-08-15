@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::PostgreSQLAdapter" title="ActiveRecord::ConnectionAdapters::PostgreSQLAdapter" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/postgresql_adapter_rb.html">activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="AbstractAdapter.html">
+               AbstractAdapter
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The PostgreSQL adapter works both with the native C (<a
+href="http://ruby.scripting.ca/postgres">ruby.scripting.ca/postgres</a>/)
+and the pure Ruby (available both as gem and from <a
+href="http://rubyforge.org/frs/?group_id=234&release_id=1944">rubyforge.org/frs/?group_id=234&release_id=1944</a>)
+drivers.
+</p>
+<p>
+Options:
+</p>
+<ul>
+<li><tt>:host</tt> - Defaults to &quot;localhost&quot;.
+
+</li>
+<li><tt>:port</tt> - Defaults to 5432.
+
+</li>
+<li><tt>:username</tt> - Defaults to nothing.
+
+</li>
+<li><tt>:password</tt> - Defaults to nothing.
+
+</li>
+<li><tt>:database</tt> - The name of the database. No default, must be
+provided.
+
+</li>
+<li><tt>:<a href="PostgreSQLAdapter.html#M001701">schema_search_path</a></tt> -
+An optional schema search path for the connection given as a string of
+comma-separated schema names. This is backward-compatible with the
+<tt>:schema_order</tt> option.
+
+</li>
+<li><tt>:<a href="PostgreSQLAdapter.html#M001699">encoding</a></tt> - An
+optional client <a href="PostgreSQLAdapter.html#M001699">encoding</a> that
+is used in a <tt>SET client_encoding TO &lt;<a
+href="PostgreSQLAdapter.html#M001699">encoding</a>&gt;</tt> call on the
+connection.
+
+</li>
+<li><tt>:min_messages</tt> - An optional client min messages that is used in a
+<tt>SET <a href="PostgreSQLAdapter.html#M001702">client_min_messages</a> TO
+&lt;min_messages&gt;</tt> call on the connection.
+
+</li>
+<li><tt>:allow_concurrency</tt> - If true, use async query methods so Ruby
+threads don&#8216;t deadlock; otherwise, use blocking query methods.
+
+</li>
+</ul>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001675">active?</a></li>
+<li><a href="#M001673">adapter_name</a></li>
+<li><a href="#M001705">add_column</a></li>
+<li><a href="#M001689">begin_db_transaction</a></li>
+<li><a href="#M001706">change_column</a></li>
+<li><a href="#M001707">change_column_default</a></li>
+<li><a href="#M001708">change_column_null</a></li>
+<li><a href="#M001702">client_min_messages</a></li>
+<li><a href="#M001703">client_min_messages=</a></li>
+<li><a href="#M001697">columns</a></li>
+<li><a href="#M001690">commit_db_transaction</a></li>
+<li><a href="#M001694">create_database</a></li>
+<li><a href="#M001698">current_database</a></li>
+<li><a href="#M001677">disconnect!</a></li>
+<li><a href="#M001699">encoding</a></li>
+<li><a href="#M001683">escape_bytea</a></li>
+<li><a href="#M001687">execute</a></li>
+<li><a href="#M001696">indexes</a></li>
+<li><a href="#M001686">insert</a></li>
+<li><a href="#M001674">new</a></li>
+<li><a href="#M001712">postgresql_version</a></li>
+<li><a href="#M001676">reconnect!</a></li>
+<li><a href="#M001710">remove_index</a></li>
+<li><a href="#M001709">rename_column</a></li>
+<li><a href="#M001704">rename_table</a></li>
+<li><a href="#M001691">rollback_db_transaction</a></li>
+<li><a href="#M001701">schema_search_path</a></li>
+<li><a href="#M001700">schema_search_path=</a></li>
+<li><a href="#M001685">select_rows</a></li>
+<li><a href="#M001681">supports_ddl_transactions?</a></li>
+<li><a href="#M001680">supports_insert_with_returning?</a></li>
+<li><a href="#M001678">supports_migrations?</a></li>
+<li><a href="#M001679">supports_standard_conforming_strings?</a></li>
+<li><a href="#M001682">table_alias_length</a></li>
+<li><a href="#M001695">tables</a></li>
+<li><a href="#M001693">transaction</a></li>
+<li><a href="#M001692">transaction_active?</a></li>
+<li><a href="#M001711">type_to_sql</a></li>
+<li><a href="#M001684">unescape_bytea</a></li>
+<li><a href="#M001688">update_sql</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>ADAPTER_NAME</h2>
+<fieldset>
+<div class="row">
+'PostgreSQL'.freeze
+</div>
+</fieldset>
+<h2>NATIVE_DATABASE_TYPES</h2>
+<fieldset>
+<div class="row">
+{         :primary_key =&gt; &quot;serial primary key&quot;.freeze,         :string      =&gt; { :name =&gt; &quot;character varying&quot;, :limit =&gt; 255 },         :text        =&gt; { :name =&gt; &quot;text&quot; },         :integer     =&gt; { :name =&gt; &quot;integer&quot; },         :float       =&gt; { :name =&gt; &quot;float&quot; },         :decimal     =&gt; { :name =&gt; &quot;decimal&quot; },         :datetime    =&gt; { :name =&gt; &quot;timestamp&quot; },         :timestamp   =&gt; { :name =&gt; &quot;timestamp&quot; },         :time        =&gt; { :name =&gt; &quot;time&quot; },         :date        =&gt; { :name =&gt; &quot;date&quot; },         :binary      =&gt; { :name =&gt; &quot;bytea&quot; },         :boolean     =&gt; { :name =&gt; &quot;boolean&quot; }
+</div>
+</fieldset>
+<h2>PQTRANS_IDLE</h2>
+<fieldset>
+<div class="row">
+defined?(PGconn::PQTRANS_IDLE) ? PGconn::PQTRANS_IDLE : 0
+
+ruby-pg defines Ruby constants for <a
+href="PostgreSQLAdapter.html#M001693">transaction</a> status, ruby-postgres
+does not.
+
+
+</div>
+</fieldset>
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001674">new</a> (connection, logger, connection_parameters, config)</h2>
+
+<fieldset><div class='row'><p>
+Initializes and connects a PostgreSQL adapter.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001675">active?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Is this connection alive and ready for queries?
+</p></div></fieldset>
+
+
+<h2><a name="M001673">adapter_name</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns &#8216;PostgreSQL&#8217; as adapter name for identification
+purposes.
+</p></div></fieldset>
+
+
+<h2><a name="M001705">add_column</a> (table_name, column_name, type, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Adds a <a href="PostgreSQLAdapter.html#M001674">new</a> column to the named
+table. See <a
+href="TableDefinition.html#M001614">TableDefinition#column</a> for details
+of the options you can use.
+</p></div></fieldset>
+
+
+<h2><a name="M001689">begin_db_transaction</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Begins a <a href="PostgreSQLAdapter.html#M001693">transaction</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001706">change_column</a> (table_name, column_name, type, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Changes the column of a table.
+</p></div></fieldset>
+
+
+<h2><a name="M001707">change_column_default</a> (table_name, column_name, default)</h2>
+
+<fieldset><div class='row'><p>
+Changes the default value of a table column.
+</p></div></fieldset>
+
+
+<h2><a name="M001708">change_column_null</a> (table_name, column_name, null, default = nil)</h2>
+
+
+
+<h2><a name="M001702">client_min_messages</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the current client message level.
+</p></div></fieldset>
+
+
+<h2><a name="M001703">client_min_messages=</a> (level)</h2>
+
+<fieldset><div class='row'><p>
+Set the client message level.
+</p></div></fieldset>
+
+
+<h2><a name="M001697">columns</a> (table_name, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns the list of all column definitions for a table.
+</p></div></fieldset>
+
+
+<h2><a name="M001690">commit_db_transaction</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Commits a <a href="PostgreSQLAdapter.html#M001693">transaction</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001694">create_database</a> (name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Create a <a href="PostgreSQLAdapter.html#M001674">new</a> PostgreSQL
+database. Options include <tt>:owner</tt>, <tt>:template</tt>, <tt>:<a
+href="PostgreSQLAdapter.html#M001699">encoding</a></tt>,
+<tt>:tablespace</tt>, and <tt>:connection_limit</tt> (note that MySQL uses
+<tt>:charset</tt> while PostgreSQL uses <tt>:<a
+href="PostgreSQLAdapter.html#M001699">encoding</a></tt>).
+</p>
+<p>
+Example:
+</p>
+<pre>
+  create_database config[:database], config
+  create_database 'foo_development', :encoding =&gt; 'unicode'
+</pre></div></fieldset>
+
+
+<h2><a name="M001698">current_database</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the current database name.
+</p></div></fieldset>
+
+
+<h2><a name="M001677">disconnect!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Close the connection.
+</p></div></fieldset>
+
+
+<h2><a name="M001699">encoding</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the current database <a
+href="PostgreSQLAdapter.html#M001699">encoding</a> format.
+</p></div></fieldset>
+
+
+<h2><a name="M001683">escape_bytea</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+Escapes binary strings for bytea input to the database.
+</p></div></fieldset>
+
+
+<h2><a name="M001687">execute</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes an SQL statement, returning a <a
+href="../../PGresult.html">PGresult</a> object on success or raising a
+PGError exception otherwise.
+</p></div></fieldset>
+
+
+<h2><a name="M001696">indexes</a> (table_name, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns the list of all <a
+href="PostgreSQLAdapter.html#M001696">indexes</a> for a table.
+</p></div></fieldset>
+
+
+<h2><a name="M001686">insert</a> (sql, name = nil, pk = nil, id_value = nil, sequence_name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes an INSERT query and returns the <a
+href="PostgreSQLAdapter.html#M001674">new</a> record&#8216;s ID
+</p></div></fieldset>
+
+
+<h2><a name="M001676">reconnect!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Close then reopen the connection.
+</p></div></fieldset>
+
+
+<h2><a name="M001710">remove_index</a> (table_name, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Drops an index from a table.
+</p></div></fieldset>
+
+
+<h2><a name="M001709">rename_column</a> (table_name, column_name, new_column_name)</h2>
+
+<fieldset><div class='row'><p>
+Renames a column in a table.
+</p></div></fieldset>
+
+
+<h2><a name="M001704">rename_table</a> (name, new_name)</h2>
+
+<fieldset><div class='row'><p>
+Renames a table.
+</p></div></fieldset>
+
+
+<h2><a name="M001691">rollback_db_transaction</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Aborts a <a href="PostgreSQLAdapter.html#M001693">transaction</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001701">schema_search_path</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the active schema search path.
+</p></div></fieldset>
+
+
+<h2><a name="M001700">schema_search_path=</a> (schema_csv)</h2>
+
+<fieldset><div class='row'><p>
+Sets the schema search path to a string of comma-separated schema names.
+Names beginning with $ have to be quoted (e.g. $user =&gt;
+&#8217;$user&#8217;). See: <a
+href="http://www.postgresql.org/docs/current/static/ddl-schemas.html">www.postgresql.org/docs/current/static/ddl-schemas.html</a>
+</p>
+<p>
+This should be not be called manually but set in database.yml.
+</p></div></fieldset>
+
+
+<h2><a name="M001685">select_rows</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes a SELECT query and returns an array of rows. Each row is an array
+of field values.
+</p></div></fieldset>
+
+
+<h2><a name="M001681">supports_ddl_transactions?</a> ()</h2>
+
+
+
+<h2><a name="M001680">supports_insert_with_returning?</a> ()</h2>
+
+
+
+<h2><a name="M001678">supports_migrations?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Does PostgreSQL support migrations?
+</p></div></fieldset>
+
+
+<h2><a name="M001679">supports_standard_conforming_strings?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Does PostgreSQL support standard conforming strings?
+</p></div></fieldset>
+
+
+<h2><a name="M001682">table_alias_length</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the configured supported identifier length supported by PostgreSQL,
+or report the default of 63 on PostgreSQL 7.x.
+</p></div></fieldset>
+
+
+<h2><a name="M001695">tables</a> (name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns the list of all <a href="PostgreSQLAdapter.html#M001695">tables</a>
+in the schema search path or a specified schema.
+</p></div></fieldset>
+
+
+<h2><a name="M001693">transaction</a> (start_db_transaction = true) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Wrap a block in a <a href="PostgreSQLAdapter.html#M001693">transaction</a>.
+Returns result of block.
+</p></div></fieldset>
+
+
+<h2><a name="M001692">transaction_active?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Check whether a <a href="PostgreSQLAdapter.html#M001693">transaction</a> is
+active.
+</p></div></fieldset>
+
+
+<h2><a name="M001711">type_to_sql</a> (type, limit = nil, precision = nil, scale = nil)</h2>
+
+<fieldset><div class='row'><p>
+Maps logical <a href="../../Rails.html">Rails</a> types to
+PostgreSQL-specific data types.
+</p></div></fieldset>
+
+
+<h2><a name="M001684">unescape_bytea</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+Unescapes bytea output from a database to the binary string it represents.
+NOTE: This is NOT an inverse of escape_bytea! This is only to be used
+</p>
+<pre>
+      on escaped binary output from database drive.
+</pre></div></fieldset>
+
+
+<h2><a name="M001688">update_sql</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes an UPDATE query and returns the number of affected tuples.
+</p></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M001712">postgresql_version</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the version of the connected PostgreSQL version.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

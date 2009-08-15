@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Assertions::ResponseAssertions
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Assertions::ResponseAssertions
+    </h1>
+</div>
+<div id="ActionController::Assertions::ResponseAssertions" title="ActionController::Assertions::ResponseAssertions" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/assertions/response_assertions_rb.html">actionpack/lib/action_controller/assertions/response_assertions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+A small suite of assertions that test responses from <a
+href="../../Rails.html">Rails</a> applications.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000314">assert_redirected_to</a></li>
+<li><a href="#M000313">assert_response</a></li>
+<li><a href="#M000315">assert_template</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000314">assert_redirected_to</a> (options = {}, message=nil)</h2>
+
+<fieldset><div class='row'><p>
+Assert that the redirection options passed in match those of the redirect
+called in the latest action. This match can be partial, such that <a
+href="ResponseAssertions.html#M000314">assert_redirected_to</a>(:controller
+=&gt; &quot;weblog&quot;) will also match the redirection of
+redirect_to(:controller =&gt; &quot;weblog&quot;, :action =&gt;
+&quot;show&quot;) and so on.
+</p>
+<h4>Examples</h4>
+<pre>
+  # assert that the redirection was to the &quot;index&quot; action on the WeblogController
+  assert_redirected_to :controller =&gt; &quot;weblog&quot;, :action =&gt; &quot;index&quot;
+
+  # assert that the redirection was to the named route login_url
+  assert_redirected_to login_url
+
+  # assert that the redirection was to the url for @customer
+  assert_redirected_to @customer
+</pre></div></fieldset>
+
+
+<h2><a name="M000313">assert_response</a> (type, message = nil)</h2>
+
+<fieldset><div class='row'><p>
+Asserts that the response is one of the following types:
+</p>
+<ul>
+<li><tt>:success</tt> - Status code was 200
+
+</li>
+<li><tt>:redirect</tt> - Status code was in the 300-399 range
+
+</li>
+<li><tt>:missing</tt> - Status code was 404
+
+</li>
+<li><tt>:error</tt> - Status code was in the 500-599 range
+
+</li>
+</ul>
+<p>
+You can also pass an explicit status number like <a
+href="ResponseAssertions.html#M000313">assert_response</a>(501) or its
+symbolic equivalent <a
+href="ResponseAssertions.html#M000313">assert_response</a>(:not_implemented).
+See ActionController::StatusCodes for a full list.
+</p>
+<h4>Examples</h4>
+<pre>
+  # assert that the response was a redirection
+  assert_response :redirect
+
+  # assert that the response code was status code 401 (unauthorized)
+  assert_response 401
+</pre></div></fieldset>
+
+
+<h2><a name="M000315">assert_template</a> (expected = nil, message=nil)</h2>
+
+<fieldset><div class='row'><p>
+Asserts that the request was rendered with the appropriate template file.
+</p>
+<h4>Examples</h4>
+<pre>
+  # assert that the &quot;new&quot; view template was rendered
+  assert_template &quot;new&quot;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

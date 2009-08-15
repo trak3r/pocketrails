@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Time::Conversions
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Time::Conversions
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Time::Conversions" title="ActiveSupport::CoreExtensions::Time::Conversions" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/time/conversions_rb.html">activesupport/lib/active_support/core_ext/time/conversions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Converting times to formatted strings, dates, and datetimes.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000793">formatted_offset</a></li>
+<li><a href="#M000794">to_date</a></li>
+<li><a href="#M000796">to_datetime</a></li>
+<li><a href="#M000792">to_formatted_s</a></li>
+<li><a href="#M000795">to_time</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>DATE_FORMATS</h2>
+<fieldset>
+<div class="row">
+{           :db           =&gt; &quot;%Y-%m-%d %H:%M:%S&quot;,           :number       =&gt; &quot;%Y%m%d%H%M%S&quot;,           :time         =&gt; &quot;%H:%M&quot;,           :short        =&gt; &quot;%d %b %H:%M&quot;,           :long         =&gt; &quot;%B %d, %Y %H:%M&quot;,           :long_ordinal =&gt; lambda { |time| time.strftime(&quot;%B #{time.day.ordinalize}, %Y %H:%M&quot;) },           :rfc822       =&gt; &quot;%a, %d %b %Y %H:%M:%S %z&quot;
+</div>
+</fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000793">formatted_offset</a> (colon = true, alternate_utc_string = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns the UTC offset as an +HH:MM formatted string.
+</p>
+<pre>
+  Time.local(2000).formatted_offset         # =&gt; &quot;-06:00&quot;
+  Time.local(2000).formatted_offset(false)  # =&gt; &quot;-0600&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000794">to_date</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts a Time object to a Date, dropping hour, minute, and second
+precision.
+</p>
+<pre>
+  my_time = Time.now  # =&gt; Mon Nov 12 22:59:51 -0500 2007
+  my_time.to_date     # =&gt; Mon, 12 Nov 2007
+
+  your_time = Time.parse(&quot;1/13/2009 1:13:03 P.M.&quot;)  # =&gt; Tue Jan 13 13:13:03 -0500 2009
+  your_time.to_date                                 # =&gt; Tue, 13 Jan 2009
+</pre></div></fieldset>
+
+
+<h2><a name="M000796">to_datetime</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts a Time instance to a Ruby DateTime instance, preserving UTC
+offset.
+</p>
+<pre>
+  my_time = Time.now    # =&gt; Mon Nov 12 23:04:21 -0500 2007
+  my_time.to_datetime   # =&gt; Mon, 12 Nov 2007 23:04:21 -0500
+
+  your_time = Time.parse(&quot;1/13/2009 1:13:03 P.M.&quot;)  # =&gt; Tue Jan 13 13:13:03 -0500 2009
+  your_time.to_datetime                             # =&gt; Tue, 13 Jan 2009 13:13:03 -0500
+</pre></div></fieldset>
+
+
+<h2><a name="M000792">to_formatted_s</a> (format = :default)</h2>
+
+<fieldset><div class='row'><p>
+Converts to a formatted string. See DATE_FORMATS for builtin formats.
+</p>
+<p>
+This method is aliased to <tt>to_s</tt>.
+</p>
+<pre>
+  time = Time.now                     # =&gt; Thu Jan 18 06:10:17 CST 2007
+
+  time.to_formatted_s(:time)          # =&gt; &quot;06:10:17&quot;
+  time.to_s(:time)                    # =&gt; &quot;06:10:17&quot;
+
+  time.to_formatted_s(:db)            # =&gt; &quot;2007-01-18 06:10:17&quot;
+  time.to_formatted_s(:number)        # =&gt; &quot;20070118061017&quot;
+  time.to_formatted_s(:short)         # =&gt; &quot;18 Jan 06:10&quot;
+  time.to_formatted_s(:long)          # =&gt; &quot;January 18, 2007 06:10&quot;
+  time.to_formatted_s(:long_ordinal)  # =&gt; &quot;January 18th, 2007 06:10&quot;
+  time.to_formatted_s(:rfc822)        # =&gt; &quot;Thu, 18 Jan 2007 06:10:17 -0600&quot;
+</pre>
+<h2>Adding your own time formats to <tt><a href="Conversions.html#M000792">to_formatted_s</a></tt></h2>
+<p>
+You can add your own formats to the Time::DATE_FORMATS hash. Use the format
+name as the hash key and either a strftime string or Proc instance that
+takes a time argument as the value.
+</p>
+<pre>
+  # config/initializers/time_formats.rb
+  Time::DATE_FORMATS[:month_and_year] = &quot;%B %Y&quot;
+  Time::DATE_FORMATS[:short_ordinal] = lambda { |time| time.strftime(&quot;%B #{time.day.ordinalize}&quot;) }
+</pre></div></fieldset>
+
+
+<h2><a name="M000795">to_time</a> ()</h2>
+
+<fieldset><div class='row'><p>
+A method to keep Time, Date and DateTime instances interchangeable on
+conversions. In this case, it simply returns <tt>self</tt>.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

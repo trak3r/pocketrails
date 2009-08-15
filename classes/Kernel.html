@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: Kernel
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Kernel
+    </h1>
+</div>
+<div id="Kernel" title="Kernel" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/kernel/daemonizing_rb.html">activesupport/lib/active_support/core_ext/kernel/daemonizing.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/kernel/debugger_rb.html">activesupport/lib/active_support/core_ext/kernel/debugger.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/kernel/reporting_rb.html">activesupport/lib/active_support/core_ext/kernel/reporting.rb</a>
+                </li>
+                <li>
+                    <a href="../files/activesupport/lib/active_support/core_ext/kernel/requires_rb.html">activesupport/lib/active_support/core_ext/kernel/requires.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002180">breakpoint</a></li>
+<li><a href="#M002178">daemonize</a></li>
+<li><a href="#M002179">debugger</a></li>
+<li><a href="#M002182">enable_warnings</a></li>
+<li><a href="#M002185">require_library_or_gem</a></li>
+<li><a href="#M002183">silence_stream</a></li>
+<li><a href="#M002181">silence_warnings</a></li>
+<li><a href="#M002184">suppress</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002180">breakpoint</a> ()</h2>
+
+
+
+<h2><a name="M002178">daemonize</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Turns the current script into a daemon process that detaches from the
+console. It can be shut down with a TERM signal.
+</p></div></fieldset>
+
+
+<h2><a name="M002179">debugger</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Starts a debugging session if ruby-debug has been loaded (call
+script/server &#8212;<a href="Kernel.html#M002179">debugger</a> to do load
+it).
+</p></div></fieldset>
+
+
+<h2><a name="M002182">enable_warnings</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Sets $VERBOSE to true for the duration of the block and back to its
+original value afterwards.
+</p></div></fieldset>
+
+
+<h2><a name="M002185">require_library_or_gem</a> (library_name)</h2>
+
+<fieldset><div class='row'><p>
+Require a library with fallback to RubyGems. Warnings during library
+loading are silenced to increase signal/noise for application warnings.
+</p></div></fieldset>
+
+
+<h2><a name="M002183">silence_stream</a> (stream) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Silences any stream for the duration of the block.
+</p>
+<pre>
+  silence_stream(STDOUT) do
+    puts 'This will never be seen'
+  end
+
+  puts 'But this will'
+</pre></div></fieldset>
+
+
+<h2><a name="M002181">silence_warnings</a> () {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Sets $VERBOSE to nil for the duration of the block and back to its original
+value afterwards.
+</p>
+<pre>
+  silence_warnings do
+    value = noisy_call # no warning voiced
+  end
+
+  noisy_call # warning voiced
+</pre></div></fieldset>
+
+
+<h2><a name="M002184">suppress</a> (*exception_classes) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Blocks and ignores any exception passed as argument if raised within the
+block.
+</p>
+<pre>
+  suppress(ZeroDivisionError) do
+    1/0
+    puts &quot;This code is NOT reached&quot;
+  end
+
+  puts &quot;This code gets executed and nothing related to ZeroDivisionError was seen&quot;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

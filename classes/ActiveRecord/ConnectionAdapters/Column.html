@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::ConnectionAdapters::Column
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::Column
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::Column" title="ActiveRecord::ConnectionAdapters::Column" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/schema_definitions_rb.html">activerecord/lib/active_record/connection_adapters/abstract/schema_definitions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+An abstract definition of a column in a table.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001598">binary_to_string</a></li>
+<li><a href="#M001596">extract_default</a></li>
+<li><a href="#M001609">fallback_string_to_date</a></li>
+<li><a href="#M001610">fallback_string_to_time</a></li>
+<li><a href="#M001607">fast_string_to_date</a></li>
+<li><a href="#M001608">fast_string_to_time</a></li>
+<li><a href="#M001591">has_default?</a></li>
+<li><a href="#M001595">human_name</a></li>
+<li><a href="#M001592">klass</a></li>
+<li><a href="#M001604">microseconds</a></li>
+<li><a href="#M001588">new</a></li>
+<li><a href="#M001605">new_date</a></li>
+<li><a href="#M001606">new_time</a></li>
+<li><a href="#M001590">number?</a></li>
+<li><a href="#M001597">string_to_binary</a></li>
+<li><a href="#M001599">string_to_date</a></li>
+<li><a href="#M001601">string_to_dummy_time</a></li>
+<li><a href="#M001600">string_to_time</a></li>
+<li><a href="#M001589">text?</a></li>
+<li><a href="#M001593">type_cast</a></li>
+<li><a href="#M001594">type_cast_code</a></li>
+<li><a href="#M001602">value_to_boolean</a></li>
+<li><a href="#M001603">value_to_decimal</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Column/Format.html" class="link">ActiveRecord::ConnectionAdapters::Column::Format</a><br />
+</div></fieldset>
+
+<h2>Constants</h2>
+<h2>TRUE_VALUES</h2>
+<fieldset>
+<div class="row">
+[true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
+</div>
+</fieldset>
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+default
+</label>
+
+[R]
+<label>
+limit
+</label>
+
+[R]
+<label>
+name
+</label>
+
+[R]
+<label>
+null
+</label>
+
+[R]
+<label>
+precision
+</label>
+
+[RW]
+<label>
+primary
+</label>
+
+[R]
+<label>
+scale
+</label>
+
+[R]
+<label>
+sql_type
+</label>
+
+[R]
+<label>
+type
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M001598">binary_to_string</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+Used to convert from BLOBs to Strings
+</p></div></fieldset>
+
+
+<h2><a name="M001588">new</a> (name, default, sql_type = nil, null = true)</h2>
+
+<fieldset><div class='row'><p>
+Instantiates a <a href="Column.html#M001588">new</a> column in the table.
+</p>
+<p>
+<tt>name</tt> is the column&#8216;s name, such as <tt>supplier_id</tt> in
+<tt>supplier_id int(11)</tt>. <tt>default</tt> is the type-casted default
+value, such as <tt><a href="Column.html#M001588">new</a></tt> in
+<tt>sales_stage varchar(20) default &#8216;<a
+href="Column.html#M001588">new</a>&#8216;</tt>. <tt>sql_type</tt> is only
+used to extract the column&#8216;s length, if necessary. For example +60+
+in <tt>company_name varchar(60)</tt>. <tt>null</tt> determines if this
+column allows <tt>NULL</tt> values.
+</p></div></fieldset>
+
+
+<h2><a name="M001597">string_to_binary</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+Used to convert from Strings to BLOBs
+</p></div></fieldset>
+
+
+<h2><a name="M001599">string_to_date</a> (string)</h2>
+
+
+
+<h2><a name="M001601">string_to_dummy_time</a> (string)</h2>
+
+
+
+<h2><a name="M001600">string_to_time</a> (string)</h2>
+
+
+
+<h2><a name="M001602">value_to_boolean</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+convert something to a boolean
+</p></div></fieldset>
+
+
+<h2><a name="M001603">value_to_decimal</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+convert something to a BigDecimal
+</p></div></fieldset>
+
+
+<h2>Protected Class methods</h2>
+<h2><a name="M001609">fallback_string_to_date</a> (string)</h2>
+
+
+
+<h2><a name="M001610">fallback_string_to_time</a> (string)</h2>
+
+
+
+<h2><a name="M001607">fast_string_to_date</a> (string)</h2>
+
+
+
+<h2><a name="M001608">fast_string_to_time</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Doesn&#8216;t handle time zones.
+</p></div></fieldset>
+
+
+<h2><a name="M001604">microseconds</a> (time)</h2>
+
+<fieldset><div class='row'><p>
+&#8216;0.123456&#8217; -&gt; 123456 &#8216;1.123456&#8217; -&gt; 123456
+</p></div></fieldset>
+
+
+<h2><a name="M001605">new_date</a> (year, mon, mday)</h2>
+
+
+
+<h2><a name="M001606">new_time</a> (year, mon, mday, hour, min, sec, microsec)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001596">extract_default</a> (default)</h2>
+
+
+
+<h2><a name="M001591">has_default?</a> ()</h2>
+
+
+
+<h2><a name="M001595">human_name</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the human name of the column name.
+</p>
+<h5>Examples</h5>
+<pre>
+ Column.new('sales_stage', ...).human_name # =&gt; 'Sales stage'
+</pre></div></fieldset>
+
+
+<h2><a name="M001592">klass</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the Ruby class that corresponds to the abstract data type.
+</p></div></fieldset>
+
+
+<h2><a name="M001590">number?</a> ()</h2>
+
+
+
+<h2><a name="M001589">text?</a> ()</h2>
+
+
+
+<h2><a name="M001593">type_cast</a> (value)</h2>
+
+<fieldset><div class='row'><p>
+Casts value (which is a String) to an appropriate instance.
+</p></div></fieldset>
+
+
+<h2><a name="M001594">type_cast_code</a> (var_name)</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveSupport::Duration
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Duration
+    </h1>
+</div>
+<div id="ActiveSupport::Duration" title="ActiveSupport::Duration" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/duration_rb.html">activesupport/lib/active_support/duration.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="BasicObject.html">
+               BasicObject
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Provides accurate date and time measurements using Date#advance and
+Time#advance, respectively. It mainly supports the methods on Numeric, such
+as in this example:
+</p>
+<pre>
+  1.month.ago       # equivalent to Time.now.advance(:months =&gt; -1)
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001213">+</a></li>
+<li><a href="#M001214">-</a></li>
+<li><a href="#M001215">==</a></li>
+<li><a href="#M001218">ago</a></li>
+<li><a href="#M001217">from_now</a></li>
+<li><a href="#M001216">since</a></li>
+<li><a href="#M001219">until</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+parts
+</label>
+
+[RW]
+<label>
+value
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001213">+</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Adds another <a href="Duration.html">Duration</a> or a Numeric to this <a
+href="Duration.html">Duration</a>. Numeric values are treated as seconds.
+</p></div></fieldset>
+
+
+<h2><a name="M001214">-</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Subtracts another <a href="Duration.html">Duration</a> or a Numeric from
+this <a href="Duration.html">Duration</a>. Numeric values are treated as
+seconds.
+</p></div></fieldset>
+
+
+<h2><a name="M001215">==</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Returns true if <tt>other</tt> is also a <a
+href="Duration.html">Duration</a> instance with the same <tt>value</tt>, or
+if <tt>other == value</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001218">ago</a> (time = ::Time.current)</h2>
+
+<fieldset><div class='row'><p>
+Calculates a new Time or Date that is as far in the past as this <a
+href="Duration.html">Duration</a> represents.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>until</div></fieldset>
+
+<h2><a name="M001217">from_now</a> (time = ::Time.current)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Duration.html#M001216">since</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001216">since</a> (time = ::Time.current)</h2>
+
+<fieldset><div class='row'><p>
+Calculates a new Time or Date that is as far in the future as this <a
+href="Duration.html">Duration</a> represents.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>from_now</div></fieldset>
+
+<h2><a name="M001219">until</a> (time = ::Time.current)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Duration.html#M001218">ago</a>
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: Rails::Initializer
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        Rails::Initializer
+    </h1>
+</div>
+<div id="Rails::Initializer" title="Rails::Initializer" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/railties/lib/initializer_rb.html">railties/lib/initializer.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The <a href="Initializer.html">Initializer</a> is responsible for
+processing the <a href="../Rails.html">Rails</a> configuration, such as
+setting the $LOAD_PATH, requiring the right frameworks, initializing
+logging, and more. It can be <a href="Initializer.html#M002070">run</a>
+either as a single command that&#8216;ll just use the default
+configuration, like this:
+</p>
+<pre>
+  Rails::Initializer.run
+</pre>
+<p>
+But normally it&#8216;s more interesting to pass in a custom configuration
+through the block running:
+</p>
+<pre>
+  Rails::Initializer.run do |config|
+    config.frameworks -= [ :action_mailer ]
+  end
+</pre>
+<p>
+This will use the default configuration options from <a
+href="Configuration.html">Rails::Configuration</a>, but allow for
+overwriting on select areas.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M002081">add_gem_load_paths</a></li>
+<li><a href="#M002080">add_plugin_load_paths</a></li>
+<li><a href="#M002079">add_support_load_paths</a></li>
+<li><a href="#M002104">after_initialize</a></li>
+<li><a href="#M002083">check_gem_dependencies</a></li>
+<li><a href="#M002073">check_ruby_version</a></li>
+<li><a href="#M002107">disable_dependency_loading</a></li>
+<li><a href="#M002092">initialize_cache</a></li>
+<li><a href="#M002091">initialize_database</a></li>
+<li><a href="#M002098">initialize_dependency_mechanism</a></li>
+<li><a href="#M002090">initialize_encoding</a></li>
+<li><a href="#M002093">initialize_framework_caches</a></li>
+<li><a href="#M002095">initialize_framework_logging</a></li>
+<li><a href="#M002103">initialize_framework_settings</a></li>
+<li><a href="#M002096">initialize_framework_views</a></li>
+<li><a href="#M002102">initialize_i18n</a></li>
+<li><a href="#M002094">initialize_logger</a></li>
+<li><a href="#M002097">initialize_routing</a></li>
+<li><a href="#M002100">initialize_temporary_session_directory</a></li>
+<li><a href="#M002101">initialize_time_zone</a></li>
+<li><a href="#M002099">initialize_whiny_nils</a></li>
+<li><a href="#M002074">install_gem_spec_stubs</a></li>
+<li><a href="#M002089">load_application_classes</a></li>
+<li><a href="#M002105">load_application_initializers</a></li>
+<li><a href="#M002086">load_environment</a></li>
+<li><a href="#M002082">load_gems</a></li>
+<li><a href="#M002087">load_observers</a></li>
+<li><a href="#M002084">load_plugins</a></li>
+<li><a href="#M002088">load_view_paths</a></li>
+<li><a href="#M002071">new</a></li>
+<li><a href="#M002085">plugin_loader</a></li>
+<li><a href="#M002078">preload_frameworks</a></li>
+<li><a href="#M002106">prepare_dispatcher</a></li>
+<li><a href="#M002072">process</a></li>
+<li><a href="#M002077">require_frameworks</a></li>
+<li><a href="#M002070">run</a></li>
+<li><a href="#M002076">set_autoload_paths</a></li>
+<li><a href="#M002075">set_load_path</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+configuration
+</label>
+
+The <a href="Configuration.html">Configuration</a> instance used by this <a
+href="Initializer.html">Initializer</a> instance.
+
+
+[R]
+<label>
+gems_dependencies_loaded
+</label>
+
+Whether or not all the gem dependencies have been met
+
+
+[R]
+<label>
+loaded_plugins
+</label>
+
+The set of loaded plugins.
+
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M002071">new</a> (configuration)</h2>
+
+<fieldset><div class='row'><p>
+Create a <a href="Initializer.html#M002071">new</a> <a
+href="Initializer.html">Initializer</a> instance that references the given
+<a href="Configuration.html">Configuration</a> instance.
+</p></div></fieldset>
+
+
+<h2><a name="M002070">run</a> (command = :process, configuration = Configuration.new) {|configuration if block_given?| ...}</h2>
+
+<fieldset><div class='row'><p>
+Runs the initializer. By default, this will invoke the <a
+href="Initializer.html#M002072">process</a> method, which simply executes
+all of the initialization routines. Alternately, you can specify explicitly
+which initialization routine you want:
+</p>
+<pre>
+  Rails::Initializer.run(:set_load_path)
+</pre>
+<p>
+This is useful if you only want the load path initialized, without
+incurring the overhead of completely loading the entire environment.
+</p></div></fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M002081">add_gem_load_paths</a> ()</h2>
+
+
+
+<h2><a name="M002080">add_plugin_load_paths</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Adds all load paths from plugins to the global set of load paths, so that
+code from plugins can be required (explicitly or automatically via
+ActiveSupport::Dependencies).
+</p></div></fieldset>
+
+
+<h2><a name="M002079">add_support_load_paths</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Add the load paths used by support functions such as the info controller
+</p></div></fieldset>
+
+
+<h2><a name="M002104">after_initialize</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Fires the user-supplied <a
+href="Initializer.html#M002104">after_initialize</a> block (<a
+href="Configuration.html#M002144">Configuration#after_initialize</a>)
+</p></div></fieldset>
+
+
+<h2><a name="M002083">check_gem_dependencies</a> ()</h2>
+
+
+
+<h2><a name="M002073">check_ruby_version</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Check for valid Ruby version This is done in an external file, so we can
+use it from the `rails` program as well without duplication.
+</p></div></fieldset>
+
+
+<h2><a name="M002107">disable_dependency_loading</a> ()</h2>
+
+
+
+<h2><a name="M002092">initialize_cache</a> ()</h2>
+
+
+
+<h2><a name="M002091">initialize_database</a> ()</h2>
+
+<fieldset><div class='row'><p>
+This initialization routine does nothing unless <tt>:active_record</tt> is
+one of the frameworks to load (Configuration#frameworks). If it is, this
+sets the database configuration from <a
+href="Configuration.html#M002141">Configuration#database_configuration</a>
+and then establishes the connection.
+</p></div></fieldset>
+
+
+<h2><a name="M002098">initialize_dependency_mechanism</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Sets the dependency loading mechanism based on the value of
+Configuration#cache_classes.
+</p></div></fieldset>
+
+
+<h2><a name="M002090">initialize_encoding</a> ()</h2>
+
+<fieldset><div class='row'><p>
+For Ruby 1.8, this initialization sets $KCODE to &#8216;u&#8217; to enable
+the multibyte safe operations. <a href="Plugin.html">Plugin</a> authors
+supporting other encodings should override this behaviour and set the
+relevant <tt>default_charset</tt> on <a
+href="../ActionController/Base.html">ActionController::Base</a>.
+</p>
+<p>
+For Ruby 1.9, this does nothing. Specify the default encoding in the Ruby
+shebang line if you don&#8216;t want UTF-8.
+</p></div></fieldset>
+
+
+<h2><a name="M002093">initialize_framework_caches</a> ()</h2>
+
+
+
+<h2><a name="M002095">initialize_framework_logging</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Sets the logger for Active Record, Action Controller, and Action Mailer
+(but only for those frameworks that are to be loaded). If the
+framework&#8216;s logger is already set, it is not changed, otherwise it is
+set to use RAILS_DEFAULT_LOGGER.
+</p></div></fieldset>
+
+
+<h2><a name="M002103">initialize_framework_settings</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Initializes framework-specific settings for each of the loaded frameworks
+(Configuration#frameworks). The available settings map to the accessors on
+each of the corresponding Base classes.
+</p></div></fieldset>
+
+
+<h2><a name="M002096">initialize_framework_views</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Sets +ActionController::Base#view_paths+ and
++ActionMailer::Base#template_root+ (but only for those frameworks that are
+to be loaded). If the framework&#8216;s paths have already been set, it is
+not changed, otherwise it is set to use Configuration#view_path.
+</p></div></fieldset>
+
+
+<h2><a name="M002102">initialize_i18n</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Set the i18n configuration from config.i18n but special-case for the
+load_path which should be appended to what&#8216;s already set instead of
+overwritten.
+</p></div></fieldset>
+
+
+<h2><a name="M002094">initialize_logger</a> ()</h2>
+
+<fieldset><div class='row'><p>
+If the RAILS_DEFAULT_LOGGER constant is already set, this initialization
+routine does nothing. If the constant is not set, and Configuration#logger
+is not <tt>nil</tt>, this also does nothing. Otherwise, a <a
+href="Initializer.html#M002071">new</a> logger instance is created at
+Configuration#log_path, with a default log level of
+Configuration#log_level.
+</p>
+<p>
+If the log could not be created, the log will be set to output to
+<tt>STDERR</tt>, with a log level of <tt>WARN</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M002097">initialize_routing</a> ()</h2>
+
+<fieldset><div class='row'><p>
+If Action Controller is not one of the loaded frameworks
+(Configuration#frameworks) this does nothing. Otherwise, it loads the
+routing definitions and sets up loading module used to lazily load
+controllers (Configuration#controller_paths).
+</p></div></fieldset>
+
+
+<h2><a name="M002100">initialize_temporary_session_directory</a> ()</h2>
+
+
+
+<h2><a name="M002101">initialize_time_zone</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Sets the default value for Time.zone, and turns on
+ActiveRecord::Base#time_zone_aware_attributes. If assigned value cannot be
+matched to a TimeZone, an exception will be raised.
+</p></div></fieldset>
+
+
+<h2><a name="M002099">initialize_whiny_nils</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Loads support for &quot;whiny nil&quot; (noisy warnings when methods are
+invoked on <tt>nil</tt> values) if Configuration#whiny_nils is true.
+</p></div></fieldset>
+
+
+<h2><a name="M002074">install_gem_spec_stubs</a> ()</h2>
+
+<fieldset><div class='row'><p>
+If <a href="../Rails.html">Rails</a> is vendored and RubyGems is available,
+install stub GemSpecs for <a href="../Rails.html">Rails</a>, Active
+Support, Active Record, Action Pack, Action Mailer, and Active Resource.
+This allows <a href="../Gem.html">Gem</a> plugins to depend on <a
+href="../Rails.html">Rails</a> even when the <a href="../Gem.html">Gem</a>
+version of <a href="../Rails.html">Rails</a> shouldn&#8216;t be loaded.
+</p></div></fieldset>
+
+
+<h2><a name="M002089">load_application_classes</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Eager load application classes
+</p></div></fieldset>
+
+
+<h2><a name="M002105">load_application_initializers</a> ()</h2>
+
+
+
+<h2><a name="M002086">load_environment</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Loads the environment specified by <a
+href="Configuration.html#M002142">Configuration#environment_path</a>, which
+is typically one of development, test, or production.
+</p></div></fieldset>
+
+
+<h2><a name="M002082">load_gems</a> ()</h2>
+
+
+
+<h2><a name="M002087">load_observers</a> ()</h2>
+
+
+
+<h2><a name="M002084">load_plugins</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Loads all plugins in <tt>config.plugin_paths</tt>. <tt>plugin_paths</tt>
+defaults to <tt>vendor/plugins</tt> but may also be set to a list of paths,
+such as
+</p>
+<pre>
+  config.plugin_paths = [&quot;#{RAILS_ROOT}/lib/plugins&quot;, &quot;#{RAILS_ROOT}/vendor/plugins&quot;]
+</pre>
+<p>
+In the default implementation, as each plugin discovered in
+<tt>plugin_paths</tt> is initialized:
+</p>
+<ul>
+<li>its <tt>lib</tt> directory, if present, is added to the load path
+(immediately after the applications lib directory)
+
+</li>
+<li><tt>init.rb</tt> is evaluated, if present
+
+</li>
+</ul>
+<p>
+After all plugins are loaded, duplicates are removed from the load path. If
+an array of plugin names is specified in config.plugins, only those plugins
+will be loaded and they plugins will be loaded in that order. Otherwise,
+plugins are loaded in alphabetical order.
+</p>
+<p>
+if config.plugins ends contains :all then the named plugins will be loaded
+in the given order and all other plugins will be loaded in alphabetical
+order
+</p></div></fieldset>
+
+
+<h2><a name="M002088">load_view_paths</a> ()</h2>
+
+
+
+<h2><a name="M002085">plugin_loader</a> ()</h2>
+
+
+
+<h2><a name="M002078">preload_frameworks</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Preload all frameworks specified by the Configuration#frameworks. Used by
+Passenger to ensure everything&#8216;s loaded before forking and to avoid
+autoload race conditions in JRuby.
+</p></div></fieldset>
+
+
+<h2><a name="M002106">prepare_dispatcher</a> ()</h2>
+
+
+
+<h2><a name="M002072">process</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Sequentially step through all of the available initialization routines, in
+order (view execution order in source).
+</p></div></fieldset>
+
+
+<h2><a name="M002077">require_frameworks</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Requires all frameworks specified by the Configuration#frameworks list. By
+default, all frameworks (Active Record, Active Support, Action Pack, Action
+Mailer, and Active Resource) are loaded.
+</p></div></fieldset>
+
+
+<h2><a name="M002076">set_autoload_paths</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Set the paths from which <a href="../Rails.html">Rails</a> will
+automatically load source files, and the load_once paths.
+</p></div></fieldset>
+
+
+<h2><a name="M002075">set_load_path</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Set the <tt>$LOAD_PATH</tt> based on the value of Configuration#load_paths.
+Duplicates are removed.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

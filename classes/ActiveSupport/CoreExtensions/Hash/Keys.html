@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Hash::Keys
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Hash::Keys
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Hash::Keys" title="ActiveSupport::CoreExtensions::Hash::Keys" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/hash/keys_rb.html">activesupport/lib/active_support/core_ext/hash/keys.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000863">assert_valid_keys</a></li>
+<li><a href="#M000857">stringify_keys</a></li>
+<li><a href="#M000858">stringify_keys!</a></li>
+<li><a href="#M000859">symbolize_keys</a></li>
+<li><a href="#M000860">symbolize_keys!</a></li>
+<li><a href="#M000861">to_options</a></li>
+<li><a href="#M000862">to_options!</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000863">assert_valid_keys</a> (*valid_keys)</h2>
+
+<fieldset><div class='row'><p>
+Validate all keys in a hash match *valid keys, raising ArgumentError on a
+mismatch. Note that keys are NOT treated indifferently, meaning if you use
+strings for keys but assert symbols as keys, this will fail.
+</p>
+<h4>Examples:</h4>
+<pre>
+  { :name =&gt; &quot;Rob&quot;, :years =&gt; &quot;28&quot; }.assert_valid_keys(:name, :age) # =&gt; raises &quot;ArgumentError: Unknown key(s): years&quot;
+  { :name =&gt; &quot;Rob&quot;, :age =&gt; &quot;28&quot; }.assert_valid_keys(&quot;name&quot;, &quot;age&quot;) # =&gt; raises &quot;ArgumentError: Unknown key(s): name, age&quot;
+  { :name =&gt; &quot;Rob&quot;, :age =&gt; &quot;28&quot; }.assert_valid_keys(:name, :age) # =&gt; passes, raises nothing
+</pre></div></fieldset>
+
+
+<h2><a name="M000857">stringify_keys</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Return a new hash with all keys converted to strings.
+</p></div></fieldset>
+
+
+<h2><a name="M000858">stringify_keys!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Destructively convert all keys to strings.
+</p></div></fieldset>
+
+
+<h2><a name="M000859">symbolize_keys</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Return a new hash with all keys converted to symbols.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>to_options</div></fieldset>
+
+<h2><a name="M000860">symbolize_keys!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Destructively convert all keys to symbols.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>to_options!</div></fieldset>
+
+<h2><a name="M000861">to_options</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Keys.html#M000859">symbolize_keys</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000862">to_options!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="Keys.html#M000859">symbolize_keys</a>!
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

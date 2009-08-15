@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::CoreExtensions::Date::Conversions
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::CoreExtensions::Date::Conversions
+    </h1>
+</div>
+<div id="ActiveSupport::CoreExtensions::Date::Conversions" title="ActiveSupport::CoreExtensions::Date::Conversions" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../files/activesupport/lib/active_support/core_ext/date/conversions_rb.html">activesupport/lib/active_support/core_ext/date/conversions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Converting dates to formatted strings, times, and datetimes.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000936">readable_inspect</a></li>
+<li><a href="#M000937">to_date</a></li>
+<li><a href="#M000939">to_datetime</a></li>
+<li><a href="#M000935">to_formatted_s</a></li>
+<li><a href="#M000938">to_time</a></li>
+<li><a href="#M000940">xmlschema</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>DATE_FORMATS</h2>
+<fieldset>
+<div class="row">
+{           :short        =&gt; &quot;%e %b&quot;,           :long         =&gt; &quot;%B %e, %Y&quot;,           :db           =&gt; &quot;%Y-%m-%d&quot;,           :number       =&gt; &quot;%Y%m%d&quot;,           :long_ordinal =&gt; lambda { |date| date.strftime(&quot;%B #{date.day.ordinalize}, %Y&quot;) }, # =&gt; &quot;April 25th, 2007&quot;           :rfc822       =&gt; &quot;%e %b %Y&quot;
+</div>
+</fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000936">readable_inspect</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Overrides the default inspect method with a human readable one, e.g.,
+&quot;Mon, 21 Feb 2005&quot;
+</p></div></fieldset>
+
+
+<h2><a name="M000937">to_date</a> ()</h2>
+
+<fieldset><div class='row'><p>
+A method to keep Time, Date and DateTime instances interchangeable on
+conversions. In this case, it simply returns <tt>self</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000939">to_datetime</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Converts a Date instance to a DateTime, where the time is set to the
+beginning of the day and UTC offset is set to 0.
+</p>
+<h4>Example:</h4>
+<pre>
+  date = Date.new(2007, 11, 10)  # =&gt; Sat, 10 Nov 2007
+
+  date.to_datetime               # =&gt; Sat, 10 Nov 2007 00:00:00 0000
+</pre></div></fieldset>
+
+
+<h2><a name="M000935">to_formatted_s</a> (format = :default)</h2>
+
+<fieldset><div class='row'><p>
+Convert to a formatted string. See DATE_FORMATS for predefined formats.
+</p>
+<p>
+This method is aliased to <tt>to_s</tt>.
+</p>
+<h4>Examples:</h4>
+<pre>
+  date = Date.new(2007, 11, 10)       # =&gt; Sat, 10 Nov 2007
+
+  date.to_formatted_s(:db)            # =&gt; &quot;2007-11-10&quot;
+  date.to_s(:db)                      # =&gt; &quot;2007-11-10&quot;
+
+  date.to_formatted_s(:short)         # =&gt; &quot;10 Nov&quot;
+  date.to_formatted_s(:long)          # =&gt; &quot;November 10, 2007&quot;
+  date.to_formatted_s(:long_ordinal)  # =&gt; &quot;November 10th, 2007&quot;
+  date.to_formatted_s(:rfc822)        # =&gt; &quot;10 Nov 2007&quot;
+</pre>
+<h2>Adding your own time formats to <a href="Conversions.html#M000935">to_formatted_s</a></h2>
+<p>
+You can add your own formats to the Date::DATE_FORMATS hash. Use the format
+name as the hash key and either a strftime string or Proc instance that
+takes a date argument as the value.
+</p>
+<pre>
+  # config/initializers/time_formats.rb
+  Date::DATE_FORMATS[:month_and_year] = &quot;%B %Y&quot;
+  Date::DATE_FORMATS[:short_ordinal] = lambda { |date| date.strftime(&quot;%B #{date.day.ordinalize}&quot;) }
+</pre></div></fieldset>
+
+
+<h2><a name="M000938">to_time</a> (form = :local)</h2>
+
+<fieldset><div class='row'><p>
+Converts a Date instance to a Time, where the time is set to the beginning
+of the day. The timezone can be either :local or :utc (default :local).
+</p>
+<h4>Examples:</h4>
+<pre>
+  date = Date.new(2007, 11, 10)  # =&gt; Sat, 10 Nov 2007
+
+  date.to_time                   # =&gt; Sat Nov 10 00:00:00 0800 2007
+  date.to_time(:local)           # =&gt; Sat Nov 10 00:00:00 0800 2007
+
+  date.to_time(:utc)             # =&gt; Sat Nov 10 00:00:00 UTC 2007
+</pre></div></fieldset>
+
+
+<h2><a name="M000940">xmlschema</a> ()</h2>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

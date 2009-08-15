@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::Validations
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Validations
+    </h1>
+</div>
+<div id="ActiveRecord::Validations" title="ActiveRecord::Validations" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/validations_rb.html">activerecord/lib/active_record/validations.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Please do have a look at <a
+href="Validations/ClassMethods.html">ActiveRecord::Validations::ClassMethods</a>
+for a higher level of validations.
+</p>
+<p>
+Active Records implement validation by overwriting Base#validate (or the
+variations, <tt><a
+href="Validations.html#M001767">validate_on_create</a></tt> and <tt><a
+href="Validations.html#M001768">validate_on_update</a></tt>). Each of these
+methods can inspect the state of the object, which usually means ensuring
+that a number of attributes have a certain value (such as not empty, within
+a given range, matching a certain regular expression).
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class Person &lt; ActiveRecord::Base
+    protected
+      def validate
+        errors.add_on_empty %w( first_name last_name )
+        errors.add(&quot;phone_number&quot;, &quot;has invalid format&quot;) unless phone_number =~ /[0-9]*/
+      end
+
+      def validate_on_create # is only run the first time a new object is saved
+        unless valid_discount?(membership_discount)
+          errors.add(&quot;membership_discount&quot;, &quot;has expired&quot;)
+        end
+      end
+
+      def validate_on_update
+        errors.add_to_base(&quot;No changes have occurred&quot;) if unchanged_attributes?
+      end
+  end
+
+  person = Person.new(&quot;first_name&quot; =&gt; &quot;David&quot;, &quot;phone_number&quot; =&gt; &quot;what?&quot;)
+  person.save                         # =&gt; false (and doesn't do the save)
+  person.errors.empty?                # =&gt; false
+  person.errors.count                 # =&gt; 2
+  person.errors.on &quot;last_name&quot;        # =&gt; &quot;can't be empty&quot;
+  person.errors.on &quot;phone_number&quot;     # =&gt; &quot;has invalid format&quot;
+  person.errors.each_full { |msg| puts msg }
+                                      # =&gt; &quot;Last name can't be empty\n&quot; +
+                                      #    &quot;Phone number has invalid format&quot;
+
+  person.attributes = { &quot;last_name&quot; =&gt; &quot;Heinemeier&quot;, &quot;phone_number&quot; =&gt; &quot;555-555&quot; }
+  person.save # =&gt; true (and person is now saved in the database)
+</pre>
+<p>
+An <a href="Errors.html">Errors</a> object is automatically created for
+every Active Record.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001765">errors</a></li>
+<li><a href="#M001762">save_with_validation</a></li>
+<li><a href="#M001763">save_with_validation!</a></li>
+<li><a href="#M001764">valid?</a></li>
+<li><a href="#M001766">validate</a></li>
+<li><a href="#M001767">validate_on_create</a></li>
+<li><a href="#M001768">validate_on_update</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Validations/ClassMethods.html" class="link">ActiveRecord::Validations::ClassMethods</a><br />
+</div></fieldset>
+
+<h2>Constants</h2>
+<h2>VALIDATIONS</h2>
+<fieldset>
+<div class="row">
+%w( validate validate_on_create validate_on_update )
+</div>
+</fieldset>
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001765">errors</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="Errors.html">Errors</a> object that holds all
+information about attribute error messages.
+</p></div></fieldset>
+
+
+<h2><a name="M001762">save_with_validation</a> (perform_validation = true)</h2>
+
+<fieldset><div class='row'><p>
+The validation process on save can be skipped by passing false. The regular
+<a href="Base.html#M001908">Base#save</a> method is replaced with this when
+the validations module is mixed in, which it is by default.
+</p></div></fieldset>
+
+
+<h2><a name="M001763">save_with_validation!</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Attempts to save the record just like <a
+href="Base.html#M001908">Base#save</a> but will raise a <a
+href="RecordInvalid.html">RecordInvalid</a> exception instead of returning
+false if the record is not valid.
+</p></div></fieldset>
+
+
+<h2><a name="M001764">valid?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Runs <tt><a href="Validations.html#M001766">validate</a></tt> and <tt><a
+href="Validations.html#M001767">validate_on_create</a></tt> or <tt><a
+href="Validations.html#M001768">validate_on_update</a></tt> and returns
+true if no <a href="Validations.html#M001765">errors</a> were added
+otherwise false.
+</p></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M001766">validate</a> (</h2>
+
+<fieldset><div class='row'><p>
+Overwrite this method for validation checks on all saves and use <tt><a
+href="Errors.html#M001805">Errors.add</a>(field, msg)</tt> for invalid
+attributes.
+</p></div></fieldset>
+
+
+<h2><a name="M001767">validate_on_create</a> (</h2>
+
+<fieldset><div class='row'><p>
+Overwrite this method for validation checks used only on creation.
+</p></div></fieldset>
+
+
+<h2><a name="M001768">validate_on_update</a> (</h2>
+
+<fieldset><div class='row'><p>
+Overwrite this method for validation checks used only on updates.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

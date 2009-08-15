@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::Inflector
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Inflector
+    </h1>
+</div>
+<div id="ActiveSupport::Inflector" title="ActiveSupport::Inflector" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/inflector_rb.html">activesupport/lib/active_support/inflector.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The <a href="Inflector.html">Inflector</a> transforms words from singular
+to plural, class names to table names, modularized class names to ones
+without, and class names to foreign keys. The default <a
+href="Inflector.html#M000736">inflections</a> for pluralization,
+singularization, and uncountable words are kept in inflections.rb.
+</p>
+<p>
+The <a href="../Rails.html">Rails</a> core team has stated patches for the
+<a href="Inflector.html#M000736">inflections</a> library will not be
+accepted in order to avoid breaking legacy applications which may be
+relying on errant <a href="Inflector.html#M000736">inflections</a>. If you
+discover an incorrect inflection and require it for your application,
+you&#8216;ll need to correct it yourself (explained below).
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000739">camelize</a></li>
+<li><a href="#M000750">classify</a></li>
+<li><a href="#M000752">constantize</a></li>
+<li><a href="#M000742">dasherize</a></li>
+<li><a href="#M000744">demodulize</a></li>
+<li><a href="#M000751">foreign_key</a></li>
+<li><a href="#M000743">humanize</a></li>
+<li><a href="#M000736">inflections</a></li>
+<li><a href="#M000753">ordinalize</a></li>
+<li><a href="#M000745">parameterize</a></li>
+<li><a href="#M000737">pluralize</a></li>
+<li><a href="#M000738">singularize</a></li>
+<li><a href="#M000749">tableize</a></li>
+<li><a href="#M000740">titleize</a></li>
+<li><a href="#M000748">transliterate</a></li>
+<li><a href="#M000746">transliterate</a></li>
+<li><a href="#M000747">transliterate</a></li>
+<li><a href="#M000741">underscore</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Class <a href="Inflector/Inflections.html" class="link">ActiveSupport::Inflector::Inflections</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000739">camelize</a> (lower_case_and_underscored_word, first_letter_in_uppercase = true)</h2>
+
+<fieldset><div class='row'><p>
+By default, <tt><a href="Inflector.html#M000739">camelize</a></tt> converts
+strings to UpperCamelCase. If the argument to <tt><a
+href="Inflector.html#M000739">camelize</a></tt> is set to <tt>:lower</tt>
+then <tt><a href="Inflector.html#M000739">camelize</a></tt> produces
+lowerCamelCase.
+</p>
+<p>
+<tt><a href="Inflector.html#M000739">camelize</a></tt> will also convert
+&#8217;/&#8217; to &#8217;::&#8217; which is useful for converting paths to
+namespaces.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;active_record&quot;.camelize                # =&gt; &quot;ActiveRecord&quot;
+  &quot;active_record&quot;.camelize(:lower)        # =&gt; &quot;activeRecord&quot;
+  &quot;active_record/errors&quot;.camelize         # =&gt; &quot;ActiveRecord::Errors&quot;
+  &quot;active_record/errors&quot;.camelize(:lower) # =&gt; &quot;activeRecord::Errors&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000750">classify</a> (table_name)</h2>
+
+<fieldset><div class='row'><p>
+Create a class name from a plural table name like <a
+href="../Rails.html">Rails</a> does for table names to models. Note that
+this returns a string and not a Class. (To convert to an actual class
+follow <tt><a href="Inflector.html#M000750">classify</a></tt> with <tt><a
+href="Inflector.html#M000752">constantize</a></tt>.)
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;egg_and_hams&quot;.classify # =&gt; &quot;EggAndHam&quot;
+  &quot;posts&quot;.classify        # =&gt; &quot;Post&quot;
+</pre>
+<p>
+Singular names are not handled correctly:
+</p>
+<pre>
+  &quot;business&quot;.classify     # =&gt; &quot;Busines&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000752">constantize</a> (camel_cased_word)</h2>
+
+<fieldset><div class='row'><p>
+Tries to find a constant with the name specified in the argument string:
+</p>
+<pre>
+  &quot;Module&quot;.constantize     # =&gt; Module
+  &quot;Test::Unit&quot;.constantize # =&gt; Test::Unit
+</pre>
+<p>
+The name is assumed to be the one of a top-level constant, no matter
+whether it starts with &quot;::&quot; or not. No lexical context is taken
+into account:
+</p>
+<pre>
+  C = 'outside'
+  module M
+    C = 'inside'
+    C               # =&gt; 'inside'
+    &quot;C&quot;.constantize # =&gt; 'outside', same as ::C
+  end
+</pre>
+<p>
+NameError is raised when the name is not in CamelCase or the constant is
+unknown.
+</p></div></fieldset>
+
+
+<h2><a name="M000742">dasherize</a> (underscored_word)</h2>
+
+<fieldset><div class='row'><p>
+Replaces underscores with dashes in the string.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  &quot;puni_puni&quot; # =&gt; &quot;puni-puni&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000744">demodulize</a> (class_name_in_module)</h2>
+
+<fieldset><div class='row'><p>
+Removes the module part from the expression in the string.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;ActiveRecord::CoreExtensions::String::Inflections&quot;.demodulize # =&gt; &quot;Inflections&quot;
+  &quot;Inflections&quot;.demodulize                                       # =&gt; &quot;Inflections&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000751">foreign_key</a> (class_name, separate_class_name_and_id_with_underscore = true)</h2>
+
+<fieldset><div class='row'><p>
+Creates a foreign key name from a class name.
+<tt>separate_class_name_and_id_with_underscore</tt> sets whether the method
+should put &#8216;_&#8217; between the name and &#8216;id&#8217;.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;Message&quot;.foreign_key        # =&gt; &quot;message_id&quot;
+  &quot;Message&quot;.foreign_key(false) # =&gt; &quot;messageid&quot;
+  &quot;Admin::Post&quot;.foreign_key    # =&gt; &quot;post_id&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000743">humanize</a> (lower_case_and_underscored_word)</h2>
+
+<fieldset><div class='row'><p>
+Capitalizes the first word and turns underscores into spaces and strips a
+trailing &quot;_id&quot;, if any. Like <tt><a
+href="Inflector.html#M000740">titleize</a></tt>, this is meant for creating
+pretty output.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;employee_salary&quot; # =&gt; &quot;Employee salary&quot;
+  &quot;author_id&quot;       # =&gt; &quot;Author&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000736">inflections</a> () {|Inflections.instance| ...}</h2>
+
+<fieldset><div class='row'><p>
+Yields a singleton instance of <a
+href="Inflector/Inflections.html">Inflector::Inflections</a> so you can
+specify additional inflector rules.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  ActiveSupport::Inflector.inflections do |inflect|
+    inflect.uncountable &quot;rails&quot;
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M000753">ordinalize</a> (number)</h2>
+
+<fieldset><div class='row'><p>
+Turns a number into an ordinal string used to denote the position in an
+ordered sequence such as 1st, 2nd, 3rd, 4th.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  ordinalize(1)     # =&gt; &quot;1st&quot;
+  ordinalize(2)     # =&gt; &quot;2nd&quot;
+  ordinalize(1002)  # =&gt; &quot;1002nd&quot;
+  ordinalize(1003)  # =&gt; &quot;1003rd&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000745">parameterize</a> (string, sep = '-')</h2>
+
+<fieldset><div class='row'><p>
+Replaces special characters in a string so that it may be used as part of a
+&#8216;pretty&#8217; URL.
+</p>
+<h4>Examples</h4>
+<pre>
+  class Person
+    def to_param
+      &quot;#{id}-#{name.parameterize}&quot;
+    end
+  end
+
+  @person = Person.find(1)
+  # =&gt; #&lt;Person id: 1, name: &quot;Donald E. Knuth&quot;&gt;
+
+  &lt;%= link_to(@person.name, person_path %&gt;
+  # =&gt; &lt;a href=&quot;/person/1-donald-e-knuth&quot;&gt;Donald E. Knuth&lt;/a&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M000737">pluralize</a> (word)</h2>
+
+<fieldset><div class='row'><p>
+Returns the plural form of the word in the string.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;post&quot;.pluralize             # =&gt; &quot;posts&quot;
+  &quot;octopus&quot;.pluralize          # =&gt; &quot;octopi&quot;
+  &quot;sheep&quot;.pluralize            # =&gt; &quot;sheep&quot;
+  &quot;words&quot;.pluralize            # =&gt; &quot;words&quot;
+  &quot;CamelOctopus&quot;.pluralize     # =&gt; &quot;CamelOctopi&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000738">singularize</a> (word)</h2>
+
+<fieldset><div class='row'><p>
+The reverse of <tt><a href="Inflector.html#M000737">pluralize</a></tt>,
+returns the singular form of a word in a string.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;posts&quot;.singularize            # =&gt; &quot;post&quot;
+  &quot;octopi&quot;.singularize           # =&gt; &quot;octopus&quot;
+  &quot;sheep&quot;.singluarize            # =&gt; &quot;sheep&quot;
+  &quot;word&quot;.singularize             # =&gt; &quot;word&quot;
+  &quot;CamelOctopi&quot;.singularize      # =&gt; &quot;CamelOctopus&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000749">tableize</a> (class_name)</h2>
+
+<fieldset><div class='row'><p>
+Create the name of a table like <a href="../Rails.html">Rails</a> does for
+models to table names. This method uses the <tt><a
+href="Inflector.html#M000737">pluralize</a></tt> method on the last word in
+the string.
+</p>
+<p>
+Examples
+</p>
+<pre>
+  &quot;RawScaledScorer&quot;.tableize # =&gt; &quot;raw_scaled_scorers&quot;
+  &quot;egg_and_ham&quot;.tableize     # =&gt; &quot;egg_and_hams&quot;
+  &quot;fancyCategory&quot;.tableize   # =&gt; &quot;fancy_categories&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000740">titleize</a> (word)</h2>
+
+<fieldset><div class='row'><p>
+Capitalizes all the words and replaces some characters in the string to
+create a nicer looking title. <tt><a
+href="Inflector.html#M000740">titleize</a></tt> is meant for creating
+pretty output. It is not used in the <a href="../Rails.html">Rails</a>
+internals.
+</p>
+<p>
+<tt><a href="Inflector.html#M000740">titleize</a></tt> is also aliased as
+as <tt>titlecase</tt>.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;man from the boondocks&quot;.titleize # =&gt; &quot;Man From The Boondocks&quot;
+  &quot;x-men: the last stand&quot;.titleize  # =&gt; &quot;X Men: The Last Stand&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000748">transliterate</a> (string)</h2>
+
+
+
+<h2><a name="M000746">transliterate</a> (string)</h2>
+
+<fieldset><div class='row'><p>
+Replaces accented characters with their ascii equivalents.
+</p></div></fieldset>
+
+
+<h2><a name="M000747">transliterate</a> (string)</h2>
+
+
+
+<h2><a name="M000741">underscore</a> (camel_cased_word)</h2>
+
+<fieldset><div class='row'><p>
+The reverse of <tt><a href="Inflector.html#M000739">camelize</a></tt>.
+Makes an underscored, lowercase form from the expression in the string.
+</p>
+<p>
+Changes &#8217;::&#8217; to &#8217;/&#8217; to convert namespaces to paths.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &quot;ActiveRecord&quot;.underscore         # =&gt; &quot;active_record&quot;
+  &quot;ActiveRecord::Errors&quot;.underscore # =&gt; active_record/errors
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

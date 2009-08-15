@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Caching
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Caching
+    </h1>
+</div>
+<div id="ActionController::Caching" title="ActionController::Caching" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/caching/actions_rb.html">actionpack/lib/action_controller/caching/actions.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/caching/fragments_rb.html">actionpack/lib/action_controller/caching/fragments.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/caching/pages_rb.html">actionpack/lib/action_controller/caching/pages.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/caching/sql_cache_rb.html">actionpack/lib/action_controller/caching/sql_cache.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/caching/sweeping_rb.html">actionpack/lib/action_controller/caching/sweeping.rb</a>
+                </li>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/caching_rb.html">actionpack/lib/action_controller/caching.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Caching.html">Caching</a> is a cheap way of speeding up slow
+applications by keeping the result of calculations, renderings, and
+database calls around for subsequent requests. Action Controller affords
+you three approaches in varying levels of granularity: Page, Action,
+Fragment.
+</p>
+<p>
+You can read more about each approach and the sweeping assistance by
+clicking the modules below.
+</p>
+<p>
+Note: To turn off all caching and sweeping, set Base.perform_caching =
+false.
+</p>
+<h2><a href="Caching.html">Caching</a> stores</h2>
+<p>
+All the caching stores from <a
+href="../ActiveSupport/Cache.html">ActiveSupport::Cache</a> is available to
+be used as backends for Action Controller caching. This setting only
+affects action and fragment caching as page caching is always written to
+disk.
+</p>
+<p>
+Configuration examples (MemoryStore is the default):
+</p>
+<pre>
+  ActionController::Base.cache_store = :memory_store
+  ActionController::Base.cache_store = :file_store, &quot;/path/to/cache/directory&quot;
+  ActionController::Base.cache_store = :drb_store, &quot;druby://localhost:9192&quot;
+  ActionController::Base.cache_store = :mem_cache_store, &quot;localhost&quot;
+  ActionController::Base.cache_store = MyOwnStore.new(&quot;parameter&quot;)
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000212">cache</a></li>
+<li><a href="#M000211">cache_configured?</a></li>
+<li><a href="#M000210">cache_store=</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="Caching/Pages.html">Pages</a></li>
+<li><a href="Caching/Actions.html">Actions</a></li>
+<li><a href="Caching/Fragments.html">Fragments</a></li>
+<li><a href="Caching/Sweeping.html">Sweeping</a></li>
+<li><a href="Caching/SqlCache.html">SqlCache</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Caching/Actions.html" class="link">ActionController::Caching::Actions</a><br />
+Module <a href="Caching/Fragments.html" class="link">ActionController::Caching::Fragments</a><br />
+Module <a href="Caching/Pages.html" class="link">ActionController::Caching::Pages</a><br />
+Module <a href="Caching/SqlCache.html" class="link">ActionController::Caching::SqlCache</a><br />
+Module <a href="Caching/Sweeping.html" class="link">ActionController::Caching::Sweeping</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000211">cache_configured?</a> ()</h2>
+
+
+
+<h2><a name="M000210">cache_store=</a> (store_option)</h2>
+
+<fieldset><div class='row'><p>
+Defines the storage option for cached fragments
+</p></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M000212">cache</a> (key, options = {}) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Convenience accessor
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionController::AbstractRequest
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::AbstractRequest
+    </h1>
+</div>
+<div id="ActionController::AbstractRequest" title="ActionController::AbstractRequest" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/request_rb.html">actionpack/lib/action_controller/request.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+CgiRequest and TestRequest provide concrete implementations.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000366">accepts</a></li>
+<li><a href="#M000398">body</a></li>
+<li><a href="#M000375">cache_format</a></li>
+<li><a href="#M000364">content_length</a></li>
+<li><a href="#M000365">content_type</a></li>
+<li><a href="#M000404">content_type_with_parameters</a></li>
+<li><a href="#M000405">content_type_without_parameters</a></li>
+<li><a href="#M000361">delete?</a></li>
+<li><a href="#M000389">domain</a></li>
+<li><a href="#M000370">etag_matches?</a></li>
+<li><a href="#M000372">format</a></li>
+<li><a href="#M000373">format=</a></li>
+<li><a href="#M000371">fresh?</a></li>
+<li><a href="#M000358">get?</a></li>
+<li><a href="#M000362">head?</a></li>
+<li><a href="#M000363">headers</a></li>
+<li><a href="#M000384">host</a></li>
+<li><a href="#M000385">host_with_port</a></li>
+<li><a href="#M000367">if_modified_since</a></li>
+<li><a href="#M000368">if_none_match</a></li>
+<li><a href="#M000357">method</a></li>
+<li><a href="#M000369">not_modified?</a></li>
+<li><a href="#M000395">parameters</a></li>
+<li><a href="#M000393">path</a></li>
+<li><a href="#M000397">path_parameters</a></li>
+<li><a href="#M000386">port</a></li>
+<li><a href="#M000388">port_string</a></li>
+<li><a href="#M000359">post?</a></li>
+<li><a href="#M000381">protocol</a></li>
+<li><a href="#M000360">put?</a></li>
+<li><a href="#M000402">query_parameters</a></li>
+<li><a href="#M000391">query_string</a></li>
+<li><a href="#M000383">raw_host_with_port</a></li>
+<li><a href="#M000394">raw_post</a></li>
+<li><a href="#M000401">referer</a></li>
+<li><a href="#M000400">referrer</a></li>
+<li><a href="#M000355">relative_url_root=</a></li>
+<li><a href="#M000399">remote_addr</a></li>
+<li><a href="#M000378">remote_ip</a></li>
+<li><a href="#M000356">request_method</a></li>
+<li><a href="#M000403">request_parameters</a></li>
+<li><a href="#M000392">request_uri</a></li>
+<li><a href="#M000379">server_software</a></li>
+<li><a href="#M000382">ssl?</a></li>
+<li><a href="#M000387">standard_port</a></li>
+<li><a href="#M000390">subdomains</a></li>
+<li><a href="#M000396">symbolized_path_parameters</a></li>
+<li><a href="#M000374">template_format</a></li>
+<li><a href="#M000380">url</a></li>
+<li><a href="#M000377">xhr?</a></li>
+<li><a href="#M000376">xml_http_request?</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Constants</h2>
+<h2>HTTP_METHODS</h2>
+<fieldset>
+<div class="row">
+%w(get head put post delete options)
+</div>
+</fieldset>
+<h2>HTTP_METHOD_LOOKUP</h2>
+<fieldset>
+<div class="row">
+HTTP_METHODS.inject({}) { |h, m| h[m] = h[m.upcase] = m.to_sym;
+</div>
+</fieldset>
+<h2>TRUSTED_PROXIES</h2>
+<fieldset>
+<div class="row">
+/^127\.0\.0\.1$|^(10|172\.(1[6-9]|2[0-9]|30|31)|192\.168)\./i
+
+Which IP addresses are &quot;trusted proxies&quot; that can be stripped
+from the right-hand-side of X-Forwarded-For
+
+
+</div>
+</fieldset>
+<h2>MULTIPART_BOUNDARY</h2>
+<fieldset>
+<div class="row">
+%r|\Amultipart/form-data.*boundary=\&quot;?([^\&quot;;,]+)\&quot;?|n
+</div>
+</fieldset>
+<h2>EOL</h2>
+<fieldset>
+<div class="row">
+&quot;\015\012&quot;
+</div>
+</fieldset>
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+env
+</label>
+
+The hash of environment variables for this request, such as {
+&#8216;RAILS_ENV&#8217; =&gt; &#8216;production&#8217; }.
+
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M000355">relative_url_root=</a> (relative_url_root)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000366">accepts</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the accepted MIME type for the request.
+</p></div></fieldset>
+
+
+<h2><a name="M000398">body</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The request <a href="AbstractRequest.html#M000398">body</a> is an IO input
+stream. If the RAW_POST_DATA environment variable is already set, wrap it
+in a StringIO.
+</p></div></fieldset>
+
+
+<h2><a name="M000375">cache_format</a> ()</h2>
+
+
+
+<h2><a name="M000364">content_length</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the content length of the request as an integer.
+</p></div></fieldset>
+
+
+<h2><a name="M000365">content_type</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The MIME type of the HTTP request, such as Mime::XML.
+</p>
+<p>
+For backward compatibility, the post \<a
+href="AbstractRequest.html#M000372">format</a> is extracted from the
+X-Post-Data-Format HTTP header if present.
+</p></div></fieldset>
+
+
+<h2><a name="M000361">delete?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Is this a DELETE request? Equivalent to <tt>request.method == :delete</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000389">domain</a> (tld_length = 1)</h2>
+
+<fieldset><div class='row'><p>
+Returns the \<a href="AbstractRequest.html#M000389">domain</a> part of a
+\<a href="AbstractRequest.html#M000384">host</a>, such as
+&quot;rubyonrails.org&quot; in &quot;<a
+href="http://www.rubyonrails.org">www.rubyonrails.org</a>&quot;. You can
+specify a different <tt>tld_length</tt>, such as 2 to catch
+rubyonrails.co.uk in &quot;<a
+href="http://www.rubyonrails.co.uk">www.rubyonrails.co.uk</a>&quot;.
+</p></div></fieldset>
+
+
+<h2><a name="M000370">etag_matches?</a> (etag)</h2>
+
+
+
+<h2><a name="M000372">format</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="../Mime.html">Mime</a> type for the \<a
+href="AbstractRequest.html#M000372">format</a> used in the request.
+</p>
+<pre>
+  GET /posts/5.xml   | request.format =&gt; Mime::XML
+  GET /posts/5.xhtml | request.format =&gt; Mime::HTML
+  GET /posts/5       | request.format =&gt; Mime::HTML or MIME::JS, or request.accepts.first depending on the value of &lt;tt&gt;ActionController::Base.use_accept_header&lt;/tt&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M000373">format=</a> (extension)</h2>
+
+<fieldset><div class='row'><p>
+Sets the \<a href="AbstractRequest.html#M000372">format</a> by string
+extension, which can be used to force custom formats that are not
+controlled by the extension.
+</p>
+<pre>
+  class ApplicationController &lt; ActionController::Base
+    before_filter :adjust_format_for_iphone
+
+    private
+      def adjust_format_for_iphone
+        request.format = :iphone if request.env[&quot;HTTP_USER_AGENT&quot;][/iPhone/]
+      end
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M000371">fresh?</a> (response)</h2>
+
+<fieldset><div class='row'><p>
+Check response freshness (Last-Modified and ETag) against request
+If-Modified-Since and If-None-Match conditions. If both <a
+href="AbstractRequest.html#M000363">headers</a> are supplied, both must
+match, or the request is not considered fresh.
+</p></div></fieldset>
+
+
+<h2><a name="M000358">get?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Is this a GET (or HEAD) request? Equivalent to <tt>request.method ==
+:get</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000362">head?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Is this a HEAD request? Since <tt>request.method</tt> sees HEAD as
+<tt>:get</tt>, this \<a href="AbstractRequest.html#M000357">method</a>
+checks the actual HTTP \<a href="AbstractRequest.html#M000357">method</a>
+directly.
+</p></div></fieldset>
+
+
+<h2><a name="M000363">headers</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Provides access to the request&#8216;s HTTP <a
+href="AbstractRequest.html#M000363">headers</a>, for example:
+</p>
+<pre>
+  request.headers[&quot;Content-Type&quot;] # =&gt; &quot;text/plain&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000384">host</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="AbstractRequest.html#M000384">host</a> for this
+request, such as example.com.
+</p></div></fieldset>
+
+
+<h2><a name="M000385">host_with_port</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a \<a href="AbstractRequest.html#M000384">host</a>:\<a
+href="AbstractRequest.html#M000386">port</a> string for this request, such
+as &quot;example.com&quot; or &quot;example.com:8080&quot;.
+</p></div></fieldset>
+
+
+<h2><a name="M000367">if_modified_since</a> ()</h2>
+
+
+
+<h2><a name="M000368">if_none_match</a> ()</h2>
+
+
+
+<h2><a name="M000357">method</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The HTTP request \<a href="AbstractRequest.html#M000357">method</a> as a
+lowercase symbol, such as <tt>:get</tt>. Note, HEAD is returned as
+<tt>:get</tt> since the two are functionally equivalent from the
+application&#8216;s perspective.
+</p></div></fieldset>
+
+
+<h2><a name="M000369">not_modified?</a> (modified_at)</h2>
+
+
+
+<h2><a name="M000395">parameters</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns both GET and POST \<a
+href="AbstractRequest.html#M000395">parameters</a> in a single hash.
+</p></div></fieldset>
+
+
+<h2><a name="M000393">path</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the interpreted \<a href="AbstractRequest.html#M000393">path</a> to
+requested resource after all the installation directory of this application
+was taken into account.
+</p></div></fieldset>
+
+
+<h2><a name="M000397">path_parameters</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a hash with the \<a
+href="AbstractRequest.html#M000395">parameters</a> used to form the \<a
+href="AbstractRequest.html#M000393">path</a> of the request. Returned hash
+keys are strings:
+</p>
+<pre>
+  {'action' =&gt; 'my_action', 'controller' =&gt; 'my_controller'}
+</pre>
+<p>
+See <tt><a
+href="AbstractRequest.html#M000396">symbolized_path_parameters</a></tt> for
+symbolized keys.
+</p></div></fieldset>
+
+
+<h2><a name="M000386">port</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the <a href="AbstractRequest.html#M000386">port</a> number of this
+request as an integer.
+</p></div></fieldset>
+
+
+<h2><a name="M000388">port_string</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a \<a href="AbstractRequest.html#M000386">port</a> suffix like
+&quot;:8080&quot; if the \<a href="AbstractRequest.html#M000386">port</a>
+number of this request is not the default HTTP \<a
+href="AbstractRequest.html#M000386">port</a> 80 or HTTPS \<a
+href="AbstractRequest.html#M000386">port</a> 443.
+</p></div></fieldset>
+
+
+<h2><a name="M000359">post?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Is this a POST request? Equivalent to <tt>request.method == :post</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000381">protocol</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns &#8216;https://&#8217; if this is an SSL request and
+&#8216;http://&#8217; otherwise.
+</p></div></fieldset>
+
+
+<h2><a name="M000360">put?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Is this a PUT request? Equivalent to <tt>request.method == :put</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000402">query_parameters</a> ()</h2>
+
+
+
+<h2><a name="M000391">query_string</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the query string, accounting for server idiosyncrasies.
+</p></div></fieldset>
+
+
+<h2><a name="M000383">raw_host_with_port</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the \<a href="AbstractRequest.html#M000384">host</a> for this
+request, such as &quot;example.com&quot;.
+</p></div></fieldset>
+
+
+<h2><a name="M000394">raw_post</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Read the request \<a href="AbstractRequest.html#M000398">body</a>. This is
+useful for web services that need to work with raw requests directly.
+</p></div></fieldset>
+
+
+<h2><a name="M000401">referer</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="AbstractRequest.html#M000400">referrer</a>
+</p></div></fieldset>
+
+
+<h2><a name="M000400">referrer</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>referer</div></fieldset>
+
+<h2><a name="M000399">remote_addr</a> ()</h2>
+
+
+
+<h2><a name="M000378">remote_ip</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Determines originating IP address. REMOTE_ADDR is the standard but will
+fail if the user is behind a proxy. HTTP_CLIENT_IP and/or
+HTTP_X_FORWARDED_FOR are set by proxies so check for these if REMOTE_ADDR
+is a proxy. HTTP_X_FORWARDED_FOR may be a comma- delimited list in the case
+of multiple chained proxies; the last address which is not trusted is the
+originating IP.
+</p></div></fieldset>
+
+
+<h2><a name="M000356">request_method</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The true HTTP request \<a href="AbstractRequest.html#M000357">method</a> as
+a lowercase symbol, such as <tt>:get</tt>. UnknownHttpMethod is raised for
+invalid methods not listed in ACCEPTED_HTTP_METHODS.
+</p></div></fieldset>
+
+
+<h2><a name="M000403">request_parameters</a> ()</h2>
+
+
+
+<h2><a name="M000392">request_uri</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the request URI, accounting for server idiosyncrasies. WEBrick
+includes the full URL. IIS leaves REQUEST_URI blank.
+</p></div></fieldset>
+
+
+<h2><a name="M000379">server_software</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the lowercase name of the HTTP server software.
+</p></div></fieldset>
+
+
+<h2><a name="M000382">ssl?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Is this an SSL request?
+</p></div></fieldset>
+
+
+<h2><a name="M000387">standard_port</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the standard \<a href="AbstractRequest.html#M000386">port</a>
+number for this request&#8216;s <a
+href="AbstractRequest.html#M000381">protocol</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M000390">subdomains</a> (tld_length = 1)</h2>
+
+<fieldset><div class='row'><p>
+Returns all the \<a href="AbstractRequest.html#M000390">subdomains</a> as
+an array, so <tt>[&quot;dev&quot;, &quot;www&quot;]</tt> would be returned
+for &quot;dev.www.rubyonrails.org&quot;. You can specify a different
+<tt>tld_length</tt>, such as 2 to catch <tt>[&quot;www&quot;]</tt> instead
+of <tt>[&quot;www&quot;, &quot;rubyonrails&quot;]</tt> in &quot;<a
+href="http://www.rubyonrails.co.uk">www.rubyonrails.co.uk</a>&quot;.
+</p></div></fieldset>
+
+
+<h2><a name="M000396">symbolized_path_parameters</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The same as <tt><a
+href="AbstractRequest.html#M000397">path_parameters</a></tt> with
+explicitly symbolized keys.
+</p></div></fieldset>
+
+
+<h2><a name="M000374">template_format</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a symbolized version of the <tt>:<a
+href="AbstractRequest.html#M000372">format</a></tt> parameter of the
+request. If no \<a href="AbstractRequest.html#M000372">format</a> is given
+it returns <tt>:js</tt>for Ajax requests and <tt>:html</tt> otherwise.
+</p></div></fieldset>
+
+
+<h2><a name="M000380">url</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the complete URL used for this request.
+</p></div></fieldset>
+
+
+<h2><a name="M000377">xhr?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for xml_http_request?
+</p></div></fieldset>
+
+
+<h2><a name="M000376">xml_http_request?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns true if the request&#8216;s &quot;X-Requested-With&quot; header
+contains &quot;XMLHttpRequest&quot;. (The Prototype Javascript library
+sends this header with every Ajax request.)
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>xhr?</div></fieldset>
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M000404">content_type_with_parameters</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The raw content type string. Use when you need <a
+href="AbstractRequest.html#M000395">parameters</a> such as charset or
+boundary which aren&#8216;t included in the <a
+href="AbstractRequest.html#M000365">content_type</a> MIME type. Overridden
+by the X-POST_DATA_FORMAT header for backward compatibility.
+</p></div></fieldset>
+
+
+<h2><a name="M000405">content_type_without_parameters</a> ()</h2>
+
+<fieldset><div class='row'><p>
+The raw content type string with its <a
+href="AbstractRequest.html#M000395">parameters</a> stripped off.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

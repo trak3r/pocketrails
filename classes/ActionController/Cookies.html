@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Cookies
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Cookies
+    </h1>
+</div>
+<div id="ActionController::Cookies" title="ActionController::Cookies" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/actionpack/lib/action_controller/cookies_rb.html">actionpack/lib/action_controller/cookies.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+<a href="Cookies.html">Cookies</a> are read and written through
+ActionController#cookies.
+</p>
+<p>
+The <a href="Cookies.html#M000271">cookies</a> being read are the ones
+received along with the request, the <a
+href="Cookies.html#M000271">cookies</a> being written will be sent out with
+the response. Reading a cookie does not get the cookie object itself back,
+just the value it holds.
+</p>
+<p>
+Examples for writing:
+</p>
+<pre>
+  # Sets a simple session cookie.
+  cookies[:user_name] = &quot;david&quot;
+
+  # Sets a cookie that expires in 1 hour.
+  cookies[:login] = { :value =&gt; &quot;XJ-122&quot;, :expires =&gt; 1.hour.from_now }
+</pre>
+<p>
+Examples for reading:
+</p>
+<pre>
+  cookies[:user_name] # =&gt; &quot;david&quot;
+  cookies.size        # =&gt; 2
+</pre>
+<p>
+Example for deleting:
+</p>
+<pre>
+  cookies.delete :user_name
+</pre>
+<p>
+Please note that if you specify a :domain when setting a cookie, you must
+also specify the domain when deleting the cookie:
+</p>
+<pre>
+ cookies[:key] = {
+   :value =&gt; 'a yummy cookie',
+   :expires =&gt; 1.year.from_now,
+   :domain =&gt; 'domain.com'
+ }
+
+ cookies.delete(:key, :domain =&gt; 'domain.com')
+</pre>
+<p>
+The option symbols for setting <a href="Cookies.html#M000271">cookies</a>
+are:
+</p>
+<ul>
+<li><tt>:value</tt> - The cookie&#8216;s value or list of values (as an array).
+
+</li>
+<li><tt>:path</tt> - The path for which this cookie applies. Defaults to the
+root of the application.
+
+</li>
+<li><tt>:domain</tt> - The domain for which this cookie applies.
+
+</li>
+<li><tt>:expires</tt> - The time at which this cookie expires, as a Time
+object.
+
+</li>
+<li><tt>:secure</tt> - Whether this cookie is a only transmitted to HTTPS
+servers. Default is <tt>false</tt>.
+
+</li>
+<li><tt>:http_only</tt> - Whether this cookie is accessible via scripting or
+only HTTP. Defaults to <tt>false</tt>.
+
+</li>
+</ul>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000271">cookies</a></li>
+<li><a href="#M000270">included</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000270">included</a> (base)</h2>
+
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M000271">cookies</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the cookie container, which operates as described above.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

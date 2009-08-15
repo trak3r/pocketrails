@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionView::Helpers::AtomFeedHelper
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Helpers::AtomFeedHelper
+    </h1>
+</div>
+<div id="ActionView::Helpers::AtomFeedHelper" title="ActionView::Helpers::AtomFeedHelper" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_view/helpers/atom_feed_helper_rb.html">actionpack/lib/action_view/helpers/atom_feed_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001255">atom_feed</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Class <a href="AtomFeedHelper/AtomBuilder.html" class="link">ActionView::Helpers::AtomFeedHelper::AtomBuilder</a><br />
+Class <a href="AtomFeedHelper/AtomFeedBuilder.html" class="link">ActionView::Helpers::AtomFeedHelper::AtomFeedBuilder</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001255">atom_feed</a> (options = {}) {|AtomFeedBuilder.new(xml, self, options)| ...}</h2>
+
+<fieldset><div class='row'><p>
+Full usage example:
+</p>
+<pre>
+  config/routes.rb:
+    ActionController::Routing::Routes.draw do |map|
+      map.resources :posts
+      map.root :controller =&gt; &quot;posts&quot;
+    end
+
+  app/controllers/posts_controller.rb:
+    class PostsController &lt; ApplicationController::Base
+      # GET /posts.html
+      # GET /posts.atom
+      def index
+        @posts = Post.find(:all)
+
+        respond_to do |format|
+          format.html
+          format.atom
+        end
+      end
+    end
+
+  app/views/posts/index.atom.builder:
+    atom_feed do |feed|
+      feed.title(&quot;My great blog!&quot;)
+      feed.updated((@posts.first.created_at))
+
+      for post in @posts
+        feed.entry(post) do |entry|
+          entry.title(post.title)
+          entry.content(post.body, :type =&gt; 'html')
+
+          entry.author do |author|
+            author.name(&quot;DHH&quot;)
+          end
+        end
+      end
+    end
+</pre>
+<p>
+The options for <a href="AtomFeedHelper.html#M001255">atom_feed</a> are:
+</p>
+<ul>
+<li><tt>:language</tt>: Defaults to &quot;en-US&quot;.
+
+</li>
+<li><tt>:root_url</tt>: The HTML alternative that this feed is doubling for.
+Defaults to / on the current host.
+
+</li>
+<li><tt>:url</tt>: The URL for this feed. Defaults to the current URL.
+
+</li>
+<li><tt>:id</tt>: The id for this feed. Defaults to &quot;<a
+href="http://0">tag:#{request.host},#{options[:schema_date]}:#{request.request_uri.split(".")</a>}&quot;
+
+</li>
+<li><tt>:schema_date</tt>: The date at which the tag scheme for the feed was
+first used. A good default is the year you created the feed. See <a
+href="http://feedvalidator.org/docs/error/InvalidTAG.html">feedvalidator.org/docs/error/InvalidTAG.html</a>
+for more information. If not specified, 2005 is used (as an &quot;I
+don&#8216;t care&quot; value).
+
+</li>
+<li><tt>:instruct</tt>: Hash of XML processing instructions in the form {target
+=&gt; {attribute =&gt; value, }} or {target =&gt; [{attribute =&gt; value,
+}, ]}
+
+</li>
+</ul>
+<p>
+Other namespaces can be added to the root element:
+</p>
+<pre>
+  app/views/posts/index.atom.builder:
+    atom_feed({'xmlns:app' =&gt; 'http://www.w3.org/2007/app',
+        'xmlns:openSearch' =&gt; 'http://a9.com/-/spec/opensearch/1.1/'}) do |feed|
+      feed.title(&quot;My great blog!&quot;)
+      feed.updated((@posts.first.created_at))
+      feed.tag!(openSearch:totalResults, 10)
+
+      for post in @posts
+        feed.entry(post) do |entry|
+          entry.title(post.title)
+          entry.content(post.body, :type =&gt; 'html')
+          entry.tag!('app:edited', Time.now)
+
+          entry.author do |author|
+            author.name(&quot;DHH&quot;)
+          end
+        end
+      end
+    end
+</pre>
+<p>
+The Atom spec defines five elements (content rights title subtitle summary)
+which may directly contain xhtml content if :type =&gt; &#8216;xhtml&#8217;
+is specified as an attribute. If so, this helper will take care of the
+enclosing div and xhtml namespace declaration. Example usage:
+</p>
+<pre>
+   entry.summary :type =&gt; 'xhtml' do |xhtml|
+     xhtml.p pluralize(order.line_items.count, &quot;line item&quot;)
+     xhtml.p &quot;Shipped to #{order.address}&quot;
+     xhtml.p &quot;Paid by #{order.pay_type}&quot;
+   end
+</pre>
+<p>
+<a href="AtomFeedHelper.html#M001255">atom_feed</a> yields an <a
+href="AtomFeedHelper/AtomFeedBuilder.html">AtomFeedBuilder</a> instance.
+Nested elements yield an <a
+href="AtomFeedHelper/AtomBuilder.html">AtomBuilder</a> instance.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

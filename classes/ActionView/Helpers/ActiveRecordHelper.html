@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionView::Helpers::ActiveRecordHelper
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Helpers::ActiveRecordHelper
+    </h1>
+</div>
+<div id="ActionView::Helpers::ActiveRecordHelper" title="ActionView::Helpers::ActiveRecordHelper" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_view/helpers/active_record_helper_rb.html">actionpack/lib/action_view/helpers/active_record_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+The Active Record Helper makes it easier to create forms for records kept
+in instance variables. The most far-reaching is the <tt><a
+href="ActiveRecordHelper.html#M001331">form</a></tt> method that creates a
+complete <a href="ActiveRecordHelper.html#M001331">form</a> for all the
+basic content types of the record (not associations or aggregations,
+though). This is a great way of making the record quickly available for
+editing, but likely to prove lackluster for a complicated real-world <a
+href="ActiveRecordHelper.html#M001331">form</a>. In that case, it&#8216;s
+better to use the <tt><a
+href="ActiveRecordHelper.html#M001330">input</a></tt> method and the
+specialized <tt><a href="ActiveRecordHelper.html#M001331">form</a></tt>
+methods in <a
+href="FormHelper.html">classes/ActionView/Helpers/FormHelper.html</a>
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001332">error_message_on</a></li>
+<li><a href="#M001333">error_messages_for</a></li>
+<li><a href="#M001331">form</a></li>
+<li><a href="#M001330">input</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001332">error_message_on</a> (object, method, *args)</h2>
+
+<fieldset><div class='row'><p>
+Returns a string containing the error message attached to the
+<tt>method</tt> on the <tt>object</tt> if one exists. This error message is
+wrapped in a <tt>DIV</tt> tag, which can be extended to include a
+<tt>:prepend_text</tt> and/or <tt>:append_text</tt> (to properly explain
+the error), and a <tt>:css_class</tt> to style it accordingly.
+<tt>object</tt> should either be the name of an instance variable or the
+actual object. The method can be passed in either as a string or a symbol.
+As an example, let&#8216;s say you have a model <tt>@post</tt> that has an
+error message on the <tt>title</tt> attribute:
+</p>
+<pre>
+  &lt;%= error_message_on &quot;post&quot;, &quot;title&quot; %&gt;
+  # =&gt; &lt;div class=&quot;formError&quot;&gt;can't be empty&lt;/div&gt;
+
+  &lt;%= error_message_on @post, :title %&gt;
+  # =&gt; &lt;div class=&quot;formError&quot;&gt;can't be empty&lt;/div&gt;
+
+  &lt;%= error_message_on &quot;post&quot;, &quot;title&quot;,
+      :prepend_text =&gt; &quot;Title simply &quot;,
+      :append_text =&gt; &quot; (or it won't work).&quot;,
+      :css_class =&gt; &quot;inputError&quot; %&gt;
+</pre></div></fieldset>
+
+
+<h2><a name="M001333">error_messages_for</a> (*params)</h2>
+
+<fieldset><div class='row'><p>
+Returns a string with a <tt>DIV</tt> containing all of the error messages
+for the objects located as instance variables by the names given. If more
+than one object is specified, the errors for the objects are displayed in
+the order that the object names are provided.
+</p>
+<p>
+This <tt>DIV</tt> can be tailored by the following options:
+</p>
+<ul>
+<li><tt>:header_tag</tt> - Used for the header of the error div (default:
+&quot;h2&quot;).
+
+</li>
+<li><tt>:id</tt> - The id of the error div (default:
+&quot;errorExplanation&quot;).
+
+</li>
+<li><tt>:class</tt> - The class of the error div (default:
+&quot;errorExplanation&quot;).
+
+</li>
+<li><tt>:object</tt> - The object (or array of objects) for which to display
+errors, if you need to escape the instance variable convention.
+
+</li>
+<li><tt>:object_name</tt> - The object name to use in the header, or any text
+that you prefer. If <tt>:object_name</tt> is not set, the name of the first
+object will be used.
+
+</li>
+<li><tt>:header_message</tt> - The message in the header of the error div. Pass
+<tt>nil</tt> or an empty string to avoid the header message altogether.
+(Default: &quot;X errors prohibited this object from being saved&quot;).
+
+</li>
+<li><tt>:message</tt> - The explanation message after the header message and
+before the error list. Pass <tt>nil</tt> or an empty string to avoid the
+explanation message altogether. (Default: &quot;There were problems with
+the following fields:&quot;).
+
+</li>
+</ul>
+<p>
+To specify the display for one object, you simply provide its name as a
+parameter. For example, for the <tt>@user</tt> model:
+</p>
+<pre>
+  error_messages_for 'user'
+</pre>
+<p>
+To specify more than one object, you simply list them; optionally, you can
+add an extra <tt>:object_name</tt> parameter, which will be the name used
+in the header message:
+</p>
+<pre>
+  error_messages_for 'user_common', 'user', :object_name =&gt; 'user'
+</pre>
+<p>
+If the objects cannot be located as instance variables, you can add an
+extra <tt>:object</tt> parameter which gives the actual object (or array of
+objects to use):
+</p>
+<pre>
+  error_messages_for 'user', :object =&gt; @question.user
+</pre>
+<p>
+NOTE: This is a pre-packaged presentation of the errors with embedded
+strings and a certain HTML structure. If what you need is significantly
+different from the default presentation, it makes plenty of sense to access
+the <tt>object.errors</tt> instance yourself and set it up. View the source
+of this method to see how easy it is.
+</p></div></fieldset>
+
+
+<h2><a name="M001331">form</a> (record_name, options = {}) {|contents if block_given?| ...}</h2>
+
+<fieldset><div class='row'><p>
+Returns an entire <a href="ActiveRecordHelper.html#M001331">form</a> with
+all needed <a href="ActiveRecordHelper.html#M001330">input</a> tags for a
+specified Active Record object. For example, if <tt>@post</tt> has
+attributes named <tt>title</tt> of type <tt>VARCHAR</tt> and <tt>body</tt>
+of type <tt>TEXT</tt> then
+</p>
+<pre>
+  form(&quot;post&quot;)
+</pre>
+<p>
+would yield a <a href="ActiveRecordHelper.html#M001331">form</a> like the
+following (modulus formatting):
+</p>
+<pre>
+  &lt;form action='/posts/create' method='post'&gt;
+    &lt;p&gt;
+      &lt;label for=&quot;post_title&quot;&gt;Title&lt;/label&gt;&lt;br /&gt;
+      &lt;input id=&quot;post_title&quot; name=&quot;post[title]&quot; size=&quot;30&quot; type=&quot;text&quot; value=&quot;Hello World&quot; /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      &lt;label for=&quot;post_body&quot;&gt;Body&lt;/label&gt;&lt;br /&gt;
+      &lt;textarea cols=&quot;40&quot; id=&quot;post_body&quot; name=&quot;post[body]&quot; rows=&quot;20&quot;&gt;&lt;/textarea&gt;
+    &lt;/p&gt;
+    &lt;input name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Create&quot; /&gt;
+  &lt;/form&gt;
+</pre>
+<p>
+It&#8216;s possible to specialize the <a
+href="ActiveRecordHelper.html#M001331">form</a> builder by using a
+different action name and by supplying another block renderer. For example,
+if <tt>@entry</tt> has an attribute <tt>message</tt> of type
+<tt>VARCHAR</tt> then
+</p>
+<pre>
+  form(&quot;entry&quot;,
+    :action =&gt; &quot;sign&quot;,
+    :input_block =&gt; Proc.new { |record, column|
+      &quot;#{column.human_name}: #{input(record, column.name)}&lt;br /&gt;&quot;
+  })
+</pre>
+<p>
+would yield a <a href="ActiveRecordHelper.html#M001331">form</a> like the
+following (modulus formatting):
+</p>
+<pre>
+  &lt;form action=&quot;/entries/sign&quot; method=&quot;post&quot;&gt;
+    Message:
+    &lt;input id=&quot;entry_message&quot; name=&quot;entry[message]&quot; size=&quot;30&quot; type=&quot;text&quot; /&gt;&lt;br /&gt;
+    &lt;input name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Sign&quot; /&gt;
+  &lt;/form&gt;
+</pre>
+<p>
+It&#8216;s also possible to add additional content to the <a
+href="ActiveRecordHelper.html#M001331">form</a> by giving it a block, such
+as:
+</p>
+<pre>
+  form(&quot;entry&quot;, :action =&gt; &quot;sign&quot;) do |form|
+    form &lt;&lt; content_tag(&quot;b&quot;, &quot;Department&quot;)
+    form &lt;&lt; collection_select(&quot;department&quot;, &quot;id&quot;, @departments, &quot;id&quot;, &quot;name&quot;)
+  end
+</pre>
+<p>
+The following options are available:
+</p>
+<ul>
+<li><tt>:action</tt> - The action used when submitting the <a
+href="ActiveRecordHelper.html#M001331">form</a> (default: <tt>create</tt>
+if a new record, otherwise <tt>update</tt>).
+
+</li>
+<li><tt>:input_block</tt> - Specialize the output using a different block, see
+above.
+
+</li>
+<li><tt>:method</tt> - The method used when submitting the <a
+href="ActiveRecordHelper.html#M001331">form</a> (default: <tt>post</tt>).
+
+</li>
+<li><tt>:multipart</tt> - Whether to change the enctype of the <a
+href="ActiveRecordHelper.html#M001331">form</a> to
+&quot;multipart/form-data&quot;, used when uploading a file (default:
+<tt>false</tt>).
+
+</li>
+<li><tt>:submit_value</tt> - The text of the submit button (default:
+&quot;Create&quot; if a new record, otherwise &quot;Update&quot;).
+
+</li>
+</ul></div></fieldset>
+
+
+<h2><a name="M001330">input</a> (record_name, method, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Returns a default <a href="ActiveRecordHelper.html#M001330">input</a> tag
+for the type of object returned by the method. For example, if
+<tt>@post</tt> has an attribute <tt>title</tt> mapped to a <tt>VARCHAR</tt>
+column that holds &quot;Hello World&quot;:
+</p>
+<pre>
+  input(&quot;post&quot;, &quot;title&quot;)
+  # =&gt; &lt;input id=&quot;post_title&quot; name=&quot;post[title]&quot; size=&quot;30&quot; type=&quot;text&quot; value=&quot;Hello World&quot; /&gt;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

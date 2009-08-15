@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionView::Helpers::PrototypeHelper::JavaScriptGenerator::GeneratorMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionView::Helpers::PrototypeHelper::JavaScriptGenerator::GeneratorMethods
+    </h1>
+</div>
+<div id="ActionView::Helpers::PrototypeHelper::JavaScriptGenerator::GeneratorMethods" title="ActionView::Helpers::PrototypeHelper::JavaScriptGenerator::GeneratorMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../../../files/actionpack/lib/action_view/helpers/prototype_helper_rb.html">actionpack/lib/action_view/helpers/prototype_helper.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+JavaScriptGenerator generates blocks of JavaScript code that allow you to
+change the content and presentation of multiple DOM elements. Use this in
+your Ajax response bodies, either in a &lt;script&gt; tag or as plain
+JavaScript sent with a Content-type of &quot;text/javascript&quot;.
+</p>
+<p>
+Create new instances with <a
+href="../../PrototypeHelper.html#M001295">PrototypeHelper#update_page</a>
+or with ActionController::Base#render, then <a
+href="GeneratorMethods.html#M001314">call</a> <tt><a
+href="GeneratorMethods.html#M001304">insert_html</a></tt>, <tt><a
+href="GeneratorMethods.html#M001305">replace_html</a></tt>, <tt><a
+href="GeneratorMethods.html#M001307">remove</a></tt>, <tt><a
+href="GeneratorMethods.html#M001308">show</a></tt>, <tt><a
+href="GeneratorMethods.html#M001309">hide</a></tt>, <tt><a
+href="GeneratorMethods.html#M001318">visual_effect</a></tt>, or any other
+of the built-in methods on the yielded generator in any order you like to
+modify the content and appearance of the current page.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  # Generates:
+  #     new Element.insert(&quot;list&quot;, { bottom: &quot;&lt;li&gt;Some item&lt;/li&gt;&quot; });
+  #     new Effect.Highlight(&quot;list&quot;);
+  #     [&quot;status-indicator&quot;, &quot;cancel-link&quot;].each(Element.hide);
+  update_page do |page|
+    page.insert_html :bottom, 'list', &quot;&lt;li&gt;#{@item.name}&lt;/li&gt;&quot;
+    page.visual_effect :highlight, 'list'
+    page.hide 'status-indicator', 'cancel-link'
+  end
+</pre>
+<p>
+Helper methods can be used in conjunction with JavaScriptGenerator. When a
+helper method is called inside an update block on the <tt>page</tt> object,
+that method will also have access to a <tt>page</tt> object.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  module ApplicationHelper
+    def update_time
+      page.replace_html 'time', Time.now.to_s(:db)
+      page.visual_effect :highlight, 'time'
+    end
+  end
+
+  # Controller action
+  def poll
+    render(:update) { |page| page.update_time }
+  end
+</pre>
+<p>
+Calls to JavaScriptGenerator not matching a helper method below generate a
+proxy to the JavaScript Class named by the method called.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  # Generates:
+  #     Foo.init();
+  update_page do |page|
+    page.foo.init
+  end
+
+  # Generates:
+  #     Event.observe('one', 'click', function () {
+  #       $('two').show();
+  #     });
+  update_page do |page|
+    page.event.observe('one', 'click') do |p|
+     p[:two].show
+    end
+  end
+</pre>
+<p>
+You can also use <a
+href="../../PrototypeHelper.html#M001296">PrototypeHelper#update_page_tag</a>
+instead of <a
+href="../../PrototypeHelper.html#M001295">PrototypeHelper#update_page</a>
+to wrap the generated JavaScript in a &lt;script&gt; tag.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001316">&lt;&lt;</a></li>
+<li><a href="#M001301">[]</a></li>
+<li><a href="#M001311">alert</a></li>
+<li><a href="#M001315">assign</a></li>
+<li><a href="#M001314">call</a></li>
+<li><a href="#M001317">delay</a></li>
+<li><a href="#M001320">draggable</a></li>
+<li><a href="#M001321">drop_receiving</a></li>
+<li><a href="#M001309">hide</a></li>
+<li><a href="#M001304">insert_html</a></li>
+<li><a href="#M001302">literal</a></li>
+<li><a href="#M001312">redirect_to</a></li>
+<li><a href="#M001313">reload</a></li>
+<li><a href="#M001307">remove</a></li>
+<li><a href="#M001306">replace</a></li>
+<li><a href="#M001305">replace_html</a></li>
+<li><a href="#M001303">select</a></li>
+<li><a href="#M001308">show</a></li>
+<li><a href="#M001319">sortable</a></li>
+<li><a href="#M001310">toggle</a></li>
+<li><a href="#M001318">visual_effect</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001316">&lt;&lt;</a> (javascript)</h2>
+
+<fieldset><div class='row'><p>
+Writes raw JavaScript to the page.
+</p>
+<p>
+Example:
+</p>
+<pre>
+ page &lt;&lt; &quot;alert('JavaScript with Prototype.');&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001301">[]</a> (id)</h2>
+
+<fieldset><div class='row'><p>
+Returns a element reference by finding it through <tt>id</tt> in the DOM.
+This element can then be used for further method calls. Examples:
+</p>
+<pre>
+  page['blank_slate']                  # =&gt; $('blank_slate');
+  page['blank_slate'].show             # =&gt; $('blank_slate').show();
+  page['blank_slate'].show('first').up # =&gt; $('blank_slate').show('first').up();
+</pre>
+<p>
+You can also pass in a record, which will use
+ActionController::RecordIdentifier.dom_id to lookup the correct id:
+</p>
+<pre>
+  page[@post]     # =&gt; $('post_45')
+  page[Post.new]  # =&gt; $('new_post')
+</pre></div></fieldset>
+
+
+<h2><a name="M001311">alert</a> (message)</h2>
+
+<fieldset><div class='row'><p>
+Displays an <a href="GeneratorMethods.html#M001311">alert</a> dialog with
+the given <tt>message</tt>.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  # Generates: alert('This message is from Rails!')
+  page.alert('This message is from Rails!')
+</pre></div></fieldset>
+
+
+<h2><a name="M001315">assign</a> (variable, value)</h2>
+
+<fieldset><div class='row'><p>
+Assigns the JavaScript <tt>variable</tt> the given <tt>value</tt>.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+ # Generates: my_string = &quot;This is mine!&quot;;
+ page.assign 'my_string', 'This is mine!'
+
+ # Generates: record_count = 33;
+ page.assign 'record_count', 33
+
+ # Generates: tabulated_total = 47
+ page.assign 'tabulated_total', @total_from_cart
+</pre></div></fieldset>
+
+
+<h2><a name="M001314">call</a> (function, *arguments, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Calls the JavaScript <tt>function</tt>, optionally with the given
+<tt>arguments</tt>.
+</p>
+<p>
+If a block is given, the block will be passed to a new JavaScriptGenerator;
+the resulting JavaScript code will then be wrapped inside <tt>function() {
+&#8230; }</tt> and passed as the called function&#8216;s final argument.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  # Generates: Element.replace(my_element, &quot;My content to replace with.&quot;)
+  page.call 'Element.replace', 'my_element', &quot;My content to replace with.&quot;
+
+  # Generates: alert('My message!')
+  page.call 'alert', 'My message!'
+
+  # Generates:
+  #     my_method(function() {
+  #       $(&quot;one&quot;).show();
+  #       $(&quot;two&quot;).hide();
+  #    });
+  page.call(:my_method) do |p|
+     p[:one].show
+     p[:two].hide
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001317">delay</a> (seconds = 1) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Executes the content of the block after a <a
+href="GeneratorMethods.html#M001317">delay</a> of <tt>seconds</tt>.
+Example:
+</p>
+<pre>
+  # Generates:
+  #     setTimeout(function() {
+  #     ;
+  #     new Effect.Fade(&quot;notice&quot;,{});
+  #     }, 20000);
+  page.delay(20) do
+    page.visual_effect :fade, 'notice'
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001320">draggable</a> (id, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Creates a script.aculo.us <a
+href="GeneratorMethods.html#M001320">draggable</a> element. See <a
+href="../../ScriptaculousHelper.html">ActionView::Helpers::ScriptaculousHelper</a>
+for more information.
+</p></div></fieldset>
+
+
+<h2><a name="M001321">drop_receiving</a> (id, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Creates a script.aculo.us drop receiving element. See <a
+href="../../ScriptaculousHelper.html">ActionView::Helpers::ScriptaculousHelper</a>
+for more information.
+</p></div></fieldset>
+
+
+<h2><a name="M001309">hide</a> (*ids)</h2>
+
+<fieldset><div class='row'><p>
+Hides the visible DOM elements with the given <tt>ids</tt>.
+</p>
+<p>
+Example:
+</p>
+<pre>
+ # Hide a few people
+ # Generates: [&quot;person_29&quot;, &quot;person_9&quot;, &quot;person_0&quot;].each(Element.hide);
+ page.hide 'person_29', 'person_9', 'person_0'
+</pre></div></fieldset>
+
+
+<h2><a name="M001304">insert_html</a> (position, id, *options_for_render)</h2>
+
+<fieldset><div class='row'><p>
+Inserts HTML at the specified <tt>position</tt> relative to the DOM element
+identified by the given <tt>id</tt>.
+</p>
+<p>
+<tt>position</tt> may be one of:
+</p>
+<table>
+<tr><td valign="top"><tt>:top</tt>:</td><td>HTML is inserted inside the element, before the element&#8216;s existing
+content.
+
+</td></tr>
+<tr><td valign="top"><tt>:bottom</tt>:</td><td>HTML is inserted inside the element, after the element&#8216;s existing
+content.
+
+</td></tr>
+<tr><td valign="top"><tt>:before</tt>:</td><td>HTML is inserted immediately preceding the element.
+
+</td></tr>
+<tr><td valign="top"><tt>:after</tt>:</td><td>HTML is inserted immediately following the element.
+
+</td></tr>
+</table>
+<p>
+<tt>options_for_render</tt> may be either a string of HTML to insert, or a
+hash of options to be passed to ActionView::Base#render. For example:
+</p>
+<pre>
+  # Insert the rendered 'navigation' partial just before the DOM
+  # element with ID 'content'.
+  # Generates: Element.insert(&quot;content&quot;, { before: &quot;-- Contents of 'navigation' partial --&quot; });
+  page.insert_html :before, 'content', :partial =&gt; 'navigation'
+
+  # Add a list item to the bottom of the &lt;ul&gt; with ID 'list'.
+  # Generates: Element.insert(&quot;list&quot;, { bottom: &quot;&lt;li&gt;Last item&lt;/li&gt;&quot; });
+  page.insert_html :bottom, 'list', '&lt;li&gt;Last item&lt;/li&gt;'
+</pre></div></fieldset>
+
+
+<h2><a name="M001302">literal</a> (code)</h2>
+
+<fieldset><div class='row'><p>
+Returns an object whose <tt>to_json</tt> evaluates to <tt>code</tt>. Use
+this to pass a <a href="GeneratorMethods.html#M001302">literal</a>
+JavaScript expression as an argument to another JavaScriptGenerator method.
+</p></div></fieldset>
+
+
+<h2><a name="M001312">redirect_to</a> (location)</h2>
+
+<fieldset><div class='row'><p>
+Redirects the browser to the given <tt>location</tt> using JavaScript, in
+the same form as <tt>url_for</tt>.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+ # Generates: window.location.href = &quot;/mycontroller&quot;;
+ page.redirect_to(:action =&gt; 'index')
+
+ # Generates: window.location.href = &quot;/account/signup&quot;;
+ page.redirect_to(:controller =&gt; 'account', :action =&gt; 'signup')
+</pre></div></fieldset>
+
+
+<h2><a name="M001313">reload</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Reloads the browser&#8216;s current <tt>location</tt> using JavaScript
+</p>
+<p>
+Examples:
+</p>
+<pre>
+ # Generates: window.location.reload();
+ page.reload
+</pre></div></fieldset>
+
+
+<h2><a name="M001307">remove</a> (*ids)</h2>
+
+<fieldset><div class='row'><p>
+Removes the DOM elements with the given <tt>ids</tt> from the page.
+</p>
+<p>
+Example:
+</p>
+<pre>
+ # Remove a few people
+ # Generates: [&quot;person_23&quot;, &quot;person_9&quot;, &quot;person_2&quot;].each(Element.remove);
+ page.remove 'person_23', 'person_9', 'person_2'
+</pre></div></fieldset>
+
+
+<h2><a name="M001306">replace</a> (id, *options_for_render)</h2>
+
+<fieldset><div class='row'><p>
+Replaces the &quot;outer HTML&quot; (i.e., the entire element, not just its
+contents) of the DOM element with the given <tt>id</tt>.
+</p>
+<p>
+<tt>options_for_render</tt> may be either a string of HTML to insert, or a
+hash of options to be passed to ActionView::Base#render. For example:
+</p>
+<pre>
+  # Replace the DOM element having ID 'person-45' with the
+  # 'person' partial for the appropriate object.
+  page.replace 'person-45', :partial =&gt; 'person', :object =&gt; @person
+</pre>
+<p>
+This allows the same partial that is used for the <tt><a
+href="GeneratorMethods.html#M001304">insert_html</a></tt> to be also used
+for the input to <tt><a
+href="GeneratorMethods.html#M001306">replace</a></tt> without resorting to
+the use of wrapper elements.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  &lt;div id=&quot;people&quot;&gt;
+    &lt;%= render :partial =&gt; 'person', :collection =&gt; @people %&gt;
+  &lt;/div&gt;
+
+  # Insert a new person
+  #
+  # Generates: new Insertion.Bottom({object: &quot;Matz&quot;, partial: &quot;person&quot;}, &quot;&quot;);
+  page.insert_html :bottom, :partial =&gt; 'person', :object =&gt; @person
+
+  # Replace an existing person
+
+  # Generates: Element.replace(&quot;person_45&quot;, &quot;-- Contents of partial --&quot;);
+  page.replace 'person_45', :partial =&gt; 'person', :object =&gt; @person
+</pre></div></fieldset>
+
+
+<h2><a name="M001305">replace_html</a> (id, *options_for_render)</h2>
+
+<fieldset><div class='row'><p>
+Replaces the inner HTML of the DOM element with the given <tt>id</tt>.
+</p>
+<p>
+<tt>options_for_render</tt> may be either a string of HTML to insert, or a
+hash of options to be passed to ActionView::Base#render. For example:
+</p>
+<pre>
+  # Replace the HTML of the DOM element having ID 'person-45' with the
+  # 'person' partial for the appropriate object.
+  # Generates:  Element.update(&quot;person-45&quot;, &quot;-- Contents of 'person' partial --&quot;);
+  page.replace_html 'person-45', :partial =&gt; 'person', :object =&gt; @person
+</pre></div></fieldset>
+
+
+<h2><a name="M001303">select</a> (pattern)</h2>
+
+<fieldset><div class='row'><p>
+Returns a collection reference by finding it through a CSS <tt>pattern</tt>
+in the DOM. This collection can then be used for further method calls.
+Examples:
+</p>
+<pre>
+  page.select('p')                      # =&gt; $$('p');
+  page.select('p.welcome b').first      # =&gt; $$('p.welcome b').first();
+  page.select('p.welcome b').first.hide # =&gt; $$('p.welcome b').first().hide();
+</pre>
+<p>
+You can also use prototype enumerations with the collection. Observe:
+</p>
+<pre>
+  # Generates: $$('#items li').each(function(value) { value.hide(); });
+  page.select('#items li').each do |value|
+    value.hide
+  end
+</pre>
+<p>
+Though you can <a href="GeneratorMethods.html#M001314">call</a> the block
+param anything you want, they are always rendered in the javascript as
+&#8216;value, index.&#8217; Other enumerations, like collect() return the
+last statement:
+</p>
+<pre>
+  # Generates: var hidden = $$('#items li').collect(function(value, index) { return value.hide(); });
+  page.select('#items li').collect('hidden') do |item|
+    item.hide
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001308">show</a> (*ids)</h2>
+
+<fieldset><div class='row'><p>
+Shows hidden DOM elements with the given <tt>ids</tt>.
+</p>
+<p>
+Example:
+</p>
+<pre>
+ # Show a few people
+ # Generates: [&quot;person_6&quot;, &quot;person_13&quot;, &quot;person_223&quot;].each(Element.show);
+ page.show 'person_6', 'person_13', 'person_223'
+</pre></div></fieldset>
+
+
+<h2><a name="M001319">sortable</a> (id, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Creates a script.aculo.us <a
+href="GeneratorMethods.html#M001319">sortable</a> element. Useful to
+recreate <a href="GeneratorMethods.html#M001319">sortable</a> elements
+after items get added or deleted. See <a
+href="../../ScriptaculousHelper.html">ActionView::Helpers::ScriptaculousHelper</a>
+for more information.
+</p></div></fieldset>
+
+
+<h2><a name="M001310">toggle</a> (*ids)</h2>
+
+<fieldset><div class='row'><p>
+Toggles the visibility of the DOM elements with the given <tt>ids</tt>.
+Example:
+</p>
+<pre>
+ # Show a few people
+ # Generates: [&quot;person_14&quot;, &quot;person_12&quot;, &quot;person_23&quot;].each(Element.toggle);
+ page.toggle 'person_14', 'person_12', 'person_23'      # Hides the elements
+ page.toggle 'person_14', 'person_12', 'person_23'      # Shows the previously hidden elements
+</pre></div></fieldset>
+
+
+<h2><a name="M001318">visual_effect</a> (name, id = nil, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Starts a script.aculo.us visual effect. See <a
+href="../../ScriptaculousHelper.html">ActionView::Helpers::ScriptaculousHelper</a>
+for more information.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActionController::Flash::FlashHash
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Flash::FlashHash
+    </h1>
+</div>
+<div id="ActionController::Flash::FlashHash" title="ActionController::Flash::FlashHash" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/flash_rb.html">actionpack/lib/action_controller/flash.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+               Hash
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000250">discard</a></li>
+<li><a href="#M000249">keep</a></li>
+<li><a href="#M000248">now</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000250">discard</a> (k = nil)</h2>
+
+<fieldset><div class='row'><p>
+Marks the entire flash or a single flash entry to be discarded by the end
+of the current action:
+</p>
+<pre>
+    flash.discard              # discard the entire flash at the end of the current action
+    flash.discard(:warning)    # discard only the &quot;warning&quot; entry at the end of the current action
+</pre></div></fieldset>
+
+
+<h2><a name="M000249">keep</a> (k = nil)</h2>
+
+<fieldset><div class='row'><p>
+Keeps either the entire current flash or a specific flash entry available
+for the next action:
+</p>
+<pre>
+   flash.keep            # keeps the entire flash
+   flash.keep(:notice)   # keeps only the &quot;notice&quot; entry, the rest of the flash is discarded
+</pre></div></fieldset>
+
+
+<h2><a name="M000248">now</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Sets a flash that will not be available to the next action, only to the
+current.
+</p>
+<pre>
+    flash.now[:message] = &quot;Hello current action&quot;
+</pre>
+<p>
+This method enables you to use the flash as a central messaging system in
+your app. When you need to pass an object to the next action, you use the
+standard flash assign (<tt>[]=</tt>). When you need to pass an object to
+the current action, you use <tt><a
+href="FlashHash.html#M000248">now</a></tt>, and your object will vanish
+when the current action is done.
+</p>
+<p>
+Entries set via <tt><a href="FlashHash.html#M000248">now</a></tt> are
+accessed the same way as standard entries:
+<tt>flash[&#8216;my-key&#8217;]</tt>.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

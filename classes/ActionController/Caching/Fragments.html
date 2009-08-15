@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Caching::Fragments
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Caching::Fragments
+    </h1>
+</div>
+<div id="ActionController::Caching::Fragments" title="ActionController::Caching::Fragments" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/caching/fragments_rb.html">actionpack/lib/action_controller/caching/fragments.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Fragment caching is used for caching various blocks within templates
+without caching the entire action as a whole. This is useful when certain
+elements of an action change frequently or depend on complicated state
+while other parts rarely change or can be shared amongst multiple parties.
+The caching is done using the cache helper available in the Action View. A
+template with caching might look something like:
+</p>
+<pre>
+  &lt;b&gt;Hello &lt;%= @name %&gt;&lt;/b&gt;
+  &lt;% cache do %&gt;
+    All the topics in the system:
+    &lt;%= render :partial =&gt; &quot;topic&quot;, :collection =&gt; Topic.find(:all) %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+This cache will bind to the name of the action that called it, so if this
+code was part of the view for the topics/list action, you would be able to
+invalidate it using <tt><a
+href="Fragments.html#M000222">expire_fragment</a>(:controller =&gt;
+&quot;topics&quot;, :action =&gt; &quot;list&quot;)</tt>.
+</p>
+<p>
+This default behavior is of limited use if you need to cache multiple
+fragments per action or if the action itself is cached using
+<tt>caches_action</tt>, so we also have the option to qualify the name of
+the cached fragment with something like:
+</p>
+<pre>
+  &lt;% cache(:action =&gt; &quot;list&quot;, :action_suffix =&gt; &quot;all_topics&quot;) do %&gt;
+</pre>
+<p>
+That would result in a name such as &quot;/topics/list/all_topics&quot;,
+avoiding conflicts with the action cache and with any fragments that use a
+different suffix. Note that the URL doesn&#8216;t have to really exist or
+be callable - the url_for system is just used to generate unique cache
+names that we can refer to when we need to expire the cache.
+</p>
+<p>
+The expiration call for this example is:
+</p>
+<pre>
+  expire_fragment(:controller =&gt; &quot;topics&quot;, :action =&gt; &quot;list&quot;, :action_suffix =&gt; &quot;all_topics&quot;)
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000222">expire_fragment</a></li>
+<li><a href="#M000218">fragment_cache_key</a></li>
+<li><a href="#M000221">fragment_exist?</a></li>
+<li><a href="#M000220">read_fragment</a></li>
+<li><a href="#M000219">write_fragment</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000222">expire_fragment</a> (key, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Name can take one of three forms:
+</p>
+<ul>
+<li>String: This would normally take the form of a path like
+&quot;pages/45/notes&quot;
+
+</li>
+<li>Hash: Is treated as an implicit call to url_for, like { :controller =&gt;
+&quot;pages&quot;, :action =&gt; &quot;notes&quot;, :id =&gt; 45 }
+
+</li>
+<li>Regexp: Will destroy all the matched fragments, example:
+
+<pre>
+  %r{pages/\d*/notes}
+</pre>
+<p>
+Ensure you do not specify start and finish in the regex (^$) because the
+actual filename matched looks like ./cache/filename/path.cache Regexp
+expiration is only supported on caches that can iterate over all keys
+(unlike memcached).
+</p>
+</li>
+</ul></div></fieldset>
+
+
+<h2><a name="M000218">fragment_cache_key</a> (key)</h2>
+
+<fieldset><div class='row'><p>
+Given a key (as described in <tt><a
+href="Fragments.html#M000222">expire_fragment</a></tt>), returns a key
+suitable for use in reading, writing, or expiring a cached fragment. If the
+key is a hash, the generated key is the return value of url_for on that
+hash (without the protocol). All keys are prefixed with &quot;views/&quot;
+and uses ActiveSupport::Cache.expand_cache_key for the expansion.
+</p></div></fieldset>
+
+
+<h2><a name="M000221">fragment_exist?</a> (key, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Check if a cached fragment from the location signified by <tt>key</tt>
+exists (see <tt><a href="Fragments.html#M000222">expire_fragment</a></tt>
+for acceptable formats)
+</p></div></fieldset>
+
+
+<h2><a name="M000220">read_fragment</a> (key, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Reads a cached fragment from the location signified by <tt>key</tt> (see
+<tt><a href="Fragments.html#M000222">expire_fragment</a></tt> for
+acceptable formats)
+</p></div></fieldset>
+
+
+<h2><a name="M000219">write_fragment</a> (key, content, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Writes <tt>content</tt> to the location signified by <tt>key</tt> (see
+<tt><a href="Fragments.html#M000222">expire_fragment</a></tt> for
+acceptable formats)
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

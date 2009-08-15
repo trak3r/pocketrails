@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveSupport::SecureRandom
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::SecureRandom
+    </h1>
+</div>
+<div id="ActiveSupport::SecureRandom" title="ActiveSupport::SecureRandom" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/secure_random_rb.html">activesupport/lib/active_support/secure_random.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><h1>Secure random number generator interface.</h1>
+<p>
+This library is an interface for secure random number generator which is
+suitable for generating session key in HTTP cookies, etc.
+</p>
+<p>
+It supports following secure random number generators.
+</p>
+<ul>
+<li>openssl
+
+</li>
+<li>/dev/urandom
+
+</li>
+<li>Win32
+
+</li>
+</ul>
+<p>
+<b>Note</b>: This module is based on the <a
+href="SecureRandom.html">SecureRandom</a> library from Ruby 1.9, revision
+18786, August 23 2008. It&#8216;s 100% interface-compatible with Ruby
+1.9&#8216;s <a href="SecureRandom.html">SecureRandom</a> library.
+</p>
+<h2>Example</h2>
+<pre>
+ # random hexadecimal string.
+ p SecureRandom.hex(10) #=&gt; &quot;52750b30ffbc7de3b362&quot;
+ p SecureRandom.hex(10) #=&gt; &quot;92b15d6c8dc4beb5f559&quot;
+ p SecureRandom.hex(11) #=&gt; &quot;6aca1b5c58e4863e6b81b8&quot;
+ p SecureRandom.hex(12) #=&gt; &quot;94b2fff3e7fd9b9c391a2306&quot;
+ p SecureRandom.hex(13) #=&gt; &quot;39b290146bea6ce975c37cfc23&quot;
+ ...
+
+ # random base64 string.
+ p SecureRandom.base64(10) #=&gt; &quot;EcmTPZwWRAozdA==&quot;
+ p SecureRandom.base64(10) #=&gt; &quot;9b0nsevdwNuM/w==&quot;
+ p SecureRandom.base64(10) #=&gt; &quot;KO1nIU+p9DKxGg==&quot;
+ p SecureRandom.base64(11) #=&gt; &quot;l7XEiFja+8EKEtY=&quot;
+ p SecureRandom.base64(12) #=&gt; &quot;7kJSM/MzBJI+75j8&quot;
+ p SecureRandom.base64(13) #=&gt; &quot;vKLJ0tXBHqQOuIcSIg==&quot;
+ ...
+
+ # random binary string.
+ p SecureRandom.random_bytes(10) #=&gt; &quot;\016\t{\370g\310pbr\301&quot;
+ p SecureRandom.random_bytes(10) #=&gt; &quot;\323U\030TO\234\357\020\a\337&quot;
+ ...
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000777">base64</a></li>
+<li><a href="#M000776">hex</a></li>
+<li><a href="#M000775">random_bytes</a></li>
+<li><a href="#M000778">random_number</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M000777">base64</a> (n=nil)</h2>
+
+<fieldset><div class='row'><p>
+<a href="SecureRandom.html#M000777">SecureRandom.base64</a> generates a
+random <a href="SecureRandom.html#M000777">base64</a> string.
+</p>
+<p>
+The argument n specifies the length of the random length. The length of the
+result string is about 4/3 of n.
+</p>
+<p>
+If n is not specified, 16 is assumed. It may be larger in future.
+</p>
+<p>
+If secure random number generator is not available, NotImplementedError is
+raised.
+</p></div></fieldset>
+
+
+<h2><a name="M000776">hex</a> (n=nil)</h2>
+
+<fieldset><div class='row'><p>
+<a href="SecureRandom.html#M000776">SecureRandom.hex</a> generates a random
+<a href="SecureRandom.html#M000776">hex</a> string.
+</p>
+<p>
+The argument n specifies the length of the random length. The length of the
+result string is twice of n.
+</p>
+<p>
+If n is not specified, 16 is assumed. It may be larger in future.
+</p>
+<p>
+If secure random number generator is not available, NotImplementedError is
+raised.
+</p></div></fieldset>
+
+
+<h2><a name="M000775">random_bytes</a> (n=nil)</h2>
+
+<fieldset><div class='row'><p>
+<a href="SecureRandom.html#M000775">SecureRandom.random_bytes</a> generates
+a random binary string.
+</p>
+<p>
+The argument n specifies the length of the result string.
+</p>
+<p>
+If n is not specified, 16 is assumed. It may be larger in future.
+</p>
+<p>
+If secure random number generator is not available, NotImplementedError is
+raised.
+</p></div></fieldset>
+
+
+<h2><a name="M000778">random_number</a> (n=0)</h2>
+
+<fieldset><div class='row'><p>
+<a href="SecureRandom.html#M000778">SecureRandom.random_number</a>
+generates a random number.
+</p>
+<p>
+If an positive integer is given as n, <a
+href="SecureRandom.html#M000778">SecureRandom.random_number</a> returns an
+integer: 0 &lt;= <a
+href="SecureRandom.html#M000778">SecureRandom.random_number(n)</a> &lt; n.
+</p>
+<p>
+If 0 is given or an argument is not given, <a
+href="SecureRandom.html#M000778">SecureRandom.random_number</a> returns an
+float: 0.0 &lt;= <a
+href="SecureRandom.html#M000778">SecureRandom.random_number</a>() &lt; 1.0.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

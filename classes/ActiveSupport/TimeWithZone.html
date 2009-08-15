@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveSupport::TimeWithZone
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::TimeWithZone
+    </h1>
+</div>
+<div id="ActiveSupport::TimeWithZone" title="ActiveSupport::TimeWithZone" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activesupport/lib/active_support/time_with_zone_rb.html">activesupport/lib/active_support/time_with_zone.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+A Time-like class that can represent a <a
+href="TimeWithZone.html#M001120">time</a> in any <a
+href="TimeWithZone.html#M001120">time</a> <a
+href="TimeWithZone.html#M001138">zone</a>. Necessary because standard Ruby
+Time instances are limited to UTC and the system&#8216;s
+<tt>ENV[&#8216;TZ&#8217;]</tt> <a
+href="TimeWithZone.html#M001138">zone</a>.
+</p>
+<p>
+You shouldn&#8216;t ever need to create a <a
+href="TimeWithZone.html">TimeWithZone</a> instance directly via <tt><a
+href="TimeWithZone.html#M001119">new</a></tt> &#8212; instead, <a
+href="../Rails.html">Rails</a> provides the methods <tt>local</tt>,
+<tt>parse</tt>, <tt>at</tt> and <tt>now</tt> on <a
+href="TimeZone.html">TimeZone</a> instances, and <tt><a
+href="TimeWithZone.html#M001127">in_time_zone</a></tt> on Time and <a
+href="../DateTime.html">DateTime</a> instances, for a more user-friendly
+syntax. Examples:
+</p>
+<pre>
+  Time.zone = 'Eastern Time (US &amp; Canada)'        # =&gt; 'Eastern Time (US &amp; Canada)'
+  Time.zone.local(2007, 2, 10, 15, 30, 45)        # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+  Time.zone.parse('2007-02-01 15:30:45')          # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+  Time.zone.at(1170361845)                        # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+  Time.zone.now                                   # =&gt; Sun, 18 May 2008 13:07:55 EDT -04:00
+  Time.utc(2007, 2, 10, 20, 30, 45).in_time_zone  # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+</pre>
+<p>
+See <a href="TimeZone.html">TimeZone</a> and <a
+href="CoreExtensions/Time/Zones.html">ActiveSupport::CoreExtensions::Time::Zones</a>
+for further documentation for these methods.
+</p>
+<p>
+<a href="TimeWithZone.html">TimeWithZone</a> instances implement the same
+API as Ruby Time instances, so that Time and <a
+href="TimeWithZone.html">TimeWithZone</a> instances are interchangable.
+Examples:
+</p>
+<pre>
+  t = Time.zone.now                     # =&gt; Sun, 18 May 2008 13:27:25 EDT -04:00
+  t.hour                                # =&gt; 13
+  t.dst?                                # =&gt; true
+  t.utc_offset                          # =&gt; -14400
+  t.zone                                # =&gt; &quot;EDT&quot;
+  t.to_s(:rfc822)                       # =&gt; &quot;Sun, 18 May 2008 13:27:25 -0400&quot;
+  t + 1.day                             # =&gt; Mon, 19 May 2008 13:27:25 EDT -04:00
+  t.beginning_of_year                   # =&gt; Tue, 01 Jan 2008 00:00:00 EST -05:00
+  t &gt; Time.utc(1999)                    # =&gt; true
+  t.is_a?(Time)                         # =&gt; true
+  t.is_a?(ActiveSupport::TimeWithZone)  # =&gt; true
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001155">+</a></li>
+<li><a href="#M001156">-</a></li>
+<li><a href="#M001149">&lt;=&gt;</a></li>
+<li><a href="#M001168">acts_like_time?</a></li>
+<li><a href="#M001159">advance</a></li>
+<li><a href="#M001158">ago</a></li>
+<li><a href="#M001150">between?</a></li>
+<li><a href="#M001122">comparable_time</a></li>
+<li><a href="#M001130">dst?</a></li>
+<li><a href="#M001154">eql?</a></li>
+<li><a href="#M001137">formatted_offset</a></li>
+<li><a href="#M001171">freeze</a></li>
+<li><a href="#M001153">future?</a></li>
+<li><a href="#M001123">getgm</a></li>
+<li><a href="#M001129">getlocal</a></li>
+<li><a href="#M001124">getutc</a></li>
+<li><a href="#M001133">gmt?</a></li>
+<li><a href="#M001135">gmt_offset</a></li>
+<li><a href="#M001125">gmtime</a></li>
+<li><a href="#M001136">gmtoff</a></li>
+<li><a href="#M001164">hash</a></li>
+<li><a href="#M001144">httpdate</a></li>
+<li><a href="#M001127">in_time_zone</a></li>
+<li><a href="#M001139">inspect</a></li>
+<li><a href="#M001169">is_a?</a></li>
+<li><a href="#M001131">isdst</a></li>
+<li><a href="#M001141">iso8601</a></li>
+<li><a href="#M001170">kind_of?</a></li>
+<li><a href="#M001128">localtime</a></li>
+<li><a href="#M001172">marshal_dump</a></li>
+<li><a href="#M001173">marshal_load</a></li>
+<li><a href="#M001175">method_missing</a></li>
+<li><a href="#M001119">new</a></li>
+<li><a href="#M001151">past?</a></li>
+<li><a href="#M001126">period</a></li>
+<li><a href="#M001174">respond_to?</a></li>
+<li><a href="#M001145">rfc2822</a></li>
+<li><a href="#M001146">rfc822</a></li>
+<li><a href="#M001157">since</a></li>
+<li><a href="#M001148">strftime</a></li>
+<li><a href="#M001120">time</a></li>
+<li><a href="#M001161">to_a</a></li>
+<li><a href="#M001167">to_datetime</a></li>
+<li><a href="#M001162">to_f</a></li>
+<li><a href="#M001163">to_i</a></li>
+<li><a href="#M001142">to_json</a></li>
+<li><a href="#M001147">to_s</a></li>
+<li><a href="#M001166">to_time</a></li>
+<li><a href="#M001143">to_yaml</a></li>
+<li><a href="#M001152">today?</a></li>
+<li><a href="#M001165">tv_sec</a></li>
+<li><a href="#M001160">usec</a></li>
+<li><a href="#M001121">utc</a></li>
+<li><a href="#M001132">utc?</a></li>
+<li><a href="#M001134">utc_offset</a></li>
+<li><a href="#M001140">xmlschema</a></li>
+<li><a href="#M001138">zone</a></li>
+</ul>
+</div>
+</fieldset>  
+
+<h2>Included Modules</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li>Comparable</li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[R]
+<label>
+time_zone
+</label>
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M001119">new</a> (utc_time, time_zone, local_time = nil, period = nil)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001155">+</a> (other)</h2>
+
+
+
+<h2><a name="M001156">-</a> (other)</h2>
+
+
+
+<h2><a name="M001149">&lt;=&gt;</a> (other)</h2>
+
+<fieldset><div class='row'><p>
+Use the <a href="TimeWithZone.html#M001120">time</a> in UTC for
+comparisons.
+</p></div></fieldset>
+
+
+<h2><a name="M001168">acts_like_time?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+So that <tt>self</tt> <tt>acts_like?(:<a
+href="TimeWithZone.html#M001120">time</a>)</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001159">advance</a> (options)</h2>
+
+
+
+<h2><a name="M001158">ago</a> (other)</h2>
+
+
+
+<h2><a name="M001150">between?</a> (min, max)</h2>
+
+
+
+<h2><a name="M001122">comparable_time</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001121">utc</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001130">dst?</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>isdst</div></fieldset>
+
+<h2><a name="M001154">eql?</a> (other)</h2>
+
+
+
+<h2><a name="M001137">formatted_offset</a> (colon = true, alternate_utc_string = nil)</h2>
+
+
+
+<h2><a name="M001171">freeze</a> ()</h2>
+
+
+
+<h2><a name="M001153">future?</a> ()</h2>
+
+
+
+<h2><a name="M001123">getgm</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001121">utc</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001129">getlocal</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001128">localtime</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001124">getutc</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001121">utc</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001133">gmt?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001121">utc</a>?
+</p></div></fieldset>
+
+
+<h2><a name="M001135">gmt_offset</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001134">utc_offset</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001125">gmtime</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001121">utc</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001136">gmtoff</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001134">utc_offset</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001164">hash</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001163">to_i</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001144">httpdate</a> ()</h2>
+
+
+
+<h2><a name="M001127">in_time_zone</a> (new_zone = ::Time.zone)</h2>
+
+<fieldset><div class='row'><p>
+Returns the simultaneous <a href="TimeWithZone.html#M001120">time</a> in
+<tt>Time.zone</tt>, or the specified <a
+href="TimeWithZone.html#M001138">zone</a>.
+</p></div></fieldset>
+
+
+<h2><a name="M001139">inspect</a> ()</h2>
+
+
+
+<h2><a name="M001169">is_a?</a> (klass)</h2>
+
+<fieldset><div class='row'><p>
+Say we&#8216;re a Time to thwart type checking.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>kind_of?</div></fieldset>
+
+<h2><a name="M001131">isdst</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for dst?
+</p></div></fieldset>
+
+
+<h2><a name="M001141">iso8601</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001140">xmlschema</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001170">kind_of?</a> (klass)</h2>
+
+<fieldset><div class='row'><p>
+Alias for is_a?
+</p></div></fieldset>
+
+
+<h2><a name="M001128">localtime</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a <tt>Time.local()</tt> instance of the simultaneous <a
+href="TimeWithZone.html#M001120">time</a> in your system&#8216;s
+<tt>ENV[&#8216;TZ&#8217;]</tt> <a href="TimeWithZone.html#M001138">zone</a>
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>getlocal</div></fieldset>
+
+<h2><a name="M001172">marshal_dump</a> ()</h2>
+
+
+
+<h2><a name="M001173">marshal_load</a> (variables)</h2>
+
+
+
+<h2><a name="M001175">method_missing</a> (sym, *args, &amp;block)</h2>
+
+<fieldset><div class='row'><p>
+Send the missing method to <tt><a
+href="TimeWithZone.html#M001120">time</a></tt> instance, and wrap result in
+a <a href="TimeWithZone.html#M001119">new</a> <a
+href="TimeWithZone.html">TimeWithZone</a> with the existing
+<tt>time_zone</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001151">past?</a> ()</h2>
+
+
+
+<h2><a name="M001126">period</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns the underlying TZInfo::TimezonePeriod.
+</p></div></fieldset>
+
+
+<h2><a name="M001174">respond_to?</a> (sym, include_priv = false)</h2>
+
+<fieldset><div class='row'><p>
+Ensure proxy class responds to all methods that underlying <a
+href="TimeWithZone.html#M001120">time</a> instance responds to.
+</p></div></fieldset>
+
+
+<h2><a name="M001145">rfc2822</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>rfc822</div></fieldset>
+
+<h2><a name="M001146">rfc822</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001145">rfc2822</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001157">since</a> (other)</h2>
+
+
+
+<h2><a name="M001148">strftime</a> (format)</h2>
+
+<fieldset><div class='row'><p>
+Replaces <tt>%Z</tt> and <tt>%z</tt> directives with <tt><a
+href="TimeWithZone.html#M001138">zone</a></tt> and <tt><a
+href="TimeWithZone.html#M001137">formatted_offset</a></tt>, respectively,
+before passing to Time#strftime, so that <a
+href="TimeWithZone.html#M001138">zone</a> information is correct
+</p></div></fieldset>
+
+
+<h2><a name="M001120">time</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a Time or <a href="../DateTime.html">DateTime</a> instance that
+represents the <a href="TimeWithZone.html#M001120">time</a> in
+<tt>time_zone</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001161">to_a</a> ()</h2>
+
+
+
+<h2><a name="M001167">to_datetime</a> ()</h2>
+
+
+
+<h2><a name="M001162">to_f</a> ()</h2>
+
+
+
+<h2><a name="M001163">to_i</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>hash</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>tv_sec</div></fieldset>
+
+<h2><a name="M001142">to_json</a> (options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns a <a href="JSON.html">JSON</a> string representing the <a
+href="TimeWithZone.html">TimeWithZone</a>. If
+ActiveSupport.use_standard_json_time_format is set to true, the ISO 8601
+format is used.
+</p>
+<h4>Examples:</h4>
+<pre>
+  # With ActiveSupport.use_standard_json_time_format = true
+  Time.utc(2005,2,1,15,15,10).in_time_zone.to_json
+  # =&gt; &quot;2005-02-01T15:15:10Z&quot;
+
+  # With ActiveSupport.use_standard_json_time_format = false
+  Time.utc(2005,2,1,15,15,10).in_time_zone.to_json
+  # =&gt; &quot;2005/02/01 15:15:10 +0000&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M001147">to_s</a> (format = :default)</h2>
+
+<fieldset><div class='row'><p>
+<tt>:db</tt> format outputs <a href="TimeWithZone.html#M001120">time</a> in
+UTC; all others output <a href="TimeWithZone.html#M001120">time</a> in
+local. Uses <a href="TimeWithZone.html">TimeWithZone</a>&#8216;s <tt><a
+href="TimeWithZone.html#M001148">strftime</a></tt>, so <tt>%Z</tt> and
+<tt>%z</tt> work correctly.
+</p></div></fieldset>
+
+
+<h2><a name="M001166">to_time</a> ()</h2>
+
+<fieldset><div class='row'><p>
+A <a href="TimeWithZone.html">TimeWithZone</a> acts like a Time, so just
+return <tt>self</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001143">to_yaml</a> (options = {})</h2>
+
+
+
+<h2><a name="M001152">today?</a> ()</h2>
+
+
+
+<h2><a name="M001165">tv_sec</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TimeWithZone.html#M001163">to_i</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001160">usec</a> ()</h2>
+
+
+
+<h2><a name="M001121">utc</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a Time or <a href="../DateTime.html">DateTime</a> instance that
+represents the <a href="TimeWithZone.html#M001120">time</a> in UTC.
+</p></div></fieldset>
+
+<h2>Alias</h2><fieldset><div class='row'>comparable_time</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>getgm</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>getutc</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>gmtime</div></fieldset>
+
+<h2><a name="M001132">utc?</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>gmt?</div></fieldset>
+
+<h2><a name="M001134">utc_offset</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>gmt_offset</div></fieldset>
+<h2>Alias</h2><fieldset><div class='row'>gmtoff</div></fieldset>
+
+<h2><a name="M001140">xmlschema</a> ()</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>iso8601</div></fieldset>
+
+<h2><a name="M001138">zone</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Time uses <tt><a href="TimeWithZone.html#M001138">zone</a></tt> to display
+the <a href="TimeWithZone.html#M001120">time</a> <a
+href="TimeWithZone.html#M001138">zone</a> abbreviation, so we&#8216;re
+duck-typing it.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

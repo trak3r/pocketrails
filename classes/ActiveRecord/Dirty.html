@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::Dirty
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::Dirty
+    </h1>
+</div>
+<div id="ActiveRecord::Dirty" title="ActiveRecord::Dirty" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../files/activerecord/lib/active_record/dirty_rb.html">activerecord/lib/active_record/dirty.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Track unsaved attribute <a href="Dirty.html#M001745">changes</a>.
+</p>
+<p>
+A newly instantiated object is unchanged:
+</p>
+<pre>
+  person = Person.find_by_name('uncle bob')
+  person.changed?       # =&gt; false
+</pre>
+<p>
+Change the name:
+</p>
+<pre>
+  person.name = 'Bob'
+  person.changed?       # =&gt; true
+  person.name_changed?  # =&gt; true
+  person.name_was       # =&gt; 'uncle bob'
+  person.name_change    # =&gt; ['uncle bob', 'Bob']
+  person.name = 'Bill'
+  person.name_change    # =&gt; ['uncle bob', 'Bill']
+</pre>
+<p>
+Save the <a href="Dirty.html#M001745">changes</a>:
+</p>
+<pre>
+  person.save
+  person.changed?       # =&gt; false
+  person.name_changed?  # =&gt; false
+</pre>
+<p>
+Assigning the same value leaves the attribute unchanged:
+</p>
+<pre>
+  person.name = 'Bill'
+  person.name_changed?  # =&gt; false
+  person.name_change    # =&gt; nil
+</pre>
+<p>
+Which attributes have <a href="Dirty.html#M001743">changed?</a>
+</p>
+<pre>
+  person.name = 'bob'
+  person.changed        # =&gt; ['name']
+  person.changes        # =&gt; { 'name' =&gt; ['Bill', 'bob'] }
+</pre>
+<p>
+Before modifying an attribute in-place:
+</p>
+<pre>
+  person.name_will_change!
+  person.name &lt;&lt; 'by'
+  person.name_change    # =&gt; ['uncle bob', 'uncle bobby']
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001744">changed</a></li>
+<li><a href="#M001743">changed?</a></li>
+<li><a href="#M001745">changes</a></li>
+<li><a href="#M001742">included</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Dirty/ClassMethods.html" class="link">ActiveRecord::Dirty::ClassMethods</a><br />
+</div></fieldset>
+
+<h2>Constants</h2>
+<h2>DIRTY_SUFFIXES</h2>
+<fieldset>
+<div class="row">
+['_changed?', '_change', '_will_change!', '_was']
+</div>
+</fieldset>
+
+
+<h2>Public Class methods</h2>
+<h2><a name="M001742">included</a> (base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001744">changed</a> ()</h2>
+
+<fieldset><div class='row'><p>
+List of attributes with unsaved <a href="Dirty.html#M001745">changes</a>.
+</p>
+<pre>
+  person.changed # =&gt; []
+  person.name = 'bob'
+  person.changed # =&gt; ['name']
+</pre></div></fieldset>
+
+
+<h2><a name="M001743">changed?</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Do any attributes have unsaved changes?
+</p>
+<pre>
+  person.changed? # =&gt; false
+  person.name = 'bob'
+  person.changed? # =&gt; true
+</pre></div></fieldset>
+
+
+<h2><a name="M001745">changes</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Map of <a href="Dirty.html#M001744">changed</a> attrs =&gt; [original
+value, new value].
+</p>
+<pre>
+  person.changes # =&gt; {}
+  person.name = 'bob'
+  person.changes # =&gt; { 'name' =&gt; ['bill', 'bob'] }
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

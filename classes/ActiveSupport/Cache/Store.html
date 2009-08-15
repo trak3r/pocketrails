@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveSupport::Cache::Store
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveSupport::Cache::Store
+    </h1>
+</div>
+<div id="ActiveSupport::Cache::Store" title="ActiveSupport::Cache::Store" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activesupport/lib/active_support/cache_rb.html">activesupport/lib/active_support/cache.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+An abstract cache store class. There are multiple cache store
+implementations, each having its own additional features. See the classes
+under the <a href="../Cache.html">ActiveSupport::Cache</a> module, e.g. <a
+href="MemCacheStore.html">ActiveSupport::Cache::MemCacheStore</a>. <a
+href="MemCacheStore.html">MemCacheStore</a> is currently the most popular
+cache store for large production websites.
+</p>
+<p>
+<a href="Store.html">ActiveSupport::Cache::Store</a> is meant for caching
+strings. Some cache store implementations, like <a
+href="MemoryStore.html">MemoryStore</a>, are able to cache arbitrary Ruby
+objects, but don&#8216;t count on every cache store to be able to do that.
+</p>
+<pre>
+  cache = ActiveSupport::Cache::MemoryStore.new
+
+  cache.read(&quot;city&quot;)   # =&gt; nil
+  cache.write(&quot;city&quot;, &quot;Duckburgh&quot;)
+  cache.read(&quot;city&quot;)   # =&gt; &quot;Duckburgh&quot;
+</pre>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000706">decrement</a></li>
+<li><a href="#M000702">delete</a></li>
+<li><a href="#M000703">delete_matched</a></li>
+<li><a href="#M000704">exist?</a></li>
+<li><a href="#M000699">fetch</a></li>
+<li><a href="#M000705">increment</a></li>
+<li><a href="#M000700">read</a></li>
+<li><a href="#M000698">silence!</a></li>
+<li><a href="#M000701">write</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000706">decrement</a> (key, amount = 1)</h2>
+
+
+
+<h2><a name="M000702">delete</a> (key, options = nil)</h2>
+
+
+
+<h2><a name="M000703">delete_matched</a> (matcher, options = nil)</h2>
+
+
+
+<h2><a name="M000704">exist?</a> (key, options = nil)</h2>
+
+
+
+<h2><a name="M000699">fetch</a> (key, options = {}) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Fetches data from the cache, using the given key. If there is data in the
+cache with the given key, then that data is returned.
+</p>
+<p>
+If there is no such data in the cache (a cache miss occurred), then then
+nil will be returned. However, if a block has been passed, then that block
+will be run in the event of a cache miss. The return value of the block
+will be written to the cache under the given cache key, and that return
+value will be returned.
+</p>
+<pre>
+  cache.write(&quot;today&quot;, &quot;Monday&quot;)
+  cache.fetch(&quot;today&quot;)  # =&gt; &quot;Monday&quot;
+
+  cache.fetch(&quot;city&quot;)   # =&gt; nil
+  cache.fetch(&quot;city&quot;) do
+    &quot;Duckburgh&quot;
+  end
+  cache.fetch(&quot;city&quot;)   # =&gt; &quot;Duckburgh&quot;
+</pre>
+<p>
+You may also specify additional options via the <tt>options</tt> argument.
+Setting <tt>:force =&gt; true</tt> will force a cache miss:
+</p>
+<pre>
+  cache.write(&quot;today&quot;, &quot;Monday&quot;)
+  cache.fetch(&quot;today&quot;, :force =&gt; true)  # =&gt; nil
+</pre>
+<p>
+Other options will be handled by the specific cache store implementation.
+Internally, <a href="Store.html#M000699">fetch</a> calls <a
+href="Store.html#M000700">read</a>, and calls <a
+href="Store.html#M000701">write</a> on a cache miss. <tt>options</tt> will
+be passed to the <a href="Store.html#M000700">read</a> and <a
+href="Store.html#M000701">write</a> calls.
+</p>
+<p>
+For example, <a href="MemCacheStore.html">MemCacheStore</a>&#8216;s <a
+href="Store.html#M000701">write</a> method supports the +:expires_in+
+option, which tells the memcached server to automatically expire the cache
+item after a certain period. We can use this option with <a
+href="Store.html#M000699">fetch</a> too:
+</p>
+<pre>
+  cache = ActiveSupport::Cache::MemCacheStore.new
+  cache.fetch(&quot;foo&quot;, :force =&gt; true, :expires_in =&gt; 5.seconds) do
+    &quot;bar&quot;
+  end
+  cache.fetch(&quot;foo&quot;)  # =&gt; &quot;bar&quot;
+  sleep(6)
+  cache.fetch(&quot;foo&quot;)  # =&gt; nil
+</pre></div></fieldset>
+
+
+<h2><a name="M000705">increment</a> (key, amount = 1)</h2>
+
+
+
+<h2><a name="M000700">read</a> (key, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Fetches data from the cache, using the given key. If there is data in the
+cache with the given key, then that data is returned. Otherwise, nil is
+returned.
+</p>
+<p>
+You may also specify additional options via the <tt>options</tt> argument.
+The specific cache store implementation will decide what to do with
+<tt>options</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M000698">silence!</a> ()</h2>
+
+
+
+<h2><a name="M000701">write</a> (key, value, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Writes the given value to the cache, with the given key.
+</p>
+<p>
+You may also specify additional options via the <tt>options</tt> argument.
+The specific cache store implementation will decide what to do with
+<tt>options</tt>.
+</p>
+<p>
+For example, <a href="MemCacheStore.html">MemCacheStore</a> supports the
++:expires_in+ option, which tells the memcached server to automatically
+expire the cache item after a certain period:
+</p>
+<pre>
+  cache = ActiveSupport::Cache::MemCacheStore.new
+  cache.write(&quot;foo&quot;, &quot;bar&quot;, :expires_in =&gt; 5.seconds)
+  cache.read(&quot;foo&quot;)  # =&gt; &quot;bar&quot;
+  sleep(6)
+  cache.read(&quot;foo&quot;)  # =&gt; nil
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

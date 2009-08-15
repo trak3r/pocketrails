@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActiveRecord::ConnectionAdapters::DatabaseStatements
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::DatabaseStatements
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::DatabaseStatements" title="ActiveRecord::ConnectionAdapters::DatabaseStatements" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/database_statements_rb.html">activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001574">add_limit!</a></li>
+<li><a href="#M001575">add_limit_offset!</a></li>
+<li><a href="#M001576">add_lock!</a></li>
+<li><a href="#M001571">begin_db_transaction</a></li>
+<li><a href="#M001581">case_sensitive_equality_operator</a></li>
+<li><a href="#M001572">commit_db_transaction</a></li>
+<li><a href="#M001577">default_sequence_name</a></li>
+<li><a href="#M001569">delete</a></li>
+<li><a href="#M001586">delete_sql</a></li>
+<li><a href="#M001580">empty_insert_statement</a></li>
+<li><a href="#M001566">execute</a></li>
+<li><a href="#M001567">insert</a></li>
+<li><a href="#M001579">insert_fixture</a></li>
+<li><a href="#M001584">insert_sql</a></li>
+<li><a href="#M001582">limited_update_conditions</a></li>
+<li><a href="#M001578">reset_sequence!</a></li>
+<li><a href="#M001573">rollback_db_transaction</a></li>
+<li><a href="#M001587">sanitize_limit</a></li>
+<li><a href="#M001583">select</a></li>
+<li><a href="#M001561">select_all</a></li>
+<li><a href="#M001562">select_one</a></li>
+<li><a href="#M001565">select_rows</a></li>
+<li><a href="#M001563">select_value</a></li>
+<li><a href="#M001564">select_values</a></li>
+<li><a href="#M001570">transaction</a></li>
+<li><a href="#M001568">update</a></li>
+<li><a href="#M001585">update_sql</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001574">add_limit!</a> (sql, options)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <tt><a
+href="DatabaseStatements.html#M001575">add_limit_offset!</a></tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001575">add_limit_offset!</a> (sql, options)</h2>
+
+<fieldset><div class='row'><p>
+Appends <tt>LIMIT</tt> and <tt>OFFSET</tt> options to an SQL statement, or
+some SQL fragment that has the same semantics as LIMIT and OFFSET.
+</p>
+<p>
+<tt>options</tt> must be a Hash which contains a +:limit+ option (required)
+and an +:offset+ option (optional).
+</p>
+<p>
+This method <b>modifies</b> the <tt>sql</tt> parameter.
+</p>
+<h5>Examples</h5>
+<pre>
+ add_limit_offset!('SELECT * FROM suppliers', {:limit =&gt; 10, :offset =&gt; 50})
+</pre>
+<p>
+generates
+</p>
+<pre>
+ SELECT * FROM suppliers LIMIT 10 OFFSET 50
+</pre></div></fieldset>
+
+
+<h2><a name="M001576">add_lock!</a> (sql, options)</h2>
+
+<fieldset><div class='row'><p>
+Appends a locking clause to an SQL statement. This method <b>modifies</b>
+the <tt>sql</tt> parameter.
+</p>
+<pre>
+  # SELECT * FROM suppliers FOR UPDATE
+  add_lock! 'SELECT * FROM suppliers', :lock =&gt; true
+  add_lock! 'SELECT * FROM suppliers', :lock =&gt; ' FOR UPDATE'
+</pre></div></fieldset>
+
+
+<h2><a name="M001571">begin_db_transaction</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Begins the <a href="DatabaseStatements.html#M001570">transaction</a> (and
+turns off auto-committing).
+</p></div></fieldset>
+
+
+<h2><a name="M001581">case_sensitive_equality_operator</a> ()</h2>
+
+
+
+<h2><a name="M001572">commit_db_transaction</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Commits the <a href="DatabaseStatements.html#M001570">transaction</a> (and
+turns on auto-committing).
+</p></div></fieldset>
+
+
+<h2><a name="M001577">default_sequence_name</a> (table, column)</h2>
+
+
+
+<h2><a name="M001569">delete</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes the <a href="DatabaseStatements.html#M001569">delete</a> statement
+and returns the number of rows affected.
+</p></div></fieldset>
+
+
+<h2><a name="M001580">empty_insert_statement</a> (table_name)</h2>
+
+
+
+<h2><a name="M001566">execute</a> (sql, name = nil, skip_logging = false)</h2>
+
+<fieldset><div class='row'><p>
+Executes the SQL statement in the context of this connection.
+</p></div></fieldset>
+
+
+<h2><a name="M001567">insert</a> (sql, name = nil, pk = nil, id_value = nil, sequence_name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns the last auto-generated ID from the affected table.
+</p></div></fieldset>
+
+
+<h2><a name="M001579">insert_fixture</a> (fixture, table_name)</h2>
+
+<fieldset><div class='row'><p>
+Inserts the given fixture into the table. Overridden in adapters that
+require something beyond a simple <a
+href="DatabaseStatements.html#M001567">insert</a> (eg. Oracle).
+</p></div></fieldset>
+
+
+<h2><a name="M001582">limited_update_conditions</a> (where_sql, quoted_table_name, quoted_primary_key)</h2>
+
+
+
+<h2><a name="M001578">reset_sequence!</a> (table, column, sequence = nil)</h2>
+
+<fieldset><div class='row'><p>
+Set the sequence to the max value of the table&#8216;s column.
+</p></div></fieldset>
+
+
+<h2><a name="M001573">rollback_db_transaction</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Rolls back the <a href="DatabaseStatements.html#M001570">transaction</a>
+(and turns on auto-committing). Must be done if the <a
+href="DatabaseStatements.html#M001570">transaction</a> block raises an
+exception or returns false.
+</p></div></fieldset>
+
+
+<h2><a name="M001561">select_all</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of record hashes with the column names as keys and column
+values as values.
+</p></div></fieldset>
+
+
+<h2><a name="M001562">select_one</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns a record hash with the column names as keys and column values as
+values.
+</p></div></fieldset>
+
+
+<h2><a name="M001565">select_rows</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of arrays containing the field values. Order is the same
+as that returned by <tt>columns</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001563">select_value</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns a single value from a record
+</p></div></fieldset>
+
+
+<h2><a name="M001564">select_values</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of the values of the first column in a <a
+href="DatabaseStatements.html#M001583">select</a>:
+</p>
+<pre>
+  select_values(&quot;SELECT id FROM companies LIMIT 3&quot;) =&gt; [1,2,3]
+</pre></div></fieldset>
+
+
+<h2><a name="M001570">transaction</a> (start_db_transaction = true) {|| ...}</h2>
+
+<fieldset><div class='row'><p>
+Wrap a block in a <a
+href="DatabaseStatements.html#M001570">transaction</a>. Returns result of
+block.
+</p></div></fieldset>
+
+
+<h2><a name="M001568">update</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes the <a href="DatabaseStatements.html#M001568">update</a> statement
+and returns the number of rows affected.
+</p></div></fieldset>
+
+
+<h2>Protected Instance methods</h2>
+<h2><a name="M001586">delete_sql</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes the <a href="DatabaseStatements.html#M001569">delete</a> statement
+and returns the number of rows affected.
+</p></div></fieldset>
+
+
+<h2><a name="M001584">insert_sql</a> (sql, name = nil, pk = nil, id_value = nil, sequence_name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns the last auto-generated ID from the affected table.
+</p></div></fieldset>
+
+
+<h2><a name="M001587">sanitize_limit</a> (limit)</h2>
+
+<fieldset><div class='row'><p>
+Sanitizes the given LIMIT parameter in order to prevent SQL injection.
+</p>
+<p>
+<tt>limit</tt> may be anything that can evaluate to a string via to_s. It
+should look like an integer, or a comma-delimited list of integers.
+</p>
+<p>
+Returns the sanitized limit parameter, either as an integer, or as a string
+which contains a comma-delimited list of integers.
+</p></div></fieldset>
+
+
+<h2><a name="M001583">select</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Returns an array of record hashes with the column names as keys and column
+values as values.
+</p></div></fieldset>
+
+
+<h2><a name="M001585">update_sql</a> (sql, name = nil)</h2>
+
+<fieldset><div class='row'><p>
+Executes the <a href="DatabaseStatements.html#M001568">update</a> statement
+and returns the number of rows affected.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

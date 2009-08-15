@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Class: ActiveRecord::ConnectionAdapters::TableDefinition
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActiveRecord::ConnectionAdapters::TableDefinition
+    </h1>
+</div>
+<div id="ActiveRecord::ConnectionAdapters::TableDefinition" title="ActiveRecord::ConnectionAdapters::TableDefinition" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/schema_definitions_rb.html">activerecord/lib/active_record/connection_adapters/abstract/schema_definitions.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <h2>Parent</h2>
+    <fieldset>
+        <div class="row">
+           <a href="../../Object.html">
+               Object
+           </a>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Represents the schema of an SQL table in an abstract way. This class
+provides methods for manipulating the schema representation.
+</p>
+<p>
+Inside migration files, the <tt>t</tt> object in <tt>create_table</tt> and
+<tt>change_table</tt> is actually of this type:
+</p>
+<pre>
+  class SomeMigration &lt; ActiveRecord::Migration
+    def self.up
+      create_table :foo do |t|
+        puts t.class  # =&gt; &quot;ActiveRecord::ConnectionAdapters::TableDefinition&quot;
+      end
+    end
+
+    def self.down
+      ...
+    end
+  end
+</pre>
+<p>
+The table definitions The Columns are stored as a ColumnDefinition in the
+<tt>columns</tt> attribute.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M001613">[]</a></li>
+<li><a href="#M001617">belongs_to</a></li>
+<li><a href="#M001614">column</a></li>
+<li><a href="#M001611">new</a></li>
+<li><a href="#M001612">primary_key</a></li>
+<li><a href="#M001616">references</a></li>
+<li><a href="#M001615">timestamps</a></li>
+<li><a href="#M001618">to_sql</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+<h2>Attributes</h2>
+<fieldset>
+<div class="row">
+[RW]
+<label>
+columns
+</label>
+
+An array of ColumnDefinition objects, representing the <a
+href="TableDefinition.html#M001614">column</a> changes that have been
+defined.
+
+
+</div>
+</fieldset>  
+
+<h2>Public Class methods</h2>
+<h2><a name="M001611">new</a> (base)</h2>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M001613">[]</a> (name)</h2>
+
+<fieldset><div class='row'><p>
+Returns a ColumnDefinition for the <a
+href="TableDefinition.html#M001614">column</a> with name <tt>name</tt>.
+</p></div></fieldset>
+
+
+<h2><a name="M001617">belongs_to</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Alias for <a href="TableDefinition.html#M001616">references</a>
+</p></div></fieldset>
+
+
+<h2><a name="M001614">column</a> (name, type, options = {})</h2>
+
+<fieldset><div class='row'><p>
+Instantiates a <a href="TableDefinition.html#M001611">new</a> <a
+href="TableDefinition.html#M001614">column</a> for the table. The
+<tt>type</tt> parameter is normally one of the migrations native types,
+which is one of the following: <tt>:<a
+href="TableDefinition.html#M001612">primary_key</a></tt>, <tt>:string</tt>,
+<tt>:text</tt>, <tt>:integer</tt>, <tt>:float</tt>, <tt>:decimal</tt>,
+<tt>:datetime</tt>, <tt>:timestamp</tt>, <tt>:time</tt>, <tt>:date</tt>,
+<tt>:binary</tt>, <tt>:boolean</tt>.
+</p>
+<p>
+You may use a type not in this list as long as it is supported by your
+database (for example, &quot;polygon&quot; in MySQL), but this will not be
+database agnostic and should usually be avoided.
+</p>
+<p>
+Available options are (none of these exists by default):
+</p>
+<ul>
+<li><tt>:limit</tt> - Requests a maximum <a
+href="TableDefinition.html#M001614">column</a> length. This is number of
+characters for <tt>:string</tt> and <tt>:text</tt> columns and number of
+bytes for :binary and :integer columns.
+
+</li>
+<li><tt>:default</tt> - The <a
+href="TableDefinition.html#M001614">column</a>&#8216;s default value. Use
+nil for NULL.
+
+</li>
+<li><tt>:null</tt> - Allows or disallows <tt>NULL</tt> values in the <a
+href="TableDefinition.html#M001614">column</a>. This option could have been
+named <tt>:null_allowed</tt>.
+
+</li>
+<li><tt>:precision</tt> - Specifies the precision for a <tt>:decimal</tt> <a
+href="TableDefinition.html#M001614">column</a>.
+
+</li>
+<li><tt>:scale</tt> - Specifies the scale for a <tt>:decimal</tt> <a
+href="TableDefinition.html#M001614">column</a>.
+
+</li>
+</ul>
+<p>
+For clarity&#8216;s sake: the precision is the number of significant
+digits, while the scale is the number of digits that can be stored
+following the decimal point. For example, the number 123.45 has a precision
+of 5 and a scale of 2. A decimal with a precision of 5 and a scale of 2 can
+range from -999.99 to 999.99.
+</p>
+<p>
+Please be aware of different RDBMS implementations behavior with
+<tt>:decimal</tt> columns:
+</p>
+<ul>
+<li>The SQL standard says the default scale should be 0, <tt>:scale</tt> &lt;=
+<tt>:precision</tt>, and makes no comments about the requirements of
+<tt>:precision</tt>.
+
+</li>
+<li>MySQL: <tt>:precision</tt> [1..63], <tt>:scale</tt> [0..30]. Default is
+(10,0).
+
+</li>
+<li>PostgreSQL: <tt>:precision</tt> [1..infinity], <tt>:scale</tt>
+[0..infinity]. No default.
+
+</li>
+<li>SQLite2: Any <tt>:precision</tt> and <tt>:scale</tt> may be used. Internal
+storage as strings. No default.
+
+</li>
+<li>SQLite3: No restrictions on <tt>:precision</tt> and <tt>:scale</tt>, but
+the maximum supported <tt>:precision</tt> is 16. No default.
+
+</li>
+<li>Oracle: <tt>:precision</tt> [1..38], <tt>:scale</tt> [-84..127]. Default is
+(38,0).
+
+</li>
+<li>DB2: <tt>:precision</tt> [1..63], <tt>:scale</tt> [0..62]. Default unknown.
+
+</li>
+<li>Firebird: <tt>:precision</tt> [1..18], <tt>:scale</tt> [0..18]. Default
+(9,0). Internal types NUMERIC and DECIMAL have different storage rules,
+decimal being better.
+
+</li>
+<li>FrontBase?: <tt>:precision</tt> [1..38], <tt>:scale</tt> [0..38]. Default
+(38,0). WARNING Max <tt>:precision</tt>/<tt>:scale</tt> for NUMERIC is 19,
+and DECIMAL is 38.
+
+</li>
+<li>SqlServer?: <tt>:precision</tt> [1..38], <tt>:scale</tt> [0..38]. Default
+(38,0).
+
+</li>
+<li>Sybase: <tt>:precision</tt> [1..38], <tt>:scale</tt> [0..38]. Default
+(38,0).
+
+</li>
+<li>OpenBase?: Documentation unclear. Claims storage in <tt>double</tt>.
+
+</li>
+</ul>
+<p>
+This method returns <tt>self</tt>.
+</p>
+<h2>Examples</h2>
+<pre>
+ # Assuming td is an instance of TableDefinition
+ td.column(:granted, :boolean)
+ # granted BOOLEAN
+
+ td.column(:picture, :binary, :limit =&gt; 2.megabytes)
+ # =&gt; picture BLOB(2097152)
+
+ td.column(:sales_stage, :string, :limit =&gt; 20, :default =&gt; 'new', :null =&gt; false)
+ # =&gt; sales_stage VARCHAR(20) DEFAULT 'new' NOT NULL
+
+ td.column(:bill_gates_money, :decimal, :precision =&gt; 15, :scale =&gt; 2)
+ # =&gt; bill_gates_money DECIMAL(15,2)
+
+ td.column(:sensor_reading, :decimal, :precision =&gt; 30, :scale =&gt; 20)
+ # =&gt; sensor_reading DECIMAL(30,20)
+
+ # While &lt;tt&gt;:scale&lt;/tt&gt; defaults to zero on most databases, it
+ # probably wouldn't hurt to include it.
+ td.column(:huge_integer, :decimal, :precision =&gt; 30)
+ # =&gt; huge_integer DECIMAL(30)
+
+ # Defines a column with a database-specific type.
+ td.column(:foo, 'polygon')
+ # =&gt; foo polygon
+</pre>
+<h2>Short-hand examples</h2>
+<p>
+Instead of calling <tt><a
+href="TableDefinition.html#M001614">column</a></tt> directly, you can also
+work with the short-hand definitions for the default types. They use the
+type as the method name instead of as a parameter and allow for multiple
+columns to be defined in a single statement.
+</p>
+<p>
+What can be written like this with the regular calls to <a
+href="TableDefinition.html#M001614">column</a>:
+</p>
+<pre>
+  create_table &quot;products&quot;, :force =&gt; true do |t|
+    t.column &quot;shop_id&quot;,    :integer
+    t.column &quot;creator_id&quot;, :integer
+    t.column &quot;name&quot;,       :string,   :default =&gt; &quot;Untitled&quot;
+    t.column &quot;value&quot;,      :string,   :default =&gt; &quot;Untitled&quot;
+    t.column &quot;created_at&quot;, :datetime
+    t.column &quot;updated_at&quot;, :datetime
+  end
+</pre>
+<p>
+Can also be written as follows using the short-hand:
+</p>
+<pre>
+  create_table :products do |t|
+    t.integer :shop_id, :creator_id
+    t.string  :name, :value, :default =&gt; &quot;Untitled&quot;
+    t.timestamps
+  end
+</pre>
+<p>
+There&#8216;s a short-hand method for each of the type values declared at
+the top. And then there&#8216;s <a
+href="TableDefinition.html#M001615">TableDefinition#timestamps</a>
+that&#8216;ll add created_at and <tt>updated_at</tt> as datetimes.
+</p>
+<p>
+<a href="TableDefinition.html#M001616">TableDefinition#references</a> will
+add an appropriately-named _id <a
+href="TableDefinition.html#M001614">column</a>, plus a corresponding _type
+<a href="TableDefinition.html#M001614">column</a> if the
+<tt>:polymorphic</tt> option is supplied. If <tt>:polymorphic</tt> is a
+hash of options, these will be used when creating the <tt>_type</tt> <a
+href="TableDefinition.html#M001614">column</a>. So what can be written like
+this:
+</p>
+<pre>
+  create_table :taggings do |t|
+    t.integer :tag_id, :tagger_id, :taggable_id
+    t.string  :tagger_type
+    t.string  :taggable_type, :default =&gt; 'Photo'
+  end
+</pre>
+<p>
+Can also be written as follows using <a
+href="TableDefinition.html#M001616">references</a>:
+</p>
+<pre>
+  create_table :taggings do |t|
+    t.references :tag
+    t.references :tagger, :polymorphic =&gt; true
+    t.references :taggable, :polymorphic =&gt; { :default =&gt; 'Photo' }
+  end
+</pre></div></fieldset>
+
+
+<h2><a name="M001612">primary_key</a> (name)</h2>
+
+<fieldset><div class='row'><p>
+Appends a primary key definition to the table definition. Can be called
+multiple times, but this is probably not a good idea.
+</p></div></fieldset>
+
+
+<h2><a name="M001616">references</a> (*args)</h2>
+
+
+<h2>Alias</h2><fieldset><div class='row'>belongs_to</div></fieldset>
+
+<h2><a name="M001615">timestamps</a> (*args)</h2>
+
+<fieldset><div class='row'><p>
+Appends <tt>:datetime</tt> columns <tt>:created_at</tt> and
+<tt>:updated_at</tt> to the table.
+</p></div></fieldset>
+
+
+<h2><a name="M001618">to_sql</a> ()</h2>
+
+<fieldset><div class='row'><p>
+Returns a String whose contents are the <a
+href="TableDefinition.html#M001614">column</a> definitions concatenated
+together. This string can then be prepended and appended to to generate the
+final SQL to create the table.
+</p></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

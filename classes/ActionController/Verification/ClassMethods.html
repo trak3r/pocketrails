@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Verification::ClassMethods
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Verification::ClassMethods
+    </h1>
+</div>
+<div id="ActionController::Verification::ClassMethods" title="ActionController::Verification::ClassMethods" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/verification_rb.html">actionpack/lib/action_controller/verification.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+This module provides a class-level method for specifying that certain
+actions are guarded against being called without certain prerequisites
+being met. This is essentially a special kind of before_filter.
+</p>
+<p>
+An action may be guarded against being invoked without certain request
+parameters being set, or without certain session values existing.
+</p>
+<p>
+When a verification is violated, values may be inserted into the flash, and
+a specified redirection is triggered. If no specific action is configured,
+verification failures will by default result in a 400 Bad Request response.
+</p>
+<p>
+Usage:
+</p>
+<pre>
+  class GlobalController &lt; ActionController::Base
+    # Prevent the #update_settings action from being invoked unless
+    # the 'admin_privileges' request parameter exists. The
+    # settings action will be redirected to in current controller
+    # if verification fails.
+    verify :params =&gt; &quot;admin_privileges&quot;, :only =&gt; :update_post,
+           :redirect_to =&gt; { :action =&gt; &quot;settings&quot; }
+
+    # Disallow a post from being updated if there was no information
+    # submitted with the post, and if there is no active post in the
+    # session, and if there is no &quot;note&quot; key in the flash. The route
+    # named category_url will be redirected to if verification fails.
+
+    verify :params =&gt; &quot;post&quot;, :session =&gt; &quot;post&quot;, &quot;flash&quot; =&gt; &quot;note&quot;,
+           :only =&gt; :update_post,
+           :add_flash =&gt; { &quot;alert&quot; =&gt; &quot;Failed to create your message&quot; },
+           :redirect_to =&gt; :category_url
+</pre>
+<p>
+Note that these prerequisites are not business rules. They do not examine
+the content of the session or the parameters. That level of validation
+should be encapsulated by your domain model or helper methods in the
+controller.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000272">verify</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000272">verify</a> (options={})</h2>
+
+<fieldset><div class='row'><p>
+Verify the given actions so that if certain prerequisites are not met, the
+user is redirected to a different action. The <tt>options</tt> parameter is
+a hash consisting of the following key/value pairs:
+</p>
+<table>
+<tr><td valign="top"><tt>:params</tt>:</td><td>a single key or an array of keys that must be in the <tt>params</tt> hash
+in order for the action(s) to be safely called.
+
+</td></tr>
+<tr><td valign="top"><tt>:session</tt>:</td><td>a single key or an array of keys that must be in the <tt>session</tt> in
+order for the action(s) to be safely called.
+
+</td></tr>
+<tr><td valign="top"><tt>:flash</tt>:</td><td>a single key or an array of keys that must be in the flash in order for the
+action(s) to be safely called.
+
+</td></tr>
+<tr><td valign="top"><tt>:method</tt>:</td><td>a single key or an array of keys&#8212;any one of which must match the
+current request method in order for the action(s) to be safely called. (The
+key should be a symbol: <tt>:get</tt> or <tt>:post</tt>, for example.)
+
+</td></tr>
+<tr><td valign="top"><tt>:xhr</tt>:</td><td>true/false option to ensure that the request is coming from an Ajax call or
+not.
+
+</td></tr>
+<tr><td valign="top"><tt>:add_flash</tt>:</td><td>a hash of name/value pairs that should be merged into the session&#8216;s
+flash if the prerequisites cannot be satisfied.
+
+</td></tr>
+<tr><td valign="top"><tt>:add_headers</tt>:</td><td>a hash of name/value pairs that should be merged into the response&#8216;s
+headers hash if the prerequisites cannot be satisfied.
+
+</td></tr>
+<tr><td valign="top"><tt>:redirect_to</tt>:</td><td>the redirection parameters to be used when redirecting if the prerequisites
+cannot be satisfied. You can redirect either to named route or to the
+action in some controller.
+
+</td></tr>
+<tr><td valign="top"><tt>:render</tt>:</td><td>the render parameters to be used when the prerequisites cannot be
+satisfied.
+
+</td></tr>
+<tr><td valign="top"><tt>:only</tt>:</td><td>only apply this verification to the actions specified in the associated
+array (may also be a single value).
+
+</td></tr>
+<tr><td valign="top"><tt>:except</tt>:</td><td>do not apply this verification to the actions specified in the associated
+array (may also be a single value).
+
+</td></tr>
+</table></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+    <title>
+      Module: ActionController::Caching::Pages
+    </title>
+  </head>
+  <body>
+
+<div class="toolbar">
+    <h1 id="pageTitle">
+        ActionController::Caching::Pages
+    </h1>
+</div>
+<div id="ActionController::Caching::Pages" title="ActionController::Caching::Pages" class="panel">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3648329338598531";
+/* Pocket Rails */
+google_ad_slot = "9128679516";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr />
+
+    <h2>Files</h2>
+    <fieldset>
+        <div class="row">
+            <ul>
+                <li>
+                    <a href="../../../files/actionpack/lib/action_controller/caching/pages_rb.html">actionpack/lib/action_controller/caching/pages.rb</a>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+ <!-- banner header -->
+
+
+
+<h2>Description</h2><fieldset><div class='row'><p>
+Page caching is an approach to caching where the entire action output of is
+stored as a HTML file that the web server can serve without going through
+Action Pack. This is the fastest way to cache your content as opposed to
+going dynamically through the process of generating the content.
+Unfortunately, this incredible speed-up is only available to stateless
+pages where all visitors are treated the same. Content management systems
+&#8212; including weblogs and wikis &#8212; have many pages that are a
+great fit for this approach, but account-based systems where people log in
+and manipulate their own data are often less likely candidates.
+</p>
+<p>
+Specifying which actions to cache is done through the <tt>caches_page</tt>
+class method:
+</p>
+<pre>
+  class WeblogController &lt; ActionController::Base
+    caches_page :show, :new
+  end
+</pre>
+<p>
+This will generate cache files such as <tt>weblog/show/5.html</tt> and
+<tt>weblog/new.html</tt>, which match the URLs used to trigger the dynamic
+generation. This is how the web server is able pick up a cache file when it
+exists and otherwise let the request pass on to Action Pack to generate it.
+</p>
+<p>
+Expiration of the cache is handled by deleting the cached file, which
+results in a lazy regeneration approach where the cache is not restored
+before another hit is made against it. The API for doing so mimics the
+options from <tt>url_for</tt> and friends:
+</p>
+<pre>
+  class WeblogController &lt; ActionController::Base
+    def update
+      List.update(params[:list][:id], params[:list])
+      expire_page :action =&gt; &quot;show&quot;, :id =&gt; params[:list][:id]
+      redirect_to :action =&gt; &quot;show&quot;, :id =&gt; params[:list][:id]
+    end
+  end
+</pre>
+<p>
+Additionally, you can expire caches using Sweepers that act on changes in
+the model to determine when a cache is supposed to be expired.
+</p>
+<h2>Setting the cache directory</h2>
+<p>
+The cache directory should be the document root for the web server and is
+set using <tt>Base.page_cache_directory = &quot;/document/root&quot;</tt>.
+For <a href="../../Rails.html">Rails</a>, this directory has already been
+set to <a href="../../Rails.html#M001965">Rails.public_path</a> (which is
+usually set to <tt>RAILS_ROOT + &quot;/public&quot;</tt>). Changing this
+setting can be useful to avoid naming conflicts with files in
+<tt>public/</tt>, but doing so will likely require configuring your web
+server to look in the new location for cached files.
+</p>
+<h2>Setting the cache extension</h2>
+<p>
+Most <a href="../../Rails.html">Rails</a> requests do not have an
+extension, such as <tt>/weblog/new</tt>. In these cases, the page caching
+mechanism will add one in order to make it easy for the cached files to be
+picked up properly by the web server. By default, this cache extension is
+<tt>.html</tt>. If you want something else, like <tt>.php</tt> or
+<tt>.shtml</tt>, just set Base.page_cache_extension. In cases where a
+request already has an extension, such as <tt>.xml</tt> or <tt>.rss</tt>,
+page caching will not add an extension. This allows it to work well with
+RESTful apps.
+</p>
+</div></fieldset>
+
+
+
+<h2>Methods</h2>
+<fieldset>
+<div class="row">
+<ul>
+<li><a href="#M000214">cache_page</a></li>
+<li><a href="#M000213">expire_page</a></li>
+</ul>
+</div>
+</fieldset>  
+
+
+
+<h2>Classes and Modules</h2><fieldset><div class='row'>Module <a href="Pages/ClassMethods.html" class="link">ActionController::Caching::Pages::ClassMethods</a><br />
+</div></fieldset>
+
+
+
+<h2>Public Instance methods</h2>
+<h2><a name="M000214">cache_page</a> (content = nil, options = nil)</h2>
+
+<fieldset><div class='row'><p>
+Manually cache the <tt>content</tt> in the key determined by
+<tt>options</tt>. If no content is provided, the contents of response.body
+is used If no options are provided, the requested url is used. Example:
+</p>
+<pre>
+  cache_page &quot;I'm the cached content&quot;, :controller =&gt; &quot;lists&quot;, :action =&gt; &quot;show&quot;
+</pre></div></fieldset>
+
+
+<h2><a name="M000213">expire_page</a> (options = {})</h2>
+
+<fieldset><div class='row'><p>
+Expires the page that was cached with the <tt>options</tt> as a key.
+Example:
+</p>
+<pre>
+  expire_page :controller =&gt; &quot;lists&quot;, :action =&gt; &quot;show&quot;
+</pre></div></fieldset>
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1377203-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </body>
+</html>
